@@ -1,0 +1,583 @@
+{
+  "type": "page",
+  "title": "Edit Profile",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "Edit Profile",
+        "actions": [
+          {
+            "type": "button",
+            "label": "Save",
+            "onTap": {
+              "type": "tool",
+              "tool": "saveProfile",
+              "args": {
+                "name": "{{profile.name}}",
+                "email": "{{profile.email}}",
+                "phone": "{{profile.phone}}",
+                "bio": "{{profile.bio}}",
+                "country": "{{profile.country}}",
+                "notifications": "{{profile.notifications}}",
+                "privacy": "{{profile.privacy}}"
+              }
+            },
+            "style": "text",
+            "disabled": false
+          }
+        ],
+        "leading": {
+          "type": "icon",
+          "icon": "arrow_back",
+          "size": 24.0
+        },
+        "elevation": 4.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "card",
+                "child": {
+                  "type": "padding",
+                  "child": {
+                    "type": "column",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Profile Picture",
+                        "style": {
+                          "fontSize": 18.0,
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "type": "sizedbox",
+                        "height": 16.0
+                      },
+                      {
+                        "type": "center",
+                        "child": {
+                          "type": "stack",
+                          "children": [
+                            {
+                              "type": "container",
+                              "child": {
+                                "type": "icon",
+                                "icon": "person",
+                                "size": 48.0,
+                                "color": "#BDBDBD"
+                              },
+                              "width": 100.0,
+                              "height": 100.0,
+                              "decoration": {
+                                "borderRadius": 50.0,
+                                "border": {
+                                  "color": "#E0E0E0",
+                                  "width": 2.0,
+                                  "style": "solid"
+                                }
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "child": {
+                                "type": "container",
+                                "child": {
+                                  "type": "floatingactionbutton",
+                                  "onPressed": {
+                                    "type": "tool",
+                                    "tool": "pickImage"
+                                  },
+                                  "child": {
+                                    "type": "icon",
+                                    "icon": "camera_alt",
+                                    "size": 20.0
+                                  }
+                                },
+                                "margin": {
+                                  "left": 70.0,
+                                  "top": 70.0
+                                }
+                              },
+                              "width": 100.0,
+                              "height": 100.0
+                            }
+                          ],
+                          "alignment": "topLeft",
+                          "fit": "loose"
+                        }
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  },
+                  "padding": {
+                    "all": 16.0
+                  }
+                },
+                "elevation": 2.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Basic Information",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Full Name",
+                    "value": "{{profile.name}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "profile.name",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "Enter your full name",
+                    "helperText": "This will be displayed on your profile",
+                    "obscureText": false
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Email Address",
+                    "value": "{{profile.email}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "profile.email",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "Enter your email address",
+                    "obscureText": false
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Phone Number",
+                    "value": "{{profile.phone}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "profile.phone",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "+1 (555) 123-4567",
+                    "helperText": "Include country code",
+                    "obscureText": false
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "dropdown",
+                    "value": "{{profile.country}}",
+                    "items": [
+                      {
+                        "value": "kr",
+                        "label": "South Korea"
+                      },
+                      {
+                        "value": "us",
+                        "label": "United States"
+                      },
+                      {
+                        "value": "jp",
+                        "label": "Japan"
+                      },
+                      {
+                        "value": "cn",
+                        "label": "China"
+                      },
+                      {
+                        "value": "uk",
+                        "label": "United Kingdom"
+                      },
+                      {
+                        "value": "de",
+                        "label": "Germany"
+                      },
+                      {
+                        "value": "fr",
+                        "label": "France"
+                      }
+                    ],
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "profile.country",
+                      "value": "{{event.value}}"
+                    },
+                    "label": "Country",
+                    "placeholder": "Select your country"
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "About Me",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Bio",
+                    "value": "{{profile.bio}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "profile.bio",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "Tell us about yourself...",
+                    "helperText": "Maximum 500 characters",
+                    "obscureText": false,
+                    "maxLines": 4
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Preferences",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "padding",
+                      "child": {
+                        "type": "column",
+                        "children": [
+                          {
+                            "type": "listtile",
+                            "title": "Email Notifications",
+                            "subtitle": "Receive updates via email",
+                            "trailing": {
+                              "type": "switch",
+                              "value": "{{profile.notifications.email}}",
+                              "onChange": {
+                                "type": "state",
+                                "action": "toggle",
+                                "binding": "profile.notifications.email"
+                              }
+                            }
+                          },
+                          {
+                            "type": "divider",
+                            "thickness": 1.0
+                          },
+                          {
+                            "type": "listtile",
+                            "title": "Push Notifications",
+                            "subtitle": "Receive push notifications on mobile",
+                            "trailing": {
+                              "type": "switch",
+                              "value": "{{profile.notifications.push}}",
+                              "onChange": {
+                                "type": "state",
+                                "action": "toggle",
+                                "binding": "profile.notifications.push"
+                              }
+                            }
+                          },
+                          {
+                            "type": "divider",
+                            "thickness": 1.0
+                          },
+                          {
+                            "type": "listtile",
+                            "title": "Marketing Communications",
+                            "subtitle": "Receive promotional offers and updates",
+                            "trailing": {
+                              "type": "switch",
+                              "value": "{{profile.notifications.marketing}}",
+                              "onChange": {
+                                "type": "state",
+                                "action": "toggle",
+                                "binding": "profile.notifications.marketing"
+                              }
+                            }
+                          }
+                        ],
+                        "mainAxisAlignment": "start",
+                        "crossAxisAlignment": "center",
+                        "mainAxisSize": "max"
+                      },
+                      "padding": {
+                        "all": 16.0
+                      }
+                    },
+                    "elevation": 2.0
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "text",
+                    "value": "Privacy Settings",
+                    "style": {
+                      "fontSize": 16.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "padding",
+                      "child": {
+                        "type": "column",
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Who can see your profile?",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          },
+                          {
+                            "type": "sizedbox",
+                            "height": 12.0
+                          },
+                          {
+                            "type": "column",
+                            "children": [
+                              {
+                                "type": "checkbox",
+                                "value": "{{profile.privacy == \"public\"}}",
+                                "onChange": {
+                                  "type": "state",
+                                  "action": "set",
+                                  "binding": "profile.privacy",
+                                  "value": "public"
+                                },
+                                "label": "Everyone"
+                              },
+                              {
+                                "type": "checkbox",
+                                "value": "{{profile.privacy == \"friends\"}}",
+                                "onChange": {
+                                  "type": "state",
+                                  "action": "set",
+                                  "binding": "profile.privacy",
+                                  "value": "friends"
+                                },
+                                "label": "Friends only"
+                              },
+                              {
+                                "type": "checkbox",
+                                "value": "{{profile.privacy == \"private\"}}",
+                                "onChange": {
+                                  "type": "state",
+                                  "action": "set",
+                                  "binding": "profile.privacy",
+                                  "value": "private"
+                                },
+                                "label": "Private"
+                              }
+                            ],
+                            "mainAxisAlignment": "start",
+                            "crossAxisAlignment": "center",
+                            "mainAxisSize": "max"
+                          }
+                        ],
+                        "mainAxisAlignment": "start",
+                        "crossAxisAlignment": "center",
+                        "mainAxisSize": "max"
+                      },
+                      "padding": {
+                        "all": 16.0
+                      }
+                    },
+                    "elevation": 2.0
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "row",
+                "children": [
+                  {
+                    "type": "expanded",
+                    "child": {
+                      "type": "button",
+                      "label": "Cancel",
+                      "onTap": {
+                        "type": "navigation",
+                        "action": "pop"
+                      },
+                      "style": "outlined",
+                      "disabled": false
+                    },
+                    "flex": 1
+                  },
+                  {
+                    "type": "sizedbox",
+                    "width": 16.0
+                  },
+                  {
+                    "type": "expanded",
+                    "child": {
+                      "type": "button",
+                      "label": "{{isSaving ? \"Saving...\" : \"Save Changes\"}}",
+                      "onTap": {
+                        "type": "batch",
+                        "actions": [
+                          {
+                            "type": "state",
+                            "action": "set",
+                            "binding": "isSaving",
+                            "value": true
+                          },
+                          {
+                            "type": "tool",
+                            "tool": "saveProfile",
+                            "args": {
+                              "profile": "{{profile}}"
+                            },
+                            "onSuccess": {
+                              "type": "batch",
+                              "actions": [
+                                {
+                                  "type": "state",
+                                  "action": "set",
+                                  "binding": "isSaving",
+                                  "value": false
+                                },
+                                {
+                                  "type": "navigation",
+                                  "action": "pop"
+                                }
+                              ]
+                            },
+                            "onError": {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "isSaving",
+                              "value": false
+                            }
+                          }
+                        ]
+                      },
+                      "style": "elevated",
+                      "disabled": false
+                    },
+                    "flex": 1
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  },
+  "state": {
+    "initial": {
+      "profile": {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "phone": "+1 (555) 123-4567",
+        "bio": "Software developer passionate about mobile and web technologies.",
+        "country": "us",
+        "avatarUrl": "",
+        "notifications": {
+          "email": true,
+          "push": true,
+          "marketing": false
+        },
+        "privacy": "friends"
+      },
+      "isFormValid": true,
+      "isSaving": false
+    }
+  }
+}

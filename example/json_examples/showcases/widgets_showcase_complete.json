@@ -1,0 +1,223 @@
+{
+  "type": "page",
+  "title": "Widget Showcase",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "Widget Showcase",
+        "actions": [
+          {
+            "type": "icon",
+            "icon": "refresh",
+            "size": 24.0
+          }
+        ],
+        "elevation": 2.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "card",
+                "child": {
+                  "type": "padding",
+                  "child": {
+                    "type": "row",
+                    "children": [
+                      {
+                        "type": "icon",
+                        "icon": "widgets",
+                        "size": 48.0,
+                        "color": "#2196F3"
+                      },
+                      {
+                        "type": "sizedbox",
+                        "width": 16.0
+                      },
+                      {
+                        "type": "expanded",
+                        "child": {
+                          "type": "column",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Welcome to Widget Showcase",
+                              "style": {
+                                "fontSize": 20.0,
+                                "fontWeight": "bold"
+                              }
+                            },
+                            {
+                              "type": "sizedbox",
+                              "height": 8.0
+                            },
+                            {
+                              "type": "text",
+                              "value": "Explore all the widgets available in Flutter MCP UI Generator.",
+                              "style": {
+                                "color": "#666666"
+                              }
+                            }
+                          ],
+                          "mainAxisAlignment": "start",
+                          "crossAxisAlignment": "start",
+                          "mainAxisSize": "max"
+                        },
+                        "flex": 1
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  },
+                  "padding": {
+                    "all": 16.0
+                  }
+                },
+                "elevation": 4.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 20.0
+              },
+              {
+                "type": "expanded",
+                "child": {
+                  "type": "gridview",
+                  "items": "{{widgetCategories}}",
+                  "itemTemplate": {
+                    "type": "card",
+                    "child": {
+                      "type": "container",
+                      "child": {
+                        "type": "column",
+                        "children": [
+                          {
+                            "type": "icon",
+                            "icon": "{{item.icon}}",
+                            "size": 48.0,
+                            "color": "{{item.color}}"
+                          },
+                          {
+                            "type": "sizedbox",
+                            "height": 12.0
+                          },
+                          {
+                            "type": "text",
+                            "value": "{{item.title}}",
+                            "style": {
+                              "fontSize": 16.0,
+                              "fontWeight": "bold"
+                            },
+                            "textAlign": "center"
+                          },
+                          {
+                            "type": "sizedbox",
+                            "height": 4.0
+                          },
+                          {
+                            "type": "text",
+                            "value": "{{item.description}}",
+                            "style": {
+                              "fontSize": 12.0,
+                              "color": "#666666"
+                            },
+                            "textAlign": "center"
+                          }
+                        ],
+                        "mainAxisAlignment": "center",
+                        "crossAxisAlignment": "center",
+                        "mainAxisSize": "max"
+                      },
+                      "padding": {
+                        "all": 16.0
+                      }
+                    },
+                    "elevation": 2.0
+                  },
+                  "crossAxisCount": 2,
+                  "mainAxisSpacing": 12.0,
+                  "crossAxisSpacing": 12.0,
+                  "childAspectRatio": 1.0
+                },
+                "flex": 1
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      },
+      {
+        "type": "bottomnavigationbar",
+        "items": [
+          {
+            "icon": "widgets",
+            "label": "Widgets"
+          },
+          {
+            "icon": "code",
+            "label": "Examples"
+          },
+          {
+            "icon": "help",
+            "label": "Help"
+          }
+        ],
+        "currentIndex": 0,
+        "onTap": {
+          "type": "state",
+          "action": "set",
+          "binding": "currentTab",
+          "value": "{{event.index}}"
+        },
+        "barType": "fixed"
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  },
+  "state": {
+    "initial": {
+      "currentTab": 0,
+      "widgetCategories": [
+        {
+          "title": "Layout",
+          "description": "Container, Row, Column, Stack",
+          "icon": "view_module",
+          "color": "#2196F3"
+        },
+        {
+          "title": "Display",
+          "description": "Text, Image, Icon, Card",
+          "icon": "visibility",
+          "color": "#4CAF50"
+        },
+        {
+          "title": "Input",
+          "description": "Button, TextField, Slider",
+          "icon": "input",
+          "color": "#FF9800"
+        },
+        {
+          "title": "List",
+          "description": "ListView, GridView, ListTile",
+          "icon": "list",
+          "color": "#9C27B0"
+        }
+      ]
+    }
+  }
+}

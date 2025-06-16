@@ -1,0 +1,288 @@
+import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+
+/// Weather Application Example
+/// 
+/// 실제 날씨 앱과 유사한 구조를 가진 예제입니다.
+/// 데이터 로딩, 에러 처리, 새로고침 등의 실제 앱 패턴을 보여줍니다.
+void main() {
+  final weatherApp = MCPUIJsonGenerator.page(
+    title: 'Weather App',
+    content: MCPUIJsonGenerator.column(
+      children: [
+        MCPUIJsonGenerator.appBar(
+          title: 'Weather',
+          actions: [
+            MCPUIJsonGenerator.button(
+              label: '',
+              style: 'text',
+              icon: 'refresh',
+              onTap: MCPUIJsonGenerator.toolAction('refreshWeather'),
+            ),
+          ],
+        ),
+        
+        MCPUIJsonGenerator.expanded(
+          child: MCPUIJsonGenerator.padding(
+            padding: MCPUIJsonGenerator.edgeInsets(all: 16),
+            child: MCPUIJsonGenerator.column(
+              children: [
+                // 현재 날씨 카드
+                MCPUIJsonGenerator.card(
+                  elevation: 8,
+                  child: MCPUIJsonGenerator.padding(
+                    padding: MCPUIJsonGenerator.edgeInsets(all: 24),
+                    child: MCPUIJsonGenerator.column(
+                      children: [
+                        MCPUIJsonGenerator.text(
+                          '{{currentWeather.location}}',
+                          style: MCPUIJsonGenerator.textStyle(
+                            fontSize: 24,
+                            fontWeight: 'bold',
+                          ),
+                        ),
+                        MCPUIJsonGenerator.sizedBox(height: 8),
+                        MCPUIJsonGenerator.text(
+                          '{{currentWeather.date}}',
+                          style: MCPUIJsonGenerator.textStyle(
+                            fontSize: 16,
+                            color: '#666666',
+                          ),
+                        ),
+                        MCPUIJsonGenerator.sizedBox(height: 24),
+                        
+                        MCPUIJsonGenerator.row(
+                          mainAxisAlignment: 'center',
+                          children: [
+                            MCPUIJsonGenerator.icon(
+                              icon: 'wb_sunny',
+                              size: 64,
+                              color: '#FF9800',
+                            ),
+                            MCPUIJsonGenerator.sizedBox(width: 24),
+                            MCPUIJsonGenerator.column(
+                              children: [
+                                MCPUIJsonGenerator.text(
+                                  '{{currentWeather.temperature}}°',
+                                  style: MCPUIJsonGenerator.textStyle(
+                                    fontSize: 48,
+                                    fontWeight: 'bold',
+                                  ),
+                                ),
+                                MCPUIJsonGenerator.text(
+                                  '{{currentWeather.condition}}',
+                                  style: MCPUIJsonGenerator.textStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        
+                        MCPUIJsonGenerator.sizedBox(height: 24),
+                        
+                        // 상세 정보
+                        MCPUIJsonGenerator.row(
+                          mainAxisAlignment: 'spaceAround',
+                          children: [
+                            MCPUIJsonGenerator.column(
+                              children: [
+                                MCPUIJsonGenerator.icon(
+                                  icon: 'air',
+                                  color: '#2196F3',
+                                ),
+                                MCPUIJsonGenerator.text('Wind'),
+                                MCPUIJsonGenerator.text(
+                                  '{{currentWeather.wind}} km/h',
+                                  style: MCPUIJsonGenerator.textStyle(
+                                    fontWeight: 'bold',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            MCPUIJsonGenerator.column(
+                              children: [
+                                MCPUIJsonGenerator.icon(
+                                  icon: 'water_drop',
+                                  color: '#4CAF50',
+                                ),
+                                MCPUIJsonGenerator.text('Humidity'),
+                                MCPUIJsonGenerator.text(
+                                  '{{currentWeather.humidity}}%',
+                                  style: MCPUIJsonGenerator.textStyle(
+                                    fontWeight: 'bold',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            MCPUIJsonGenerator.column(
+                              children: [
+                                MCPUIJsonGenerator.icon(
+                                  icon: 'visibility',
+                                  color: '#9C27B0',
+                                ),
+                                MCPUIJsonGenerator.text('Visibility'),
+                                MCPUIJsonGenerator.text(
+                                  '{{currentWeather.visibility}} km',
+                                  style: MCPUIJsonGenerator.textStyle(
+                                    fontWeight: 'bold',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                
+                MCPUIJsonGenerator.sizedBox(height: 20),
+                
+                // 시간별 예보
+                MCPUIJsonGenerator.text(
+                  'Hourly Forecast',
+                  style: MCPUIJsonGenerator.textStyle(
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                  ),
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 12),
+                
+                MCPUIJsonGenerator.container(
+                  height: 120,
+                  child: MCPUIJsonGenerator.listView(
+                    items: '{{hourlyForecast}}',
+                    scrollDirection: 'horizontal',
+                    itemSpacing: 12,
+                    itemTemplate: MCPUIJsonGenerator.card(
+                      child: MCPUIJsonGenerator.container(
+                        width: 80,
+                        padding: MCPUIJsonGenerator.edgeInsets(all: 12),
+                        child: MCPUIJsonGenerator.column(
+                          mainAxisAlignment: 'spaceAround',
+                          children: [
+                            MCPUIJsonGenerator.text(
+                              '{{item.time}}',
+                              style: MCPUIJsonGenerator.textStyle(fontSize: 12),
+                            ),
+                            MCPUIJsonGenerator.icon(
+                              icon: '{{item.icon}}',
+                              size: 24,
+                              color: '#FF9800',
+                            ),
+                            MCPUIJsonGenerator.text(
+                              '{{item.temp}}°',
+                              style: MCPUIJsonGenerator.textStyle(
+                                fontWeight: 'bold',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                
+                MCPUIJsonGenerator.sizedBox(height: 20),
+                
+                // 주간 예보
+                MCPUIJsonGenerator.text(
+                  '7-Day Forecast',
+                  style: MCPUIJsonGenerator.textStyle(
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                  ),
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 12),
+                
+                MCPUIJsonGenerator.expanded(
+                  child: MCPUIJsonGenerator.listView(
+                    items: '{{weeklyForecast}}',
+                    itemSpacing: 4,
+                    itemTemplate: MCPUIJsonGenerator.card(
+                      child: MCPUIJsonGenerator.listTile(
+                        leading: MCPUIJsonGenerator.icon(
+                          icon: '{{item.icon}}',
+                          size: 32,
+                          color: '#FF9800',
+                        ),
+                        title: '{{item.day}}',
+                        subtitle: '{{item.condition}}',
+                        trailing: MCPUIJsonGenerator.row(
+                          mainAxisSize: 'min',
+                          children: [
+                            MCPUIJsonGenerator.text(
+                              '{{item.high}}°',
+                              style: MCPUIJsonGenerator.textStyle(
+                                fontWeight: 'bold',
+                              ),
+                            ),
+                            MCPUIJsonGenerator.text('/'),
+                            MCPUIJsonGenerator.text(
+                              '{{item.low}}°',
+                              style: MCPUIJsonGenerator.textStyle(
+                                color: '#666666',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+    state: {
+      'initial': {
+        'currentWeather': {
+          'location': 'Seoul, South Korea',
+          'date': 'Today, June 13',
+          'temperature': 25,
+          'condition': 'Sunny',
+          'wind': 12,
+          'humidity': 65,
+          'visibility': 10,
+        },
+        'hourlyForecast': [
+          {'time': '12PM', 'icon': 'wb_sunny', 'temp': 25},
+          {'time': '1PM', 'icon': 'wb_sunny', 'temp': 26},
+          {'time': '2PM', 'icon': 'partly_cloudy_day', 'temp': 27},
+          {'time': '3PM', 'icon': 'partly_cloudy_day', 'temp': 28},
+          {'time': '4PM', 'icon': 'cloud', 'temp': 26},
+          {'time': '5PM', 'icon': 'cloud', 'temp': 24},
+        ],
+        'weeklyForecast': [
+          {'day': 'Today', 'condition': 'Sunny', 'icon': 'wb_sunny', 'high': 28, 'low': 18},
+          {'day': 'Tomorrow', 'condition': 'Partly Cloudy', 'icon': 'partly_cloudy_day', 'high': 26, 'low': 16},
+          {'day': 'Saturday', 'condition': 'Rainy', 'icon': 'rainy', 'high': 22, 'low': 14},
+          {'day': 'Sunday', 'condition': 'Cloudy', 'icon': 'cloud', 'high': 24, 'low': 15},
+          {'day': 'Monday', 'condition': 'Sunny', 'icon': 'wb_sunny', 'high': 27, 'low': 17},
+          {'day': 'Tuesday', 'condition': 'Partly Cloudy', 'icon': 'partly_cloudy_day', 'high': 25, 'low': 16},
+          {'day': 'Wednesday', 'condition': 'Thunderstorm', 'icon': 'thunderstorm', 'high': 21, 'low': 13},
+        ],
+        'isLoading': false,
+        'lastUpdated': '2024-06-13T12:00:00Z',
+      },
+    },
+    lifecycle: {
+      'onInit': [
+        MCPUIJsonGenerator.toolAction('loadWeatherData'),
+      ],
+    },
+  );
+
+  MCPUIJsonGenerator.generateJsonFile(weatherApp, 'weather_app.json');
+  
+  print('✓ 날씨 앱 예제가 생성되었습니다: weather_app.json');
+  print('\n주요 기능:');
+  print('- 현재 날씨 정보 표시');
+  print('- 시간별 예보 (가로 스크롤)');
+  print('- 주간 예보 목록');
+  print('- 새로고침 기능');
+  print('- 실제 앱과 유사한 UI/UX 패턴');
+}

@@ -1,0 +1,223 @@
+{
+  "type": "page",
+  "title": "Profile",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "My Profile",
+        "actions": [
+          {
+            "type": "button",
+            "label": "Edit",
+            "onTap": {
+              "type": "navigation",
+              "action": "push",
+              "route": "/profile/edit"
+            },
+            "style": "text",
+            "disabled": false
+          }
+        ],
+        "elevation": 4.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "card",
+                "child": {
+                  "type": "padding",
+                  "child": {
+                    "type": "column",
+                    "children": [
+                      {
+                        "type": "container",
+                        "child": {
+                          "type": "icon",
+                          "icon": "person",
+                          "size": 48.0,
+                          "color": "#2196F3"
+                        },
+                        "width": 100.0,
+                        "height": 100.0,
+                        "decoration": {
+                          "color": "#E3F2FD",
+                          "borderRadius": 50.0
+                        }
+                      },
+                      {
+                        "type": "sizedbox",
+                        "height": 16.0
+                      },
+                      {
+                        "type": "text",
+                        "value": "{{currentUser.name}}",
+                        "style": {
+                          "fontSize": 24.0,
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "value": "{{currentUser.email}}",
+                        "style": {
+                          "fontSize": 16.0,
+                          "color": "#666666"
+                        }
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  },
+                  "padding": {
+                    "all": 24.0
+                  }
+                },
+                "elevation": 4.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "listtile",
+                          "title": "Edit Profile",
+                          "subtitle": "Update your personal information",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "edit",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "icon",
+                            "icon": "arrow_forward_ios",
+                            "size": 24.0
+                          },
+                          "onTap": {
+                            "type": "navigation",
+                            "action": "push",
+                            "route": "/profile/edit"
+                          }
+                        },
+                        {
+                          "type": "divider",
+                          "thickness": 1.0
+                        },
+                        {
+                          "type": "listtile",
+                          "title": "Security",
+                          "subtitle": "Password and security settings",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "security",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "icon",
+                            "icon": "arrow_forward_ios",
+                            "size": 24.0
+                          },
+                          "onTap": {
+                            "type": "navigation",
+                            "action": "push",
+                            "route": "/profile/security"
+                          }
+                        },
+                        {
+                          "type": "divider",
+                          "thickness": 1.0
+                        },
+                        {
+                          "type": "listtile",
+                          "title": "Notifications",
+                          "subtitle": "Manage notification preferences",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "notifications",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "icon",
+                            "icon": "arrow_forward_ios",
+                            "size": 24.0
+                          },
+                          "onTap": {
+                            "type": "navigation",
+                            "action": "push",
+                            "route": "/profile/notifications"
+                          }
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "elevation": 2.0
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "listtile",
+                          "title": "Sign Out",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "logout",
+                            "size": 24.0,
+                            "color": "#F44336"
+                          },
+                          "onTap": {
+                            "type": "tool",
+                            "tool": "signOut"
+                          }
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "elevation": 2.0
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  }
+}

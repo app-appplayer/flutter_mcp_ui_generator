@@ -1,0 +1,271 @@
+{
+  "type": "page",
+  "title": "Home",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "Welcome Home",
+        "actions": [
+          {
+            "type": "icon",
+            "icon": "notifications",
+            "size": 24.0
+          },
+          {
+            "type": "icon",
+            "icon": "search",
+            "size": 24.0
+          }
+        ],
+        "elevation": 4.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "card",
+                "child": {
+                  "type": "padding",
+                  "child": {
+                    "type": "row",
+                    "children": [
+                      {
+                        "type": "container",
+                        "child": {
+                          "type": "icon",
+                          "icon": "person",
+                          "size": 32.0,
+                          "color": "#2196F3"
+                        },
+                        "width": 60.0,
+                        "height": 60.0,
+                        "decoration": {
+                          "color": "#E3F2FD",
+                          "borderRadius": 30.0
+                        }
+                      },
+                      {
+                        "type": "sizedbox",
+                        "width": 16.0
+                      },
+                      {
+                        "type": "expanded",
+                        "child": {
+                          "type": "column",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Welcome back,",
+                              "style": {
+                                "fontSize": 16.0,
+                                "color": "#666666"
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "value": "{{currentUser.name}}",
+                              "style": {
+                                "fontSize": 20.0,
+                                "fontWeight": "bold"
+                              }
+                            }
+                          ],
+                          "mainAxisAlignment": "start",
+                          "crossAxisAlignment": "start",
+                          "mainAxisSize": "max"
+                        },
+                        "flex": 1
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  },
+                  "padding": {
+                    "all": 20.0
+                  }
+                },
+                "elevation": 4.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "text",
+                "value": "Quick Actions",
+                "style": {
+                  "fontSize": 18.0,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              },
+              {
+                "type": "gridview",
+                "items": "{{quickActions}}",
+                "itemTemplate": {
+                  "type": "card",
+                  "child": {
+                    "type": "container",
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "icon": "{{item.icon}}",
+                          "size": 36.0,
+                          "color": "{{item.color}}"
+                        },
+                        {
+                          "type": "sizedbox",
+                          "height": 8.0
+                        },
+                        {
+                          "type": "text",
+                          "value": "{{item.title}}",
+                          "style": {
+                            "fontWeight": "bold"
+                          },
+                          "textAlign": "center"
+                        }
+                      ],
+                      "mainAxisAlignment": "center",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "padding": {
+                      "all": 16.0
+                    }
+                  },
+                  "elevation": 2.0
+                },
+                "crossAxisCount": 2,
+                "mainAxisSpacing": 12.0,
+                "crossAxisSpacing": 12.0,
+                "childAspectRatio": 1.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "text",
+                "value": "Recent Activity",
+                "style": {
+                  "fontSize": 18.0,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              },
+              {
+                "type": "expanded",
+                "child": {
+                  "type": "listview",
+                  "items": "{{recentActivity}}",
+                  "itemTemplate": {
+                    "type": "card",
+                    "child": {
+                      "type": "listtile",
+                      "title": "{{item.title}}",
+                      "subtitle": "{{item.time}}",
+                      "leading": {
+                        "type": "icon",
+                        "icon": "{{item.icon}}",
+                        "size": 24.0,
+                        "color": "{{item.color}}"
+                      },
+                      "trailing": {
+                        "type": "icon",
+                        "icon": "arrow_forward_ios",
+                        "size": 24.0
+                      }
+                    },
+                    "elevation": 2.0
+                  },
+                  "itemSpacing": 8.0,
+                  "shrinkWrap": false,
+                  "scrollDirection": "vertical"
+                },
+                "flex": 1
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  },
+  "state": {
+    "initial": {
+      "quickActions": [
+        {
+          "icon": "analytics",
+          "title": "Analytics",
+          "color": "#4CAF50"
+        },
+        {
+          "icon": "inbox",
+          "title": "Messages",
+          "color": "#FF9800"
+        },
+        {
+          "icon": "calendar_today",
+          "title": "Calendar",
+          "color": "#9C27B0"
+        },
+        {
+          "icon": "tasks",
+          "title": "Tasks",
+          "color": "#F44336"
+        }
+      ],
+      "recentActivity": [
+        {
+          "icon": "email",
+          "title": "New message received",
+          "time": "2 minutes ago",
+          "color": "#2196F3"
+        },
+        {
+          "icon": "task_alt",
+          "title": "Task completed",
+          "time": "1 hour ago",
+          "color": "#4CAF50"
+        },
+        {
+          "icon": "event",
+          "title": "Meeting scheduled",
+          "time": "3 hours ago",
+          "color": "#FF9800"
+        },
+        {
+          "icon": "upload",
+          "title": "File uploaded",
+          "time": "1 day ago",
+          "color": "#9C27B0"
+        }
+      ]
+    }
+  }
+}

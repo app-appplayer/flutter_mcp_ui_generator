@@ -1,0 +1,300 @@
+{
+  "type": "page",
+  "title": "Settings",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "Settings",
+        "elevation": 4.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "General",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "listtile",
+                          "title": "Dark Mode",
+                          "subtitle": "Switch to dark theme",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "dark_mode",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "switch",
+                            "value": "{{settings.darkMode}}",
+                            "onChange": {
+                              "type": "state",
+                              "action": "toggle",
+                              "binding": "settings.darkMode"
+                            }
+                          }
+                        },
+                        {
+                          "type": "divider",
+                          "thickness": 1.0
+                        },
+                        {
+                          "type": "listtile",
+                          "title": "Language",
+                          "subtitle": "Choose your language",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "language",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "row",
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "{{settings.language}}"
+                              },
+                              {
+                                "type": "icon",
+                                "icon": "arrow_forward_ios",
+                                "size": 24.0
+                              }
+                            ],
+                            "mainAxisAlignment": "start",
+                            "crossAxisAlignment": "center",
+                            "mainAxisSize": "min"
+                          },
+                          "onTap": {
+                            "type": "navigation",
+                            "action": "push",
+                            "route": "/settings/language"
+                          }
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "elevation": 2.0
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Notifications",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "listtile",
+                          "title": "Push Notifications",
+                          "subtitle": "Receive push notifications",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "notifications",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "switch",
+                            "value": "{{settings.notifications}}",
+                            "onChange": {
+                              "type": "state",
+                              "action": "toggle",
+                              "binding": "settings.notifications"
+                            }
+                          }
+                        },
+                        {
+                          "type": "divider",
+                          "thickness": 1.0
+                        },
+                        {
+                          "type": "listtile",
+                          "title": "Email Notifications",
+                          "subtitle": "Receive email updates",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "email",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "switch",
+                            "value": "{{settings.emailNotifications}}",
+                            "onChange": {
+                              "type": "state",
+                              "action": "toggle",
+                              "binding": "settings.emailNotifications"
+                            }
+                          }
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "elevation": 2.0
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Account",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "card",
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "listtile",
+                          "title": "Backup & Sync",
+                          "subtitle": "Backup your data to cloud",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "backup",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "icon",
+                            "icon": "arrow_forward_ios",
+                            "size": 24.0
+                          }
+                        },
+                        {
+                          "type": "divider",
+                          "thickness": 1.0
+                        },
+                        {
+                          "type": "listtile",
+                          "title": "Storage",
+                          "subtitle": "Manage storage usage",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "storage",
+                            "size": 24.0
+                          },
+                          "trailing": {
+                            "type": "icon",
+                            "icon": "arrow_forward_ios",
+                            "size": 24.0
+                          }
+                        },
+                        {
+                          "type": "divider",
+                          "thickness": 1.0
+                        },
+                        {
+                          "type": "listtile",
+                          "title": "Delete Account",
+                          "subtitle": "Permanently delete your account",
+                          "leading": {
+                            "type": "icon",
+                            "icon": "delete",
+                            "size": 24.0,
+                            "color": "#F44336"
+                          },
+                          "trailing": {
+                            "type": "icon",
+                            "icon": "arrow_forward_ios",
+                            "size": 24.0
+                          }
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "elevation": 2.0
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  },
+  "state": {
+    "initial": {
+      "settings": {
+        "darkMode": false,
+        "language": "English",
+        "notifications": true,
+        "emailNotifications": false
+      }
+    }
+  }
+}

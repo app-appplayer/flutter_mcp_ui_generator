@@ -1,0 +1,686 @@
+{
+  "type": "page",
+  "title": "Dynamic Survey Form",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "Customer Survey",
+        "leading": {
+          "type": "icon",
+          "icon": "arrow_back",
+          "size": 24.0
+        },
+        "elevation": 4.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "card",
+                "child": {
+                  "type": "padding",
+                  "child": {
+                    "type": "column",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Survey Progress",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "type": "sizedbox",
+                        "height": 8.0
+                      },
+                      {
+                        "type": "slider",
+                        "value": "{{progress}}",
+                        "onChange": {
+                          "type": "state",
+                          "action": "set",
+                          "binding": "progress",
+                          "value": "{{event.value}}"
+                        },
+                        "min": 0.0,
+                        "max": 100.0
+                      },
+                      {
+                        "type": "text",
+                        "value": "{{progress}}% Complete"
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  },
+                  "padding": {
+                    "all": 16.0
+                  }
+                },
+                "elevation": 2.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 20.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Basic Information",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Full Name",
+                    "value": "{{survey.name}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "survey.name",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "Enter your full name",
+                    "obscureText": false
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Email",
+                    "value": "{{survey.email}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "survey.email",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "Enter your email address",
+                    "obscureText": false
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "dropdown",
+                    "value": "{{survey.ageGroup}}",
+                    "items": [
+                      {
+                        "value": "18-25",
+                        "label": "18-25 years"
+                      },
+                      {
+                        "value": "26-35",
+                        "label": "26-35 years"
+                      },
+                      {
+                        "value": "36-50",
+                        "label": "36-50 years"
+                      },
+                      {
+                        "value": "51+",
+                        "label": "51+ years"
+                      }
+                    ],
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "survey.ageGroup",
+                      "value": "{{event.value}}"
+                    },
+                    "label": "Age Group",
+                    "placeholder": "Select your age group"
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 20.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Customer Type",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "text",
+                    "value": "Are you an existing customer?",
+                    "style": {
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "column",
+                    "children": [
+                      {
+                        "type": "checkbox",
+                        "value": "{{survey.isExistingCustomer == true}}",
+                        "onChange": {
+                          "type": "batch",
+                          "actions": [
+                            {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "survey.isExistingCustomer",
+                              "value": true
+                            },
+                            {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "showExistingCustomerFields",
+                              "value": true
+                            },
+                            {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "showNewCustomerFields",
+                              "value": false
+                            }
+                          ]
+                        },
+                        "label": "Yes, I am an existing customer"
+                      },
+                      {
+                        "type": "checkbox",
+                        "value": "{{survey.isExistingCustomer == false}}",
+                        "onChange": {
+                          "type": "batch",
+                          "actions": [
+                            {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "survey.isExistingCustomer",
+                              "value": false
+                            },
+                            {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "showExistingCustomerFields",
+                              "value": false
+                            },
+                            {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "showNewCustomerFields",
+                              "value": true
+                            }
+                          ]
+                        },
+                        "label": "No, I am a new customer"
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 20.0
+              },
+              {
+                "type": "container",
+                "child": {
+                  "type": "column",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Existing Customer Information",
+                      "style": {
+                        "fontSize": 18.0,
+                        "fontWeight": "bold"
+                      }
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 16.0
+                    },
+                    {
+                      "type": "textfield",
+                      "label": "Customer ID",
+                      "value": "{{survey.customerId}}",
+                      "onChange": {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "survey.customerId",
+                        "value": "{{event.value}}"
+                      },
+                      "placeholder": "Enter your customer ID",
+                      "obscureText": false
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 16.0
+                    },
+                    {
+                      "type": "dropdown",
+                      "value": "{{survey.customerDuration}}",
+                      "items": [
+                        {
+                          "value": "less-than-1",
+                          "label": "Less than 1 year"
+                        },
+                        {
+                          "value": "1-3",
+                          "label": "1-3 years"
+                        },
+                        {
+                          "value": "3-5",
+                          "label": "3-5 years"
+                        },
+                        {
+                          "value": "more-than-5",
+                          "label": "More than 5 years"
+                        }
+                      ],
+                      "onChange": {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "survey.customerDuration",
+                        "value": "{{event.value}}"
+                      },
+                      "label": "How long have you been our customer?",
+                      "placeholder": "Select duration"
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 16.0
+                    },
+                    {
+                      "type": "slider",
+                      "value": "{{survey.satisfactionRating}}",
+                      "onChange": {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "survey.satisfactionRating",
+                        "value": "{{event.value}}"
+                      },
+                      "min": 1.0,
+                      "max": 10.0,
+                      "divisions": 9,
+                      "label": "Satisfaction Rating: {{survey.satisfactionRating}}/10"
+                    }
+                  ],
+                  "mainAxisAlignment": "start",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                }
+              },
+              {
+                "type": "sizedbox",
+                "height": 20.0
+              },
+              {
+                "type": "container",
+                "child": {
+                  "type": "column",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "New Customer Information",
+                      "style": {
+                        "fontSize": 18.0,
+                        "fontWeight": "bold"
+                      }
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 16.0
+                    },
+                    {
+                      "type": "dropdown",
+                      "value": "{{survey.hearAboutUs}}",
+                      "items": [
+                        {
+                          "value": "social-media",
+                          "label": "Social Media"
+                        },
+                        {
+                          "value": "search-engine",
+                          "label": "Search Engine"
+                        },
+                        {
+                          "value": "friend-referral",
+                          "label": "Friend Referral"
+                        },
+                        {
+                          "value": "advertisement",
+                          "label": "Advertisement"
+                        },
+                        {
+                          "value": "other",
+                          "label": "Other"
+                        }
+                      ],
+                      "onChange": {
+                        "type": "batch",
+                        "actions": [
+                          {
+                            "type": "state",
+                            "action": "set",
+                            "binding": "survey.hearAboutUs",
+                            "value": "{{event.value}}"
+                          },
+                          {
+                            "type": "state",
+                            "action": "set",
+                            "binding": "showOtherField",
+                            "value": "{{event.value == \"other\"}}"
+                          }
+                        ]
+                      },
+                      "label": "How did you hear about us?",
+                      "placeholder": "Select source"
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 16.0
+                    },
+                    {
+                      "type": "container",
+                      "child": {
+                        "type": "textfield",
+                        "label": "Please specify",
+                        "value": "{{survey.hearAboutUsOther}}",
+                        "onChange": {
+                          "type": "state",
+                          "action": "set",
+                          "binding": "survey.hearAboutUsOther",
+                          "value": "{{event.value}}"
+                        },
+                        "placeholder": "Tell us how you heard about us",
+                        "obscureText": false
+                      }
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 16.0
+                    },
+                    {
+                      "type": "text",
+                      "value": "What interests you most about our services?",
+                      "style": {
+                        "fontWeight": "bold"
+                      }
+                    },
+                    {
+                      "type": "sizedbox",
+                      "height": 8.0
+                    },
+                    {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "checkbox",
+                          "value": "{{survey.interests.quality}}",
+                          "onChange": {
+                            "type": "state",
+                            "action": "toggle",
+                            "binding": "survey.interests.quality"
+                          },
+                          "label": "Product Quality"
+                        },
+                        {
+                          "type": "checkbox",
+                          "value": "{{survey.interests.pricing}}",
+                          "onChange": {
+                            "type": "state",
+                            "action": "toggle",
+                            "binding": "survey.interests.pricing"
+                          },
+                          "label": "Competitive Pricing"
+                        },
+                        {
+                          "type": "checkbox",
+                          "value": "{{survey.interests.service}}",
+                          "onChange": {
+                            "type": "state",
+                            "action": "toggle",
+                            "binding": "survey.interests.service"
+                          },
+                          "label": "Customer Service"
+                        },
+                        {
+                          "type": "checkbox",
+                          "value": "{{survey.interests.delivery}}",
+                          "onChange": {
+                            "type": "state",
+                            "action": "toggle",
+                            "binding": "survey.interests.delivery"
+                          },
+                          "label": "Fast Delivery"
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    }
+                  ],
+                  "mainAxisAlignment": "start",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                }
+              },
+              {
+                "type": "sizedbox",
+                "height": 20.0
+              },
+              {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Additional Feedback",
+                    "style": {
+                      "fontSize": 18.0,
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 8.0
+                  },
+                  {
+                    "type": "textfield",
+                    "label": "Comments",
+                    "value": "{{survey.comments}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "set",
+                      "binding": "survey.comments",
+                      "value": "{{event.value}}"
+                    },
+                    "placeholder": "Any additional comments or suggestions?",
+                    "obscureText": false,
+                    "maxLines": 4
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": 16.0
+                  },
+                  {
+                    "type": "checkbox",
+                    "value": "{{survey.subscribeToUpdates}}",
+                    "onChange": {
+                      "type": "state",
+                      "action": "toggle",
+                      "binding": "survey.subscribeToUpdates"
+                    },
+                    "label": "I would like to receive updates about new products and services"
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 32.0
+              },
+              {
+                "type": "row",
+                "children": [
+                  {
+                    "type": "expanded",
+                    "child": {
+                      "type": "button",
+                      "label": "Save Draft",
+                      "onTap": {
+                        "type": "tool",
+                        "tool": "saveDraft",
+                        "args": {
+                          "survey": "{{survey}}"
+                        }
+                      },
+                      "style": "outlined",
+                      "disabled": false
+                    },
+                    "flex": 1
+                  },
+                  {
+                    "type": "sizedbox",
+                    "width": 16.0
+                  },
+                  {
+                    "type": "expanded",
+                    "child": {
+                      "type": "button",
+                      "label": "{{isSubmitting ? \"Submitting...\" : \"Submit Survey\"}}",
+                      "onTap": {
+                        "type": "batch",
+                        "actions": [
+                          {
+                            "type": "state",
+                            "action": "set",
+                            "binding": "isSubmitting",
+                            "value": true
+                          },
+                          {
+                            "type": "tool",
+                            "tool": "submitSurvey",
+                            "args": {
+                              "survey": "{{survey}}"
+                            },
+                            "onSuccess": {
+                              "type": "batch",
+                              "actions": [
+                                {
+                                  "type": "state",
+                                  "action": "set",
+                                  "binding": "isSubmitting",
+                                  "value": false
+                                },
+                                {
+                                  "type": "navigation",
+                                  "action": "pushReplacement",
+                                  "route": "/survey-success"
+                                }
+                              ]
+                            },
+                            "onError": {
+                              "type": "state",
+                              "action": "set",
+                              "binding": "isSubmitting",
+                              "value": false
+                            }
+                          }
+                        ]
+                      },
+                      "style": "elevated",
+                      "disabled": false
+                    },
+                    "flex": 1
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "max"
+              },
+              {
+                "type": "sizedbox",
+                "height": 16.0
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  },
+  "state": {
+    "initial": {
+      "progress": 0,
+      "survey": {
+        "name": "",
+        "email": "",
+        "ageGroup": "",
+        "isExistingCustomer": null,
+        "customerId": "",
+        "customerDuration": "",
+        "satisfactionRating": 5,
+        "hearAboutUs": "",
+        "hearAboutUsOther": "",
+        "interests": {
+          "quality": false,
+          "pricing": false,
+          "service": false,
+          "delivery": false
+        },
+        "comments": "",
+        "subscribeToUpdates": false
+      },
+      "showExistingCustomerFields": false,
+      "showNewCustomerFields": false,
+      "showOtherField": false,
+      "isSubmitting": false
+    }
+  }
+}

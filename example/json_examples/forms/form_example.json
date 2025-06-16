@@ -1,0 +1,142 @@
+{
+  "type": "page",
+  "title": "Form Example",
+  "content": {
+    "type": "padding",
+    "child": {
+      "type": "column",
+      "children": [
+        {
+          "type": "column",
+          "children": [
+            {
+              "type": "text",
+              "value": "User Information",
+              "style": {
+                "fontSize": 18.0,
+                "fontWeight": "bold"
+              }
+            },
+            {
+              "type": "sizedbox",
+              "height": 8.0
+            },
+            {
+              "type": "textfield",
+              "label": "Name",
+              "value": "{{userName}}",
+              "onChange": {
+                "type": "state",
+                "action": "set",
+                "binding": "userName",
+                "value": "{{event.value}}"
+              },
+              "placeholder": "Enter your name",
+              "obscureText": false
+            },
+            {
+              "type": "sizedbox",
+              "height": 16.0
+            },
+            {
+              "type": "textfield",
+              "label": "Email",
+              "value": "{{userEmail}}",
+              "onChange": {
+                "type": "state",
+                "action": "set",
+                "binding": "userEmail",
+                "value": "{{event.value}}"
+              },
+              "placeholder": "Enter your email",
+              "helperText": "We'll never share your email",
+              "obscureText": false
+            }
+          ],
+          "mainAxisAlignment": "start",
+          "crossAxisAlignment": "center",
+          "mainAxisSize": "max"
+        },
+        {
+          "type": "sizedbox",
+          "height": 24.0
+        },
+        {
+          "type": "button",
+          "label": "Submit",
+          "onTap": {
+            "type": "batch",
+            "actions": [
+              {
+                "type": "tool",
+                "tool": "submitForm",
+                "args": {
+                  "name": "{{userName}}",
+                  "email": "{{userEmail}}"
+                },
+                "onSuccess": {
+                  "type": "state",
+                  "action": "set",
+                  "binding": "formStatus",
+                  "value": "success"
+                },
+                "onError": {
+                  "type": "state",
+                  "action": "set",
+                  "binding": "formStatus",
+                  "value": "error"
+                }
+              }
+            ]
+          },
+          "style": "text",
+          "disabled": false
+        },
+        {
+          "type": "sizedbox",
+          "height": 16.0
+        },
+        {
+          "type": "column",
+          "children": [
+            {
+              "type": "text",
+              "value": "Status",
+              "style": {
+                "fontSize": 18.0,
+                "fontWeight": "bold"
+              }
+            },
+            {
+              "type": "sizedbox",
+              "height": 8.0
+            },
+            {
+              "type": "text",
+              "value": "{{formStatus}}",
+              "style": {
+                "color": "{{formStatus == \"success\" ? \"green\" : \"red\"}}"
+              }
+            }
+          ],
+          "mainAxisAlignment": "start",
+          "crossAxisAlignment": "center",
+          "mainAxisSize": "max"
+        }
+      ],
+      "mainAxisAlignment": "start",
+      "crossAxisAlignment": "center",
+      "mainAxisSize": "max"
+    },
+    "padding": {
+      "all": 16.0
+    }
+  },
+  "state": {
+    "initial": {
+      "userName": "",
+      "userEmail": "",
+      "formStatus": ""
+    }
+  }
+}

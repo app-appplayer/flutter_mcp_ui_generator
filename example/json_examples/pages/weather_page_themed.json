@@ -1,0 +1,210 @@
+{
+  "type": "page",
+  "title": "Weather",
+  "content": {
+    "type": "singlechildscrollview",
+    "child": {
+      "type": "padding",
+      "padding": {
+        "all": "{{theme.spacing.md}}"
+      },
+      "child": {
+        "type": "column",
+        "children": [
+          {
+            "type": "card",
+            "elevation": "{{theme.elevation.md}}",
+            "child": {
+              "type": "padding",
+              "padding": {
+                "all": "{{theme.spacing.lg}}"
+              },
+              "child": {
+                "type": "column",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "{{location}}",
+                    "style": {
+                      "fontSize": "{{theme.typography.h1.fontSize}}",
+                      "fontWeight": "{{theme.typography.h1.fontWeight}}",
+                      "color": "{{theme.colors.primary}}"
+                    }
+                  },
+                  {
+                    "type": "sizedbox",
+                    "height": "{{theme.spacing.sm}}"
+                  },
+                  {
+                    "type": "row",
+                    "mainAxisAlignment": "spaceBetween",
+                    "children": [
+                      {
+                        "type": "column",
+                        "crossAxisAlignment": "start",
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "{{temperature}}°C",
+                            "style": {
+                              "fontSize": 48,
+                              "fontWeight": "bold",
+                              "color": "{{theme.colors.onSurface}}"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "value": "{{weather}}",
+                            "style": {
+                              "fontSize": "{{theme.typography.body1.fontSize}}",
+                              "color": "{{theme.colors.onSurface}}"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "icon",
+                        "icon": "wb_sunny",
+                        "size": 64,
+                        "color": "{{theme.colors.secondary}}"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "sizedbox",
+            "height": "{{theme.spacing.md}}"
+          },
+          {
+            "type": "row",
+            "children": [
+              {
+                "type": "expanded",
+                "child": {
+                  "type": "card",
+                  "elevation": "{{theme.elevation.sm}}",
+                  "child": {
+                    "type": "padding",
+                    "padding": {
+                      "all": "{{theme.spacing.md}}"
+                    },
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "icon": "opacity",
+                          "color": "{{theme.colors.primary}}"
+                        },
+                        {
+                          "type": "sizedbox",
+                          "height": "{{theme.spacing.xs}}"
+                        },
+                        {
+                          "type": "text",
+                          "value": "Humidity",
+                          "style": {
+                            "fontSize": "{{theme.typography.caption.fontSize}}",
+                            "color": "{{theme.colors.onSurface}}"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "value": "{{humidity}}%",
+                          "style": {
+                            "fontSize": "{{theme.typography.body1.fontSize}}",
+                            "fontWeight": "bold",
+                            "color": "{{theme.colors.onSurface}}"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "sizedbox",
+                "width": "{{theme.spacing.sm}}"
+              },
+              {
+                "type": "expanded",
+                "child": {
+                  "type": "card",
+                  "elevation": "{{theme.elevation.sm}}",
+                  "child": {
+                    "type": "padding",
+                    "padding": {
+                      "all": "{{theme.spacing.md}}"
+                    },
+                    "child": {
+                      "type": "column",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "icon": "air",
+                          "color": "{{theme.colors.primary}}"
+                        },
+                        {
+                          "type": "sizedbox",
+                          "height": "{{theme.spacing.xs}}"
+                        },
+                        {
+                          "type": "text",
+                          "value": "Wind",
+                          "style": {
+                            "fontSize": "{{theme.typography.caption.fontSize}}",
+                            "color": "{{theme.colors.onSurface}}"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "value": "{{windSpeed}} km/h",
+                          "style": {
+                            "fontSize": "{{theme.typography.body1.fontSize}}",
+                            "fontWeight": "bold",
+                            "color": "{{theme.colors.onSurface}}"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "sizedbox",
+            "height": "{{theme.spacing.lg}}"
+          },
+          {
+            "type": "button",
+            "label": "Refresh",
+            "style": "elevated",
+            "onTap": {
+              "type": "tool",
+              "tool": "refreshWeather"
+            }
+          },
+          {
+            "type": "sizedbox",
+            "height": "{{theme.spacing.sm}}"
+          },
+          {
+            "type": "button",
+            "label": "Toggle Theme",
+            "style": "outlined",
+            "onTap": {
+              "type": "state",
+              "action": "set",
+              "binding": "themeMode",
+              "value": "{{themeMode == 'light' ? 'dark' : 'light'}}"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "type": "application",
+  "title": "Temperature Monitor",
+  "version": "1.0.0",
+  "initialRoute": "/",
+  "routes": {
+    "/": {
+      "uri": "ui://pages/dashboard"
+    },
+    "/settings": {
+      "uri": "ui://pages/settings"
+    }
+  },
+  "navigation": {
+    "type": "drawer",
+    "header": {
+      "type": "container",
+      "color": "#1976D2",
+      "padding": {
+        "all": 16
+      },
+      "child": {
+        "type": "text",
+        "value": "Temperature Monitor",
+        "style": {
+          "color": "#FFFFFF",
+          "fontSize": 20,
+          "fontWeight": "bold"
+        }
+      }
+    },
+    "items": [
+      {
+        "type": "listtile",
+        "title": "Dashboard",
+        "leading": {
+          "type": "icon",
+          "icon": "dashboard"
+        },
+        "onTap": {
+          "type": "navigation",
+          "action": "push",
+          "route": "/"
+        }
+      },
+      {
+        "type": "listtile",
+        "title": "Settings",
+        "leading": {
+          "type": "icon",
+          "icon": "settings"
+        },
+        "onTap": {
+          "type": "navigation",
+          "action": "push",
+          "route": "/settings"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "type": "column",
+  "children": [
+    {
+      "type": "text",
+      "value": "Input Widgets Showcase",
+      "style": {
+        "fontSize": 24.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "Buttons",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "row",
+      "children": [
+        {
+          "type": "button",
+          "label": "Elevated",
+          "onTap": {
+            "type": "tool",
+            "tool": "buttonPressed",
+            "args": {
+              "type": "elevated"
+            }
+          },
+          "style": "elevated",
+          "disabled": false
+        },
+        {
+          "type": "button",
+          "label": "Outlined",
+          "onTap": {
+            "type": "tool",
+            "tool": "buttonPressed",
+            "args": {
+              "type": "outlined"
+            }
+          },
+          "style": "outlined",
+          "disabled": false
+        },
+        {
+          "type": "button",
+          "label": "Text",
+          "onTap": {
+            "type": "tool",
+            "tool": "buttonPressed",
+            "args": {
+              "type": "text"
+            }
+          },
+          "style": "text",
+          "disabled": false
+        }
+      ],
+      "mainAxisAlignment": "spaceEvenly",
+      "crossAxisAlignment": "center",
+      "mainAxisSize": "max"
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "Text Fields",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "textfield",
+      "label": "Username",
+      "value": "{{username}}",
+      "onChange": {
+        "type": "state",
+        "action": "set",
+        "binding": "username",
+        "value": "{{event.value}}"
+      },
+      "placeholder": "Enter your username",
+      "obscureText": false
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "textfield",
+      "label": "Password",
+      "value": "{{password}}",
+      "onChange": {
+        "type": "state",
+        "action": "set",
+        "binding": "password",
+        "value": "{{event.value}}"
+      },
+      "placeholder": "Enter your password",
+      "obscureText": true
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "Toggles",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "checkbox",
+      "value": "{{agreeToTerms}}",
+      "onChange": {
+        "type": "state",
+        "action": "toggle",
+        "binding": "agreeToTerms"
+      },
+      "label": "Agree to terms and conditions"
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "switch",
+      "value": "{{notifications}}",
+      "onChange": {
+        "type": "state",
+        "action": "toggle",
+        "binding": "notifications"
+      },
+      "label": "Enable notifications"
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "Slider",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "slider",
+      "value": "{{volume}}",
+      "onChange": {
+        "type": "state",
+        "action": "set",
+        "binding": "volume",
+        "value": "{{event.value}}"
+      },
+      "min": 0.0,
+      "max": 100.0,
+      "divisions": 10,
+      "label": "Volume: {{volume}}%"
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "Dropdown",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "dropdown",
+      "value": "{{selectedCountry}}",
+      "items": [
+        {
+          "value": "kr",
+          "label": "South Korea"
+        },
+        {
+          "value": "us",
+          "label": "United States"
+        },
+        {
+          "value": "jp",
+          "label": "Japan"
+        },
+        {
+          "value": "cn",
+          "label": "China"
+        }
+      ],
+      "onChange": {
+        "type": "state",
+        "action": "set",
+        "binding": "selectedCountry",
+        "value": "{{event.value}}"
+      },
+      "label": "Select Country"
+    }
+  ],
+  "mainAxisAlignment": "start",
+  "crossAxisAlignment": "center",
+  "mainAxisSize": "max"
+}

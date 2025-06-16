@@ -1,0 +1,35 @@
+# Files and directories to exclude from pub.dev publishing
+
+# Build artifacts
+build/
+coverage/
+.dart_tool/
+
+# IDE files
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+test_report.md
+*.log
+
+# Development tools
+tools/
+
+# Documentation planning
+*.plan.md
+mcp_ui_designer_plan.md
+
+# Git files
+.git/
+.gitignore
+
+# Other
+pubspec.lock

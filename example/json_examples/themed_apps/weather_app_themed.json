@@ -1,0 +1,91 @@
+{
+  "type": "application",
+  "title": "Weather App",
+  "version": "1.0.0",
+  "theme": {
+    "mode": "{{app.themeMode}}",
+    "light": {
+      "colors": {
+        "primary": "#2196F3",
+        "secondary": "#FF9800",
+        "background": "#F8F9FA",
+        "surface": "#FFFFFF",
+        "onPrimary": "#FFFFFF",
+        "onSecondary": "#000000",
+        "onBackground": "#212121",
+        "onSurface": "#212121"
+      },
+      "typography": {
+        "h1": {"fontSize": 32, "fontWeight": "bold", "color": "{{theme.colors.primary}}"},
+        "h2": {"fontSize": 24, "fontWeight": "bold", "color": "{{theme.colors.onSurface}}"},
+        "body1": {"fontSize": 16, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"},
+        "caption": {"fontSize": 12, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"}
+      }
+    },
+    "dark": {
+      "colors": {
+        "primary": "#1976D2",
+        "secondary": "#F57C00",
+        "background": "#121212",
+        "surface": "#1E1E1E",
+        "onPrimary": "#FFFFFF",
+        "onSecondary": "#000000",
+        "onBackground": "#FFFFFF",
+        "onSurface": "#FFFFFF"
+      },
+      "typography": {
+        "h1": {"fontSize": 32, "fontWeight": "bold", "color": "{{theme.colors.primary}}"},
+        "h2": {"fontSize": 24, "fontWeight": "bold", "color": "{{theme.colors.onSurface}}"},
+        "body1": {"fontSize": 16, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"},
+        "caption": {"fontSize": 12, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"}
+      }
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32
+    },
+    "borderRadius": {
+      "sm": 8,
+      "md": 12,
+      "lg": 16
+    },
+    "elevation": {
+      "sm": 2,
+      "md": 4,
+      "lg": 8
+    }
+  },
+  "routes": {
+    "/weather": "ui://pages/weather",
+    "/settings": "ui://pages/settings"
+  },
+  "initialRoute": "/weather",
+  "state": {
+    "initial": {
+      "themeMode": "light",
+      "location": "Seoul",
+      "temperature": 22,
+      "weather": "sunny",
+      "humidity": 65,
+      "windSpeed": 12
+    }
+  },
+  "navigation": {
+    "type": "bottomNavigationBar",
+    "items": [
+      {
+        "label": "Weather",
+        "icon": "cloud",
+        "route": "/weather"
+      },
+      {
+        "label": "Settings",
+        "icon": "settings",
+        "route": "/settings"
+      }
+    ]
+  }
+}

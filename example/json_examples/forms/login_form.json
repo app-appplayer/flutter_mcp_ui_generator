@@ -1,0 +1,400 @@
+{
+  "type": "page",
+  "title": "Login",
+  "content": {
+    "type": "container",
+    "child": {
+      "type": "center",
+      "child": {
+        "type": "container",
+        "child": {
+          "type": "card",
+          "child": {
+            "type": "padding",
+            "child": {
+              "type": "column",
+              "children": [
+                {
+                  "type": "icon",
+                  "icon": "lock",
+                  "size": 64.0,
+                  "color": "#2196F3"
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 16.0
+                },
+                {
+                  "type": "text",
+                  "value": "Welcome Back",
+                  "style": {
+                    "fontSize": 28.0,
+                    "fontWeight": "bold",
+                    "color": "#333333"
+                  }
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 8.0
+                },
+                {
+                  "type": "text",
+                  "value": "Please sign in to your account",
+                  "style": {
+                    "fontSize": 16.0,
+                    "color": "#666666"
+                  }
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 32.0
+                },
+                {
+                  "type": "container",
+                  "child": {
+                    "type": "container",
+                    "child": {
+                      "type": "row",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "icon": "error",
+                          "size": 24.0,
+                          "color": "#c62828"
+                        },
+                        {
+                          "type": "sizedbox",
+                          "width": 8.0
+                        },
+                        {
+                          "type": "expanded",
+                          "child": {
+                            "type": "text",
+                            "value": "{{error}}",
+                            "style": {
+                              "color": "#c62828"
+                            }
+                          },
+                          "flex": 1
+                        }
+                      ],
+                      "mainAxisAlignment": "start",
+                      "crossAxisAlignment": "center",
+                      "mainAxisSize": "max"
+                    },
+                    "padding": {
+                      "all": 16.0
+                    },
+                    "decoration": {
+                      "color": "#ffebee",
+                      "borderRadius": 8.0
+                    }
+                  }
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 16.0
+                },
+                {
+                  "type": "textfield",
+                  "label": "Email",
+                  "value": "{{email}}",
+                  "onChange": {
+                    "type": "batch",
+                    "actions": [
+                      {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "email",
+                        "value": "{{event.value}}"
+                      },
+                      {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "error",
+                        "value": ""
+                      }
+                    ]
+                  },
+                  "placeholder": "Enter your email address",
+                  "obscureText": false
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 16.0
+                },
+                {
+                  "type": "textfield",
+                  "label": "Password",
+                  "value": "{{password}}",
+                  "onChange": {
+                    "type": "batch",
+                    "actions": [
+                      {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "password",
+                        "value": "{{event.value}}"
+                      },
+                      {
+                        "type": "state",
+                        "action": "set",
+                        "binding": "error",
+                        "value": ""
+                      }
+                    ]
+                  },
+                  "placeholder": "Enter your password",
+                  "obscureText": true
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 8.0
+                },
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "checkbox",
+                      "value": "{{showPassword}}",
+                      "onChange": {
+                        "type": "state",
+                        "action": "toggle",
+                        "binding": "showPassword"
+                      }
+                    },
+                    {
+                      "type": "sizedbox",
+                      "width": 8.0
+                    },
+                    {
+                      "type": "text",
+                      "value": "Show password"
+                    }
+                  ],
+                  "mainAxisAlignment": "start",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 24.0
+                },
+                {
+                  "type": "container",
+                  "child": {
+                    "type": "button",
+                    "label": "{{isLoading ? \"Logging in...\" : \"Login\"}}",
+                    "onTap": {
+                      "type": "batch",
+                      "actions": [
+                        {
+                          "type": "state",
+                          "action": "set",
+                          "binding": "isLoading",
+                          "value": true
+                        },
+                        {
+                          "type": "state",
+                          "action": "set",
+                          "binding": "error",
+                          "value": ""
+                        },
+                        {
+                          "type": "tool",
+                          "tool": "authenticate",
+                          "args": {
+                            "email": "{{email}}",
+                            "password": "{{password}}"
+                          },
+                          "onSuccess": {
+                            "type": "batch",
+                            "actions": [
+                              {
+                                "type": "state",
+                                "action": "set",
+                                "binding": "isLoading",
+                                "value": false
+                              },
+                              {
+                                "type": "navigation",
+                                "action": "pushReplacement",
+                                "route": "/dashboard"
+                              }
+                            ]
+                          },
+                          "onError": {
+                            "type": "batch",
+                            "actions": [
+                              {
+                                "type": "state",
+                                "action": "set",
+                                "binding": "isLoading",
+                                "value": false
+                              },
+                              {
+                                "type": "state",
+                                "action": "set",
+                                "binding": "error",
+                                "value": "{{error.message}}"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "style": "elevated",
+                    "disabled": false
+                  }
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 16.0
+                },
+                {
+                  "type": "button",
+                  "label": "Forgot password?",
+                  "onTap": {
+                    "type": "navigation",
+                    "action": "push",
+                    "route": "/forgot-password"
+                  },
+                  "style": "text",
+                  "disabled": false
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 24.0
+                },
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "expanded",
+                      "child": {
+                        "type": "divider",
+                        "thickness": 1.0
+                      },
+                      "flex": 1
+                    },
+                    {
+                      "type": "padding",
+                      "child": {
+                        "type": "text",
+                        "value": "OR",
+                        "style": {
+                          "color": "#999999"
+                        }
+                      },
+                      "padding": {
+                        "horizontal": 16.0
+                      }
+                    },
+                    {
+                      "type": "expanded",
+                      "child": {
+                        "type": "divider",
+                        "thickness": 1.0
+                      },
+                      "flex": 1
+                    }
+                  ],
+                  "mainAxisAlignment": "start",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 24.0
+                },
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "button",
+                      "label": "Google",
+                      "onTap": {
+                        "type": "tool",
+                        "tool": "socialLogin",
+                        "args": {
+                          "provider": "google"
+                        }
+                      },
+                      "style": "outlined",
+                      "icon": "login",
+                      "disabled": false
+                    },
+                    {
+                      "type": "button",
+                      "label": "Facebook",
+                      "onTap": {
+                        "type": "tool",
+                        "tool": "socialLogin",
+                        "args": {
+                          "provider": "facebook"
+                        }
+                      },
+                      "style": "outlined",
+                      "icon": "login",
+                      "disabled": false
+                    }
+                  ],
+                  "mainAxisAlignment": "spaceEvenly",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                },
+                {
+                  "type": "sizedbox",
+                  "height": 24.0
+                },
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Don't have an account? "
+                    },
+                    {
+                      "type": "button",
+                      "label": "Sign up",
+                      "onTap": {
+                        "type": "navigation",
+                        "action": "push",
+                        "route": "/signup"
+                      },
+                      "style": "text",
+                      "disabled": false
+                    }
+                  ],
+                  "mainAxisAlignment": "center",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                }
+              ],
+              "mainAxisAlignment": "start",
+              "crossAxisAlignment": "center",
+              "mainAxisSize": "min"
+            },
+            "padding": {
+              "all": 32.0
+            }
+          },
+          "elevation": 8.0
+        },
+        "width": 400.0
+      }
+    },
+    "padding": {
+      "all": 24.0
+    }
+  },
+  "state": {
+    "initial": {
+      "email": "",
+      "password": "",
+      "showPassword": false,
+      "isLoading": false,
+      "error": ""
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "type": "page",
+  "title": "About",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "About",
+        "elevation": 4.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "card",
+                "child": {
+                  "type": "padding",
+                  "child": {
+                    "type": "column",
+                    "children": [
+                      {
+                        "type": "icon",
+                        "icon": "info",
+                        "size": 64.0,
+                        "color": "#2196F3"
+                      },
+                      {
+                        "type": "sizedbox",
+                        "height": 16.0
+                      },
+                      {
+                        "type": "text",
+                        "value": "Multi-Page Demo App",
+                        "style": {
+                          "fontSize": 24.0,
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "type": "sizedbox",
+                        "height": 8.0
+                      },
+                      {
+                        "type": "text",
+                        "value": "Version 1.0.0",
+                        "style": {
+                          "fontSize": 16.0,
+                          "color": "#666666"
+                        }
+                      },
+                      {
+                        "type": "sizedbox",
+                        "height": 16.0
+                      },
+                      {
+                        "type": "text",
+                        "value": "A demonstration of multi-page navigation using Flutter MCP UI Generator.",
+                        "style": {
+                          "fontSize": 16.0
+                        },
+                        "textAlign": "center"
+                      }
+                    ],
+                    "mainAxisAlignment": "start",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max"
+                  },
+                  "padding": {
+                    "all": 24.0
+                  }
+                },
+                "elevation": 2.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "card",
+                "child": {
+                  "type": "column",
+                  "children": [
+                    {
+                      "type": "listtile",
+                      "title": "Help & Support",
+                      "leading": {
+                        "type": "icon",
+                        "icon": "help",
+                        "size": 24.0
+                      },
+                      "trailing": {
+                        "type": "icon",
+                        "icon": "arrow_forward_ios",
+                        "size": 24.0
+                      }
+                    },
+                    {
+                      "type": "divider",
+                      "thickness": 1.0
+                    },
+                    {
+                      "type": "listtile",
+                      "title": "Privacy Policy",
+                      "leading": {
+                        "type": "icon",
+                        "icon": "policy",
+                        "size": 24.0
+                      },
+                      "trailing": {
+                        "type": "icon",
+                        "icon": "arrow_forward_ios",
+                        "size": 24.0
+                      }
+                    },
+                    {
+                      "type": "divider",
+                      "thickness": 1.0
+                    },
+                    {
+                      "type": "listtile",
+                      "title": "Terms of Service",
+                      "leading": {
+                        "type": "icon",
+                        "icon": "description",
+                        "size": 24.0
+                      },
+                      "trailing": {
+                        "type": "icon",
+                        "icon": "arrow_forward_ios",
+                        "size": 24.0
+                      }
+                    },
+                    {
+                      "type": "divider",
+                      "thickness": 1.0
+                    },
+                    {
+                      "type": "listtile",
+                      "title": "Rate This App",
+                      "leading": {
+                        "type": "icon",
+                        "icon": "star",
+                        "size": 24.0
+                      },
+                      "trailing": {
+                        "type": "icon",
+                        "icon": "arrow_forward_ios",
+                        "size": 24.0
+                      }
+                    }
+                  ],
+                  "mainAxisAlignment": "start",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                },
+                "elevation": 2.0
+              },
+              {
+                "type": "sizedbox",
+                "height": 24.0
+              },
+              {
+                "type": "text",
+                "value": "Made with Flutter MCP UI Generator",
+                "style": {
+                  "fontSize": 14.0,
+                  "color": "#999999"
+                },
+                "textAlign": "center"
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "all": 16.0
+          }
+        },
+        "flex": 1
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  }
+}

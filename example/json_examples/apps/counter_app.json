@@ -1,0 +1,13 @@
+{
+  "type": "application",
+  "title": "Counter Demo",
+  "version": "1.0.0",
+  "routes": {
+    "/counter": "ui://pages/counter"
+  },
+  "initialRoute": "/counter",
+  "theme": {
+    "primaryColor": "#2196F3",
+    "accentColor": "#FF4081"
+  }
+}

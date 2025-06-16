@@ -1,0 +1,72 @@
+{
+  "type": "application",
+  "title": "Multi-Page Demo App",
+  "version": "1.0.0",
+  "routes": {
+    "/home": "ui://pages/home",
+    "/profile": "ui://pages/profile",
+    "/settings": "ui://pages/settings",
+    "/about": "ui://pages/about"
+  },
+  "initialRoute": "/home",
+  "theme": {
+    "primaryColor": "#2196F3",
+    "accentColor": "#FF4081",
+    "backgroundColor": "#FAFAFA",
+    "surfaceColor": "#FFFFFF",
+    "textTheme": {
+      "headline": {
+        "fontSize": 24,
+        "fontWeight": "bold"
+      },
+      "body": {
+        "fontSize": 16
+      },
+      "caption": {
+        "fontSize": 12,
+        "color": "#666666"
+      }
+    }
+  },
+  "navigation": {
+    "type": "bottomNavigationBar",
+    "items": [
+      {
+        "icon": "home",
+        "label": "Home",
+        "route": "/home"
+      },
+      {
+        "icon": "person",
+        "label": "Profile",
+        "route": "/profile"
+      },
+      {
+        "icon": "settings",
+        "label": "Settings",
+        "route": "/settings"
+      },
+      {
+        "icon": "info",
+        "label": "About",
+        "route": "/about"
+      }
+    ]
+  },
+  "state": {
+    "initial": {
+      "currentUser": {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "avatar": "https://example.com/avatar.jpg"
+      },
+      "currentTab": 0,
+      "notifications": [],
+      "settings": {
+        "darkMode": false,
+        "notifications": true,
+        "language": "en"
+      }
+    }
+  }
+}

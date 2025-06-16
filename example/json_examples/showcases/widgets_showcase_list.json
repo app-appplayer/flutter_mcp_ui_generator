@@ -1,0 +1,233 @@
+{
+  "type": "column",
+  "children": [
+    {
+      "type": "text",
+      "value": "List Widgets Showcase",
+      "style": {
+        "fontSize": 24.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "List View",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "container",
+      "child": {
+        "type": "listview",
+        "items": "{{todoItems}}",
+        "itemTemplate": {
+          "type": "listtile",
+          "title": "{{item.title}}",
+          "subtitle": "{{item.description}}",
+          "leading": {
+            "type": "icon",
+            "icon": "{{item.completed ? \"check_circle\" : \"radio_button_unchecked\"}}",
+            "size": 24.0,
+            "color": "{{item.completed ? \"#4CAF50\" : \"#9E9E9E\"}}"
+          },
+          "trailing": {
+            "type": "icon",
+            "icon": "more_vert",
+            "size": 24.0
+          }
+        },
+        "itemSpacing": 8.0,
+        "shrinkWrap": false,
+        "scrollDirection": "vertical"
+      },
+      "height": 200.0,
+      "decoration": {
+        "borderRadius": 8.0,
+        "border": {
+          "color": "#E0E0E0",
+          "width": 1.0,
+          "style": "solid"
+        }
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "Grid View",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "container",
+      "child": {
+        "type": "gridview",
+        "items": "{{products}}",
+        "itemTemplate": {
+          "type": "card",
+          "child": {
+            "type": "column",
+            "children": [
+              {
+                "type": "image",
+                "src": "{{item.imageUrl}}",
+                "height": 80.0,
+                "fit": "cover"
+              },
+              {
+                "type": "padding",
+                "child": {
+                  "type": "column",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "{{item.name}}",
+                      "style": {
+                        "fontWeight": "bold"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "value": "{{item.price}}",
+                      "style": {
+                        "color": "#4CAF50"
+                      }
+                    }
+                  ],
+                  "mainAxisAlignment": "start",
+                  "crossAxisAlignment": "center",
+                  "mainAxisSize": "max"
+                },
+                "padding": {
+                  "all": 8.0
+                }
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "elevation": 2.0
+        },
+        "crossAxisCount": 2,
+        "mainAxisSpacing": 8.0,
+        "crossAxisSpacing": 8.0,
+        "childAspectRatio": 1.0
+      },
+      "height": 200.0,
+      "decoration": {
+        "borderRadius": 8.0,
+        "border": {
+          "color": "#E0E0E0",
+          "width": 1.0,
+          "style": "solid"
+        }
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 20.0
+    },
+    {
+      "type": "text",
+      "value": "List Tiles",
+      "style": {
+        "fontSize": 18.0,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "type": "sizedbox",
+      "height": 8.0
+    },
+    {
+      "type": "card",
+      "child": {
+        "type": "column",
+        "children": [
+          {
+            "type": "listtile",
+            "title": "Profile",
+            "subtitle": "View and edit your profile",
+            "leading": {
+              "type": "icon",
+              "icon": "person",
+              "size": 24.0,
+              "color": "#2196F3"
+            },
+            "trailing": {
+              "type": "icon",
+              "icon": "arrow_forward_ios",
+              "size": 24.0
+            }
+          },
+          {
+            "type": "divider",
+            "thickness": 1.0
+          },
+          {
+            "type": "listtile",
+            "title": "Settings",
+            "subtitle": "App preferences and configuration",
+            "leading": {
+              "type": "icon",
+              "icon": "settings",
+              "size": 24.0,
+              "color": "#9C27B0"
+            },
+            "trailing": {
+              "type": "icon",
+              "icon": "arrow_forward_ios",
+              "size": 24.0
+            }
+          },
+          {
+            "type": "divider",
+            "thickness": 1.0
+          },
+          {
+            "type": "listtile",
+            "title": "Help & Support",
+            "subtitle": "Get help and contact support",
+            "leading": {
+              "type": "icon",
+              "icon": "help",
+              "size": 24.0,
+              "color": "#FF9800"
+            },
+            "trailing": {
+              "type": "icon",
+              "icon": "arrow_forward_ios",
+              "size": 24.0
+            }
+          }
+        ],
+        "mainAxisAlignment": "start",
+        "crossAxisAlignment": "center",
+        "mainAxisSize": "max"
+      },
+      "elevation": 2.0
+    }
+  ],
+  "mainAxisAlignment": "start",
+  "crossAxisAlignment": "center",
+  "mainAxisSize": "max"
+}

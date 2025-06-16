@@ -1,0 +1,412 @@
+{
+  "type": "page",
+  "title": "Todo List",
+  "content": {
+    "type": "column",
+    "children": [
+      {
+        "type": "appbar",
+        "title": "My Todos",
+        "actions": [
+          {
+            "type": "button",
+            "label": "",
+            "onTap": {
+              "type": "state",
+              "action": "toggle",
+              "binding": "showSearch"
+            },
+            "style": "text",
+            "icon": "search",
+            "disabled": false
+          },
+          {
+            "type": "button",
+            "label": "",
+            "onTap": {
+              "type": "state",
+              "action": "toggle",
+              "binding": "showFilters"
+            },
+            "style": "text",
+            "icon": "filter_list",
+            "disabled": false
+          }
+        ],
+        "elevation": 4.0
+      },
+      {
+        "type": "container",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "textfield",
+            "label": "Search todos",
+            "value": "{{searchQuery}}",
+            "onChange": {
+              "type": "state",
+              "action": "set",
+              "binding": "searchQuery",
+              "value": "{{event.value}}"
+            },
+            "placeholder": "Type to search...",
+            "obscureText": false
+          },
+          "padding": {
+            "all": 16.0
+          }
+        }
+      },
+      {
+        "type": "container",
+        "child": {
+          "type": "padding",
+          "child": {
+            "type": "row",
+            "children": [
+              {
+                "type": "button",
+                "label": "All ({{totalCount}})",
+                "onTap": {
+                  "type": "state",
+                  "action": "set",
+                  "binding": "currentFilter",
+                  "value": "all"
+                },
+                "style": "{{currentFilter == \"all\" ? \"elevated\" : \"outlined\"}}",
+                "disabled": false
+              },
+              {
+                "type": "sizedbox",
+                "width": 8.0
+              },
+              {
+                "type": "button",
+                "label": "Active ({{activeCount}})",
+                "onTap": {
+                  "type": "state",
+                  "action": "set",
+                  "binding": "currentFilter",
+                  "value": "active"
+                },
+                "style": "{{currentFilter == \"active\" ? \"elevated\" : \"outlined\"}}",
+                "disabled": false
+              },
+              {
+                "type": "sizedbox",
+                "width": 8.0
+              },
+              {
+                "type": "button",
+                "label": "Done ({{completedCount}})",
+                "onTap": {
+                  "type": "state",
+                  "action": "set",
+                  "binding": "currentFilter",
+                  "value": "completed"
+                },
+                "style": "{{currentFilter == \"completed\" ? \"elevated\" : \"outlined\"}}",
+                "disabled": false
+              }
+            ],
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "center",
+            "mainAxisSize": "max"
+          },
+          "padding": {
+            "horizontal": 16.0,
+            "vertical": 8.0
+          }
+        }
+      },
+      {
+        "type": "padding",
+        "child": {
+          "type": "row",
+          "children": [
+            {
+              "type": "expanded",
+              "child": {
+                "type": "textfield",
+                "label": "Add new todo",
+                "value": "{{newTodoText}}",
+                "onChange": {
+                  "type": "state",
+                  "action": "set",
+                  "binding": "newTodoText",
+                  "value": "{{event.value}}"
+                },
+                "placeholder": "What needs to be done?",
+                "obscureText": false
+              },
+              "flex": 1
+            },
+            {
+              "type": "sizedbox",
+              "width": 8.0
+            },
+            {
+              "type": "button",
+              "label": "Add",
+              "onTap": {
+                "type": "batch",
+                "actions": [
+                  {
+                    "type": "tool",
+                    "tool": "addTodo",
+                    "args": {
+                      "text": "{{newTodoText}}",
+                      "priority": "{{newTodoPriority}}"
+                    }
+                  },
+                  {
+                    "type": "state",
+                    "action": "set",
+                    "binding": "newTodoText",
+                    "value": ""
+                  }
+                ]
+              },
+              "style": "elevated",
+              "icon": "add",
+              "disabled": false
+            }
+          ],
+          "mainAxisAlignment": "start",
+          "crossAxisAlignment": "center",
+          "mainAxisSize": "max"
+        },
+        "padding": {
+          "all": 16.0
+        }
+      },
+      {
+        "type": "padding",
+        "child": {
+          "type": "row",
+          "children": [
+            {
+              "type": "text",
+              "value": "Priority: "
+            },
+            {
+              "type": "dropdown",
+              "value": "{{newTodoPriority}}",
+              "items": [
+                {
+                  "value": "low",
+                  "label": "🟢 Low"
+                },
+                {
+                  "value": "medium",
+                  "label": "🟡 Medium"
+                },
+                {
+                  "value": "high",
+                  "label": "🔴 High"
+                }
+              ],
+              "onChange": {
+                "type": "state",
+                "action": "set",
+                "binding": "newTodoPriority",
+                "value": "{{event.value}}"
+              }
+            }
+          ],
+          "mainAxisAlignment": "start",
+          "crossAxisAlignment": "center",
+          "mainAxisSize": "max"
+        },
+        "padding": {
+          "horizontal": 16.0
+        }
+      },
+      {
+        "type": "divider",
+        "thickness": 1.0
+      },
+      {
+        "type": "expanded",
+        "child": {
+          "type": "listview",
+          "items": "{{filteredTodos}}",
+          "itemTemplate": {
+            "type": "card",
+            "child": {
+              "type": "listtile",
+              "title": "{{item.text}}",
+              "subtitle": "{{item.priority}} priority • {{item.createdAt}}",
+              "leading": {
+                "type": "checkbox",
+                "value": "{{item.completed}}",
+                "onChange": {
+                  "type": "tool",
+                  "tool": "toggleTodo",
+                  "args": {
+                    "id": "{{item.id}}"
+                  }
+                }
+              },
+              "trailing": {
+                "type": "row",
+                "children": [
+                  {
+                    "type": "button",
+                    "label": "",
+                    "onTap": {
+                      "type": "batch",
+                      "actions": [
+                        {
+                          "type": "state",
+                          "action": "set",
+                          "binding": "editingTodo",
+                          "value": "{{item}}"
+                        },
+                        {
+                          "type": "state",
+                          "action": "set",
+                          "binding": "showEditDialog",
+                          "value": true
+                        }
+                      ]
+                    },
+                    "style": "text",
+                    "icon": "edit",
+                    "disabled": false
+                  },
+                  {
+                    "type": "button",
+                    "label": "",
+                    "onTap": {
+                      "type": "tool",
+                      "tool": "deleteTodo",
+                      "args": {
+                        "id": "{{item.id}}"
+                      }
+                    },
+                    "style": "text",
+                    "icon": "delete",
+                    "disabled": false
+                  }
+                ],
+                "mainAxisAlignment": "start",
+                "crossAxisAlignment": "center",
+                "mainAxisSize": "min"
+              }
+            },
+            "elevation": 2.0,
+            "margin": {
+              "horizontal": 16.0,
+              "vertical": 4.0
+            }
+          },
+          "itemSpacing": 4.0,
+          "shrinkWrap": false,
+          "scrollDirection": "vertical"
+        },
+        "flex": 1
+      },
+      {
+        "type": "container",
+        "child": {
+          "type": "row",
+          "children": [
+            {
+              "type": "text",
+              "value": "{{totalCount}} total",
+              "style": {
+                "fontWeight": "bold"
+              }
+            },
+            {
+              "type": "text",
+              "value": "{{completedCount}} completed",
+              "style": {
+                "color": "#4CAF50"
+              }
+            },
+            {
+              "type": "button",
+              "label": "Clear Completed",
+              "onTap": {
+                "type": "tool",
+                "tool": "clearCompleted"
+              },
+              "style": "text",
+              "disabled": false
+            }
+          ],
+          "mainAxisAlignment": "spaceBetween",
+          "crossAxisAlignment": "center",
+          "mainAxisSize": "max"
+        },
+        "padding": {
+          "all": 16.0
+        },
+        "decoration": {
+          "color": "#F5F5F5",
+          "border": {
+            "color": "#E0E0E0",
+            "width": 1.0,
+            "style": "solid"
+          }
+        }
+      }
+    ],
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "center",
+    "mainAxisSize": "max"
+  },
+  "state": {
+    "initial": {
+      "todos": [
+        {
+          "id": "1",
+          "text": "Learn Flutter MCP UI Generator",
+          "completed": false,
+          "priority": "high",
+          "createdAt": "2024-01-15"
+        },
+        {
+          "id": "2",
+          "text": "Build a todo app",
+          "completed": true,
+          "priority": "medium",
+          "createdAt": "2024-01-14"
+        },
+        {
+          "id": "3",
+          "text": "Write documentation",
+          "completed": false,
+          "priority": "low",
+          "createdAt": "2024-01-13"
+        }
+      ],
+      "filteredTodos": [],
+      "newTodoText": "",
+      "newTodoPriority": "medium",
+      "searchQuery": "",
+      "currentFilter": "all",
+      "showSearch": false,
+      "showFilters": true,
+      "showEditDialog": false,
+      "editingTodo": null,
+      "totalCount": 3,
+      "activeCount": 2,
+      "completedCount": 1
+    }
+  },
+  "lifecycle": {
+    "onInit": [
+      {
+        "type": "tool",
+        "tool": "loadTodos"
+      },
+      {
+        "type": "tool",
+        "tool": "updateCounts"
+      }
+    ]
+  }
+}
