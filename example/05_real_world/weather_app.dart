@@ -2,8 +2,8 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// Weather Application Example
 /// 
-/// 실제 날씨 앱과 유사한 구조를 가진 예제입니다.
-/// 데이터 로딩, 에러 처리, 새로고침 등의 실제 앱 패턴을 보여줍니다.
+/// This example has a structure similar to a real weather app.
+/// It demonstrates real app patterns such as data loading, error handling, and refresh.
 void main() {
   final weatherApp = MCPUIJsonGenerator.page(
     title: 'Weather App',
@@ -26,7 +26,7 @@ void main() {
             padding: MCPUIJsonGenerator.edgeInsets(all: 16),
             child: MCPUIJsonGenerator.column(
               children: [
-                // 현재 날씨 카드
+                // Current weather card
                 MCPUIJsonGenerator.card(
                   elevation: 8,
                   child: MCPUIJsonGenerator.padding(
@@ -81,7 +81,7 @@ void main() {
                         
                         MCPUIJsonGenerator.sizedBox(height: 24),
                         
-                        // 상세 정보
+                        // Detailed information
                         MCPUIJsonGenerator.row(
                           mainAxisAlignment: 'spaceAround',
                           children: [
@@ -139,7 +139,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 시간별 예보
+                // Hourly forecast
                 MCPUIJsonGenerator.text(
                   'Hourly Forecast',
                   style: MCPUIJsonGenerator.textStyle(
@@ -186,7 +186,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 주간 예보
+                // Weekly forecast
                 MCPUIJsonGenerator.text(
                   '7-Day Forecast',
                   style: MCPUIJsonGenerator.textStyle(
@@ -278,11 +278,11 @@ void main() {
 
   MCPUIJsonGenerator.generateJsonFile(weatherApp, 'weather_app.json');
   
-  print('✓ 날씨 앱 예제가 생성되었습니다: weather_app.json');
-  print('\n주요 기능:');
-  print('- 현재 날씨 정보 표시');
-  print('- 시간별 예보 (가로 스크롤)');
-  print('- 주간 예보 목록');
-  print('- 새로고침 기능');
-  print('- 실제 앱과 유사한 UI/UX 패턴');
+  print('✓ Weather app example created: weather_app.json');
+  print('\nKey features:');
+  print('- Display current weather information');
+  print('- Hourly forecast (horizontal scroll)');
+  print('- Weekly forecast list');
+  print('- Refresh functionality');
+  print('- UI/UX patterns similar to real apps');
 }

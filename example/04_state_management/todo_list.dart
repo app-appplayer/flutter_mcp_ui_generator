@@ -2,14 +2,14 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// Todo List Application Example
 /// 
-/// 이 예제는 완전한 할일 목록 앱을 보여줍니다.
-/// 상태 관리, CRUD 작업, 필터링, 검색 등의 기능을 포함합니다.
+/// This example shows a complete todo list app.
+/// It includes features like state management, CRUD operations, filtering, and search.
 void main() {
   final todoApp = MCPUIJsonGenerator.page(
     title: 'Todo List',
     content: MCPUIJsonGenerator.column(
       children: [
-        // 앱바 with 검색
+        // App bar with search
         MCPUIJsonGenerator.appBar(
           title: 'My Todos',
           actions: [
@@ -34,7 +34,7 @@ void main() {
           ],
         ),
         
-        // 검색바 (조건부 표시)
+        // Search bar (conditional display)
         MCPUIJsonGenerator.container(
           child: MCPUIJsonGenerator.padding(
             padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -51,7 +51,7 @@ void main() {
           ),
         ),
         
-        // 필터 칩들 (조건부 표시)
+        // Filter chips (conditional display)
         MCPUIJsonGenerator.container(
           child: MCPUIJsonGenerator.padding(
             padding: MCPUIJsonGenerator.edgeInsets(horizontal: 16, vertical: 8),
@@ -91,7 +91,7 @@ void main() {
           ),
         ),
         
-        // 새 할일 추가
+        // Add new todo
         MCPUIJsonGenerator.padding(
           padding: MCPUIJsonGenerator.edgeInsets(all: 16),
           child: MCPUIJsonGenerator.row(
@@ -134,7 +134,7 @@ void main() {
           ),
         ),
         
-        // 우선순위 선택
+        // Priority selection
         MCPUIJsonGenerator.padding(
           padding: MCPUIJsonGenerator.edgeInsets(horizontal: 16),
           child: MCPUIJsonGenerator.row(
@@ -159,7 +159,7 @@ void main() {
         
         MCPUIJsonGenerator.divider(),
         
-        // 할일 목록
+        // Todo list
         MCPUIJsonGenerator.expanded(
           child: MCPUIJsonGenerator.listView(
             items: '{{filteredTodos}}',
@@ -214,7 +214,7 @@ void main() {
           ),
         ),
         
-        // 하단 통계
+        // Bottom statistics
         MCPUIJsonGenerator.container(
           padding: MCPUIJsonGenerator.edgeInsets(all: 16),
           decoration: MCPUIJsonGenerator.decoration(
@@ -294,12 +294,12 @@ void main() {
 
   MCPUIJsonGenerator.generateJsonFile(todoApp, 'todo_list.json');
   
-  print('✓ 할일 목록 앱이 생성되었습니다: todo_list.json');
-  print('\n주요 기능:');
-  print('- CRUD 작업 (생성, 읽기, 업데이트, 삭제)');
-  print('- 실시간 필터링 (전체, 활성, 완료)');
-  print('- 검색 기능');
-  print('- 우선순위 설정');
-  print('- 통계 표시');
-  print('- 배치 액션 (여러 상태 동시 업데이트)');
+  print('✓ Todo list app created: todo_list.json');
+  print('\nKey features:');
+  print('- CRUD operations (Create, Read, Update, Delete)');
+  print('- Real-time filtering (All, Active, Completed)');
+  print('- Search functionality');
+  print('- Priority settings');
+  print('- Statistics display');
+  print('- Batch actions (Update multiple states simultaneously)');
 }

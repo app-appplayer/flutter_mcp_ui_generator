@@ -2,30 +2,30 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// Multi-Page Application Example
 /// 
-/// 이 예제는 여러 페이지를 가진 완전한 애플리케이션 구조를 보여줍니다.
-/// 앱 정의와 각각의 페이지들을 생성합니다.
+/// This example demonstrates a complete application structure with multiple pages.
+/// It creates the app definition and individual pages.
 void main() {
   print('=== Multi-Page Application Example ===\n');
 
-  // 1. 애플리케이션 정의 생성
+  // 1. Create application definition
   _createApplication();
   
-  // 2. 개별 페이지들 생성
+  // 2. Create individual pages
   _createHomePage();
   _createProfilePage();
   _createSettingsPage();
   _createAboutPage();
   
-  print('\n=== 멀티 페이지 앱 예제가 완료되었습니다! ===');
-  print('생성된 파일들:');
-  print('- multi_page_app.json (애플리케이션 정의)');
+  print('\n=== Multi-page app example completed! ===');
+  print('Generated files:');
+  print('- multi_page_app.json (application definition)');
   print('- home_page.json');
   print('- profile_page.json');
   print('- settings_page.json');
   print('- about_page.json');
 }
 
-/// 애플리케이션 정의 생성
+/// Create application definition
 void _createApplication() {
   final app = MCPUIBuilder.application(
     title: 'Multi-Page Demo App',
@@ -73,16 +73,16 @@ void _createApplication() {
   .build();
 
   MCPUIJsonGenerator.generateJsonFile(app, 'multi_page_app.json');
-  print('✓ 애플리케이션 정의 생성됨: multi_page_app.json');
+  print('✓ Application definition created: multi_page_app.json');
 }
 
-/// 홈 페이지 생성
+/// Create home page
 void _createHomePage() {
   final homePage = MCPUIBuilder.page(title: 'Home')
     .content(
       MCPUIJsonGenerator.column(
         children: [
-          // 앱바
+          // App bar
           MCPUIJsonGenerator.appBar(
             title: 'Welcome Home',
             actions: [
@@ -91,13 +91,13 @@ void _createHomePage() {
             ],
           ),
           
-          // 메인 콘텐츠
+          // Main content
           MCPUIJsonGenerator.expanded(
             child: MCPUIJsonGenerator.padding(
               padding: MCPUIJsonGenerator.edgeInsets(all: 16),
               child: MCPUIJsonGenerator.column(
                 children: [
-                  // 환영 카드
+                  // Welcome card
                   MCPUIJsonGenerator.card(
                     elevation: 4,
                     child: MCPUIJsonGenerator.padding(
@@ -146,7 +146,7 @@ void _createHomePage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 빠른 액션 그리드
+                  // Quick actions grid
                   MCPUIJsonGenerator.text(
                     'Quick Actions',
                     style: MCPUIJsonGenerator.textStyle(
@@ -189,7 +189,7 @@ void _createHomePage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 최근 활동
+                  // Recent activity
                   MCPUIJsonGenerator.text(
                     'Recent Activity',
                     style: MCPUIJsonGenerator.textStyle(
@@ -240,10 +240,10 @@ void _createHomePage() {
     .build();
 
   MCPUIJsonGenerator.generateJsonFile(homePage, 'home_page.json');
-  print('✓ 홈 페이지 생성됨: home_page.json');
+  print('✓ Home page created: home_page.json');
 }
 
-/// 프로필 페이지 생성
+/// Create profile page
 void _createProfilePage() {
   final profilePage = MCPUIBuilder.page(title: 'Profile')
     .content(
@@ -268,7 +268,7 @@ void _createProfilePage() {
               padding: MCPUIJsonGenerator.edgeInsets(all: 16),
               child: MCPUIJsonGenerator.column(
                 children: [
-                  // 프로필 헤더
+                  // Profile header
                   MCPUIJsonGenerator.card(
                     elevation: 4,
                     child: MCPUIJsonGenerator.padding(
@@ -310,7 +310,7 @@ void _createProfilePage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 프로필 옵션들
+                  // Profile options
                   MCPUIJsonGenerator.column(
                     children: [
                       MCPUIJsonGenerator.card(
@@ -380,10 +380,10 @@ void _createProfilePage() {
     .build();
 
   MCPUIJsonGenerator.generateJsonFile(profilePage, 'profile_page.json');
-  print('✓ 프로필 페이지 생성됨: profile_page.json');
+  print('✓ Profile page created: profile_page.json');
 }
 
-/// 설정 페이지 생성
+/// Create settings page
 void _createSettingsPage() {
   final settingsPage = MCPUIBuilder.page(title: 'Settings')
     .content(
@@ -396,7 +396,7 @@ void _createSettingsPage() {
               padding: MCPUIJsonGenerator.edgeInsets(all: 16),
               child: MCPUIJsonGenerator.column(
                 children: [
-                  // 일반 설정
+                  // General settings
                   QuickBuilders.section(
                     title: 'General',
                     children: [
@@ -440,7 +440,7 @@ void _createSettingsPage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 알림 설정
+                  // Notification settings
                   QuickBuilders.section(
                     title: 'Notifications',
                     children: [
@@ -480,7 +480,7 @@ void _createSettingsPage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 계정 설정
+                  // Account settings
                   QuickBuilders.section(
                     title: 'Account',
                     children: [
@@ -533,10 +533,10 @@ void _createSettingsPage() {
     .build();
 
   MCPUIJsonGenerator.generateJsonFile(settingsPage, 'settings_page.json');
-  print('✓ 설정 페이지 생성됨: settings_page.json');
+  print('✓ Settings page created: settings_page.json');
 }
 
-/// 정보 페이지 생성
+/// Create about page
 void _createAboutPage() {
   final aboutPage = MCPUIBuilder.page(title: 'About')
     .content(
@@ -549,7 +549,7 @@ void _createAboutPage() {
               padding: MCPUIJsonGenerator.edgeInsets(all: 16),
               child: MCPUIJsonGenerator.column(
                 children: [
-                  // 앱 정보
+                  // App information
                   MCPUIJsonGenerator.card(
                     child: MCPUIJsonGenerator.padding(
                       padding: MCPUIJsonGenerator.edgeInsets(all: 24),
@@ -589,7 +589,7 @@ void _createAboutPage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 링크들
+                  // Links
                   MCPUIJsonGenerator.card(
                     child: MCPUIJsonGenerator.column(
                       children: [
@@ -622,7 +622,7 @@ void _createAboutPage() {
                   
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 개발자 정보
+                  // Developer info
                   MCPUIJsonGenerator.text(
                     'Made with Flutter MCP UI Generator',
                     style: MCPUIJsonGenerator.textStyle(
@@ -641,5 +641,5 @@ void _createAboutPage() {
     .build();
 
   MCPUIJsonGenerator.generateJsonFile(aboutPage, 'about_page.json');
-  print('✓ 정보 페이지 생성됨: about_page.json');
+  print('✓ About page created: about_page.json');
 }

@@ -2,14 +2,14 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// User Profile Form Example
 /// 
-/// 이 예제는 사용자 프로필 편집 폼을 보여줍니다.
-/// 다양한 입력 위젯들과 유효성 검사, 파일 업로드 등을 포함합니다.
+/// This example shows a user profile edit form.
+/// It includes various input widgets, validation, and file upload.
 void main() {
   final profileForm = MCPUIJsonGenerator.page(
     title: 'Edit Profile',
     content: MCPUIJsonGenerator.column(
       children: [
-        // 앱바
+        // App bar
         MCPUIJsonGenerator.appBar(
           title: 'Edit Profile',
           leading: MCPUIJsonGenerator.icon(icon: 'arrow_back'),
@@ -33,13 +33,13 @@ void main() {
           ],
         ),
         
-        // 메인 콘텐츠
+        // Main content
         MCPUIJsonGenerator.expanded(
           child: MCPUIJsonGenerator.padding(
             padding: MCPUIJsonGenerator.edgeInsets(all: 16),
             child: MCPUIJsonGenerator.column(
               children: [
-                // 프로필 사진 섹션
+                // Profile picture section
                 MCPUIJsonGenerator.card(
                   child: MCPUIJsonGenerator.padding(
                     padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -99,11 +99,11 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 16),
                 
-                // 기본 정보 섹션
+                // Basic information section
                 QuickBuilders.section(
                   title: 'Basic Information',
                   children: [
-                    // 이름 입력
+                    // Name input
                     QuickBuilders.formField(
                       label: 'Full Name',
                       binding: 'profile.name',
@@ -112,7 +112,7 @@ void main() {
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     
-                    // 이메일 입력
+                    // Email input
                     QuickBuilders.formField(
                       label: 'Email Address',
                       binding: 'profile.email',
@@ -120,7 +120,7 @@ void main() {
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     
-                    // 전화번호 입력
+                    // Phone number input
                     QuickBuilders.formField(
                       label: 'Phone Number',
                       binding: 'profile.phone',
@@ -129,7 +129,7 @@ void main() {
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     
-                    // 국가 선택
+                    // Country selection
                     MCPUIJsonGenerator.dropdown(
                       label: 'Country',
                       value: '{{profile.country}}',
@@ -154,7 +154,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 16),
                 
-                // 자기소개 섹션
+                // About me section
                 QuickBuilders.section(
                   title: 'About Me',
                   children: [
@@ -175,11 +175,11 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 16),
                 
-                // 설정 섹션
+                // Settings section
                 QuickBuilders.section(
                   title: 'Preferences',
                   children: [
-                    // 알림 설정
+                    // Notification settings
                     MCPUIJsonGenerator.card(
                       child: MCPUIJsonGenerator.padding(
                         padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -227,7 +227,7 @@ void main() {
                     
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     
-                    // 프라이버시 설정
+                    // Privacy settings
                     MCPUIJsonGenerator.text(
                       'Privacy Settings',
                       style: MCPUIJsonGenerator.textStyle(
@@ -286,7 +286,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 24),
                 
-                // 액션 버튼들
+                // Action buttons
                 MCPUIJsonGenerator.row(
                   children: [
                     MCPUIJsonGenerator.expanded(
@@ -367,12 +367,12 @@ void main() {
 
   MCPUIJsonGenerator.generateJsonFile(profileForm, 'user_profile_form.json');
   
-  print('✓ 사용자 프로필 폼 예제가 생성되었습니다: user_profile_form.json');
-  print('\n주요 기능:');
-  print('- 프로필 사진 업로드');
-  print('- 다양한 입력 필드 (텍스트, 드롭다운, 체크박스, 스위치)');
-  print('- 유효성 검사와 헬퍼 텍스트');
-  print('- 섹션별 그룹화');
-  print('- 알림 및 프라이버시 설정');
-  print('- 상태 관리와 저장 로직');
+  print('✓ User profile form example created: user_profile_form.json');
+  print('\nKey features:');
+  print('- Profile picture upload');
+  print('- Various input fields (text, dropdown, checkbox, switch)');
+  print('- Validation and helper text');
+  print('- Section-based grouping');
+  print('- Notification and privacy settings');
+  print('- State management and save logic');
 }

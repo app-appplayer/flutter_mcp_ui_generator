@@ -2,37 +2,37 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// Basic Widgets Showcase
 /// 
-/// 이 예제는 Flutter MCP UI Generator의 모든 기본 위젯들을 보여줍니다.
-/// 레이아웃, 디스플레이, 입력, 리스트, 네비게이션 위젯들의 기본 사용법을 확인할 수 있습니다.
+/// This example shows all the basic widgets of Flutter MCP UI Generator.
+/// You can see the basic usage of layout, display, input, list, and navigation widgets.
 void main() {
   print('=== Flutter MCP UI Generator - Basic Widgets Showcase ===\n');
 
-  // 1. 레이아웃 위젯 예제
+  // 1. Layout widget examples
   print('1. Layout Widgets');
   _demonstrateLayoutWidgets();
   
-  // 2. 디스플레이 위젯 예제
+  // 2. Display widget examples
   print('\n2. Display Widgets');
   _demonstrateDisplayWidgets();
   
-  // 3. 입력 위젯 예제
+  // 3. Input widget examples
   print('\n3. Input Widgets');
   _demonstrateInputWidgets();
   
-  // 4. 리스트 위젯 예제
+  // 4. List widget examples
   print('\n4. List Widgets');
   _demonstrateListWidgets();
   
-  // 5. 네비게이션 위젯 예제
+  // 5. Navigation widget examples
   print('\n5. Navigation Widgets');
   _demonstrateNavigationWidgets();
   
-  // 6. 완전한 페이지 예제
+  // 6. Complete page example
   print('\n6. Complete Page Example');
   _demonstrateCompletePage();
   
-  print('\n=== 모든 예제가 완료되었습니다! ===');
-  print('생성된 JSON 파일들을 확인해보세요:');
+  print('\n=== All examples completed! ===');
+  print('Check the generated JSON files:');
   print('- widgets_showcase_layout.json');
   print('- widgets_showcase_display.json');
   print('- widgets_showcase_input.json');
@@ -41,9 +41,9 @@ void main() {
   print('- widgets_showcase_complete.json');
 }
 
-/// 레이아웃 위젯 데모
+/// Layout widget demo
 void _demonstrateLayoutWidgets() {
-  // Container 예제
+  // Container example
   final container = MCPUIJsonGenerator.container(
     width: 200,
     height: 100,
@@ -67,7 +67,7 @@ void _demonstrateLayoutWidgets() {
     ),
   );
 
-  // Column과 Row 예제
+  // Column and Row example
   final columnRow = MCPUIJsonGenerator.column(
     children: [
       MCPUIJsonGenerator.text(
@@ -98,7 +98,7 @@ void _demonstrateLayoutWidgets() {
     ],
   );
 
-  // Stack 예제
+  // Stack example
   final stack = MCPUIJsonGenerator.stack(
     children: [
       MCPUIJsonGenerator.container(
@@ -138,10 +138,10 @@ void _demonstrateLayoutWidgets() {
   );
 
   MCPUIJsonGenerator.generateJsonFile(layoutPage, 'widgets_showcase_layout.json');
-  print('✓ Layout widgets 예제 생성됨: widgets_showcase_layout.json');
+  print('✓ Layout widgets example created: widgets_showcase_layout.json');
 }
 
-/// 디스플레이 위젯 데모
+/// Display widget demo
 void _demonstrateDisplayWidgets() {
   final displayWidgets = MCPUIJsonGenerator.column(
     children: [
@@ -151,7 +151,7 @@ void _demonstrateDisplayWidgets() {
       ),
       MCPUIJsonGenerator.divider(thickness: 2, color: '#E0E0E0'),
       
-      // Text 예제들
+      // Text examples
       MCPUIJsonGenerator.text(
         'Basic Text',
         style: MCPUIJsonGenerator.textStyle(fontSize: 16),
@@ -177,7 +177,7 @@ void _demonstrateDisplayWidgets() {
       MCPUIJsonGenerator.sizedBox(height: 16),
       MCPUIJsonGenerator.divider(),
       
-      // Icon 예제들
+      // Icon examples
       MCPUIJsonGenerator.row(
         mainAxisAlignment: 'spaceEvenly',
         children: [
@@ -191,7 +191,7 @@ void _demonstrateDisplayWidgets() {
       MCPUIJsonGenerator.sizedBox(height: 16),
       MCPUIJsonGenerator.divider(),
       
-      // Image 예제
+      // Image example
       MCPUIJsonGenerator.image(
         src: 'https://picsum.photos/200/100',
         width: 200,
@@ -202,7 +202,7 @@ void _demonstrateDisplayWidgets() {
       MCPUIJsonGenerator.sizedBox(height: 16),
       MCPUIJsonGenerator.divider(),
       
-      // Card 예제
+      // Card example
       MCPUIJsonGenerator.card(
         elevation: 4,
         margin: MCPUIJsonGenerator.edgeInsets(all: 8),
@@ -229,10 +229,10 @@ void _demonstrateDisplayWidgets() {
   );
 
   MCPUIJsonGenerator.generateJsonFile(displayWidgets, 'widgets_showcase_display.json');
-  print('✓ Display widgets 예제 생성됨: widgets_showcase_display.json');
+  print('✓ Display widgets example created: widgets_showcase_display.json');
 }
 
-/// 입력 위젯 데모
+/// Input widget demo
 void _demonstrateInputWidgets() {
   final inputWidgets = MCPUIJsonGenerator.column(
     children: [
@@ -242,7 +242,7 @@ void _demonstrateInputWidgets() {
       ),
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Button 예제들
+      // Button examples
       MCPUIJsonGenerator.text(
         'Buttons',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -271,7 +271,7 @@ void _demonstrateInputWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // TextField 예제들
+      // TextField examples
       MCPUIJsonGenerator.text(
         'Text Fields',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -302,7 +302,7 @@ void _demonstrateInputWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Checkbox와 Switch 예제
+      // Checkbox and Switch examples
       MCPUIJsonGenerator.text(
         'Toggles',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -328,7 +328,7 @@ void _demonstrateInputWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Slider 예제
+      // Slider example
       MCPUIJsonGenerator.text(
         'Slider',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -349,7 +349,7 @@ void _demonstrateInputWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Dropdown 예제
+      // Dropdown example
       MCPUIJsonGenerator.text(
         'Dropdown',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -374,10 +374,10 @@ void _demonstrateInputWidgets() {
   );
 
   MCPUIJsonGenerator.generateJsonFile(inputWidgets, 'widgets_showcase_input.json');
-  print('✓ Input widgets 예제 생성됨: widgets_showcase_input.json');
+  print('✓ Input widgets example created: widgets_showcase_input.json');
 }
 
-/// 리스트 위젯 데모
+/// List widget demo
 void _demonstrateListWidgets() {
   final listWidgets = MCPUIJsonGenerator.column(
     children: [
@@ -387,7 +387,7 @@ void _demonstrateListWidgets() {
       ),
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // ListView 예제
+      // ListView example
       MCPUIJsonGenerator.text(
         'List View',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -416,7 +416,7 @@ void _demonstrateListWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // GridView 예제
+      // GridView example
       MCPUIJsonGenerator.text(
         'Grid View',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -464,7 +464,7 @@ void _demonstrateListWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // ListTile 예제들
+      // ListTile examples
       MCPUIJsonGenerator.text(
         'List Tiles',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -500,10 +500,10 @@ void _demonstrateListWidgets() {
   );
 
   MCPUIJsonGenerator.generateJsonFile(listWidgets, 'widgets_showcase_list.json');
-  print('✓ List widgets 예제 생성됨: widgets_showcase_list.json');
+  print('✓ List widgets example created: widgets_showcase_list.json');
 }
 
-/// 네비게이션 위젯 데모
+/// Navigation widget demo
 void _demonstrateNavigationWidgets() {
   final navigationWidgets = MCPUIJsonGenerator.column(
     children: [
@@ -513,7 +513,7 @@ void _demonstrateNavigationWidgets() {
       ),
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // AppBar 예제
+      // AppBar example
       MCPUIJsonGenerator.text(
         'App Bar',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -530,7 +530,7 @@ void _demonstrateNavigationWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Bottom Navigation Bar 예제
+      // Bottom Navigation Bar example
       MCPUIJsonGenerator.text(
         'Bottom Navigation Bar',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -553,7 +553,7 @@ void _demonstrateNavigationWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Drawer 예제
+      // Drawer example
       MCPUIJsonGenerator.text(
         'Drawer',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -611,7 +611,7 @@ void _demonstrateNavigationWidgets() {
       
       MCPUIJsonGenerator.sizedBox(height: 20),
       
-      // Floating Action Button 예제
+      // Floating Action Button example
       MCPUIJsonGenerator.text(
         'Floating Action Button',
         style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
@@ -626,16 +626,16 @@ void _demonstrateNavigationWidgets() {
   );
 
   MCPUIJsonGenerator.generateJsonFile(navigationWidgets, 'widgets_showcase_navigation.json');
-  print('✓ Navigation widgets 예제 생성됨: widgets_showcase_navigation.json');
+  print('✓ Navigation widgets example created: widgets_showcase_navigation.json');
 }
 
-/// 완전한 페이지 예제
+/// Complete page example
 void _demonstrateCompletePage() {
   final completePage = MCPUIJsonGenerator.page(
     title: 'Widget Showcase',
     content: MCPUIJsonGenerator.column(
       children: [
-        // 헤더
+        // Header
         MCPUIJsonGenerator.appBar(
           title: 'Widget Showcase',
           elevation: 2,
@@ -644,13 +644,13 @@ void _demonstrateCompletePage() {
           ],
         ),
         
-        // 메인 콘텐츠
+        // Main content
         MCPUIJsonGenerator.expanded(
           child: MCPUIJsonGenerator.padding(
             padding: MCPUIJsonGenerator.edgeInsets(all: 16),
             child: MCPUIJsonGenerator.column(
               children: [
-                // 환영 카드
+                // Welcome card
                 MCPUIJsonGenerator.card(
                   elevation: 4,
                   child: MCPUIJsonGenerator.padding(
@@ -689,7 +689,7 @@ void _demonstrateCompletePage() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 위젯 카테고리 그리드
+                // Widget category grid
                 MCPUIJsonGenerator.expanded(
                   child: MCPUIJsonGenerator.gridView(
                     items: '{{widgetCategories}}',
@@ -737,7 +737,7 @@ void _demonstrateCompletePage() {
           ),
         ),
         
-        // 하단 네비게이션
+        // Bottom navigation
         MCPUIJsonGenerator.bottomNavigationBar(
           currentIndex: 0,
           items: [
@@ -787,5 +787,5 @@ void _demonstrateCompletePage() {
   );
 
   MCPUIJsonGenerator.generateJsonFile(completePage, 'widgets_showcase_complete.json');
-  print('✓ Complete page 예제 생성됨: widgets_showcase_complete.json');
+  print('✓ Complete page example created: widgets_showcase_complete.json');
 }

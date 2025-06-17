@@ -2,10 +2,10 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// Login Form Example
 /// 
-/// 이 예제는 로그인 폼을 만드는 방법을 보여줍니다.
-/// 텍스트 필드, 버튼, 유효성 검사, 에러 처리 등을 포함합니다.
+/// This example shows how to create a login form.
+/// It includes text fields, buttons, validation, and error handling.
 void main() {
-  // 로그인 페이지 생성
+  // Create login page
   final loginPage = MCPUIJsonGenerator.page(
     title: 'Login',
     content: MCPUIJsonGenerator.container(
@@ -20,7 +20,7 @@ void main() {
               child: MCPUIJsonGenerator.column(
                 mainAxisSize: 'min',
                 children: [
-                  // 로고/타이틀
+                  // Logo/Title
                   MCPUIJsonGenerator.icon(
                     icon: 'lock',
                     size: 64,
@@ -45,13 +45,13 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 32),
                   
-                  // 에러 메시지 (조건부 표시)
+                  // Error message (conditional display)
                   MCPUIJsonGenerator.container(
                     child: QuickBuilders.errorMessage('{{error}}'),
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 16),
                   
-                  // 이메일 입력 필드
+                  // Email input field
                   MCPUIJsonGenerator.textField(
                     label: 'Email',
                     placeholder: 'Enter your email address',
@@ -73,7 +73,7 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 16),
                   
-                  // 비밀번호 입력 필드
+                  // Password input field
                   MCPUIJsonGenerator.textField(
                     label: 'Password',
                     placeholder: 'Enter your password',
@@ -96,7 +96,7 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 8),
                   
-                  // 비밀번호 보기 체크박스
+                  // Show password checkbox
                   MCPUIJsonGenerator.row(
                     children: [
                       MCPUIJsonGenerator.checkbox(
@@ -112,14 +112,14 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 로그인 버튼
+                  // Login button
                   MCPUIJsonGenerator.container(
                     child: MCPUIJsonGenerator.button(
                       label: '{{isLoading ? "Logging in..." : "Login"}}',
                       style: 'elevated',
                       onTap: MCPUIJsonGenerator.batchAction(
                         actions: [
-                          // 로딩 상태 시작
+                          // Start loading state
                           MCPUIJsonGenerator.stateAction(
                             action: 'set',
                             binding: 'isLoading',
@@ -130,7 +130,7 @@ void main() {
                             binding: 'error',
                             value: '',
                           ),
-                          // 로그인 시도
+                          // Login attempt
                           MCPUIJsonGenerator.toolAction(
                             'authenticate',
                             args: {
@@ -171,7 +171,7 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 16),
                   
-                  // 비밀번호 찾기 링크
+                  // Forgot password link
                   MCPUIJsonGenerator.button(
                     label: 'Forgot password?',
                     style: 'text',
@@ -182,7 +182,7 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 구분선
+                  // Divider
                   MCPUIJsonGenerator.row(
                     children: [
                       MCPUIJsonGenerator.expanded(
@@ -202,7 +202,7 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 소셜 로그인 버튼들
+                  // Social login buttons
                   MCPUIJsonGenerator.row(
                     mainAxisAlignment: 'spaceEvenly',
                     children: [
@@ -222,7 +222,7 @@ void main() {
                   ),
                   MCPUIJsonGenerator.sizedBox(height: 24),
                   
-                  // 회원가입 링크
+                  // Sign up link
                   MCPUIJsonGenerator.row(
                     mainAxisAlignment: 'center',
                     children: [
@@ -255,15 +255,15 @@ void main() {
     },
   );
 
-  // JSON 파일 생성
+  // Generate JSON file
   MCPUIJsonGenerator.generateJsonFile(loginPage, 'login_form.json');
   
-  print('✓ 로그인 폼 예제가 생성되었습니다: login_form.json');
-  print('\n주요 기능:');
-  print('- 이메일/비밀번호 입력 필드');
-  print('- 실시간 유효성 검사');
-  print('- 로딩 상태 관리');
-  print('- 에러 메시지 표시');
-  print('- 소셜 로그인 버튼');
-  print('- 반응형 레이아웃');
+  print('✓ Login form example created: login_form.json');
+  print('\nKey features:');
+  print('- Email/password input fields');
+  print('- Real-time validation');
+  print('- Loading state management');
+  print('- Error message display');
+  print('- Social login buttons');
+  print('- Responsive layout');
 }

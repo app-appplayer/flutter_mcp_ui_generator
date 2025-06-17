@@ -2,8 +2,8 @@ import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 /// Dynamic Form Example
 /// 
-/// 이 예제는 동적으로 생성되는 폼을 보여줍니다.
-/// 사용자의 선택에 따라 추가 필드가 나타나고 사라지는 반응형 폼입니다.
+/// This example shows a dynamically generated form.
+/// It's a reactive form where additional fields appear and disappear based on user selections.
 void main() {
   final dynamicForm = MCPUIJsonGenerator.page(
     title: 'Dynamic Survey Form',
@@ -19,7 +19,7 @@ void main() {
             padding: MCPUIJsonGenerator.edgeInsets(all: 16),
             child: MCPUIJsonGenerator.column(
               children: [
-                // 진행 표시기
+                // Progress indicator
                 MCPUIJsonGenerator.card(
                   child: MCPUIJsonGenerator.padding(
                     padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -48,7 +48,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 기본 정보 섹션
+                // Basic information section
                 QuickBuilders.section(
                   title: 'Basic Information',
                   children: [
@@ -87,7 +87,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 고객 타입 선택
+                // Customer type selection
                 QuickBuilders.section(
                   title: 'Customer Type',
                   children: [
@@ -151,7 +151,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 기존 고객 전용 필드들
+                // Existing customer fields
                 MCPUIJsonGenerator.container(
                   child: MCPUIJsonGenerator.column(
                     children: [
@@ -207,7 +207,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 신규 고객 전용 필드들
+                // New customer fields
                 MCPUIJsonGenerator.container(
                   child: MCPUIJsonGenerator.column(
                     children: [
@@ -248,7 +248,7 @@ void main() {
                       ),
                       MCPUIJsonGenerator.sizedBox(height: 16),
                       
-                      // "기타" 선택 시 나타나는 필드
+                      // Field that appears when "Other" is selected
                       MCPUIJsonGenerator.container(
                         child: QuickBuilders.formField(
                           label: 'Please specify',
@@ -305,7 +305,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 20),
                 
-                // 공통 피드백 섹션
+                // Common feedback section
                 QuickBuilders.section(
                   title: 'Additional Feedback',
                   children: [
@@ -335,7 +335,7 @@ void main() {
                 
                 MCPUIJsonGenerator.sizedBox(height: 32),
                 
-                // 제출 버튼
+                // Submit buttons
                 MCPUIJsonGenerator.row(
                   children: [
                     MCPUIJsonGenerator.expanded(
@@ -428,12 +428,12 @@ void main() {
 
   MCPUIJsonGenerator.generateJsonFile(dynamicForm, 'dynamic_form.json');
   
-  print('✓ 동적 폼 예제가 생성되었습니다: dynamic_form.json');
-  print('\n주요 기능:');
-  print('- 조건부 필드 표시/숨김');
-  print('- 진행 상황 표시');
-  print('- 다양한 입력 타입 (텍스트, 드롭다운, 체크박스, 슬라이더)');
-  print('- 배치 액션을 통한 복합 상태 업데이트');
-  print('- 동적 유효성 검사');
-  print('- 임시 저장과 최종 제출');
+  print('✓ Dynamic form example created: dynamic_form.json');
+  print('\nKey features:');
+  print('- Conditional field show/hide');
+  print('- Progress display');
+  print('- Various input types (text, dropdown, checkbox, slider)');
+  print('- Complex state updates through batch actions');
+  print('- Dynamic validation');
+  print('- Draft save and final submission');
 }
