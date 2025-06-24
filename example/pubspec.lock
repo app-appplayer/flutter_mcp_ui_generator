@@ -66,17 +66,17 @@ packages:
     dependency: transitive
     description:
       name: flutter_mcp_ui_core
-      sha256: "8c10973d299c79eb6e639f17b3e33974c48a65df026f44c4dc99f0623ad98f41"
+      sha256: "194bbf93080f4a8322139c3d6aae407461c6a3886432da9bf5dbc0e0ba0d03a9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0"
   flutter_mcp_ui_generator:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
