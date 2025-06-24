@@ -28,14 +28,11 @@ class MCPUIBuilder {
   
   // ===== Widget Builders =====
   
-  /// Start with a container
-  static ContainerBuilder container() => ContainerBuilder();
+  /// Start with a linear layout (MCP UI DSL v1.0)
+  static LinearBuilder linear() => LinearBuilder();
   
-  /// Start with a column
-  static ColumnBuilder column() => ColumnBuilder();
-  
-  /// Start with a row
-  static RowBuilder row() => RowBuilder();
+  /// Start with a box (MCP UI DSL v1.0)
+  static BoxBuilder box() => BoxBuilder();
   
   /// Start with a stack
   static StackBuilder stack() => StackBuilder();
@@ -214,40 +211,41 @@ class PageBuilder {
 
 // ===== Layout Widget Builders =====
 
-class ContainerBuilder {
-  final Map<String, dynamic> _definition = {'type': 'container'};
+/// Builder for box widgets (MCP UI DSL v1.0)
+class BoxBuilder {
+  final Map<String, dynamic> _definition = {'type': 'box'};
   
-  ContainerBuilder child(Map<String, dynamic> child) {
+  BoxBuilder child(Map<String, dynamic> child) {
     _definition['child'] = child;
     return this;
   }
   
-  ContainerBuilder width(double width) {
+  BoxBuilder width(double width) {
     _definition['width'] = width;
     return this;
   }
   
-  ContainerBuilder height(double height) {
+  BoxBuilder height(double height) {
     _definition['height'] = height;
     return this;
   }
   
-  ContainerBuilder color(String color) {
+  BoxBuilder color(String color) {
     _definition['color'] = color;
     return this;
   }
   
-  ContainerBuilder padding(Map<String, dynamic> padding) {
+  BoxBuilder padding(Map<String, dynamic> padding) {
     _definition['padding'] = padding;
     return this;
   }
   
-  ContainerBuilder margin(Map<String, dynamic> margin) {
+  BoxBuilder margin(Map<String, dynamic> margin) {
     _definition['margin'] = margin;
     return this;
   }
   
-  ContainerBuilder decoration(Map<String, dynamic> decoration) {
+  BoxBuilder decoration(Map<String, dynamic> decoration) {
     _definition['decoration'] = decoration;
     return this;
   }
@@ -255,73 +253,6 @@ class ContainerBuilder {
   Map<String, dynamic> build() => _definition;
 }
 
-class ColumnBuilder {
-  final Map<String, dynamic> _definition = {
-    'type': 'column',
-    'children': [],
-  };
-  
-  ColumnBuilder add(Map<String, dynamic> child) {
-    (_definition['children'] as List).add(child);
-    return this;
-  }
-  
-  ColumnBuilder addAll(List<Map<String, dynamic>> children) {
-    (_definition['children'] as List).addAll(children);
-    return this;
-  }
-  
-  ColumnBuilder mainAxisAlignment(String alignment) {
-    _definition['mainAxisAlignment'] = alignment;
-    return this;
-  }
-  
-  ColumnBuilder crossAxisAlignment(String alignment) {
-    _definition['crossAxisAlignment'] = alignment;
-    return this;
-  }
-  
-  ColumnBuilder mainAxisSize(String size) {
-    _definition['mainAxisSize'] = size;
-    return this;
-  }
-  
-  Map<String, dynamic> build() => _definition;
-}
-
-class RowBuilder {
-  final Map<String, dynamic> _definition = {
-    'type': 'row',
-    'children': [],
-  };
-  
-  RowBuilder add(Map<String, dynamic> child) {
-    (_definition['children'] as List).add(child);
-    return this;
-  }
-  
-  RowBuilder addAll(List<Map<String, dynamic>> children) {
-    (_definition['children'] as List).addAll(children);
-    return this;
-  }
-  
-  RowBuilder mainAxisAlignment(String alignment) {
-    _definition['mainAxisAlignment'] = alignment;
-    return this;
-  }
-  
-  RowBuilder crossAxisAlignment(String alignment) {
-    _definition['crossAxisAlignment'] = alignment;
-    return this;
-  }
-  
-  RowBuilder mainAxisSize(String size) {
-    _definition['mainAxisSize'] = size;
-    return this;
-  }
-  
-  Map<String, dynamic> build() => _definition;
-}
 
 class StackBuilder {
   final Map<String, dynamic> _definition = {
@@ -398,7 +329,7 @@ class ListViewBuilder {
     required String items,
     required Map<String, dynamic> itemTemplate,
   }) : _definition = {
-    'type': 'listview',
+    'type': 'list',
     'items': items,
     'itemTemplate': itemTemplate,
   };
@@ -428,7 +359,7 @@ class GridViewBuilder {
     required String items,
     required Map<String, dynamic> itemTemplate,
   }) : _definition = {
-    'type': 'gridview',
+    'type': 'grid',
     'items': items,
     'itemTemplate': itemTemplate,
   };
@@ -461,10 +392,10 @@ class GridViewBuilder {
 /// Quick builder functions for common patterns
 class QuickBuilders {
   /// Create a simple text button
-  static Map<String, dynamic> textButton(String label, Map<String, dynamic> onTap) {
+  static Map<String, dynamic> textButton(String label, Map<String, dynamic> click) {
     return MCPUIJsonGenerator.button(
       label: label,
-      onTap: onTap,
+      click: click,
       style: 'text',
     );
   }
@@ -473,12 +404,12 @@ class QuickBuilders {
   static Map<String, dynamic> iconButton({
     required String label,
     required String icon,
-    required Map<String, dynamic> onTap,
+    required Map<String, dynamic> click,
   }) {
     return MCPUIJsonGenerator.button(
       label: label,
       icon: icon,
-      onTap: onTap,
+      click: click,
       style: 'elevated',
     );
   }
@@ -486,16 +417,16 @@ class QuickBuilders {
   /// Create a simple form field
   static Map<String, dynamic> formField({
     required String label,
-    required String binding,
+    required String path,
     String? placeholder,
     String? helperText,
   }) {
-    return MCPUIJsonGenerator.textField(
+    return MCPUIJsonGenerator.textInput(
       label: label,
-      value: MCPUIJsonGenerator.binding(binding),
-      onChange: MCPUIJsonGenerator.stateAction(
+      value: MCPUIJsonGenerator.binding(path),
+      change: MCPUIJsonGenerator.stateAction(
         action: 'set',
-        binding: binding,
+        path: path,
         value: '{{event.value}}',
       ),
       placeholder: placeholder,
@@ -508,7 +439,8 @@ class QuickBuilders {
     required String title,
     required List<Map<String, dynamic>> children,
   }) {
-    return MCPUIJsonGenerator.column(
+    return MCPUIJsonGenerator.linear(
+      direction: 'vertical',
       children: [
         MCPUIJsonGenerator.text(
           title,
@@ -526,9 +458,10 @@ class QuickBuilders {
   /// Create a loading indicator
   static Map<String, dynamic> loadingIndicator([String? message]) {
     return MCPUIJsonGenerator.center(
-      child: MCPUIJsonGenerator.column(
+      child: MCPUIJsonGenerator.linear(
+        direction: 'vertical',
         children: [
-          {'type': 'circularprogress'},
+          MCPUIJsonGenerator.loadingIndicator(indicatorType: 'circular'),
           if (message != null) ...[
             MCPUIJsonGenerator.sizedBox(height: 16),
             MCPUIJsonGenerator.text(message),
@@ -540,27 +473,86 @@ class QuickBuilders {
   
   /// Create an error message
   static Map<String, dynamic> errorMessage(String message) {
-    return MCPUIJsonGenerator.container(
+    return MCPUIJsonGenerator.box(
       padding: MCPUIJsonGenerator.edgeInsets(all: 16),
       decoration: MCPUIJsonGenerator.decoration(
-        color: '#ffebee',
+        color: '#FFffebee',
         borderRadius: 8,
       ),
-      child: MCPUIJsonGenerator.row(
+      child: MCPUIJsonGenerator.linear(
+        direction: 'horizontal',
         children: [
           MCPUIJsonGenerator.icon(
             icon: 'error',
-            color: '#c62828',
+            color: '#FFc62828',
           ),
           MCPUIJsonGenerator.sizedBox(width: 8),
           MCPUIJsonGenerator.expanded(
             child: MCPUIJsonGenerator.text(
               message,
-              style: MCPUIJsonGenerator.textStyle(color: '#c62828'),
+              style: MCPUIJsonGenerator.textStyle(color: '#FFc62828'),
             ),
           ),
         ],
       ),
     );
   }
+}
+
+/// Builder for linear layout (MCP UI DSL v1.0)
+class LinearBuilder {
+  final Map<String, dynamic> _definition = {
+    'type': 'linear',
+    'children': [],
+    'direction': 'vertical',
+  };
+  
+  LinearBuilder add(Map<String, dynamic> child) {
+    (_definition['children'] as List).add(child);
+    return this;
+  }
+  
+  LinearBuilder addAll(List<Map<String, dynamic>> children) {
+    (_definition['children'] as List).addAll(children);
+    return this;
+  }
+  
+  LinearBuilder direction(String direction) {
+    _definition['direction'] = direction;
+    return this;
+  }
+  
+  LinearBuilder distribution(String distribution) {
+    _definition['distribution'] = distribution;
+    return this;
+  }
+  
+  LinearBuilder alignment(String alignment) {
+    _definition['alignment'] = alignment;
+    return this;
+  }
+  
+  LinearBuilder gap(double gap) {
+    _definition['gap'] = gap;
+    return this;
+  }
+  
+  LinearBuilder wrap(bool wrap) {
+    _definition['wrap'] = wrap;
+    return this;
+  }
+  
+  /// Set direction to vertical
+  LinearBuilder vertical() {
+    _definition['direction'] = 'vertical';
+    return this;
+  }
+  
+  /// Set direction to horizontal
+  LinearBuilder horizontal() {
+    _definition['direction'] = 'horizontal';
+    return this;
+  }
+  
+  Map<String, dynamic> build() => _definition;
 }

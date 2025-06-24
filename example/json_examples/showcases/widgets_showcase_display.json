@@ -12,7 +12,7 @@
     {
       "type": "divider",
       "thickness": 2.0,
-      "color": "#E0E0E0"
+      "color": "#FFE0E0E0"
     },
     {
       "type": "text",
@@ -27,7 +27,7 @@
       "style": {
         "fontSize": 18.0,
         "fontWeight": "bold",
-        "color": "#F44336"
+        "color": "#FFF44336"
       }
     },
     {
@@ -36,7 +36,7 @@
       "style": {
         "fontSize": 16.0,
         "fontStyle": "italic",
-        "color": "#4CAF50",
+        "color": "#FF4CAF50",
         "decoration": "underline"
       }
     },
@@ -55,25 +55,25 @@
           "type": "icon",
           "icon": "home",
           "size": 32.0,
-          "color": "#2196F3"
+          "color": "#FF2196F3"
         },
         {
           "type": "icon",
           "icon": "star",
           "size": 32.0,
-          "color": "#FF9800"
+          "color": "#FFFF9800"
         },
         {
           "type": "icon",
           "icon": "favorite",
           "size": 32.0,
-          "color": "#E91E63"
+          "color": "#FFE91E63"
         },
         {
           "type": "icon",
           "icon": "settings",
           "size": 32.0,
-          "color": "#9C27B0"
+          "color": "#FF9C27B0"
         }
       ],
       "mainAxisAlignment": "spaceEvenly",

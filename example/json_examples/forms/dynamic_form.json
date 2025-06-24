@@ -564,10 +564,10 @@
                     "child": {
                       "type": "button",
                       "label": "Save Draft",
-                      "onTap": {
+                      "click": {
                         "type": "tool",
-                        "tool": "saveDraft",
-                        "args": {
+                        "name": "saveDraft",
+                        "params": {
                           "survey": "{{survey}}"
                         }
                       },
@@ -585,7 +585,7 @@
                     "child": {
                       "type": "button",
                       "label": "{{isSubmitting ? \"Submitting...\" : \"Submit Survey\"}}",
-                      "onTap": {
+                      "click": {
                         "type": "batch",
                         "actions": [
                           {
@@ -596,8 +596,8 @@
                           },
                           {
                             "type": "tool",
-                            "tool": "submitSurvey",
-                            "args": {
+                            "name": "submitSurvey",
+                            "params": {
                               "survey": "{{survey}}"
                             },
                             "onSuccess": {

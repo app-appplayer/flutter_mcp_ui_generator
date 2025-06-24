@@ -10,10 +10,10 @@
   },
   "initialRoute": "/home",
   "theme": {
-    "primaryColor": "#2196F3",
-    "accentColor": "#FF4081",
-    "backgroundColor": "#FAFAFA",
-    "surfaceColor": "#FFFFFF",
+    "primaryColor": "#FF2196F3",
+    "accentColor": "#FFFF4081",
+    "backgroundColor": "#FFFAFAFA",
+    "surfaceColor": "#FFFFFFFF",
     "textTheme": {
       "headline": {
         "fontSize": 24,
@@ -24,7 +24,7 @@
       },
       "caption": {
         "fontSize": 12,
-        "color": "#666666"
+        "color": "#FF666666"
       }
     }
   },

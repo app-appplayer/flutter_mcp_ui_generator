@@ -18,7 +18,7 @@
                   "type": "icon",
                   "icon": "lock",
                   "size": 64.0,
-                  "color": "#2196F3"
+                  "color": "#FF2196F3"
                 },
                 {
                   "type": "sizedbox",
@@ -30,7 +30,7 @@
                   "style": {
                     "fontSize": 28.0,
                     "fontWeight": "bold",
-                    "color": "#333333"
+                    "color": "#FF333333"
                   }
                 },
                 {
@@ -42,7 +42,7 @@
                   "value": "Please sign in to your account",
                   "style": {
                     "fontSize": 16.0,
-                    "color": "#666666"
+                    "color": "#FF666666"
                   }
                 },
                 {
@@ -60,7 +60,7 @@
                           "type": "icon",
                           "icon": "error",
                           "size": 24.0,
-                          "color": "#c62828"
+                          "color": "#FFc62828"
                         },
                         {
                           "type": "sizedbox",
@@ -72,7 +72,7 @@
                             "type": "text",
                             "value": "{{error}}",
                             "style": {
-                              "color": "#c62828"
+                              "color": "#FFc62828"
                             }
                           },
                           "flex": 1
@@ -86,7 +86,7 @@
                       "all": 16.0
                     },
                     "decoration": {
-                      "color": "#ffebee",
+                      "color": "#FFffebee",
                       "borderRadius": 8.0
                     }
                   }
@@ -185,7 +185,7 @@
                   "child": {
                     "type": "button",
                     "label": "{{isLoading ? \"Logging in...\" : \"Login\"}}",
-                    "onTap": {
+                    "click": {
                       "type": "batch",
                       "actions": [
                         {
@@ -202,8 +202,8 @@
                         },
                         {
                           "type": "tool",
-                          "tool": "authenticate",
-                          "args": {
+                          "name": "authenticate",
+                          "params": {
                             "email": "{{email}}",
                             "password": "{{password}}"
                           },
@@ -254,7 +254,7 @@
                 {
                   "type": "button",
                   "label": "Forgot password?",
-                  "onTap": {
+                  "click": {
                     "type": "navigation",
                     "action": "push",
                     "route": "/forgot-password"
@@ -283,7 +283,7 @@
                         "type": "text",
                         "value": "OR",
                         "style": {
-                          "color": "#999999"
+                          "color": "#FF999999"
                         }
                       },
                       "padding": {
@@ -313,10 +313,10 @@
                     {
                       "type": "button",
                       "label": "Google",
-                      "onTap": {
+                      "click": {
                         "type": "tool",
-                        "tool": "socialLogin",
-                        "args": {
+                        "name": "socialLogin",
+                        "params": {
                           "provider": "google"
                         }
                       },
@@ -327,10 +327,10 @@
                     {
                       "type": "button",
                       "label": "Facebook",
-                      "onTap": {
+                      "click": {
                         "type": "tool",
-                        "tool": "socialLogin",
-                        "args": {
+                        "name": "socialLogin",
+                        "params": {
                           "provider": "facebook"
                         }
                       },
@@ -357,7 +357,7 @@
                     {
                       "type": "button",
                       "label": "Sign up",
-                      "onTap": {
+                      "click": {
                         "type": "navigation",
                         "action": "push",
                         "route": "/signup"

@@ -18,112 +18,234 @@ If you find this package useful, consider supporting ongoing development on Patr
 
 ---
 
-JSON generation toolkit for creating UI definitions compatible with Flutter MCP UI Runtime. Based on the [MCP UI DSL v1.0 Specification](./doc/specification/MCP_UI_DSL_v1.0_Specification.md).
+JSON generation tools for Flutter MCP UI Runtime. Create UI definitions programmatically with templates and fluent API. Based on the [MCP UI DSL v1.0 Specification](./doc/specification/MCP_UI_DSL_v1.0_Specification.md).
 
 ## Features
 
-- 📝 **Widget Templates** - Pre-configured templates for all 77+ supported widgets
-- 🔨 **Fluent Builder API** - Chainable API for programmatic UI construction  
-- 🎨 **UI Patterns** - Common patterns like forms, dashboards, lists
-- 🎭 **Theme System** - Complete theme support with light/dark modes and binding expressions
-- 📄 **JSON Generation** - Export to formatted JSON files
-- 🎯 **Type-safe** - Avoid common JSON structure mistakes
-- 🆕 **New Widgets** - Support for advanced input, date/time, conditional, scrolling, and drag & drop widgets
+- 🏗️ **Widget Templates** - Pre-built templates for all 77+ supported widgets
+- 🔧 **Fluent Builder API** - Programmatic UI construction with type-safe methods
+- 📝 **JSON Generation** - Generate clean MCP UI JSON definitions
+- 🎨 **Theme System** - Complete theme generation with light/dark mode support
+- 📦 **Pre-built Patterns** - Common UI patterns (forms, dashboards, lists)
+- 🚀 **Application Generator** - Create complete multi-page applications
+- ✨ **Type-safe Properties** - Compile-time validation of widget properties
 
 ## Installation
 
 ```yaml
 dependencies:
-  flutter_mcp_ui_generator: ^0.1.0
+  flutter_mcp_ui_generator: ^0.2.0
 ```
 
 ## Quick Start
 
-### Using Widget Templates
+### Analyzing Existing Flutter Widgets
 
 ```dart
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
-// Create from template
-final button = MCPUIJsonGenerator.fromTemplate('button', 
-  properties: {
-    'label': 'Click Me',
-    'variant': 'elevated',
-    'onTap': MCPUIJsonGenerator.toolAction('handleClick'),
-  },
-);
+// Analyze a Flutter widget tree
+void analyzeExistingApp() {
+  print('Analyzing Flutter app structure...');
+  
+  // Simulate analyzing a typical Flutter login form
+  final loginFormAnalysis = _analyzeFlutterWidget();
+  
+  // Convert the analysis to MCP UI DSL
+  final mcpDefinition = _convertToMcpUi(loginFormAnalysis);
+  
+  // Export the results
+  final json = MCPUIJsonGenerator.toPrettyJson(mcpDefinition);
+  print('Converted MCP UI Definition:');
+  print(json);
+}
 
-// Quick builders
-final text = MCPUIJsonGenerator.text('Hello World', 
-  fontSize: 24, 
-  fontWeight: 'bold'
-);
+// Example: Analyze common Flutter patterns
+Map<String, dynamic> _analyzeFlutterWidget() {
+  return {
+    'detected_widgets': [
+      {'type': 'Scaffold', 'has_app_bar': true, 'has_body': true},
+      {'type': 'AppBar', 'title': 'Login', 'has_actions': false},
+      {'type': 'Column', 'children_count': 4, 'main_axis': 'center'},
+      {'type': 'TextFormField', 'label': 'Email', 'has_validation': true},
+      {'type': 'TextFormField', 'label': 'Password', 'obscure_text': true},
+      {'type': 'ElevatedButton', 'label': 'Login', 'has_on_pressed': true},
+    ],
+    'layout_patterns': ['vertical_form', 'centered_content'],
+    'state_usage': ['form_data', 'validation_errors', 'loading_state'],
+  };
+}
 
-// Generate complete UI
-final ui = MCPUIJsonGenerator.createUIDefinition(
-  layout: MCPUIJsonGenerator.column(children: [
-    text,
-    MCPUIJsonGenerator.widget('sizedbox', properties: {'height': 20}),
-    button,
-  ]),
-  initialState: {'clicks': 0},
-);
-
-// Save to file
-MCPUIJsonGenerator.generateJsonFile(ui, 'my_ui.json');
+// Convert analyzed structure to MCP UI
+Map<String, dynamic> _convertToMcpUi(Map<String, dynamic> analysis) {
+  return {
+    'type': 'page',
+    'title': 'Login',
+    'content': {
+      'type': 'linear',
+      'direction': 'vertical',
+      'alignment': 'center',
+      'padding': {'all': 20},
+      'children': [
+        {
+          'type': 'textField',
+          'label': 'Email',
+          'value': '{{form.email}}',
+          'change': {
+            'type': 'state',
+            'action': 'set',
+            'binding': 'form.email',
+            'value': '{{event.value}}'
+          }
+        },
+        {'type': 'box', 'height': 16},
+        {
+          'type': 'textField',
+          'label': 'Password',
+          'value': '{{form.password}}',
+          'obscureText': true,
+          'change': {
+            'type': 'state',
+            'action': 'set',
+            'binding': 'form.password',
+            'value': '{{event.value}}'
+          }
+        },
+        {'type': 'box', 'height': 24},
+        {
+          'type': 'button',
+          'label': 'Login',
+          'variant': 'elevated',
+          'click': {
+            'type': 'tool',
+            'tool': 'authenticate',
+            'params': {
+              'email': '{{form.email}}',
+              'password': '{{form.password}}'
+            }
+          }
+        }
+      ]
+    },
+    'state': {
+      'initial': {
+        'form': {'email': '', 'password': ''}
+      }
+    }
+  };
+}
 ```
 
-### Using Fluent Builder
+### Batch Analysis of Flutter Projects
 
 ```dart
-final ui = MCPUIBuilder()
-  .column()
-  .properties({'padding': {'all': 16}})
-  .children()
-    .text('Welcome')
-    .fontSize(28)
-    .fontWeight('bold')
-    .end()
-    .sizedBox(height: 20)
-    .end()
-    .textField('Username')
-    .bindTo('username')
-    .end()
-    .sizedBox(height: 16)
-    .end()
-    .button('Login')
-    .onTapTool('login', {'username': '{{username}}'})
-    .end()
-  .end()
-  .build();
+void analyzeFlutterProject() {
+  print('=== Flutter Project Analysis ===');
+  
+  // 1. Analyze layout patterns
+  final layoutPatterns = analyzeLayoutPatterns();
+  print('Found layout patterns: ${layoutPatterns.length}');
+  
+  // 2. Analyze form structures
+  final formPatterns = analyzeFormPatterns();
+  print('Found form patterns: ${formPatterns.length}');
+  
+  // 3. Analyze navigation flows
+  final navigationPatterns = analyzeNavigationPatterns();
+  print('Found navigation patterns: ${navigationPatterns.length}');
+  
+  // 4. Convert all patterns to MCP UI
+  final mcpComponents = convertPatternsToMcpUi([
+    ...layoutPatterns,
+    ...formPatterns,
+    ...navigationPatterns,
+  ]);
+  
+  // 5. Generate complete MCP UI application
+  final mcpApp = generateMcpUiApplication(mcpComponents);
+  
+  // 6. Export results
+  saveAnalysisResults('flutter_to_mcp_analysis.json', {
+    'original_patterns': {
+      'layouts': layoutPatterns,
+      'forms': formPatterns,
+      'navigation': navigationPatterns,
+    },
+    'mcp_ui_app': mcpApp,
+    'conversion_summary': {
+      'total_widgets_analyzed': layoutPatterns.length + formPatterns.length + navigationPatterns.length,
+      'mcp_components_generated': mcpComponents.length,
+      'migration_recommendations': generateMigrationRecommendations(mcpComponents),
+    },
+  });
+}
 
-// Convert to JSON string
-print(MCPUIBuilder.toJson(ui));
+// Helper functions for pattern analysis
+List<Map<String, dynamic>> analyzeLayoutPatterns() {
+  return [
+    {
+      'pattern': 'Column with Padding',
+      'frequency': 'high',
+      'flutter_code': 'Column(children: [Padding(...), Text(...)])',
+      'mcp_equivalent': 'linear(direction: vertical, children: [padding(...), text(...)])',
+    },
+    {
+      'pattern': 'Row with Expanded',
+      'frequency': 'medium',
+      'flutter_code': 'Row(children: [Expanded(child: Text(...)), Icon(...)])',
+      'mcp_equivalent': 'linear(direction: horizontal, children: [expanded(...), icon(...)])',
+    },
+  ];
+}
+
+List<Map<String, dynamic>> analyzeFormPatterns() {
+  return [
+    {
+      'pattern': 'TextFormField with Validation',
+      'frequency': 'very_high',
+      'flutter_code': 'TextFormField(validator: (value) => ...)',
+      'mcp_equivalent': 'textInput(label: ..., change: stateAction(...))',
+    },
+  ];
+}
 ```
 
-### Using Theme System
+### Theme Extraction and Conversion
 
 ```dart
-// Create a complete theme
-final myTheme = MCPUIJsonGenerator.theme(
-  mode: 'light',
-  colors: MCPUIJsonGenerator.themeColors(
-    primary: '#4CAF50',
-    secondary: '#FF9800',
-  ),
-  typography: MCPUIJsonGenerator.themeTypography(
-    h1: {'fontSize': 36, 'fontWeight': 'bold'},
-  ),
-  spacing: MCPUIJsonGenerator.themeSpacing(md: 20),
-);
+// Extract theme from existing Flutter app
+Map<String, dynamic> extractFlutterTheme() {
+  return {
+    'theme_analysis': {
+      'primary_color': '#2196F3',
+      'accent_color': '#FF5722',
+      'text_styles': {
+        'headline1': {'fontSize': 32, 'fontWeight': 'bold'},
+        'bodyText1': {'fontSize': 16, 'color': '#333333'},
+      },
+      'usage_patterns': {
+        'primary_color_usage': ['AppBar', 'FloatingActionButton', 'ElevatedButton'],
+        'text_style_usage': ['Text widgets', 'AppBar titles', 'Form labels'],
+      },
+    },
+  };
+}
 
-// Use theme in application
-final app = MCPUIJsonGenerator.application(
-  title: 'Themed App',
-  version: '1.0.0',
-  theme: myTheme,
-  routes: {'/home': {'uri': 'ui://pages/home'}},
-);
+// Convert to MCP UI theme
+Map<String, dynamic> convertToMcpTheme(Map<String, dynamic> flutterTheme) {
+  return MCPUIJsonGenerator.application(
+    title: 'Converted App',
+    version: '1.0.0',
+    theme: {
+      'colors': {
+        'primary': flutterTheme['theme_analysis']['primary_color'],
+        'secondary': flutterTheme['theme_analysis']['accent_color'],
+      },
+      'typography': flutterTheme['theme_analysis']['text_styles'],
+    },
+    routes: {'/': {'uri': 'ui://pages/home'}},
+  );
+}
 
 // Use theme bindings in widgets
 final themedText = MCPUIJsonGenerator.text(

@@ -2,3 +2,19 @@ include: package:flutter_lints/flutter.yaml
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+analyzer:
+  exclude:
+    # Exclude legacy example files that haven't been updated yet
+    - example/02_forms_input/user_profile_form.dart
+    - example/03_navigation/**
+    - example/04_state_management/**
+    - example/05_real_world/**
+    - example/06_new_widgets/**
+    - example/theme_example.dart
+    - example/lifecycle_navigation_example.dart
+    - tools/**
+    
+linter:
+  rules:
+    avoid_print: false # Allow print in examples

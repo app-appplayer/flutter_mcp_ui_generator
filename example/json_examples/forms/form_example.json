@@ -64,13 +64,13 @@
         {
           "type": "button",
           "label": "Submit",
-          "onTap": {
+          "click": {
             "type": "batch",
             "actions": [
               {
                 "type": "tool",
-                "tool": "submitForm",
-                "args": {
+                "name": "submitForm",
+                "params": {
                   "name": "{{userName}}",
                   "email": "{{userEmail}}"
                 },

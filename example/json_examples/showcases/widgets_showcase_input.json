@@ -31,10 +31,10 @@
         {
           "type": "button",
           "label": "Elevated",
-          "onTap": {
+          "click": {
             "type": "tool",
-            "tool": "buttonPressed",
-            "args": {
+            "name": "buttonPressed",
+            "params": {
               "type": "elevated"
             }
           },
@@ -44,10 +44,10 @@
         {
           "type": "button",
           "label": "Outlined",
-          "onTap": {
+          "click": {
             "type": "tool",
-            "tool": "buttonPressed",
-            "args": {
+            "name": "buttonPressed",
+            "params": {
               "type": "outlined"
             }
           },
@@ -57,10 +57,10 @@
         {
           "type": "button",
           "label": "Text",
-          "onTap": {
+          "click": {
             "type": "tool",
-            "tool": "buttonPressed",
-            "args": {
+            "name": "buttonPressed",
+            "params": {
               "type": "text"
             }
           },

@@ -41,12 +41,12 @@
                           "type": "icon",
                           "icon": "person",
                           "size": 32.0,
-                          "color": "#2196F3"
+                          "color": "#FF2196F3"
                         },
                         "width": 60.0,
                         "height": 60.0,
                         "decoration": {
-                          "color": "#E3F2FD",
+                          "color": "#FFE3F2FD",
                           "borderRadius": 30.0
                         }
                       },
@@ -64,7 +64,7 @@
                               "value": "Welcome back,",
                               "style": {
                                 "fontSize": 16.0,
-                                "color": "#666666"
+                                "color": "#FF666666"
                               }
                             },
                             {
@@ -222,22 +222,22 @@
         {
           "icon": "analytics",
           "title": "Analytics",
-          "color": "#4CAF50"
+          "color": "#FF4CAF50"
         },
         {
           "icon": "inbox",
           "title": "Messages",
-          "color": "#FF9800"
+          "color": "#FFFF9800"
         },
         {
           "icon": "calendar_today",
           "title": "Calendar",
-          "color": "#9C27B0"
+          "color": "#FF9C27B0"
         },
         {
           "icon": "tasks",
           "title": "Tasks",
-          "color": "#F44336"
+          "color": "#FFF44336"
         }
       ],
       "recentActivity": [
@@ -245,25 +245,25 @@
           "icon": "email",
           "title": "New message received",
           "time": "2 minutes ago",
-          "color": "#2196F3"
+          "color": "#FF2196F3"
         },
         {
           "icon": "task_alt",
           "title": "Task completed",
           "time": "1 hour ago",
-          "color": "#4CAF50"
+          "color": "#FF4CAF50"
         },
         {
           "icon": "event",
           "title": "Meeting scheduled",
           "time": "3 hours ago",
-          "color": "#FF9800"
+          "color": "#FFFF9800"
         },
         {
           "icon": "upload",
           "title": "File uploaded",
           "time": "1 day ago",
-          "color": "#9C27B0"
+          "color": "#FF9C27B0"
         }
       ]
     }

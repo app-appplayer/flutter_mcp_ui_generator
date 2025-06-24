@@ -34,7 +34,7 @@
                         "type": "icon",
                         "icon": "widgets",
                         "size": 48.0,
-                        "color": "#2196F3"
+                        "color": "#FF2196F3"
                       },
                       {
                         "type": "sizedbox",
@@ -61,7 +61,7 @@
                               "type": "text",
                               "value": "Explore all the widgets available in Flutter MCP UI Generator.",
                               "style": {
-                                "color": "#666666"
+                                "color": "#FF666666"
                               }
                             }
                           ],
@@ -126,7 +126,7 @@
                             "value": "{{item.description}}",
                             "style": {
                               "fontSize": 12.0,
-                              "color": "#666666"
+                              "color": "#FF666666"
                             },
                             "textAlign": "center"
                           }
@@ -176,7 +176,7 @@
           }
         ],
         "currentIndex": 0,
-        "onTap": {
+        "click": {
           "type": "state",
           "action": "set",
           "binding": "currentTab",
@@ -197,25 +197,25 @@
           "title": "Layout",
           "description": "Container, Row, Column, Stack",
           "icon": "view_module",
-          "color": "#2196F3"
+          "color": "#FF2196F3"
         },
         {
           "title": "Display",
           "description": "Text, Image, Icon, Card",
           "icon": "visibility",
-          "color": "#4CAF50"
+          "color": "#FF4CAF50"
         },
         {
           "title": "Input",
           "description": "Button, TextField, Slider",
           "icon": "input",
-          "color": "#FF9800"
+          "color": "#FFFF9800"
         },
         {
           "title": "List",
           "description": "ListView, GridView, ListTile",
           "icon": "list",
-          "color": "#9C27B0"
+          "color": "#FF9C27B0"
         }
       ]
     }

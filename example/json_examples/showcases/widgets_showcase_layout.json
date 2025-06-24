@@ -22,7 +22,7 @@
           "value": "Container Example",
           "style": {
             "fontWeight": "bold",
-            "color": "#1976D2"
+            "color": "#FF1976D2"
           }
         }
       },
@@ -32,10 +32,10 @@
         "all": 16.0
       },
       "decoration": {
-        "color": "#E3F2FD",
+        "color": "#FFE3F2FD",
         "borderRadius": 8.0,
         "border": {
-          "color": "#2196F3",
+          "color": "#FF2196F3",
           "width": 2.0,
           "style": "solid"
         }
@@ -74,7 +74,7 @@
                 "padding": {
                   "all": 8.0
                 },
-                "color": "#FFEBEE"
+                "color": "#FFFFEBEE"
               },
               "flex": 1
             },
@@ -93,7 +93,7 @@
                 "padding": {
                   "all": 8.0
                 },
-                "color": "#E8F5E8"
+                "color": "#FFE8F5E8"
               },
               "flex": 1
             }
@@ -118,7 +118,7 @@
           "type": "container",
           "width": 150.0,
           "height": 150.0,
-          "color": "#FFF3E0"
+          "color": "#FFFFF3E0"
         },
         {
           "type": "container",
@@ -127,7 +127,7 @@
           "margin": {
             "all": 25.0
           },
-          "color": "#FFE082"
+          "color": "#FFFFE082"
         },
         {
           "type": "container",
@@ -136,7 +136,7 @@
           "margin": {
             "all": 50.0
           },
-          "color": "#FF8F00"
+          "color": "#FFFF8F00"
         }
       ],
       "alignment": "topLeft",

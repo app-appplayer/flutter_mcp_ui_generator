@@ -549,10 +549,10 @@ void _createDragDropExample() {
                 child: MCPUIJsonGenerator.dragTarget(
                   builder: MCPUIJsonGenerator.container(
                     decoration: MCPUIJsonGenerator.decoration(
-                      color: '{{isDraggingOver ? "#C8E6C9" : "#F5F5F5"}}',
+                      color: '{{isDraggingOver ? "#FFC8E6C9" : "#FFF5F5F5"}}',
                       borderRadius: 8,
                       border: MCPUIJsonGenerator.border(
-                        color: '{{isDraggingOver ? "#4CAF50" : "#E0E0E0"}}',
+                        color: '{{isDraggingOver ? "#FF4CAF50" : "#FFE0E0E0"}}',
                         width: 2,
                         style: 'dashed',
                       ),

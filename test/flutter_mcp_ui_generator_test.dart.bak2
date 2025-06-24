@@ -1,0 +1,812 @@
+import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import 'package:test/test.dart';
+import 'dart:io';
+
+void main() {
+  group('Flutter MCP UI Generator - Complete Test Suite', () {
+    group('MCPUIJsonGenerator - Application & Page', () {
+      test('creates application with all properties', () {
+        final app = MCPUIJsonGenerator.application(
+          title: 'Test App',
+          version: '1.0.0',
+          routes: {
+            '/': {'uri': 'ui://pages/home'},
+            '/settings': {'uri': 'ui://pages/settings'},
+          },
+          initialRoute: '/home',
+          theme: {'primaryColor': '#2196F3'},
+          navigation: {'type': 'drawer'},
+          state: {'initial': {'user': 'John'}},
+        );
+
+        expect(app['type'], 'application');
+        expect(app['title'], 'Test App');
+        expect(app['version'], '1.0.0');
+        expect(app['initialRoute'], '/home');
+        expect(app['routes'], isNotNull);
+        expect(app['theme'], isNotNull);
+        expect(app['navigation'], isNotNull);
+        expect(app['state'], isNotNull);
+      });
+
+      test('creates page with lifecycle', () {
+        final page = MCPUIJsonGenerator.page(
+          title: 'Test Page',
+          content: {'type': 'text', 'value': 'Hello'},
+          route: '/test',
+          state: {'initial': {'count': 0}},
+          lifecycle: {
+            'onInit': [{'type': 'tool', 'tool': 'loadData'}],
+            'onDestroy': [{'type': 'tool', 'tool': 'cleanup'}],
+          },
+        );
+
+        expect(page['type'], 'page');
+        expect(page['lifecycle']['onInit'].length, 1);
+        expect(page['lifecycle']['onDestroy'].length, 1);
+      });
+    });
+
+    group('MCPUIJsonGenerator - Layout Widgets', () {
+      test('creates box with all properties', () {
+        final box = MCPUIJsonGenerator.box(
+          child: {'type': 'text', 'value': 'Child'},
+          width: 100,
+          height: 200,
+          padding: {'all': 16},
+          margin: {'all': 8},
+          decoration: {'color': '#FF0000'},
+          color: '#00FF00',
+        );
+
+        expect(box['type'], 'box');
+        expect(box['child'], isNotNull);
+        expect(box['width'], 100);
+        expect(box['height'], 200);
+      });
+
+      test('creates linear layout with children', () {
+        final linear = MCPUIJsonGenerator.linear(
+          direction: 'vertical',
+          children: [
+            {'type': 'text', 'value': 'Item 1'},
+            {'type': 'text', 'value': 'Item 2'},
+          ],
+          distribution: 'center',
+          alignment: 'start',
+        );
+
+        expect(linear['type'], 'linear');
+        expect(linear['children'].length, 2);
+        expect(linear['distribution'], 'center');
+      });
+
+      test('creates horizontal linear layout with children', () {
+        final linear = MCPUIJsonGenerator.linear(
+          direction: 'horizontal',
+          children: [
+            {'type': 'text', 'value': 'Left'},
+            {'type': 'text', 'value': 'Right'},
+          ],
+        );
+
+        expect(linear['type'], 'linear');
+        expect(linear['children'].length, 2);
+      });
+
+      test('creates stack', () {
+        final stack = MCPUIJsonGenerator.stack(
+          children: [
+            {'type': 'container', 'color': '#FF0000'},
+            {'type': 'text', 'value': 'Overlay'},
+          ],
+          alignment: 'center',
+          fit: 'expand',
+        );
+
+        expect(stack['type'], 'stack');
+        expect(stack['alignment'], 'center');
+        expect(stack['fit'], 'expand');
+      });
+
+      test('creates center', () {
+        final center = MCPUIJsonGenerator.center(
+          child: {'type': 'text', 'value': 'Centered'},
+        );
+
+        expect(center['type'], 'center');
+        expect(center['child'], isNotNull);
+      });
+
+      test('creates expanded', () {
+        final expanded = MCPUIJsonGenerator.expanded(
+          child: {'type': 'container'},
+          flex: 2,
+        );
+
+        expect(expanded['type'], 'expanded');
+        expect(expanded['flex'], 2);
+      });
+
+      test('creates padding', () {
+        final padding = MCPUIJsonGenerator.padding(
+          child: {'type': 'text', 'value': 'Padded'},
+          padding: {'all': 16},
+        );
+
+        expect(padding['type'], 'padding');
+        expect(padding['padding'], {'all': 16});
+      });
+
+      test('creates sizedBox', () {
+        final sizedBox = MCPUIJsonGenerator.sizedBox(
+          width: 100,
+          height: 50,
+        );
+
+        expect(sizedBox['type'], 'sizedbox');
+        expect(sizedBox['width'], 100);
+        expect(sizedBox['height'], 50);
+      });
+    });
+
+    group('MCPUIJsonGenerator - Display Widgets', () {
+      test('creates text with style', () {
+        final text = MCPUIJsonGenerator.text(
+          'Hello World',
+          style: MCPUIJsonGenerator.textStyle(
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#2196F3',
+          ),
+          textAlign: 'center',
+        );
+
+        expect(text['type'], 'text');
+        expect(text['value'], 'Hello World');
+        expect(text['style']['fontSize'], 20);
+        expect(text['textAlign'], 'center');
+      });
+
+      test('creates image', () {
+        final image = MCPUIJsonGenerator.image(
+          src: 'https://example.com/image.png',
+          width: 200,
+          height: 150,
+          fit: 'contain',
+        );
+
+        expect(image['type'], 'image');
+        expect(image['src'], 'https://example.com/image.png');
+        expect(image['fit'], 'contain');
+      });
+
+      test('creates icon', () {
+        final icon = MCPUIJsonGenerator.icon(
+          icon: 'home',
+          size: 32,
+          color: '#FF0000',
+        );
+
+        expect(icon['type'], 'icon');
+        expect(icon['icon'], 'home');
+        expect(icon['size'], 32);
+      });
+
+      test('creates card', () {
+        final card = MCPUIJsonGenerator.card(
+          child: {'type': 'text', 'value': 'Card Content'},
+          elevation: 4,
+          margin: {'all': 8},
+        );
+
+        expect(card['type'], 'card');
+        expect(card['elevation'], 4);
+      });
+
+      test('creates divider', () {
+        final divider = MCPUIJsonGenerator.divider(
+          thickness: 2,
+          color: '#CCCCCC',
+        );
+
+        expect(divider['type'], 'divider');
+        expect(divider['thickness'], 2);
+      });
+    });
+
+    group('MCPUIJsonGenerator - Input Widgets', () {
+      test('creates button', () {
+        final button = MCPUIJsonGenerator.button(
+          label: 'Click Me',
+          click: MCPUIJsonGenerator.toolAction('handleClick'),
+          style: 'elevated',
+          icon: 'send',
+        );
+
+        expect(button['type'], 'button');
+        expect(button['label'], 'Click Me');
+        expect(button['click']['type'], 'tool');
+        expect(button['style'], 'elevated');
+      });
+
+      test('creates textInput', () {
+        final textInput = MCPUIJsonGenerator.textInput(
+          label: 'Username',
+          value: '{{username}}',
+          change: MCPUIJsonGenerator.stateAction(
+            action: 'set',
+            path: 'username',
+            value: '{{event.value}}',
+          ),
+          placeholder: 'Enter username',
+        );
+
+        expect(textInput['type'], 'text-input');
+        expect(textInput['label'], 'Username');
+        expect(textInput['change']['type'], 'state');
+      });
+
+      test('creates checkbox', () {
+        final checkbox = MCPUIJsonGenerator.checkbox(
+          value: '{{isChecked}}',
+          change: MCPUIJsonGenerator.stateAction(
+            action: 'toggle',
+            path: 'isChecked',
+          ),
+          label: 'Agree to terms',
+        );
+
+        expect(checkbox['type'], 'checkbox');
+        expect(checkbox['label'], 'Agree to terms');
+      });
+
+      test('creates toggle', () {
+        final toggle = MCPUIJsonGenerator.toggle(
+          value: '{{isEnabled}}',
+          change: MCPUIJsonGenerator.stateAction(
+            action: 'toggle',
+            path: 'isEnabled',
+          ),
+        );
+
+        expect(toggle['type'], 'toggle');
+        expect(toggle['change']['action'], 'toggle');
+      });
+
+      test('creates slider', () {
+        final slider = MCPUIJsonGenerator.slider(
+          value: '{{sliderValue}}',
+          change: MCPUIJsonGenerator.stateAction(
+            action: 'set',
+            path: 'sliderValue',
+          ),
+          min: 0,
+          max: 100,
+          divisions: 10,
+        );
+
+        expect(slider['type'], 'slider');
+        expect(slider['min'], 0);
+        expect(slider['max'], 100);
+      });
+
+      test('creates select', () {
+        final select = MCPUIJsonGenerator.select(
+          value: '{{selectedValue}}',
+          items: [
+            {'value': '1', 'label': 'Option 1'},
+            {'value': '2', 'label': 'Option 2'},
+          ],
+          change: MCPUIJsonGenerator.stateAction(
+            action: 'set',
+            path: 'selectedValue',
+          ),
+        );
+
+        expect(select['type'], 'select');
+        expect(select['items'].length, 2);
+      });
+    });
+
+    group('MCPUIJsonGenerator - List Widgets', () {
+      test('creates list', () {
+        final list = MCPUIJsonGenerator.list(
+          items: '{{items}}',
+          template: {'type': 'text', 'value': '{{item.name}}'},
+        );
+
+        expect(list['type'], 'list');
+        expect(list['items'], '{{items}}');
+        expect(list['template'], isNotNull);
+      });
+
+      test('creates grid', () {
+        final grid = MCPUIJsonGenerator.grid(
+          items: '{{products}}',
+          template: {'type': 'card', 'child': {'type': 'text'}},
+          crossAxisCount: 3,
+        );
+
+        expect(grid['type'], 'grid');
+        expect(grid['crossAxisCount'], 3);
+      });
+
+      test('creates listTile', () {
+        final listTile = MCPUIJsonGenerator.listTile(
+          title: 'Item Title',
+          subtitle: 'Item subtitle',
+          leading: {'type': 'icon', 'icon': 'folder'},
+          trailing: {'type': 'icon', 'icon': 'arrow_forward'},
+        );
+
+        expect(listTile['type'], 'listtile');
+        expect(listTile['title'], 'Item Title');
+      });
+    });
+
+    group('MCPUIJsonGenerator - Navigation Widgets', () {
+      test('creates headerBar', () {
+        final headerBar = MCPUIJsonGenerator.headerBar(
+          title: 'My App',
+          actions: [
+            {'type': 'icon', 'icon': 'search'},
+          ],
+          elevation: 8,
+        );
+
+        expect(headerBar['type'], 'header-bar');
+        expect(headerBar['title'], 'My App');
+        expect(headerBar['elevation'], 8);
+      });
+
+      test('creates bottomNavigation', () {
+        final bottomNav = MCPUIJsonGenerator.bottomNavigation(
+          items: [
+            {'icon': 'home', 'label': 'Home'},
+            {'icon': 'search', 'label': 'Search'},
+          ],
+          currentIndex: 0,
+          click: MCPUIJsonGenerator.stateAction(
+            action: 'set',
+            path: 'currentTab',
+          ),
+        );
+
+        expect(bottomNav['type'], 'bottom-navigation');
+        expect(bottomNav['items'].length, 2);
+        expect(bottomNav['currentIndex'], 0);
+      });
+
+      test('creates drawer', () {
+        final drawer = MCPUIJsonGenerator.drawer(
+          child: {'type': 'column', 'children': []},
+        );
+
+        expect(drawer['type'], 'drawer');
+        expect(drawer['child'], isNotNull);
+      });
+
+      test('creates floatingActionButton', () {
+        final fab = MCPUIJsonGenerator.floatingActionButton(
+          click: MCPUIJsonGenerator.toolAction('addItem'),
+          child: {'type': 'icon', 'icon': 'add'},
+          tooltip: 'Add new item',
+        );
+
+        expect(fab['type'], 'floatingactionbutton');
+        expect(fab['tooltip'], 'Add new item');
+      });
+    });
+
+    group('MCPUIJsonGenerator - Actions', () {
+      test('creates tool action', () {
+        final action = MCPUIJsonGenerator.toolAction(
+          'submitForm',
+          args: {'name': '{{name}}', 'email': '{{email}}'},
+          onSuccess: MCPUIJsonGenerator.navigationAction(
+            action: 'push',
+            route: '/success',
+          ),
+          onError: MCPUIJsonGenerator.stateAction(
+            action: 'set',
+            path: 'error',
+            value: '{{error.message}}',
+          ),
+        );
+
+        expect(action['type'], 'tool');
+        expect(action['tool'], 'submitForm');
+        expect(action['args'], isNotNull);
+        expect(action['onSuccess']['type'], 'navigation');
+        expect(action['onError']['type'], 'state');
+      });
+
+      test('creates state actions', () {
+        final setAction = MCPUIJsonGenerator.stateAction(
+          action: 'set',
+          path: 'username',
+          value: 'John',
+        );
+
+        final toggleAction = MCPUIJsonGenerator.stateAction(
+          action: 'toggle',
+          path: 'isEnabled',
+        );
+
+        expect(setAction['action'], 'set');
+        expect(setAction['value'], 'John');
+        expect(toggleAction['action'], 'toggle');
+        expect(toggleAction.containsKey('value'), false);
+      });
+
+      test('creates navigation action', () {
+        final action = MCPUIJsonGenerator.navigationAction(
+          action: 'push',
+          route: '/details',
+          params: {'id': '123'},
+        );
+
+        expect(action['type'], 'navigation');
+        expect(action['route'], '/details');
+        expect(action['params']['id'], '123');
+      });
+
+      test('creates resource action', () {
+        final subscribe = MCPUIJsonGenerator.resourceAction(
+          action: 'subscribe',
+          uri: 'data://temperature',
+          path: 'currentTemp',
+        );
+
+        final unsubscribe = MCPUIJsonGenerator.resourceAction(
+          action: 'unsubscribe',
+          uri: 'data://temperature',
+        );
+
+        expect(subscribe['binding'], 'currentTemp');
+        expect(unsubscribe.containsKey('binding'), false);
+      });
+
+      test('creates batch action', () {
+        final action = MCPUIJsonGenerator.batchAction(
+          actions: [
+            MCPUIJsonGenerator.stateAction(
+              action: 'set',
+              path: 'loading',
+              value: true,
+            ),
+            MCPUIJsonGenerator.toolAction('loadData'),
+          ],
+        );
+
+        expect(action['type'], 'batch');
+        expect(action['actions'].length, 2);
+      });
+
+      test('creates conditional action', () {
+        final action = MCPUIJsonGenerator.conditionalAction(
+          condition: '{{isLoggedIn}}',
+          then: MCPUIJsonGenerator.navigationAction(
+            action: 'push',
+            route: '/home',
+          ),
+          orElse: MCPUIJsonGenerator.navigationAction(
+            action: 'push',
+            route: '/login',
+          ),
+        );
+
+        expect(action['type'], 'conditional');
+        expect(action['condition'], '{{isLoggedIn}}');
+        expect(action['then'], isNotNull);
+        expect(action['else'], isNotNull);
+      });
+    });
+
+    group('MCPUIJsonGenerator - Styles', () {
+      test('creates textStyle', () {
+        final style = MCPUIJsonGenerator.textStyle(
+          fontSize: 16,
+          fontWeight: 'bold',
+          color: '#FF0000',
+        );
+
+        expect(style['fontSize'], 16);
+        expect(style['fontWeight'], 'bold');
+        expect(style['color'], '#FF0000');
+      });
+
+      test('creates edgeInsets variations', () {
+        final all = MCPUIJsonGenerator.edgeInsets(all: 16);
+        final symmetric = MCPUIJsonGenerator.edgeInsets(
+          horizontal: 20,
+          vertical: 10,
+        );
+        final individual = MCPUIJsonGenerator.edgeInsets(
+          left: 10,
+          top: 20,
+          right: 30,
+          bottom: 40,
+        );
+
+        expect(all, {'all': 16});
+        expect(symmetric['horizontal'], 20);
+        expect(individual['left'], 10);
+      });
+
+      test('creates decoration', () {
+        final decoration = MCPUIJsonGenerator.decoration(
+          color: '#FFFFFF',
+          borderRadius: 8,
+          border: MCPUIJsonGenerator.border(
+            color: '#000000',
+            width: 2,
+          ),
+        );
+
+        expect(decoration['color'], '#FFFFFF');
+        expect(decoration['borderRadius'], 8);
+        expect(decoration['border']['width'], 2);
+      });
+    });
+
+    group('MCPUIJsonGenerator - Helpers', () {
+      test('creates binding expression', () {
+        final binding = MCPUIJsonGenerator.binding('user.name');
+        expect(binding, '{{user.name}}');
+      });
+
+      test('creates conditional expression', () {
+        final conditional = MCPUIJsonGenerator.conditional(
+          'isLoggedIn',
+          'Welcome',
+          'Please login',
+        );
+        expect(conditional, '{{isLoggedIn ? Welcome : Please login}}');
+      });
+
+      test('generates pretty JSON', () {
+        final widget = {'type': 'text', 'value': 'Hello'};
+        final json = MCPUIJsonGenerator.toPrettyJson(widget);
+
+        expect(json.contains('{\n'), true);
+        expect(json.contains('"type": "text"'), true);
+      });
+
+      test('generates JSON file', () {
+        final testFile = 'test_output_complete.json';
+        final widget = {'type': 'text', 'value': 'Test'};
+
+        MCPUIJsonGenerator.generateJsonFile(widget, testFile);
+
+        final file = File(testFile);
+        expect(file.existsSync(), true);
+
+        // Cleanup
+        file.deleteSync();
+      });
+    });
+
+    group('MCPUIBuilder - Builders', () {
+      test('builds application with fluent API', () {
+        final app = MCPUIBuilder.application(
+          title: 'Test App',
+          version: '1.0.0',
+        )
+        .initialRoute('/home')
+        .addRoute('/home', 'ui://pages/home')
+        .addRoute('/settings', 'ui://pages/settings')
+        .theme({'primaryColor': '#2196F3'})
+        .navigation({'type': 'drawer'})
+        .initialState({'user': 'John'})
+        .build();
+
+        expect(app['type'], 'application');
+        expect(app['title'], 'Test App');
+        expect(app['initialRoute'], '/home');
+        expect(app['routes'].length, 2);
+        expect(app['theme'], isNotNull);
+        expect(app['navigation'], isNotNull);
+        expect(app['state']['initial']['user'], 'John');
+      });
+
+      test('builds page with lifecycle', () {
+        final page = MCPUIBuilder.page(title: 'Test Page')
+          .content(MCPUIJsonGenerator.text('Hello'))
+          .route('/test')
+          .initialState({'count': 0})
+          .onInit([MCPUIJsonGenerator.toolAction('loadData')])
+          .onDestroy([MCPUIJsonGenerator.toolAction('cleanup')])
+          .build();
+
+        expect(page['type'], 'page');
+        expect(page['title'], 'Test Page');
+        expect(page['lifecycle']['onInit'].length, 1);
+        expect(page['lifecycle']['onDestroy'].length, 1);
+      });
+
+      test('builds complex layouts', () {
+        final layout = MCPUIBuilder.container()
+          .padding(MCPUIJsonGenerator.edgeInsets(all: 16))
+          .child(
+            MCPUIBuilder.column()
+              .add(MCPUIJsonGenerator.text('Title'))
+              .add(MCPUIJsonGenerator.sizedBox(height: 20))
+              .add(MCPUIBuilder.row()
+                .add(MCPUIJsonGenerator.button(
+                  label: 'Cancel',
+                  click: MCPUIJsonGenerator.navigationAction(action: 'pop'),
+                ))
+                .add(MCPUIJsonGenerator.sizedBox(width: 8))
+                .add(MCPUIJsonGenerator.button(
+                  label: 'Submit',
+                  click: MCPUIJsonGenerator.toolAction('submit'),
+                ))
+                .build())
+              .build()
+          )
+          .build();
+
+        expect(layout['type'], 'container');
+        expect(layout['padding'], {'all': 16});
+        expect(layout['child']['type'], 'column');
+        expect(layout['child']['children'].length, 3);
+      });
+
+      test('builds list views', () {
+        final listView = MCPUIBuilder.listView(
+          items: '{{items}}',
+          itemTemplate: MCPUIJsonGenerator.listTile(
+            title: '{{item.name}}',
+            subtitle: '{{item.description}}',
+          ),
+        )
+        .itemSpacing(8)
+        .shrinkWrap(true)
+        .build();
+
+        expect(listView['type'], 'listview');
+        expect(listView['itemSpacing'], 8);
+        expect(listView['shrinkWrap'], true);
+      });
+
+      test('uses QuickBuilders', () {
+        final textButton = QuickBuilders.textButton(
+          'Click Me',
+          MCPUIJsonGenerator.toolAction('handleClick'),
+        );
+
+        final iconButton = QuickBuilders.iconButton(
+          label: 'Send',
+          icon: 'send',
+          click: MCPUIJsonGenerator.toolAction('send'),
+        );
+
+        final formField = QuickBuilders.formField(
+          label: 'Username',
+          path: 'username',
+          placeholder: 'Enter username',
+        );
+
+        final loading = QuickBuilders.loadingIndicator('Loading...');
+        final error = QuickBuilders.errorMessage('Something went wrong');
+
+        expect(textButton['style'], 'text');
+        expect(iconButton['icon'], 'send');
+        expect(formField['type'], 'text-input');
+        expect(loading['type'], 'center');
+        expect(error['type'], 'container');
+      });
+    });
+
+    group('Integration Tests', () {
+      test('creates complete application structure', () {
+        // Create application
+        final app = MCPUIBuilder.application(
+          title: 'Demo App',
+          version: '1.0.0',
+        )
+        .initialRoute('/login')
+        .addRoute('/login', 'ui://pages/login')
+        .addRoute('/home', 'ui://pages/home')
+        .addRoute('/profile', 'ui://pages/profile')
+        .theme({
+          'primaryColor': '#2196F3',
+          'accentColor': '#FF4081',
+        })
+        .navigation({
+          'type': 'bottomnavigationbar',
+          'items': [
+            {'icon': 'home', 'label': 'Home'},
+            {'icon': 'person', 'label': 'Profile'},
+          ],
+        })
+        .build();
+
+        // Create login page
+        final loginPage = MCPUIBuilder.page(title: 'Login')
+          .content(
+            MCPUIBuilder.center()
+              .child(
+                MCPUIBuilder.container()
+                  .padding(MCPUIJsonGenerator.edgeInsets(all: 32))
+                  .child(
+                    MCPUIBuilder.column()
+                      .add(MCPUIJsonGenerator.text(
+                        'Welcome',
+                        style: MCPUIJsonGenerator.textStyle(
+                          fontSize: 32,
+                          fontWeight: 'bold',
+                        ),
+                      ))
+                      .add(MCPUIJsonGenerator.sizedBox(height: 32))
+                      .add(MCPUIJsonGenerator.textInput(
+                        label: 'Email',
+                        value: '{{email}}',
+                        change: MCPUIJsonGenerator.stateAction(
+                          action: 'set',
+                          path: 'email',
+                          value: '{{event.value}}',
+                        ),
+                      ))
+                      .add(MCPUIJsonGenerator.sizedBox(height: 16))
+                      .add(MCPUIJsonGenerator.textInput(
+                        label: 'Password',
+                        value: '{{password}}',
+                        change: MCPUIJsonGenerator.stateAction(
+                          action: 'set',
+                          path: 'password',
+                          value: '{{event.value}}',
+                        ),
+                        obscureText: true,
+                      ))
+                      .add(MCPUIJsonGenerator.sizedBox(height: 32))
+                      .add(MCPUIJsonGenerator.button(
+                        label: 'Login',
+                        click: MCPUIJsonGenerator.toolAction(
+                          'login',
+                          args: {
+                            'email': '{{email}}',
+                            'password': '{{password}}',
+                          },
+                          onSuccess: MCPUIJsonGenerator.navigationAction(
+                            action: 'pushReplacement',
+                            route: '/home',
+                          ),
+                          onError: MCPUIJsonGenerator.stateAction(
+                            action: 'set',
+                            path: 'error',
+                            value: '{{error.message}}',
+                          ),
+                        ),
+                      ))
+                      .build()
+                  )
+                  .build()
+              )
+              .build()
+          )
+          .initialState({
+            'email': '',
+            'password': '',
+            'error': '',
+          })
+          .build();
+
+        // Verify structure
+        expect(app['type'], 'application');
+        expect(app['routes'].length, 3);
+        expect(loginPage['type'], 'page');
+        expect(loginPage['content']['type'], 'center');
+        
+        // Verify can convert to JSON
+        final appJson = MCPUIJsonGenerator.toPrettyJson(app);
+        final pageJson = MCPUIJsonGenerator.toPrettyJson(loginPage);
+        
+        expect(appJson.contains('"type": "application"'), true);
+        expect(pageJson.contains('"type": "page"'), true);
+      });
+    });
+  });
+}

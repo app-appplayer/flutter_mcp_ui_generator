@@ -16,7 +16,7 @@
                 "value": "Current Temperature",
                 "style": {
                   "fontSize": 18.0,
-                  "color": "#666666"
+                  "color": "#FF666666"
                 }
               },
               {
@@ -29,7 +29,7 @@
                 "style": {
                   "fontSize": 48.0,
                   "fontWeight": "bold",
-                  "color": "#1976D2"
+                  "color": "#FF1976D2"
                 }
               }
             ],
@@ -53,7 +53,7 @@
           {
             "type": "button",
             "label": "Subscribe",
-            "onTap": {
+            "click": {
               "type": "resource",
               "action": "subscribe",
               "uri": "data://temperature",
@@ -70,7 +70,7 @@
           {
             "type": "button",
             "label": "Unsubscribe",
-            "onTap": {
+            "click": {
               "type": "resource",
               "action": "unsubscribe",
               "uri": "data://temperature"

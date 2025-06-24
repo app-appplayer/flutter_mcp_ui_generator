@@ -11,9 +11,9 @@
           {
             "type": "button",
             "label": "",
-            "onTap": {
+            "click": {
               "type": "tool",
-              "tool": "refreshWeather"
+              "name": "refreshWeather"
             },
             "style": "text",
             "icon": "refresh",
@@ -53,7 +53,7 @@
                         "value": "{{currentWeather.date}}",
                         "style": {
                           "fontSize": 16.0,
-                          "color": "#666666"
+                          "color": "#FF666666"
                         }
                       },
                       {
@@ -67,7 +67,7 @@
                             "type": "icon",
                             "icon": "wb_sunny",
                             "size": 64.0,
-                            "color": "#FF9800"
+                            "color": "#FFFF9800"
                           },
                           {
                             "type": "sizedbox",
@@ -115,7 +115,7 @@
                                 "type": "icon",
                                 "icon": "air",
                                 "size": 24.0,
-                                "color": "#2196F3"
+                                "color": "#FF2196F3"
                               },
                               {
                                 "type": "text",
@@ -140,7 +140,7 @@
                                 "type": "icon",
                                 "icon": "water_drop",
                                 "size": 24.0,
-                                "color": "#4CAF50"
+                                "color": "#FF4CAF50"
                               },
                               {
                                 "type": "text",
@@ -165,7 +165,7 @@
                                 "type": "icon",
                                 "icon": "visibility",
                                 "size": 24.0,
-                                "color": "#9C27B0"
+                                "color": "#FF9C27B0"
                               },
                               {
                                 "type": "text",
@@ -238,7 +238,7 @@
                             "type": "icon",
                             "icon": "{{item.icon}}",
                             "size": 24.0,
-                            "color": "#FF9800"
+                            "color": "#FFFF9800"
                           },
                           {
                             "type": "text",
@@ -296,7 +296,7 @@
                         "type": "icon",
                         "icon": "{{item.icon}}",
                         "size": 32.0,
-                        "color": "#FF9800"
+                        "color": "#FFFF9800"
                       },
                       "trailing": {
                         "type": "row",
@@ -316,7 +316,7 @@
                             "type": "text",
                             "value": "{{item.low}}°",
                             "style": {
-                              "color": "#666666"
+                              "color": "#FF666666"
                             }
                           }
                         ],
@@ -451,7 +451,7 @@
     "onInit": [
       {
         "type": "tool",
-        "tool": "loadWeatherData"
+        "name": "loadWeatherData"
       }
     ]
   }

@@ -54,7 +54,7 @@
       "decoration": {
         "borderRadius": 8.0,
         "border": {
-          "color": "#E0E0E0",
+          "color": "#FFE0E0E0",
           "width": 1.0,
           "style": "solid"
         }
@@ -108,7 +108,7 @@
                       "type": "text",
                       "value": "{{item.price}}",
                       "style": {
-                        "color": "#4CAF50"
+                        "color": "#FF4CAF50"
                       }
                     }
                   ],
@@ -136,7 +136,7 @@
       "decoration": {
         "borderRadius": 8.0,
         "border": {
-          "color": "#E0E0E0",
+          "color": "#FFE0E0E0",
           "width": 1.0,
           "style": "solid"
         }
@@ -171,7 +171,7 @@
               "type": "icon",
               "icon": "person",
               "size": 24.0,
-              "color": "#2196F3"
+              "color": "#FF2196F3"
             },
             "trailing": {
               "type": "icon",
@@ -191,7 +191,7 @@
               "type": "icon",
               "icon": "settings",
               "size": 24.0,
-              "color": "#9C27B0"
+              "color": "#FF9C27B0"
             },
             "trailing": {
               "type": "icon",
@@ -211,7 +211,7 @@
               "type": "icon",
               "icon": "help",
               "size": 24.0,
-              "color": "#FF9800"
+              "color": "#FFFF9800"
             },
             "trailing": {
               "type": "icon",

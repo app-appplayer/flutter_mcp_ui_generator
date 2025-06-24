@@ -48,8 +48,8 @@ void main() {
     });
 
     group('MCPUIJsonGenerator - Layout Widgets', () {
-      test('creates container with all properties', () {
-        final container = MCPUIJsonGenerator.container(
+      test('creates box with all properties', () {
+        final box = MCPUIJsonGenerator.box(
           child: {'type': 'text', 'value': 'Child'},
           width: 100,
           height: 200,
@@ -59,38 +59,39 @@ void main() {
           color: '#00FF00',
         );
 
-        expect(container['type'], 'container');
-        expect(container['child'], isNotNull);
-        expect(container['width'], 100);
-        expect(container['height'], 200);
+        expect(box['type'], 'box');
+        expect(box['child'], isNotNull);
+        expect(box['width'], 100);
+        expect(box['height'], 200);
       });
 
-      test('creates column with children', () {
-        final column = MCPUIJsonGenerator.column(
+      test('creates linear layout with children', () {
+        final linear = MCPUIJsonGenerator.linear(
+          direction: 'vertical',
           children: [
             {'type': 'text', 'value': 'Item 1'},
             {'type': 'text', 'value': 'Item 2'},
           ],
-          mainAxisAlignment: 'center',
-          crossAxisAlignment: 'start',
-          mainAxisSize: 'min',
+          distribution: 'center',
+          alignment: 'start',
         );
 
-        expect(column['type'], 'column');
-        expect(column['children'].length, 2);
-        expect(column['mainAxisAlignment'], 'center');
+        expect(linear['type'], 'linear');
+        expect(linear['children'].length, 2);
+        expect(linear['distribution'], 'center');
       });
 
-      test('creates row with children', () {
-        final row = MCPUIJsonGenerator.row(
+      test('creates horizontal linear layout with children', () {
+        final linear = MCPUIJsonGenerator.linear(
+          direction: 'horizontal',
           children: [
             {'type': 'text', 'value': 'Left'},
             {'type': 'text', 'value': 'Right'},
           ],
         );
 
-        expect(row['type'], 'row');
-        expect(row['children'].length, 2);
+        expect(linear['type'], 'linear');
+        expect(linear['children'].length, 2);
       });
 
       test('creates stack', () {
@@ -218,40 +219,40 @@ void main() {
       test('creates button', () {
         final button = MCPUIJsonGenerator.button(
           label: 'Click Me',
-          onTap: MCPUIJsonGenerator.toolAction('handleClick'),
+          click: MCPUIJsonGenerator.toolAction('handleClick'),
           style: 'elevated',
           icon: 'send',
         );
 
         expect(button['type'], 'button');
         expect(button['label'], 'Click Me');
-        expect(button['onTap']['type'], 'tool');
+        expect(button['click']['type'], 'tool');
         expect(button['style'], 'elevated');
       });
 
-      test('creates textField', () {
-        final textField = MCPUIJsonGenerator.textField(
+      test('creates textInput', () {
+        final textInput = MCPUIJsonGenerator.textInput(
           label: 'Username',
           value: '{{username}}',
-          onChange: MCPUIJsonGenerator.stateAction(
+          change: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            binding: 'username',
+            path: 'username',
             value: '{{event.value}}',
           ),
           placeholder: 'Enter username',
         );
 
-        expect(textField['type'], 'textfield');
-        expect(textField['label'], 'Username');
-        expect(textField['onChange']['type'], 'state');
+        expect(textInput['type'], 'text-input');
+        expect(textInput['label'], 'Username');
+        expect(textInput['change']['type'], 'state');
       });
 
       test('creates checkbox', () {
         final checkbox = MCPUIJsonGenerator.checkbox(
           value: '{{isChecked}}',
-          onChange: MCPUIJsonGenerator.stateAction(
+          change: MCPUIJsonGenerator.stateAction(
             action: 'toggle',
-            binding: 'isChecked',
+            path: 'isChecked',
           ),
           label: 'Agree to terms',
         );
@@ -260,25 +261,25 @@ void main() {
         expect(checkbox['label'], 'Agree to terms');
       });
 
-      test('creates switch', () {
-        final switchWidget = MCPUIJsonGenerator.switchWidget(
+      test('creates toggle', () {
+        final toggle = MCPUIJsonGenerator.toggle(
           value: '{{isEnabled}}',
-          onChange: MCPUIJsonGenerator.stateAction(
+          change: MCPUIJsonGenerator.stateAction(
             action: 'toggle',
-            binding: 'isEnabled',
+            path: 'isEnabled',
           ),
         );
 
-        expect(switchWidget['type'], 'switch');
-        expect(switchWidget['onChange']['action'], 'toggle');
+        expect(toggle['type'], 'toggle');
+        expect(toggle['change']['action'], 'toggle');
       });
 
       test('creates slider', () {
         final slider = MCPUIJsonGenerator.slider(
           value: '{{sliderValue}}',
-          onChange: MCPUIJsonGenerator.stateAction(
+          change: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            binding: 'sliderValue',
+            path: 'sliderValue',
           ),
           min: 0,
           max: 100,
@@ -290,47 +291,45 @@ void main() {
         expect(slider['max'], 100);
       });
 
-      test('creates dropdown', () {
-        final dropdown = MCPUIJsonGenerator.dropdown(
+      test('creates select', () {
+        final select = MCPUIJsonGenerator.select(
           value: '{{selectedValue}}',
           items: [
             {'value': '1', 'label': 'Option 1'},
             {'value': '2', 'label': 'Option 2'},
           ],
-          onChange: MCPUIJsonGenerator.stateAction(
+          change: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            binding: 'selectedValue',
+            path: 'selectedValue',
           ),
         );
 
-        expect(dropdown['type'], 'dropdown');
-        expect(dropdown['items'].length, 2);
+        expect(select['type'], 'select');
+        expect(select['items'].length, 2);
       });
     });
 
     group('MCPUIJsonGenerator - List Widgets', () {
-      test('creates listView', () {
-        final listView = MCPUIJsonGenerator.listView(
+      test('creates list', () {
+        final list = MCPUIJsonGenerator.list(
           items: '{{items}}',
-          itemTemplate: {'type': 'text', 'value': '{{item.name}}'},
-          itemSpacing: 8,
-          shrinkWrap: true,
+          template: {'type': 'text', 'value': '{{item.name}}'},
         );
 
-        expect(listView['type'], 'listview');
-        expect(listView['items'], '{{items}}');
-        expect(listView['itemSpacing'], 8);
+        expect(list['type'], 'list');
+        expect(list['items'], '{{items}}');
+        expect(list['template'], isNotNull);
       });
 
-      test('creates gridView', () {
-        final gridView = MCPUIJsonGenerator.gridView(
+      test('creates grid', () {
+        final grid = MCPUIJsonGenerator.grid(
           items: '{{products}}',
-          itemTemplate: {'type': 'card', 'child': {'type': 'text'}},
+          template: {'type': 'card', 'child': {'type': 'text'}},
           crossAxisCount: 3,
         );
 
-        expect(gridView['type'], 'gridview');
-        expect(gridView['crossAxisCount'], 3);
+        expect(grid['type'], 'grid');
+        expect(grid['crossAxisCount'], 3);
       });
 
       test('creates listTile', () {
@@ -347,8 +346,8 @@ void main() {
     });
 
     group('MCPUIJsonGenerator - Navigation Widgets', () {
-      test('creates appBar', () {
-        final appBar = MCPUIJsonGenerator.appBar(
+      test('creates headerBar', () {
+        final headerBar = MCPUIJsonGenerator.headerBar(
           title: 'My App',
           actions: [
             {'type': 'icon', 'icon': 'search'},
@@ -356,25 +355,25 @@ void main() {
           elevation: 8,
         );
 
-        expect(appBar['type'], 'appbar');
-        expect(appBar['title'], 'My App');
-        expect(appBar['elevation'], 8);
+        expect(headerBar['type'], 'header-bar');
+        expect(headerBar['title'], 'My App');
+        expect(headerBar['elevation'], 8);
       });
 
-      test('creates bottomNavigationBar', () {
-        final bottomNav = MCPUIJsonGenerator.bottomNavigationBar(
+      test('creates bottomNavigation', () {
+        final bottomNav = MCPUIJsonGenerator.bottomNavigation(
           items: [
             {'icon': 'home', 'label': 'Home'},
             {'icon': 'search', 'label': 'Search'},
           ],
           currentIndex: 0,
-          onTap: MCPUIJsonGenerator.stateAction(
+          click: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            binding: 'currentTab',
+            path: 'currentTab',
           ),
         );
 
-        expect(bottomNav['type'], 'bottomnavigationbar');
+        expect(bottomNav['type'], 'bottom-navigation');
         expect(bottomNav['items'].length, 2);
         expect(bottomNav['currentIndex'], 0);
       });
@@ -390,7 +389,7 @@ void main() {
 
       test('creates floatingActionButton', () {
         final fab = MCPUIJsonGenerator.floatingActionButton(
-          onPressed: MCPUIJsonGenerator.toolAction('addItem'),
+          click: MCPUIJsonGenerator.toolAction('addItem'),
           child: {'type': 'icon', 'icon': 'add'},
           tooltip: 'Add new item',
         );
@@ -404,14 +403,14 @@ void main() {
       test('creates tool action', () {
         final action = MCPUIJsonGenerator.toolAction(
           'submitForm',
-          args: {'name': '{{name}}', 'email': '{{email}}'},
+          params: {'name': '{{name}}', 'email': '{{email}}'},
           onSuccess: MCPUIJsonGenerator.navigationAction(
             action: 'push',
             route: '/success',
           ),
           onError: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            binding: 'error',
+            path: 'error',
             value: '{{error.message}}',
           ),
         );
@@ -426,13 +425,13 @@ void main() {
       test('creates state actions', () {
         final setAction = MCPUIJsonGenerator.stateAction(
           action: 'set',
-          binding: 'username',
+          path: 'username',
           value: 'John',
         );
 
         final toggleAction = MCPUIJsonGenerator.stateAction(
           action: 'toggle',
-          binding: 'isEnabled',
+          path: 'isEnabled',
         );
 
         expect(setAction['action'], 'set');
@@ -457,7 +456,7 @@ void main() {
         final subscribe = MCPUIJsonGenerator.resourceAction(
           action: 'subscribe',
           uri: 'data://temperature',
-          binding: 'currentTemp',
+          path: 'currentTemp',
         );
 
         final unsubscribe = MCPUIJsonGenerator.resourceAction(
@@ -474,7 +473,7 @@ void main() {
           actions: [
             MCPUIJsonGenerator.stateAction(
               action: 'set',
-              binding: 'loading',
+              path: 'loading',
               value: true,
             ),
             MCPUIJsonGenerator.toolAction('loadData'),
@@ -637,12 +636,12 @@ void main() {
               .add(MCPUIBuilder.row()
                 .add(MCPUIJsonGenerator.button(
                   label: 'Cancel',
-                  onTap: MCPUIJsonGenerator.navigationAction(action: 'pop'),
+                  click: MCPUIJsonGenerator.navigationAction(action: 'pop'),
                 ))
                 .add(MCPUIJsonGenerator.sizedBox(width: 8))
                 .add(MCPUIJsonGenerator.button(
                   label: 'Submit',
-                  onTap: MCPUIJsonGenerator.toolAction('submit'),
+                  click: MCPUIJsonGenerator.toolAction('submit'),
                 ))
                 .build())
               .build()
@@ -681,12 +680,12 @@ void main() {
         final iconButton = QuickBuilders.iconButton(
           label: 'Send',
           icon: 'send',
-          onTap: MCPUIJsonGenerator.toolAction('send'),
+          click: MCPUIJsonGenerator.toolAction('send'),
         );
 
         final formField = QuickBuilders.formField(
           label: 'Username',
-          binding: 'username',
+          path: 'username',
           placeholder: 'Enter username',
         );
 
@@ -695,7 +694,7 @@ void main() {
 
         expect(textButton['style'], 'text');
         expect(iconButton['icon'], 'send');
-        expect(formField['type'], 'textfield');
+        expect(formField['type'], 'text-input');
         expect(loading['type'], 'center');
         expect(error['type'], 'container');
       });
@@ -742,22 +741,22 @@ void main() {
                         ),
                       ))
                       .add(MCPUIJsonGenerator.sizedBox(height: 32))
-                      .add(MCPUIJsonGenerator.textField(
+                      .add(MCPUIJsonGenerator.textInput(
                         label: 'Email',
                         value: '{{email}}',
-                        onChange: MCPUIJsonGenerator.stateAction(
+                        change: MCPUIJsonGenerator.stateAction(
                           action: 'set',
-                          binding: 'email',
+                          path: 'email',
                           value: '{{event.value}}',
                         ),
                       ))
                       .add(MCPUIJsonGenerator.sizedBox(height: 16))
-                      .add(MCPUIJsonGenerator.textField(
+                      .add(MCPUIJsonGenerator.textInput(
                         label: 'Password',
                         value: '{{password}}',
-                        onChange: MCPUIJsonGenerator.stateAction(
+                        change: MCPUIJsonGenerator.stateAction(
                           action: 'set',
-                          binding: 'password',
+                          path: 'password',
                           value: '{{event.value}}',
                         ),
                         obscureText: true,
@@ -765,9 +764,9 @@ void main() {
                       .add(MCPUIJsonGenerator.sizedBox(height: 32))
                       .add(MCPUIJsonGenerator.button(
                         label: 'Login',
-                        onTap: MCPUIJsonGenerator.toolAction(
+                        click: MCPUIJsonGenerator.toolAction(
                           'login',
-                          args: {
+                          params: {
                             'email': '{{email}}',
                             'password': '{{password}}',
                           },
@@ -777,7 +776,7 @@ void main() {
                           ),
                           onError: MCPUIJsonGenerator.stateAction(
                             action: 'set',
-                            binding: 'error',
+                            path: 'error',
                             value: '{{error.message}}',
                           ),
                         ),

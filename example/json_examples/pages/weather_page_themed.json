@@ -183,9 +183,9 @@
             "type": "button",
             "label": "Refresh",
             "style": "elevated",
-            "onTap": {
+            "click": {
               "type": "tool",
-              "tool": "refreshWeather"
+              "name": "refreshWeather"
             }
           },
           {
@@ -196,7 +196,7 @@
             "type": "button",
             "label": "Toggle Theme",
             "style": "outlined",
-            "onTap": {
+            "click": {
               "type": "state",
               "action": "set",
               "binding": "themeMode",

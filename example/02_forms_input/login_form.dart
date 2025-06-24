@@ -1,244 +1,223 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import 'dart:io';
+import 'dart:convert';
 
-/// Login Form Example
+/// Login Form Analysis Example
 /// 
-/// This example shows how to create a login form.
-/// It includes text fields, buttons, validation, and error handling.
+/// This example demonstrates analyzing existing Flutter login forms and converting them to MCP UI DSL.
+/// It shows pattern recognition for form layouts, input validation, and user authentication flows.
 void main() {
-  // Create login page
-  final loginPage = MCPUIJsonGenerator.page(
+  print('=== Login Form Analysis Example ===\n');
+  
+  print('Analyzing Flutter login form patterns...');
+  _analyzeLoginFormPatterns();
+  
+  print('\nGenerating MCP UI login form from analysis...');
+  _generateMcpLoginForm();
+  
+  print('\n=== Analysis complete! ===');
+  print('Check the results:');
+  print('- login_form_analysis.json');
+  print('- mcp_login_form.json');
+}
+
+void _analyzeLoginFormPatterns() {
+  print('  Detecting common login form patterns...');
+  
+  // Simulate analyzing existing Flutter login forms
+  final loginFormAnalysis = {
+    'form_structure': {
+      'container_pattern': 'Card with padding and elevation for form container',
+      'layout_pattern': 'Column with centered alignment and proper spacing',
+      'title_section': 'Icon + Welcome text + subtitle description',
+      'input_section': 'Email field + Password field with validation',
+      'action_section': 'Login button + forgot password link + signup link',
+      'error_handling': 'Conditional error message display'
+    },
+    'detected_widgets': [
+      {
+        'type': 'Container',
+        'usage': 'Form wrapper with padding and constraints',
+        'properties': ['padding', 'width', 'alignment']
+      },
+      {
+        'type': 'Card', 
+        'usage': 'Elevated form container',
+        'properties': ['elevation', 'child']
+      },
+      {
+        'type': 'Column',
+        'usage': 'Vertical form layout',
+        'properties': ['children', 'mainAxisAlignment', 'crossAxisAlignment']
+      },
+      {
+        'type': 'TextFormField',
+        'usage': 'Email and password input',
+        'properties': ['decoration', 'validator', 'obscureText', 'controller']
+      },
+      {
+        'type': 'ElevatedButton',
+        'usage': 'Primary login action',
+        'properties': ['onPressed', 'child', 'style']
+      },
+      {
+        'type': 'TextButton',
+        'usage': 'Secondary actions (forgot password, signup)',
+        'properties': ['onPressed', 'child']
+      }
+    ],
+    'validation_patterns': [
+      'Email format validation using RegExp',
+      'Password strength requirements',
+      'Required field validation',
+      'Real-time validation feedback'
+    ],
+    'state_management': [
+      'Form state tracking (email, password, loading, error)',
+      'Validation state per field',
+      'Loading state during authentication',
+      'Error state display and clearing'
+    ]
+  };
+  
+  // Save analysis results
+  _saveAnalysisResult('login_form_analysis.json', loginFormAnalysis);
+  print('  ✓ Login form patterns analyzed');
+}
+
+void _generateMcpLoginForm() {
+  print('  Converting analyzed patterns to MCP UI DSL...');
+  
+  // Convert the analyzed patterns to MCP UI components
+  final mcpLoginForm = MCPUIJsonGenerator.page(
     title: 'Login',
-    content: MCPUIJsonGenerator.container(
-      padding: MCPUIJsonGenerator.edgeInsets(all: 24),
-      child: MCPUIJsonGenerator.center(
-        child: MCPUIJsonGenerator.container(
-          width: 400,
-          child: MCPUIJsonGenerator.card(
-            elevation: 8,
-            child: MCPUIJsonGenerator.padding(
-              padding: MCPUIJsonGenerator.edgeInsets(all: 32),
-              child: MCPUIJsonGenerator.column(
-                mainAxisSize: 'min',
-                children: [
-                  // Logo/Title
-                  MCPUIJsonGenerator.icon(
-                    icon: 'lock',
-                    size: 64,
-                    color: '#2196F3',
+    content: MCPUIJsonGenerator.center(
+      child: MCPUIJsonGenerator.box(
+        width: 400.0,
+        padding: MCPUIJsonGenerator.edgeInsets(all: 24),
+        child: MCPUIJsonGenerator.card(
+          elevation: 8.0,
+          child: MCPUIJsonGenerator.padding(
+            padding: MCPUIJsonGenerator.edgeInsets(all: 32),
+            child: MCPUIJsonGenerator.linear(
+              direction: 'vertical',
+              alignment: 'center',
+              children: [
+                // Header section
+                MCPUIJsonGenerator.icon(
+                  icon: 'lock',
+                  size: 64.0,
+                  color: '#2196F3',
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 16),
+                MCPUIJsonGenerator.text(
+                  'Welcome Back',
+                  style: MCPUIJsonGenerator.textStyle(
+                    fontSize: 28.0,
+                    fontWeight: 'bold',
+                    color: '#333333',
                   ),
-                  MCPUIJsonGenerator.sizedBox(height: 16),
-                  MCPUIJsonGenerator.text(
-                    'Welcome Back',
-                    style: MCPUIJsonGenerator.textStyle(
-                      fontSize: 28,
-                      fontWeight: 'bold',
-                      color: '#333333',
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 8),
+                MCPUIJsonGenerator.text(
+                  'Please sign in to your account',
+                  style: MCPUIJsonGenerator.textStyle(
+                    fontSize: 16.0,
+                    color: '#666666',
+                  ),
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 32),
+                
+                // Error message (conditional)
+                MCPUIJsonGenerator.conditionalWidget(
+                  condition: '{{loginForm.error != null}}',
+                  then: MCPUIJsonGenerator.box(
+                    padding: MCPUIJsonGenerator.edgeInsets(all: 12),
+                    decoration: MCPUIJsonGenerator.decoration(
+                      color: '#FFEBEE',
+                      borderRadius: 4.0,
+                      border: MCPUIJsonGenerator.border(color: '#F44336', width: 1),
+                    ),
+                    child: MCPUIJsonGenerator.text(
+                      MCPUIJsonGenerator.binding('loginForm.error'),
+                      style: MCPUIJsonGenerator.textStyle(color: '#D32F2F'),
                     ),
                   ),
-                  MCPUIJsonGenerator.sizedBox(height: 8),
-                  MCPUIJsonGenerator.text(
-                    'Please sign in to your account',
-                    style: MCPUIJsonGenerator.textStyle(
-                      fontSize: 16,
-                      color: '#666666',
+                  orElse: MCPUIJsonGenerator.sizedBox(height: 0),
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 16),
+                
+                // Email field
+                MCPUIJsonGenerator.textInput(
+                  label: 'Email',
+                  placeholder: 'Enter your email address',
+                  value: MCPUIJsonGenerator.binding('loginForm.email'),
+                  change: MCPUIJsonGenerator.stateAction(
+                    action: 'set',
+                    path: 'loginForm.email',
+                    value: '{{event.value}}',
+                  ),
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 16),
+                
+                // Password field
+                MCPUIJsonGenerator.textInput(
+                  label: 'Password',
+                  placeholder: 'Enter your password',
+                  value: MCPUIJsonGenerator.binding('loginForm.password'),
+                  change: MCPUIJsonGenerator.stateAction(
+                    action: 'set',
+                    path: 'loginForm.password',
+                    value: '{{event.value}}',
+                  ),
+                  obscureText: true,
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 24),
+                
+                // Login button
+                MCPUIJsonGenerator.button(
+                  label: MCPUIJsonGenerator.conditional(
+                    '{{loginForm.loading}}',
+                    'Signing in...',
+                    'Sign In',
+                  ),
+                  click: MCPUIJsonGenerator.toolAction(
+                    'authenticateUser',
+                    params: {
+                      'email': '{{loginForm.email}}',
+                      'password': '{{loginForm.password}}',
+                    },
+                  ),
+                  disabled: false,
+                  style: 'elevated',
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 16),
+                
+                // Forgot password link
+                MCPUIJsonGenerator.button(
+                  label: 'Forgot Password?',
+                  click: MCPUIJsonGenerator.navigationAction(action: 'push', route: '/forgot-password'),
+                  style: 'text',
+                ),
+                MCPUIJsonGenerator.sizedBox(height: 8),
+                
+                // Signup link
+                MCPUIJsonGenerator.linear(
+                  direction: 'horizontal',
+                  alignment: 'center',
+                  children: [
+                    MCPUIJsonGenerator.text(
+                      "Don't have an account? ",
+                      style: MCPUIJsonGenerator.textStyle(color: '#666666'),
                     ),
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 32),
-                  
-                  // Error message (conditional display)
-                  MCPUIJsonGenerator.container(
-                    child: QuickBuilders.errorMessage('{{error}}'),
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 16),
-                  
-                  // Email input field
-                  MCPUIJsonGenerator.textField(
-                    label: 'Email',
-                    placeholder: 'Enter your email address',
-                    value: '{{email}}',
-                    onChange: MCPUIJsonGenerator.batchAction(
-                      actions: [
-                        MCPUIJsonGenerator.stateAction(
-                          action: 'set',
-                          binding: 'email',
-                          value: '{{event.value}}',
-                        ),
-                        MCPUIJsonGenerator.stateAction(
-                          action: 'set',
-                          binding: 'error',
-                          value: '',
-                        ),
-                      ],
+                    MCPUIJsonGenerator.button(
+                      label: 'Sign Up',
+                      click: MCPUIJsonGenerator.navigationAction(action: 'push', route: '/signup'),
+                      style: 'text',
                     ),
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 16),
-                  
-                  // Password input field
-                  MCPUIJsonGenerator.textField(
-                    label: 'Password',
-                    placeholder: 'Enter your password',
-                    value: '{{password}}',
-                    obscureText: true,
-                    onChange: MCPUIJsonGenerator.batchAction(
-                      actions: [
-                        MCPUIJsonGenerator.stateAction(
-                          action: 'set',
-                          binding: 'password',
-                          value: '{{event.value}}',
-                        ),
-                        MCPUIJsonGenerator.stateAction(
-                          action: 'set',
-                          binding: 'error',
-                          value: '',
-                        ),
-                      ],
-                    ),
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 8),
-                  
-                  // Show password checkbox
-                  MCPUIJsonGenerator.row(
-                    children: [
-                      MCPUIJsonGenerator.checkbox(
-                        value: '{{showPassword}}',
-                        onChange: MCPUIJsonGenerator.stateAction(
-                          action: 'toggle',
-                          binding: 'showPassword',
-                        ),
-                      ),
-                      MCPUIJsonGenerator.sizedBox(width: 8),
-                      MCPUIJsonGenerator.text('Show password'),
-                    ],
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 24),
-                  
-                  // Login button
-                  MCPUIJsonGenerator.container(
-                    child: MCPUIJsonGenerator.button(
-                      label: '{{isLoading ? "Logging in..." : "Login"}}',
-                      style: 'elevated',
-                      onTap: MCPUIJsonGenerator.batchAction(
-                        actions: [
-                          // Start loading state
-                          MCPUIJsonGenerator.stateAction(
-                            action: 'set',
-                            binding: 'isLoading',
-                            value: true,
-                          ),
-                          MCPUIJsonGenerator.stateAction(
-                            action: 'set',
-                            binding: 'error',
-                            value: '',
-                          ),
-                          // Login attempt
-                          MCPUIJsonGenerator.toolAction(
-                            'authenticate',
-                            args: {
-                              'email': '{{email}}',
-                              'password': '{{password}}',
-                            },
-                            onSuccess: MCPUIJsonGenerator.batchAction(
-                              actions: [
-                                MCPUIJsonGenerator.stateAction(
-                                  action: 'set',
-                                  binding: 'isLoading',
-                                  value: false,
-                                ),
-                                MCPUIJsonGenerator.navigationAction(
-                                  action: 'pushReplacement',
-                                  route: '/dashboard',
-                                ),
-                              ],
-                            ),
-                            onError: MCPUIJsonGenerator.batchAction(
-                              actions: [
-                                MCPUIJsonGenerator.stateAction(
-                                  action: 'set',
-                                  binding: 'isLoading',
-                                  value: false,
-                                ),
-                                MCPUIJsonGenerator.stateAction(
-                                  action: 'set',
-                                  binding: 'error',
-                                  value: '{{error.message}}',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 16),
-                  
-                  // Forgot password link
-                  MCPUIJsonGenerator.button(
-                    label: 'Forgot password?',
-                    style: 'text',
-                    onTap: MCPUIJsonGenerator.navigationAction(
-                      action: 'push',
-                      route: '/forgot-password',
-                    ),
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 24),
-                  
-                  // Divider
-                  MCPUIJsonGenerator.row(
-                    children: [
-                      MCPUIJsonGenerator.expanded(
-                        child: MCPUIJsonGenerator.divider(),
-                      ),
-                      MCPUIJsonGenerator.padding(
-                        padding: MCPUIJsonGenerator.edgeInsets(horizontal: 16),
-                        child: MCPUIJsonGenerator.text(
-                          'OR',
-                          style: MCPUIJsonGenerator.textStyle(color: '#999999'),
-                        ),
-                      ),
-                      MCPUIJsonGenerator.expanded(
-                        child: MCPUIJsonGenerator.divider(),
-                      ),
-                    ],
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 24),
-                  
-                  // Social login buttons
-                  MCPUIJsonGenerator.row(
-                    mainAxisAlignment: 'spaceEvenly',
-                    children: [
-                      MCPUIJsonGenerator.button(
-                        label: 'Google',
-                        style: 'outlined',
-                        icon: 'login',
-                        onTap: MCPUIJsonGenerator.toolAction('socialLogin', args: {'provider': 'google'}),
-                      ),
-                      MCPUIJsonGenerator.button(
-                        label: 'Facebook',
-                        style: 'outlined',
-                        icon: 'login',
-                        onTap: MCPUIJsonGenerator.toolAction('socialLogin', args: {'provider': 'facebook'}),
-                      ),
-                    ],
-                  ),
-                  MCPUIJsonGenerator.sizedBox(height: 24),
-                  
-                  // Sign up link
-                  MCPUIJsonGenerator.row(
-                    mainAxisAlignment: 'center',
-                    children: [
-                      MCPUIJsonGenerator.text("Don't have an account? "),
-                      MCPUIJsonGenerator.button(
-                        label: 'Sign up',
-                        style: 'text',
-                        onTap: MCPUIJsonGenerator.navigationAction(
-                          action: 'push',
-                          route: '/signup',
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -246,24 +225,36 @@ void main() {
     ),
     state: {
       'initial': {
-        'email': '',
-        'password': '',
-        'showPassword': false,
-        'isLoading': false,
-        'error': '',
+        'loginForm': {
+          'email': '',
+          'password': '',
+          'loading': false,
+          'error': null,
+        },
       },
     },
+    lifecycle: {
+      'onInit': [
+        MCPUIJsonGenerator.stateAction(
+          action: 'set',
+          path: 'loginForm.error',
+          value: null,
+        ),
+      ],
+    },
   );
-
-  // Generate JSON file
-  MCPUIJsonGenerator.generateJsonFile(loginPage, 'login_form.json');
   
-  print('✓ Login form example created: login_form.json');
-  print('\nKey features:');
-  print('- Email/password input fields');
-  print('- Real-time validation');
-  print('- Loading state management');
-  print('- Error message display');
-  print('- Social login buttons');
-  print('- Responsive layout');
+  // Save the generated MCP UI form
+  _saveAnalysisResult('mcp_login_form.json', mcpLoginForm);
+  print('  ✓ MCP UI login form generated');
+}
+
+void _saveAnalysisResult(String filename, Map<String, dynamic> data) {
+  final outputFile = File('example/analysis_results/$filename');
+  outputFile.parent.createSync(recursive: true);
+  
+  final json = JsonEncoder.withIndent('  ').convert(data);
+  outputFile.writeAsStringSync(json);
+  
+  print('    → Saved to: $filename');
 }

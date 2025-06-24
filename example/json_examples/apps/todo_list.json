@@ -11,7 +11,7 @@
           {
             "type": "button",
             "label": "",
-            "onTap": {
+            "click": {
               "type": "state",
               "action": "toggle",
               "binding": "showSearch"
@@ -23,7 +23,7 @@
           {
             "type": "button",
             "label": "",
-            "onTap": {
+            "click": {
               "type": "state",
               "action": "toggle",
               "binding": "showFilters"
@@ -67,7 +67,7 @@
               {
                 "type": "button",
                 "label": "All ({{totalCount}})",
-                "onTap": {
+                "click": {
                   "type": "state",
                   "action": "set",
                   "binding": "currentFilter",
@@ -83,7 +83,7 @@
               {
                 "type": "button",
                 "label": "Active ({{activeCount}})",
-                "onTap": {
+                "click": {
                   "type": "state",
                   "action": "set",
                   "binding": "currentFilter",
@@ -99,7 +99,7 @@
               {
                 "type": "button",
                 "label": "Done ({{completedCount}})",
-                "onTap": {
+                "click": {
                   "type": "state",
                   "action": "set",
                   "binding": "currentFilter",
@@ -148,13 +148,13 @@
             {
               "type": "button",
               "label": "Add",
-              "onTap": {
+              "click": {
                 "type": "batch",
                 "actions": [
                   {
                     "type": "tool",
-                    "tool": "addTodo",
-                    "args": {
+                    "name": "addTodo",
+                    "params": {
                       "text": "{{newTodoText}}",
                       "priority": "{{newTodoPriority}}"
                     }
@@ -242,8 +242,8 @@
                 "value": "{{item.completed}}",
                 "onChange": {
                   "type": "tool",
-                  "tool": "toggleTodo",
-                  "args": {
+                  "name": "toggleTodo",
+                  "params": {
                     "id": "{{item.id}}"
                   }
                 }
@@ -254,7 +254,7 @@
                   {
                     "type": "button",
                     "label": "",
-                    "onTap": {
+                    "click": {
                       "type": "batch",
                       "actions": [
                         {
@@ -278,10 +278,10 @@
                   {
                     "type": "button",
                     "label": "",
-                    "onTap": {
+                    "click": {
                       "type": "tool",
-                      "tool": "deleteTodo",
-                      "args": {
+                      "name": "deleteTodo",
+                      "params": {
                         "id": "{{item.id}}"
                       }
                     },
@@ -323,15 +323,15 @@
               "type": "text",
               "value": "{{completedCount}} completed",
               "style": {
-                "color": "#4CAF50"
+                "color": "#FF4CAF50"
               }
             },
             {
               "type": "button",
               "label": "Clear Completed",
-              "onTap": {
+              "click": {
                 "type": "tool",
-                "tool": "clearCompleted"
+                "name": "clearCompleted"
               },
               "style": "text",
               "disabled": false
@@ -345,9 +345,9 @@
           "all": 16.0
         },
         "decoration": {
-          "color": "#F5F5F5",
+          "color": "#FFF5F5F5",
           "border": {
-            "color": "#E0E0E0",
+            "color": "#FFE0E0E0",
             "width": 1.0,
             "style": "solid"
           }
@@ -401,11 +401,11 @@
     "onInit": [
       {
         "type": "tool",
-        "tool": "loadTodos"
+        "name": "loadTodos"
       },
       {
         "type": "tool",
-        "tool": "updateCounts"
+        "name": "updateCounts"
       }
     ]
   }

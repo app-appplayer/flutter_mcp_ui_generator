@@ -11,10 +11,10 @@
           {
             "type": "button",
             "label": "Save",
-            "onTap": {
+            "click": {
               "type": "tool",
-              "tool": "saveProfile",
-              "args": {
+              "name": "saveProfile",
+              "params": {
                 "name": "{{profile.name}}",
                 "email": "{{profile.email}}",
                 "phone": "{{profile.phone}}",
@@ -72,14 +72,14 @@
                                 "type": "icon",
                                 "icon": "person",
                                 "size": 48.0,
-                                "color": "#BDBDBD"
+                                "color": "#FFBDBDBD"
                               },
                               "width": 100.0,
                               "height": 100.0,
                               "decoration": {
                                 "borderRadius": 50.0,
                                 "border": {
-                                  "color": "#E0E0E0",
+                                  "color": "#FFE0E0E0",
                                   "width": 2.0,
                                   "style": "solid"
                                 }
@@ -93,7 +93,7 @@
                                   "type": "floatingactionbutton",
                                   "onPressed": {
                                     "type": "tool",
-                                    "tool": "pickImage"
+                                    "name": "pickImage"
                                   },
                                   "child": {
                                     "type": "icon",
@@ -473,7 +473,7 @@
                     "child": {
                       "type": "button",
                       "label": "Cancel",
-                      "onTap": {
+                      "click": {
                         "type": "navigation",
                         "action": "pop"
                       },
@@ -491,7 +491,7 @@
                     "child": {
                       "type": "button",
                       "label": "{{isSaving ? \"Saving...\" : \"Save Changes\"}}",
-                      "onTap": {
+                      "click": {
                         "type": "batch",
                         "actions": [
                           {
@@ -502,8 +502,8 @@
                           },
                           {
                             "type": "tool",
-                            "tool": "saveProfile",
-                            "args": {
+                            "name": "saveProfile",
+                            "params": {
                               "profile": "{{profile}}"
                             },
                             "onSuccess": {

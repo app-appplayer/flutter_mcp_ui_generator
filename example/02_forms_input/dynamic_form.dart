@@ -1,439 +1,238 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import 'dart:io';
+import 'dart:convert';
 
-/// Dynamic Form Example
+/// Dynamic Form Analysis Example
 /// 
-/// This example shows a dynamically generated form.
-/// It's a reactive form where additional fields appear and disappear based on user selections.
+/// This example demonstrates analyzing dynamic Flutter forms and converting them to MCP UI DSL.
+/// It shows pattern recognition for conditional form fields and reactive UI elements.
 void main() {
-  final dynamicForm = MCPUIJsonGenerator.page(
-    title: 'Dynamic Survey Form',
-    content: MCPUIJsonGenerator.column(
+  print('=== Dynamic Form Analysis Example ===\n');
+  
+  print('Analyzing dynamic form patterns...');
+  _analyzeDynamicFormPatterns();
+  
+  print('\nGenerating reactive MCP UI form...');
+  _generateReactiveForm();
+  
+  print('\n=== Analysis complete! ===');
+  print('Check the results:');
+  print('- dynamic_form_analysis.json');
+  print('- reactive_mcp_form.json');
+}
+
+void _analyzeDynamicFormPatterns() {
+  print('  Detecting dynamic form patterns in Flutter code...');
+  
+  final dynamicFormAnalysis = {
+    'dynamic_patterns': [
+      {
+        'pattern': 'Conditional Field Display',
+        'flutter_code': 'if (showField) TextFormField(...)',
+        'mcp_equivalent': 'conditionalWidget(condition: "{{showField}}", then: textInput(...))',
+        'frequency': 'high'
+      },
+      {
+        'pattern': 'Dropdown-dependent Fields',
+        'flutter_code': 'DropdownButton + conditional TextFormField',
+        'mcp_equivalent': 'select + conditionalWidget based on selection',
+        'frequency': 'medium'
+      },
+      {
+        'pattern': 'Add/Remove Field Lists',
+        'flutter_code': 'ListView.builder with dynamic item count',
+        'mcp_equivalent': 'list with dynamic items binding',
+        'frequency': 'medium'
+      }
+    ],
+    'state_management_patterns': [
+      'Form field visibility state',
+      'Dynamic field validation',
+      'Progressive form disclosure',
+      'Multi-step form navigation'
+    ],
+    'user_experience_patterns': [
+      'Smooth field transitions',
+      'Progressive enhancement',
+      'Smart field defaults',
+      'Real-time validation feedback'
+    ]
+  };
+  
+  _saveAnalysisResult('dynamic_form_analysis.json', dynamicFormAnalysis);
+  print('  ✓ Dynamic form analysis completed');
+}
+
+void _generateReactiveForm() {
+  print('  Converting to reactive MCP UI form...');
+  
+  final reactiveForm = MCPUIJsonGenerator.page(
+    title: 'Customer Survey',
+    content: MCPUIJsonGenerator.linear(
+      direction: 'vertical',
       children: [
-        MCPUIJsonGenerator.appBar(
-          title: 'Customer Survey',
-          leading: MCPUIJsonGenerator.icon(icon: 'arrow_back'),
+        MCPUIJsonGenerator.headerBar(
+          title: 'Dynamic Survey Form',
         ),
-        
-        MCPUIJsonGenerator.expanded(
-          child: MCPUIJsonGenerator.padding(
-            padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-            child: MCPUIJsonGenerator.column(
-              children: [
-                // Progress indicator
-                MCPUIJsonGenerator.card(
-                  child: MCPUIJsonGenerator.padding(
-                    padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-                    child: MCPUIJsonGenerator.column(
-                      children: [
-                        MCPUIJsonGenerator.text(
-                          'Survey Progress',
-                          style: MCPUIJsonGenerator.textStyle(fontWeight: 'bold'),
-                        ),
-                        MCPUIJsonGenerator.sizedBox(height: 8),
-                        MCPUIJsonGenerator.slider(
-                          value: '{{progress}}',
-                          min: 0,
-                          max: 100,
-                          onChange: MCPUIJsonGenerator.stateAction(
-                            action: 'set',
-                            binding: 'progress',
-                            value: '{{event.value}}',
-                          ),
-                        ),
-                        MCPUIJsonGenerator.text('{{progress}}% Complete'),
-                      ],
-                    ),
-                  ),
-                ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 20),
-                
-                // Basic information section
-                QuickBuilders.section(
-                  title: 'Basic Information',
-                  children: [
-                    QuickBuilders.formField(
-                      label: 'Full Name',
-                      binding: 'survey.name',
-                      placeholder: 'Enter your full name',
-                    ),
-                    MCPUIJsonGenerator.sizedBox(height: 16),
-                    
-                    QuickBuilders.formField(
-                      label: 'Email',
-                      binding: 'survey.email',
-                      placeholder: 'Enter your email address',
-                    ),
-                    MCPUIJsonGenerator.sizedBox(height: 16),
-                    
-                    MCPUIJsonGenerator.dropdown(
-                      label: 'Age Group',
-                      value: '{{survey.ageGroup}}',
-                      placeholder: 'Select your age group',
-                      items: [
-                        {'value': '18-25', 'label': '18-25 years'},
-                        {'value': '26-35', 'label': '26-35 years'},
-                        {'value': '36-50', 'label': '36-50 years'},
-                        {'value': '51+', 'label': '51+ years'},
-                      ],
-                      onChange: MCPUIJsonGenerator.stateAction(
-                        action: 'set',
-                        binding: 'survey.ageGroup',
-                        value: '{{event.value}}',
-                      ),
-                    ),
-                  ],
-                ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 20),
-                
-                // Customer type selection
-                QuickBuilders.section(
-                  title: 'Customer Type',
-                  children: [
-                    MCPUIJsonGenerator.text(
-                      'Are you an existing customer?',
-                      style: MCPUIJsonGenerator.textStyle(fontWeight: 'bold'),
-                    ),
-                    MCPUIJsonGenerator.sizedBox(height: 8),
-                    MCPUIJsonGenerator.column(
-                      children: [
-                        MCPUIJsonGenerator.checkbox(
-                          label: 'Yes, I am an existing customer',
-                          value: '{{survey.isExistingCustomer == true}}',
-                          onChange: MCPUIJsonGenerator.batchAction(
-                            actions: [
-                              MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'survey.isExistingCustomer',
-                                value: true,
-                              ),
-                              MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'showExistingCustomerFields',
-                                value: true,
-                              ),
-                              MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'showNewCustomerFields',
-                                value: false,
-                              ),
-                            ],
-                          ),
-                        ),
-                        MCPUIJsonGenerator.checkbox(
-                          label: 'No, I am a new customer',
-                          value: '{{survey.isExistingCustomer == false}}',
-                          onChange: MCPUIJsonGenerator.batchAction(
-                            actions: [
-                              MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'survey.isExistingCustomer',
-                                value: false,
-                              ),
-                              MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'showExistingCustomerFields',
-                                value: false,
-                              ),
-                              MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'showNewCustomerFields',
-                                value: true,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 20),
-                
-                // Existing customer fields
-                MCPUIJsonGenerator.container(
-                  child: MCPUIJsonGenerator.column(
+        MCPUIJsonGenerator.box(
+          padding: MCPUIJsonGenerator.edgeInsets(all: 16),
+          child: MCPUIJsonGenerator.linear(
+            direction: 'vertical',
+            gap: 16.0,
+            children: [
+              // Progress indicator
+              MCPUIJsonGenerator.card(
+                child: MCPUIJsonGenerator.box(
+                  padding: MCPUIJsonGenerator.edgeInsets(all: 16),
+                  child: MCPUIJsonGenerator.linear(
+                    direction: 'vertical',
+                    gap: 8.0,
                     children: [
                       MCPUIJsonGenerator.text(
-                        'Existing Customer Information',
-                        style: MCPUIJsonGenerator.textStyle(
-                          fontSize: 18,
-                          fontWeight: 'bold',
-                        ),
-                      ),
-                      MCPUIJsonGenerator.sizedBox(height: 16),
-                      
-                      QuickBuilders.formField(
-                        label: 'Customer ID',
-                        binding: 'survey.customerId',
-                        placeholder: 'Enter your customer ID',
-                      ),
-                      MCPUIJsonGenerator.sizedBox(height: 16),
-                      
-                      MCPUIJsonGenerator.dropdown(
-                        label: 'How long have you been our customer?',
-                        value: '{{survey.customerDuration}}',
-                        placeholder: 'Select duration',
-                        items: [
-                          {'value': 'less-than-1', 'label': 'Less than 1 year'},
-                          {'value': '1-3', 'label': '1-3 years'},
-                          {'value': '3-5', 'label': '3-5 years'},
-                          {'value': 'more-than-5', 'label': 'More than 5 years'},
-                        ],
-                        onChange: MCPUIJsonGenerator.stateAction(
-                          action: 'set',
-                          binding: 'survey.customerDuration',
-                          value: '{{event.value}}',
-                        ),
-                      ),
-                      MCPUIJsonGenerator.sizedBox(height: 16),
-                      
-                      MCPUIJsonGenerator.slider(
-                        value: '{{survey.satisfactionRating}}',
-                        min: 1,
-                        max: 10,
-                        divisions: 9,
-                        label: 'Satisfaction Rating: {{survey.satisfactionRating}}/10',
-                        onChange: MCPUIJsonGenerator.stateAction(
-                          action: 'set',
-                          binding: 'survey.satisfactionRating',
-                          value: '{{event.value}}',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 20),
-                
-                // New customer fields
-                MCPUIJsonGenerator.container(
-                  child: MCPUIJsonGenerator.column(
-                    children: [
-                      MCPUIJsonGenerator.text(
-                        'New Customer Information',
-                        style: MCPUIJsonGenerator.textStyle(
-                          fontSize: 18,
-                          fontWeight: 'bold',
-                        ),
-                      ),
-                      MCPUIJsonGenerator.sizedBox(height: 16),
-                      
-                      MCPUIJsonGenerator.dropdown(
-                        label: 'How did you hear about us?',
-                        value: '{{survey.hearAboutUs}}',
-                        placeholder: 'Select source',
-                        items: [
-                          {'value': 'social-media', 'label': 'Social Media'},
-                          {'value': 'search-engine', 'label': 'Search Engine'},
-                          {'value': 'friend-referral', 'label': 'Friend Referral'},
-                          {'value': 'advertisement', 'label': 'Advertisement'},
-                          {'value': 'other', 'label': 'Other'},
-                        ],
-                        onChange: MCPUIJsonGenerator.batchAction(
-                          actions: [
-                            MCPUIJsonGenerator.stateAction(
-                              action: 'set',
-                              binding: 'survey.hearAboutUs',
-                              value: '{{event.value}}',
-                            ),
-                            MCPUIJsonGenerator.stateAction(
-                              action: 'set',
-                              binding: 'showOtherField',
-                              value: '{{event.value == "other"}}',
-                            ),
-                          ],
-                        ),
-                      ),
-                      MCPUIJsonGenerator.sizedBox(height: 16),
-                      
-                      // Field that appears when "Other" is selected
-                      MCPUIJsonGenerator.container(
-                        child: QuickBuilders.formField(
-                          label: 'Please specify',
-                          binding: 'survey.hearAboutUsOther',
-                          placeholder: 'Tell us how you heard about us',
-                        ),
-                      ),
-                      MCPUIJsonGenerator.sizedBox(height: 16),
-                      
-                      MCPUIJsonGenerator.text(
-                        'What interests you most about our services?',
+                        'Survey Progress',
                         style: MCPUIJsonGenerator.textStyle(fontWeight: 'bold'),
                       ),
-                      MCPUIJsonGenerator.sizedBox(height: 8),
-                      MCPUIJsonGenerator.column(
-                        children: [
-                          MCPUIJsonGenerator.checkbox(
-                            label: 'Product Quality',
-                            value: '{{survey.interests.quality}}',
-                            onChange: MCPUIJsonGenerator.stateAction(
-                              action: 'toggle',
-                              binding: 'survey.interests.quality',
-                            ),
-                          ),
-                          MCPUIJsonGenerator.checkbox(
-                            label: 'Competitive Pricing',
-                            value: '{{survey.interests.pricing}}',
-                            onChange: MCPUIJsonGenerator.stateAction(
-                              action: 'toggle',
-                              binding: 'survey.interests.pricing',
-                            ),
-                          ),
-                          MCPUIJsonGenerator.checkbox(
-                            label: 'Customer Service',
-                            value: '{{survey.interests.service}}',
-                            onChange: MCPUIJsonGenerator.stateAction(
-                              action: 'toggle',
-                              binding: 'survey.interests.service',
-                            ),
-                          ),
-                          MCPUIJsonGenerator.checkbox(
-                            label: 'Fast Delivery',
-                            value: '{{survey.interests.delivery}}',
-                            onChange: MCPUIJsonGenerator.stateAction(
-                              action: 'toggle',
-                              binding: 'survey.interests.delivery',
-                            ),
-                          ),
-                        ],
+                      MCPUIJsonGenerator.text(
+                        'Step {{survey.currentStep}} of {{survey.totalSteps}}',
+                        style: MCPUIJsonGenerator.textStyle(color: '#666666'),
                       ),
                     ],
                   ),
                 ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 20),
-                
-                // Common feedback section
-                QuickBuilders.section(
-                  title: 'Additional Feedback',
+              ),
+              
+              // Basic information
+              MCPUIJsonGenerator.textInput(
+                label: 'Full Name',
+                value: MCPUIJsonGenerator.binding('survey.name'),
+                change: MCPUIJsonGenerator.stateAction(
+                  action: 'set',
+                  path: 'survey.name',
+                  value: '{{event.value}}',
+                ),
+              ),
+              
+              // Customer type selection
+              MCPUIJsonGenerator.select(
+                label: 'Customer Type',
+                value: MCPUIJsonGenerator.binding('survey.customerType'),
+                items: [
+                  {'value': 'individual', 'label': 'Individual'},
+                  {'value': 'business', 'label': 'Business'},
+                  {'value': 'enterprise', 'label': 'Enterprise'},
+                ],
+                change: MCPUIJsonGenerator.stateAction(
+                  action: 'set',
+                  path: 'survey.customerType',
+                  value: '{{event.value}}',
+                ),
+              ),
+              
+              // Conditional business fields
+              MCPUIJsonGenerator.conditionalWidget(
+                condition: '{{survey.customerType == "business" || survey.customerType == "enterprise"}}',
+                then: MCPUIJsonGenerator.linear(
+                  direction: 'vertical',
+                  gap: 12.0,
                   children: [
-                    MCPUIJsonGenerator.textField(
-                      label: 'Comments',
-                      value: '{{survey.comments}}',
-                      placeholder: 'Any additional comments or suggestions?',
-                      maxLines: 4,
-                      onChange: MCPUIJsonGenerator.stateAction(
+                    MCPUIJsonGenerator.textInput(
+                      label: 'Company Name',
+                      value: MCPUIJsonGenerator.binding('survey.companyName'),
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
-                        binding: 'survey.comments',
+                        path: 'survey.companyName',
                         value: '{{event.value}}',
                       ),
                     ),
-                    MCPUIJsonGenerator.sizedBox(height: 16),
-                    
-                    MCPUIJsonGenerator.checkbox(
-                      label: 'I would like to receive updates about new products and services',
-                      value: '{{survey.subscribeToUpdates}}',
-                      onChange: MCPUIJsonGenerator.stateAction(
-                        action: 'toggle',
-                        binding: 'survey.subscribeToUpdates',
+                    MCPUIJsonGenerator.textInput(
+                      label: 'Job Title',
+                      value: MCPUIJsonGenerator.binding('survey.jobTitle'),
+                      change: MCPUIJsonGenerator.stateAction(
+                        action: 'set',
+                        path: 'survey.jobTitle',
+                        value: '{{event.value}}',
                       ),
                     ),
                   ],
                 ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 32),
-                
-                // Submit buttons
-                MCPUIJsonGenerator.row(
+              ),
+              
+              // Conditional enterprise fields
+              MCPUIJsonGenerator.conditionalWidget(
+                condition: '{{survey.customerType == "enterprise"}}',
+                then: MCPUIJsonGenerator.linear(
+                  direction: 'vertical',
+                  gap: 12.0,
                   children: [
-                    MCPUIJsonGenerator.expanded(
-                      child: MCPUIJsonGenerator.button(
-                        label: 'Save Draft',
-                        style: 'outlined',
-                        onTap: MCPUIJsonGenerator.toolAction(
-                          'saveDraft',
-                          args: {'survey': '{{survey}}'},
-                        ),
+                    MCPUIJsonGenerator.textInput(
+                      label: 'Employee Count',
+                      value: MCPUIJsonGenerator.binding('survey.employeeCount'),
+                      change: MCPUIJsonGenerator.stateAction(
+                        action: 'set',
+                        path: 'survey.employeeCount',
+                        value: '{{event.value}}',
                       ),
                     ),
-                    MCPUIJsonGenerator.sizedBox(width: 16),
-                    MCPUIJsonGenerator.expanded(
-                      child: MCPUIJsonGenerator.button(
-                        label: '{{isSubmitting ? "Submitting..." : "Submit Survey"}}',
-                        style: 'elevated',
-                        onTap: MCPUIJsonGenerator.batchAction(
-                          actions: [
-                            MCPUIJsonGenerator.stateAction(
-                              action: 'set',
-                              binding: 'isSubmitting',
-                              value: true,
-                            ),
-                            MCPUIJsonGenerator.toolAction(
-                              'submitSurvey',
-                              args: {'survey': '{{survey}}'},
-                              onSuccess: MCPUIJsonGenerator.batchAction(
-                                actions: [
-                                  MCPUIJsonGenerator.stateAction(
-                                    action: 'set',
-                                    binding: 'isSubmitting',
-                                    value: false,
-                                  ),
-                                  MCPUIJsonGenerator.navigationAction(
-                                    action: 'pushReplacement',
-                                    route: '/survey-success',
-                                  ),
-                                ],
-                              ),
-                              onError: MCPUIJsonGenerator.stateAction(
-                                action: 'set',
-                                binding: 'isSubmitting',
-                                value: false,
-                              ),
-                            ),
-                          ],
-                        ),
+                    MCPUIJsonGenerator.checkbox(
+                      label: 'Require enterprise support',
+                      value: MCPUIJsonGenerator.binding('survey.enterpriseSupport'),
+                      change: MCPUIJsonGenerator.stateAction(
+                        action: 'set',
+                        path: 'survey.enterpriseSupport',
+                        value: '{{event.value}}',
                       ),
                     ),
                   ],
                 ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 16),
-              ],
-            ),
+              ),
+              
+              // Submit button
+              MCPUIJsonGenerator.button(
+                label: 'Submit Survey',
+                click: MCPUIJsonGenerator.toolAction(
+                  'submitSurvey',
+                  params: {
+                    'name': '{{survey.name}}',
+                    'customerType': '{{survey.customerType}}',
+                    'companyName': '{{survey.companyName}}',
+                    'jobTitle': '{{survey.jobTitle}}',
+                    'employeeCount': '{{survey.employeeCount}}',
+                    'enterpriseSupport': '{{survey.enterpriseSupport}}',
+                  },
+                ),
+                style: 'elevated',
+              ),
+            ],
           ),
         ),
       ],
     ),
     state: {
       'initial': {
-        'progress': 0,
         'survey': {
+          'currentStep': 1,
+          'totalSteps': 3,
           'name': '',
-          'email': '',
-          'ageGroup': '',
-          'isExistingCustomer': null,
-          'customerId': '',
-          'customerDuration': '',
-          'satisfactionRating': 5,
-          'hearAboutUs': '',
-          'hearAboutUsOther': '',
-          'interests': {
-            'quality': false,
-            'pricing': false,
-            'service': false,
-            'delivery': false,
-          },
-          'comments': '',
-          'subscribeToUpdates': false,
+          'customerType': 'individual',
+          'companyName': '',
+          'jobTitle': '',
+          'employeeCount': '',
+          'enterpriseSupport': false,
         },
-        'showExistingCustomerFields': false,
-        'showNewCustomerFields': false,
-        'showOtherField': false,
-        'isSubmitting': false,
       },
     },
   );
-
-  MCPUIJsonGenerator.generateJsonFile(dynamicForm, 'dynamic_form.json');
   
-  print('✓ Dynamic form example created: dynamic_form.json');
-  print('\nKey features:');
-  print('- Conditional field show/hide');
-  print('- Progress display');
-  print('- Various input types (text, dropdown, checkbox, slider)');
-  print('- Complex state updates through batch actions');
-  print('- Dynamic validation');
-  print('- Draft save and final submission');
+  _saveAnalysisResult('reactive_mcp_form.json', reactiveForm);
+  print('  ✓ Reactive MCP UI form generated');
+}
+
+void _saveAnalysisResult(String filename, Map<String, dynamic> data) {
+  final outputFile = File('example/analysis_results/$filename');
+  outputFile.parent.createSync(recursive: true);
+  
+  final json = JsonEncoder.withIndent('  ').convert(data);
+  outputFile.writeAsStringSync(json);
+  
+  print('    → Saved to: $filename');
 }

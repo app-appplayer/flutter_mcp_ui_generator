@@ -85,7 +85,7 @@
                             "crossAxisAlignment": "center",
                             "mainAxisSize": "min"
                           },
-                          "onTap": {
+                          "click": {
                             "type": "navigation",
                             "action": "push",
                             "route": "/settings/language"
@@ -251,7 +251,7 @@
                             "type": "icon",
                             "icon": "delete",
                             "size": 24.0,
-                            "color": "#F44336"
+                            "color": "#FFF44336"
                           },
                           "trailing": {
                             "type": "icon",

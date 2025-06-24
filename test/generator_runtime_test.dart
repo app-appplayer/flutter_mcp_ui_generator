@@ -17,8 +17,8 @@ void main() {
   print(jsonEncode(text));
   print('');
 
-  // Test 2: Container with padding
-  final container = MCPUIJsonGenerator.container(
+  // Test 2: Box with padding
+  final box = MCPUIJsonGenerator.box(
     padding: MCPUIJsonGenerator.edgeInsets(all: 16),
     decoration: MCPUIJsonGenerator.decoration(
       color: '#F5F5F5',
@@ -26,16 +26,16 @@ void main() {
     ),
     child: MCPUIJsonGenerator.text('Content'),
   );
-  print('Container widget:');
-  print(jsonEncode(container));
+  print('Box widget:');
+  print(jsonEncode(box));
   print('');
 
   // Test 3: Button with tool action
   final button = MCPUIJsonGenerator.button(
     label: 'Click Me',
-    onTap: MCPUIJsonGenerator.toolAction(
+    click: MCPUIJsonGenerator.toolAction(
       'myTool',
-      args: {'param': 'value'},
+      params: {'param': 'value'},
     ),
   );
   print('Button widget:');
@@ -46,7 +46,7 @@ void main() {
   final resourceAction = MCPUIJsonGenerator.resourceAction(
     action: 'subscribe',
     uri: 'data://temperature',
-    binding: 'temperature',
+    target: 'temperature',
   );
   print('Resource action:');
   print(jsonEncode(resourceAction));
@@ -56,7 +56,8 @@ void main() {
   final page = MCPUIJsonGenerator.page(
     title: 'Test Page',
     content: MCPUIJsonGenerator.center(
-      child: MCPUIJsonGenerator.column(
+      child: MCPUIJsonGenerator.linear(
+        direction: 'vertical',
         children: [
           MCPUIJsonGenerator.text(
             'Welcome',
@@ -66,9 +67,9 @@ void main() {
           MCPUIJsonGenerator.text('Counter: {{counter}}'),
           MCPUIJsonGenerator.button(
             label: 'Increment',
-            onTap: MCPUIJsonGenerator.stateAction(
+            click: MCPUIJsonGenerator.stateAction(
               action: 'increment',
-              binding: 'counter',
+              path: 'counter',
             ),
           ),
         ],

@@ -15,7 +15,7 @@
     "type": "drawer",
     "header": {
       "type": "container",
-      "color": "#1976D2",
+      "color": "#FF1976D2",
       "padding": {
         "all": 16
       },
@@ -23,7 +23,7 @@
         "type": "text",
         "value": "Temperature Monitor",
         "style": {
-          "color": "#FFFFFF",
+          "color": "#FFFFFFFF",
           "fontSize": 20,
           "fontWeight": "bold"
         }
@@ -37,7 +37,7 @@
           "type": "icon",
           "icon": "dashboard"
         },
-        "onTap": {
+        "click": {
           "type": "navigation",
           "action": "push",
           "route": "/"
@@ -50,7 +50,7 @@
           "type": "icon",
           "icon": "settings"
         },
-        "onTap": {
+        "click": {
           "type": "navigation",
           "action": "push",
           "route": "/settings"

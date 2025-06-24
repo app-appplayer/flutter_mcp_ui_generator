@@ -27,7 +27,7 @@
                         "type": "icon",
                         "icon": "info",
                         "size": 64.0,
-                        "color": "#2196F3"
+                        "color": "#FF2196F3"
                       },
                       {
                         "type": "sizedbox",
@@ -50,7 +50,7 @@
                         "value": "Version 1.0.0",
                         "style": {
                           "fontSize": 16.0,
-                          "color": "#666666"
+                          "color": "#FF666666"
                         }
                       },
                       {
@@ -169,7 +169,7 @@
                 "value": "Made with Flutter MCP UI Generator",
                 "style": {
                   "fontSize": 14.0,
-                  "color": "#999999"
+                  "color": "#FF999999"
                 },
                 "textAlign": "center"
               }

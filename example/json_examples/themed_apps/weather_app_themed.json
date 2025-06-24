@@ -6,14 +6,14 @@
     "mode": "{{app.themeMode}}",
     "light": {
       "colors": {
-        "primary": "#2196F3",
-        "secondary": "#FF9800",
-        "background": "#F8F9FA",
-        "surface": "#FFFFFF",
-        "onPrimary": "#FFFFFF",
-        "onSecondary": "#000000",
-        "onBackground": "#212121",
-        "onSurface": "#212121"
+        "primary": "#FF2196F3",
+        "secondary": "#FFFF9800",
+        "background": "#FFF8F9FA",
+        "surface": "#FFFFFFFF",
+        "onPrimary": "#FFFFFFFF",
+        "onSecondary": "#FF000000",
+        "onBackground": "#FF212121",
+        "onSurface": "#FF212121"
       },
       "typography": {
         "h1": {"fontSize": 32, "fontWeight": "bold", "color": "{{theme.colors.primary}}"},
@@ -24,14 +24,14 @@
     },
     "dark": {
       "colors": {
-        "primary": "#1976D2",
-        "secondary": "#F57C00",
-        "background": "#121212",
-        "surface": "#1E1E1E",
-        "onPrimary": "#FFFFFF",
-        "onSecondary": "#000000",
-        "onBackground": "#FFFFFF",
-        "onSurface": "#FFFFFF"
+        "primary": "#FF1976D2",
+        "secondary": "#FFF57C00",
+        "background": "#FF121212",
+        "surface": "#FF1E1E1E",
+        "onPrimary": "#FFFFFFFF",
+        "onSecondary": "#FF000000",
+        "onBackground": "#FFFFFFFF",
+        "onSurface": "#FFFFFFFF"
       },
       "typography": {
         "h1": {"fontSize": 32, "fontWeight": "bold", "color": "{{theme.colors.primary}}"},

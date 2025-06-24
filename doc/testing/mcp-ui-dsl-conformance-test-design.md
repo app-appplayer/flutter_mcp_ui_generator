@@ -1,74 +1,74 @@
-# MCP UI DSL v1.0 Complete Conformance Verification Test Design
+# MCP UI DSL v1.0 완전 준수 검증 테스트 설계
 
-## 1. Test Structure Overview
+## 1. 테스트 구조 개요
 
-### 1.1 Test Categories
+### 1.1 테스트 카테고리
 ```
 tests/
-├── conformance/              # DSL specification conformance tests
-│   ├── structure/           # Structural element tests
-│   ├── widgets/             # Widget tests
-│   ├── binding/             # Data binding tests
-│   ├── actions/             # Action system tests
-│   ├── navigation/          # Navigation tests
-│   ├── theme/               # Theme system tests
-│   └── lifecycle/           # Lifecycle tests
-├── integration/             # Integration tests
-│   ├── mcp_protocol/        # MCP protocol integration
-│   ├── state_management/    # State management integration
-│   └── runtime/             # Runtime behavior
-├── performance/             # Performance tests
-├── edge_cases/              # Edge cases
-└── visual_regression/       # Visual regression tests
+├── conformance/              # DSL 사양 준수 테스트
+│   ├── structure/           # 구조적 요소 테스트
+│   ├── widgets/             # 위젯 테스트
+│   ├── binding/             # 데이터 바인딩 테스트
+│   ├── actions/             # 액션 시스템 테스트
+│   ├── navigation/          # 네비게이션 테스트
+│   ├── theme/               # 테마 시스템 테스트
+│   └── lifecycle/           # 라이프사이클 테스트
+├── integration/             # 통합 테스트
+│   ├── mcp_protocol/        # MCP 프로토콜 통합
+│   ├── state_management/    # 상태 관리 통합
+│   └── runtime/             # 런타임 동작
+├── performance/             # 성능 테스트
+├── edge_cases/              # 엣지 케이스
+└── visual_regression/       # 시각적 회귀 테스트
 ```
 
-### 1.2 Test Levels
-1. **Unit Tests**: Individual component behavior verification
-2. **Widget Tests**: Widget rendering and property verification
-3. **Integration Tests**: Inter-system integration verification
-4. **E2E Tests**: Complete application flow verification
+### 1.2 테스트 레벨
+1. **Unit Tests**: 개별 컴포넌트 동작 검증
+2. **Widget Tests**: 위젯 렌더링 및 속성 검증
+3. **Integration Tests**: 시스템 간 통합 검증
+4. **E2E Tests**: 전체 애플리케이션 플로우 검증
 
-## 2. DSL Specification Conformance Checklist
+## 2. DSL 사양 준수 체크리스트
 
-### 2.1 Structural Elements
-- [ ] Application definition verification
-- [ ] Page definition verification
-- [ ] Routing table verification
-- [ ] Initial state setup verification
-- [ ] Theme definition verification
+### 2.1 구조적 요소
+- [ ] Application 정의 검증
+- [ ] Page 정의 검증
+- [ ] 라우팅 테이블 검증
+- [ ] 초기 상태 설정 검증
+- [ ] 테마 정의 검증
 
-### 2.2 Widget System
-- [ ] All layout widgets (Container, Column, Row, Stack, Center, Expanded, Flexible)
-- [ ] All display widgets (Text, Image, Icon, Divider, Card)
-- [ ] All input widgets (Button, TextField, Checkbox, Switch, Slider)
-- [ ] All list widgets (ListView, GridView)
-- [ ] Advanced widgets (Chart, Table)
+### 2.2 위젯 시스템
+- [ ] 모든 레이아웃 위젯 (Container, Column, Row, Stack, Center, Expanded, Flexible)
+- [ ] 모든 디스플레이 위젯 (Text, Image, Icon, Divider, Card)
+- [ ] 모든 입력 위젯 (Button, TextField, Checkbox, Switch, Slider)
+- [ ] 모든 리스트 위젯 (ListView, GridView)
+- [ ] 고급 위젯 (Chart, Table)
 
-### 2.3 Data Binding
-- [ ] Simple binding expressions
-- [ ] Nested property access
-- [ ] Array index access
-- [ ] Conditional expressions
-- [ ] Mixed content
-- [ ] Context variables (item, index, isFirst, isLast, isEven, isOdd)
+### 2.3 데이터 바인딩
+- [ ] 단순 바인딩 표현식
+- [ ] 중첩 속성 접근
+- [ ] 배열 인덱스 접근
+- [ ] 조건부 표현식
+- [ ] 혼합 콘텐츠
+- [ ] 컨텍스트 변수 (item, index, isFirst, isLast, isEven, isOdd)
 
-### 2.4 Action System
+### 2.4 액션 시스템
 - [ ] State Actions (set, increment, decrement, toggle, append, remove)
 - [ ] Navigation Actions (push, replace, pop, popToRoot)
-- [ ] Tool Actions (basic calls, success/failure handling)
+- [ ] Tool Actions (기본 호출, 성공/실패 핸들링)
 - [ ] Resource Actions (subscribe, unsubscribe)
 - [ ] Batch Actions
 - [ ] Conditional Actions
 
-### 2.5 MCP Protocol Integration
-- [ ] Resource reading
-- [ ] Tool calls and response processing
-- [ ] Notification handling
-- [ ] Subscribe/unsubscribe
+### 2.5 MCP 프로토콜 통합
+- [ ] Resource 읽기
+- [ ] Tool 호출 및 응답 처리
+- [ ] 알림 처리
+- [ ] 구독/구독 해제
 
-## 3. Detailed Test Cases
+## 3. 상세 테스트 케이스
 
-### 3.1 Application Definition Tests
+### 3.1 Application 정의 테스트
 ```dart
 // test/conformance/structure/application_test.dart
 import 'package:flutter_test/flutter_test.dart';
@@ -327,7 +327,7 @@ void main() {
             "loading": false,
             "fullWidth": false,
             "size": "medium",
-            "onTap": {
+            "click": {
               "type": "tool",
               "tool": "handleTap"
             }
@@ -808,7 +808,7 @@ void main() {
         await runtime.executeAction({
           "type": "tool",
           "tool": "increment",
-          "args": {"amount": 1}
+          "params": {"amount": 1}
         });
 
         // Tool이 호출되었는지 검증
@@ -834,7 +834,7 @@ void main() {
         await runtime.executeAction({
           "type": "tool",
           "tool": "saveData",
-          "args": {"data": "test"},
+          "params": {"data": "test"},
           "onSuccess": {
             "type": "custom",
             "handler": () {
@@ -863,7 +863,7 @@ void main() {
         await runtime.executeAction({
           "type": "tool",
           "tool": "saveData",
-          "args": {"data": "test"},
+          "params": {"data": "test"},
           "onError": {
             "type": "custom",
             "handler": () {
@@ -1203,7 +1203,7 @@ void main() {
         await runtime.executeAction({
           "type": "tool",
           "tool": "getUserData",
-          "args": {"userId": "123"}
+          "params": {"userId": "123"}
         });
 
         // 모든 최상위 키가 상태에 병합되었는지 검증
@@ -1234,7 +1234,7 @@ void main() {
         await runtime.executeAction({
           "type": "tool",
           "tool": "saveData",
-          "args": {"data": {}},
+          "params": {"data": {}},
           "onError": {
             "type": "custom",
             "handler": (error) {

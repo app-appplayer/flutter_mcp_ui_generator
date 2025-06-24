@@ -7,7 +7,7 @@
   },
   "initialRoute": "/counter",
   "theme": {
-    "primaryColor": "#2196F3",
-    "accentColor": "#FF4081"
+    "primaryColor": "#FF2196F3",
+    "accentColor": "#FFFF4081"
   }
 }

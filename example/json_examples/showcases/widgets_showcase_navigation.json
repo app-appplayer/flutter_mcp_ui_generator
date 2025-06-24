@@ -79,7 +79,7 @@
         }
       ],
       "currentIndex": 0,
-      "onTap": {
+      "click": {
         "type": "state",
         "action": "set",
         "binding": "currentTab",
@@ -140,7 +140,7 @@
               "padding": {
                 "all": 16.0
               },
-              "color": "#2196F3"
+              "color": "#FF2196F3"
             },
             {
               "type": "listtile",
@@ -180,7 +180,7 @@
       "decoration": {
         "borderRadius": 8.0,
         "border": {
-          "color": "#E0E0E0",
+          "color": "#FFE0E0E0",
           "width": 1.0,
           "style": "solid"
         }
@@ -206,7 +206,7 @@
       "type": "floatingactionbutton",
       "onPressed": {
         "type": "tool",
-        "tool": "addNewItem"
+        "name": "addNewItem"
       },
       "child": {
         "type": "icon",

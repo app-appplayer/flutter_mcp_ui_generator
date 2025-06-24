@@ -35,10 +35,10 @@
             {
               "type": "button",
               "label": "Decrement",
-              "onTap": {
+              "click": {
                 "type": "tool",
-                "tool": "decrement",
-                "args": {}
+                "name": "decrement",
+                "params": {}
               },
               "style": "elevated",
               "disabled": false
@@ -50,10 +50,10 @@
             {
               "type": "button",
               "label": "Increment",
-              "onTap": {
+              "click": {
                 "type": "tool",
-                "tool": "increment",
-                "args": {}
+                "name": "increment",
+                "params": {}
               },
               "style": "elevated",
               "disabled": false

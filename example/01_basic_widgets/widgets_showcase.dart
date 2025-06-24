@@ -1,791 +1,416 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import 'dart:io';
+import 'dart:convert';
 
-/// Basic Widgets Showcase
+/// Widget Analysis Showcase
 /// 
-/// This example shows all the basic widgets of Flutter MCP UI Generator.
-/// You can see the basic usage of layout, display, input, list, and navigation widgets.
+/// This example demonstrates analyzing existing Flutter widgets and converting them to MCP UI DSL.
+/// It shows how to analyze layout, display, input, list, and navigation widget patterns.
 void main() {
-  print('=== Flutter MCP UI Generator - Basic Widgets Showcase ===\n');
+  print('=== Flutter MCP UI Analysis Tool - Widget Analysis Showcase ===\n');
 
-  // 1. Layout widget examples
-  print('1. Layout Widgets');
-  _demonstrateLayoutWidgets();
+  // 1. Analyze layout widget patterns
+  print('1. Analyzing Layout Widget Patterns');
+  _analyzeLayoutPatterns();
   
-  // 2. Display widget examples
-  print('\n2. Display Widgets');
-  _demonstrateDisplayWidgets();
+  // 2. Analyze display widget patterns
+  print('\n2. Analyzing Display Widget Patterns');
+  _analyzeDisplayPatterns();
   
-  // 3. Input widget examples
-  print('\n3. Input Widgets');
-  _demonstrateInputWidgets();
+  // 3. Analyze input widget patterns
+  print('\n3. Analyzing Input Widget Patterns');
+  _analyzeInputPatterns();
   
-  // 4. List widget examples
-  print('\n4. List Widgets');
-  _demonstrateListWidgets();
+  // 4. Analyze list widget patterns
+  print('\n4. Analyzing List Widget Patterns');
+  _analyzeListPatterns();
   
-  // 5. Navigation widget examples
-  print('\n5. Navigation Widgets');
-  _demonstrateNavigationWidgets();
+  // 5. Analyze navigation widget patterns
+  print('\n5. Analyzing Navigation Widget Patterns');
+  _analyzeNavigationPatterns();
   
-  // 6. Complete page example
-  print('\n6. Complete Page Example');
-  _demonstrateCompletePage();
+  // 6. Complete app analysis example
+  print('\n6. Complete App Analysis Example');
+  _analyzeCompleteApp();
   
-  print('\n=== All examples completed! ===');
-  print('Check the generated JSON files:');
-  print('- widgets_showcase_layout.json');
-  print('- widgets_showcase_display.json');
-  print('- widgets_showcase_input.json');
-  print('- widgets_showcase_list.json');
-  print('- widgets_showcase_navigation.json');
-  print('- widgets_showcase_complete.json');
+  print('\n=== All analysis examples completed! ===');
+  print('Check the analysis results:');
+  print('- layout_patterns_analysis.json');
+  print('- display_patterns_analysis.json');
+  print('- input_patterns_analysis.json');
+  print('- list_patterns_analysis.json');
+  print('- navigation_patterns_analysis.json');
+  print('- complete_app_analysis.json');
 }
 
-/// Layout widget demo
-void _demonstrateLayoutWidgets() {
-  // Container example
-  final container = MCPUIJsonGenerator.container(
-    width: 200,
-    height: 100,
-    padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-    decoration: MCPUIJsonGenerator.decoration(
-      color: '#E3F2FD',
-      borderRadius: 8,
-      border: MCPUIJsonGenerator.border(
-        color: '#2196F3',
-        width: 2,
-      ),
+/// Analyze layout patterns in existing Flutter code
+void _analyzeLayoutPatterns() {
+  print('  Analyzing common Flutter layout patterns...');
+  
+  // Simulate analyzing different layout patterns
+  final layoutAnalysis = {
+    'analyzed_patterns': [
+      {
+        'pattern_type': 'container_with_child',
+        'flutter_code': 'Container(width: 200, height: 100, child: Text("Hello"))',
+        'frequency': 'high',
+        'usage_context': 'card layouts, buttons, containers'
+      },
+      {
+        'pattern_type': 'column_with_spacing',
+        'flutter_code': 'Column(children: [Text("A"), SizedBox(height: 8), Text("B")])',
+        'frequency': 'very_high',
+        'usage_context': 'forms, lists, vertical layouts'
+      },
+      {
+        'pattern_type': 'row_with_flex',
+        'flutter_code': 'Row(children: [Expanded(child: Text("A")), Text("B")])',
+        'frequency': 'high',
+        'usage_context': 'headers, toolbars, horizontal layouts'
+      }
+    ]
+  };
+  
+  // Convert patterns to MCP UI DSL
+  final mcpLayouts = _convertLayoutPatternsToMcp(layoutAnalysis);
+  
+  // Save analysis results
+  _saveAnalysisResult('layout_patterns_analysis.json', {
+    'original_analysis': layoutAnalysis,
+    'mcp_ui_conversion': mcpLayouts,
+    'conversion_notes': 'Container → box, Column → linear(vertical), Row → linear(horizontal)'
+  });
+  
+  print('  ✓ Layout patterns analyzed and converted');
+}
+
+/// Analyze display widget patterns
+void _analyzeDisplayPatterns() {
+  print('  Analyzing display widget patterns...');
+  
+  final displayAnalysis = {
+    'analyzed_patterns': [
+      {
+        'pattern_type': 'styled_text',
+        'flutter_code': 'Text("Hello", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))',
+        'frequency': 'very_high',
+        'style_properties': ['fontSize', 'fontWeight', 'color']
+      },
+      {
+        'pattern_type': 'network_image',
+        'flutter_code': 'Image.network("https://example.com/image.png")',
+        'frequency': 'high',
+        'common_properties': ['url', 'fit', 'placeholder']
+      },
+      {
+        'pattern_type': 'icon_with_size',
+        'flutter_code': 'Icon(Icons.home, size: 24, color: Colors.blue)',
+        'frequency': 'high',
+        'common_properties': ['icon', 'size', 'color']
+      }
+    ]
+  };
+  
+  final mcpDisplays = _convertDisplayPatternsToMcp(displayAnalysis);
+  
+  _saveAnalysisResult('display_patterns_analysis.json', {
+    'original_analysis': displayAnalysis,
+    'mcp_ui_conversion': mcpDisplays,
+    'conversion_notes': 'Text → text with style, Image → image, Icon → icon'
+  });
+  
+  print('  ✓ Display patterns analyzed and converted');
+}
+
+/// Analyze input widget patterns
+void _analyzeInputPatterns() {
+  print('  Analyzing input widget patterns...');
+  
+  final inputAnalysis = {
+    'analyzed_patterns': [
+      {
+        'pattern_type': 'text_form_field',
+        'flutter_code': 'TextFormField(decoration: InputDecoration(labelText: "Name"))',
+        'frequency': 'very_high',
+        'common_properties': ['labelText', 'hintText', 'validator']
+      },
+      {
+        'pattern_type': 'elevated_button',
+        'flutter_code': 'ElevatedButton(onPressed: () {}, child: Text("Submit"))',
+        'frequency': 'very_high',
+        'event_properties': ['onPressed', 'onLongPress']
+      },
+      {
+        'pattern_type': 'checkbox_with_state',
+        'flutter_code': 'Checkbox(value: isChecked, onChanged: (value) => setState(...))',
+        'frequency': 'medium',
+        'state_properties': ['value', 'onChanged']
+      }
+    ]
+  };
+  
+  final mcpInputs = _convertInputPatternsToMcp(inputAnalysis);
+  
+  _saveAnalysisResult('input_patterns_analysis.json', {
+    'original_analysis': inputAnalysis,
+    'mcp_ui_conversion': mcpInputs,
+    'conversion_notes': 'TextFormField → textInput, ElevatedButton → button, Checkbox → checkbox'
+  });
+  
+  print('  ✓ Input patterns analyzed and converted');
+}
+
+/// Analyze list widget patterns  
+void _analyzeListPatterns() {
+  print('  Analyzing list widget patterns...');
+  
+  final listAnalysis = {
+    'analyzed_patterns': [
+      {
+        'pattern_type': 'listview_builder',
+        'flutter_code': 'ListView.builder(itemCount: items.length, itemBuilder: (context, index) => ListTile(...))',
+        'frequency': 'very_high',
+        'data_binding': 'dynamic item list'
+      },
+      {
+        'pattern_type': 'gridview_count',
+        'flutter_code': 'GridView.count(crossAxisCount: 2, children: widgets)',
+        'frequency': 'medium',
+        'layout_properties': ['crossAxisCount', 'childAspectRatio']
+      }
+    ]
+  };
+  
+  final mcpLists = _convertListPatternsToMcp(listAnalysis);
+  
+  _saveAnalysisResult('list_patterns_analysis.json', {
+    'original_analysis': listAnalysis,
+    'mcp_ui_conversion': mcpLists,
+    'conversion_notes': 'ListView → list with items binding, GridView → grid'
+  });
+  
+  print('  ✓ List patterns analyzed and converted');
+}
+
+/// Analyze navigation widget patterns
+void _analyzeNavigationPatterns() {
+  print('  Analyzing navigation widget patterns...');
+  
+  final navAnalysis = {
+    'analyzed_patterns': [
+      {
+        'pattern_type': 'app_bar_with_actions',
+        'flutter_code': 'AppBar(title: Text("Home"), actions: [IconButton(...)])',
+        'frequency': 'very_high',
+        'common_elements': ['title', 'actions', 'leading']
+      },
+      {
+        'pattern_type': 'bottom_navigation',
+        'flutter_code': 'BottomNavigationBar(items: [...], onTap: (index) => ...)',
+        'frequency': 'high',
+        'navigation_properties': ['items', 'currentIndex', 'onTap']
+      }
+    ]
+  };
+  
+  final mcpNavigation = _convertNavigationPatternsToMcp(navAnalysis);
+  
+  _saveAnalysisResult('navigation_patterns_analysis.json', {
+    'original_analysis': navAnalysis,
+    'mcp_ui_conversion': mcpNavigation,
+    'conversion_notes': 'AppBar → headerBar, BottomNavigationBar → bottomNavigation'
+  });
+  
+  print('  ✓ Navigation patterns analyzed and converted');
+}
+
+/// Analyze complete app structure
+void _analyzeCompleteApp() {
+  print('  Analyzing complete Flutter app structure...');
+  
+  final appAnalysis = {
+    'app_structure': {
+      'main_widget': 'MaterialApp',
+      'home_page': 'Scaffold with AppBar and body',
+      'navigation': 'BottomNavigationBar with 3 tabs',
+      'state_management': 'StatefulWidget with setState'
+    },
+    'page_breakdown': {
+      'home_page': ['AppBar', 'ListView', 'FloatingActionButton'],
+      'profile_page': ['AppBar', 'Column with form fields', 'Save button'],
+      'settings_page': ['AppBar', 'List of settings items', 'Switch widgets']
+    }
+  };
+  
+  // Convert to complete MCP UI application
+  final mcpApp = _convertCompleteAppToMcp(appAnalysis);
+  
+  _saveAnalysisResult('complete_app_analysis.json', {
+    'original_analysis': appAnalysis,
+    'mcp_ui_application': mcpApp,
+    'migration_strategy': 'Convert MaterialApp to application, Scaffold pages to page components'
+  });
+  
+  print('  ✓ Complete app structure analyzed and converted');
+}
+
+/// Helper functions for conversion
+
+Map<String, dynamic> _convertLayoutPatternsToMcp(Map<String, dynamic> analysis) {
+  return {
+    'box_pattern': MCPUIJsonGenerator.box(
+      width: 200.0,
+      height: 100.0,
+      child: MCPUIJsonGenerator.text('Hello'),
     ),
-    child: MCPUIJsonGenerator.center(
-      child: MCPUIJsonGenerator.text(
-        'Container Example',
-        style: MCPUIJsonGenerator.textStyle(
-          fontWeight: 'bold',
-          color: '#1976D2',
-        ),
-      ),
-    ),
-  );
-
-  // Column and Row example
-  final columnRow = MCPUIJsonGenerator.column(
-    children: [
-      MCPUIJsonGenerator.text(
-        'Column Layout',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 16),
-      MCPUIJsonGenerator.row(
-        mainAxisAlignment: 'spaceBetween',
-        children: [
-          MCPUIJsonGenerator.expanded(
-            child: MCPUIJsonGenerator.container(
-              color: '#FFEBEE',
-              padding: MCPUIJsonGenerator.edgeInsets(all: 8),
-              child: MCPUIJsonGenerator.text('Item 1'),
-            ),
-          ),
-          MCPUIJsonGenerator.sizedBox(width: 8),
-          MCPUIJsonGenerator.expanded(
-            child: MCPUIJsonGenerator.container(
-              color: '#E8F5E8',
-              padding: MCPUIJsonGenerator.edgeInsets(all: 8),
-              child: MCPUIJsonGenerator.text('Item 2'),
-            ),
-          ),
-        ],
-      ),
-    ],
-  );
-
-  // Stack example
-  final stack = MCPUIJsonGenerator.stack(
-    children: [
-      MCPUIJsonGenerator.container(
-        width: 150,
-        height: 150,
-        color: '#FFF3E0',
-      ),
-      MCPUIJsonGenerator.container(
-        width: 100,
-        height: 100,
-        color: '#FFE082',
-        margin: MCPUIJsonGenerator.edgeInsets(all: 25),
-      ),
-      MCPUIJsonGenerator.container(
-        width: 50,
-        height: 50,
-        color: '#FF8F00',
-        margin: MCPUIJsonGenerator.edgeInsets(all: 50),
-      ),
-    ],
-    alignment: 'topLeft',
-  );
-
-  final layoutPage = MCPUIJsonGenerator.column(
-    children: [
-      MCPUIJsonGenerator.text(
-        'Layout Widgets Showcase',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 24, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      container,
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      columnRow,
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      stack,
-    ],
-  );
-
-  MCPUIJsonGenerator.generateJsonFile(layoutPage, 'widgets_showcase_layout.json');
-  print('✓ Layout widgets example created: widgets_showcase_layout.json');
-}
-
-/// Display widget demo
-void _demonstrateDisplayWidgets() {
-  final displayWidgets = MCPUIJsonGenerator.column(
-    children: [
-      MCPUIJsonGenerator.text(
-        'Display Widgets Showcase',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 24, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.divider(thickness: 2, color: '#E0E0E0'),
-      
-      // Text examples
-      MCPUIJsonGenerator.text(
-        'Basic Text',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 16),
-      ),
-      MCPUIJsonGenerator.text(
-        'Bold and Colored Text',
-        style: MCPUIJsonGenerator.textStyle(
-          fontSize: 18,
-          fontWeight: 'bold',
-          color: '#F44336',
-        ),
-      ),
-      MCPUIJsonGenerator.text(
-        'Styled Text with Decoration',
-        style: MCPUIJsonGenerator.textStyle(
-          fontSize: 16,
-          fontStyle: 'italic',
-          decoration: 'underline',
-          color: '#4CAF50',
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 16),
-      MCPUIJsonGenerator.divider(),
-      
-      // Icon examples
-      MCPUIJsonGenerator.row(
-        mainAxisAlignment: 'spaceEvenly',
-        children: [
-          MCPUIJsonGenerator.icon(icon: 'home', size: 32, color: '#2196F3'),
-          MCPUIJsonGenerator.icon(icon: 'star', size: 32, color: '#FF9800'),
-          MCPUIJsonGenerator.icon(icon: 'favorite', size: 32, color: '#E91E63'),
-          MCPUIJsonGenerator.icon(icon: 'settings', size: 32, color: '#9C27B0'),
-        ],
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 16),
-      MCPUIJsonGenerator.divider(),
-      
-      // Image example
-      MCPUIJsonGenerator.image(
-        src: 'https://picsum.photos/200/100',
-        width: 200,
-        height: 100,
-        fit: 'cover',
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 16),
-      MCPUIJsonGenerator.divider(),
-      
-      // Card example
-      MCPUIJsonGenerator.card(
-        elevation: 4,
-        margin: MCPUIJsonGenerator.edgeInsets(all: 8),
-        child: MCPUIJsonGenerator.padding(
-          padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-          child: MCPUIJsonGenerator.column(
-            children: [
-              MCPUIJsonGenerator.text(
-                'Card Example',
-                style: MCPUIJsonGenerator.textStyle(
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                ),
-              ),
-              MCPUIJsonGenerator.sizedBox(height: 8),
-              MCPUIJsonGenerator.text(
-                'This is a card with elevation and padding. Perfect for grouping content.',
-              ),
-            ],
-          ),
-        ),
-      ),
-    ],
-  );
-
-  MCPUIJsonGenerator.generateJsonFile(displayWidgets, 'widgets_showcase_display.json');
-  print('✓ Display widgets example created: widgets_showcase_display.json');
-}
-
-/// Input widget demo
-void _demonstrateInputWidgets() {
-  final inputWidgets = MCPUIJsonGenerator.column(
-    children: [
-      MCPUIJsonGenerator.text(
-        'Input Widgets Showcase',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 24, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Button examples
-      MCPUIJsonGenerator.text(
-        'Buttons',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.row(
-        mainAxisAlignment: 'spaceEvenly',
-        children: [
-          MCPUIJsonGenerator.button(
-            label: 'Elevated',
-            style: 'elevated',
-            onTap: MCPUIJsonGenerator.toolAction('buttonPressed', args: {'type': 'elevated'}),
-          ),
-          MCPUIJsonGenerator.button(
-            label: 'Outlined',
-            style: 'outlined',
-            onTap: MCPUIJsonGenerator.toolAction('buttonPressed', args: {'type': 'outlined'}),
-          ),
-          MCPUIJsonGenerator.button(
-            label: 'Text',
-            style: 'text',
-            onTap: MCPUIJsonGenerator.toolAction('buttonPressed', args: {'type': 'text'}),
-          ),
-        ],
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // TextField examples
-      MCPUIJsonGenerator.text(
-        'Text Fields',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.textField(
-        label: 'Username',
-        placeholder: 'Enter your username',
-        value: '{{username}}',
-        onChange: MCPUIJsonGenerator.stateAction(
-          action: 'set',
-          binding: 'username',
-          value: '{{event.value}}',
-        ),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.textField(
-        label: 'Password',
-        placeholder: 'Enter your password',
-        value: '{{password}}',
-        obscureText: true,
-        onChange: MCPUIJsonGenerator.stateAction(
-          action: 'set',
-          binding: 'password',
-          value: '{{event.value}}',
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Checkbox and Switch examples
-      MCPUIJsonGenerator.text(
-        'Toggles',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.checkbox(
-        label: 'Agree to terms and conditions',
-        value: '{{agreeToTerms}}',
-        onChange: MCPUIJsonGenerator.stateAction(
-          action: 'toggle',
-          binding: 'agreeToTerms',
-        ),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.switchWidget(
-        label: 'Enable notifications',
-        value: '{{notifications}}',
-        onChange: MCPUIJsonGenerator.stateAction(
-          action: 'toggle',
-          binding: 'notifications',
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Slider example
-      MCPUIJsonGenerator.text(
-        'Slider',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.slider(
-        value: '{{volume}}',
-        min: 0,
-        max: 100,
-        divisions: 10,
-        label: 'Volume: {{volume}}%',
-        onChange: MCPUIJsonGenerator.stateAction(
-          action: 'set',
-          binding: 'volume',
-          value: '{{event.value}}',
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Dropdown example
-      MCPUIJsonGenerator.text(
-        'Dropdown',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.dropdown(
-        label: 'Select Country',
-        value: '{{selectedCountry}}',
-        items: [
-          {'value': 'kr', 'label': 'South Korea'},
-          {'value': 'us', 'label': 'United States'},
-          {'value': 'jp', 'label': 'Japan'},
-          {'value': 'cn', 'label': 'China'},
-        ],
-        onChange: MCPUIJsonGenerator.stateAction(
-          action: 'set',
-          binding: 'selectedCountry',
-          value: '{{event.value}}',
-        ),
-      ),
-    ],
-  );
-
-  MCPUIJsonGenerator.generateJsonFile(inputWidgets, 'widgets_showcase_input.json');
-  print('✓ Input widgets example created: widgets_showcase_input.json');
-}
-
-/// List widget demo
-void _demonstrateListWidgets() {
-  final listWidgets = MCPUIJsonGenerator.column(
-    children: [
-      MCPUIJsonGenerator.text(
-        'List Widgets Showcase',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 24, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // ListView example
-      MCPUIJsonGenerator.text(
-        'List View',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.container(
-        height: 200,
-        decoration: MCPUIJsonGenerator.decoration(
-          border: MCPUIJsonGenerator.border(color: '#E0E0E0', width: 1),
-          borderRadius: 8,
-        ),
-        child: MCPUIJsonGenerator.listView(
-          items: '{{todoItems}}',
-          itemSpacing: 8,
-          itemTemplate: MCPUIJsonGenerator.listTile(
-            title: '{{item.title}}',
-            subtitle: '{{item.description}}',
-            leading: MCPUIJsonGenerator.icon(
-              icon: '{{item.completed ? "check_circle" : "radio_button_unchecked"}}',
-              color: '{{item.completed ? "#4CAF50" : "#9E9E9E"}}',
-            ),
-            trailing: MCPUIJsonGenerator.icon(icon: 'more_vert'),
-          ),
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // GridView example
-      MCPUIJsonGenerator.text(
-        'Grid View',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.container(
-        height: 200,
-        decoration: MCPUIJsonGenerator.decoration(
-          border: MCPUIJsonGenerator.border(color: '#E0E0E0', width: 1),
-          borderRadius: 8,
-        ),
-        child: MCPUIJsonGenerator.gridView(
-          items: '{{products}}',
-          crossAxisCount: 2,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          itemTemplate: MCPUIJsonGenerator.card(
-            child: MCPUIJsonGenerator.column(
-              children: [
-                MCPUIJsonGenerator.image(
-                  src: '{{item.imageUrl}}',
-                  height: 80,
-                  fit: 'cover',
-                ),
-                MCPUIJsonGenerator.padding(
-                  padding: MCPUIJsonGenerator.edgeInsets(all: 8),
-                  child: MCPUIJsonGenerator.column(
-                    children: [
-                      MCPUIJsonGenerator.text(
-                        '{{item.name}}',
-                        style: MCPUIJsonGenerator.textStyle(fontWeight: 'bold'),
-                      ),
-                      MCPUIJsonGenerator.text(
-                        '{{item.price}}',
-                        style: MCPUIJsonGenerator.textStyle(color: '#4CAF50'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // ListTile examples
-      MCPUIJsonGenerator.text(
-        'List Tiles',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.card(
-        child: MCPUIJsonGenerator.column(
-          children: [
-            MCPUIJsonGenerator.listTile(
-              leading: MCPUIJsonGenerator.icon(icon: 'person', color: '#2196F3'),
-              title: 'Profile',
-              subtitle: 'View and edit your profile',
-              trailing: MCPUIJsonGenerator.icon(icon: 'arrow_forward_ios'),
-            ),
-            MCPUIJsonGenerator.divider(),
-            MCPUIJsonGenerator.listTile(
-              leading: MCPUIJsonGenerator.icon(icon: 'settings', color: '#9C27B0'),
-              title: 'Settings',
-              subtitle: 'App preferences and configuration',
-              trailing: MCPUIJsonGenerator.icon(icon: 'arrow_forward_ios'),
-            ),
-            MCPUIJsonGenerator.divider(),
-            MCPUIJsonGenerator.listTile(
-              leading: MCPUIJsonGenerator.icon(icon: 'help', color: '#FF9800'),
-              title: 'Help & Support',
-              subtitle: 'Get help and contact support',
-              trailing: MCPUIJsonGenerator.icon(icon: 'arrow_forward_ios'),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-
-  MCPUIJsonGenerator.generateJsonFile(listWidgets, 'widgets_showcase_list.json');
-  print('✓ List widgets example created: widgets_showcase_list.json');
-}
-
-/// Navigation widget demo
-void _demonstrateNavigationWidgets() {
-  final navigationWidgets = MCPUIJsonGenerator.column(
-    children: [
-      MCPUIJsonGenerator.text(
-        'Navigation Widgets Showcase',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 24, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // AppBar example
-      MCPUIJsonGenerator.text(
-        'App Bar',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.appBar(
-        title: 'My Application',
-        elevation: 4,
-        actions: [
-          MCPUIJsonGenerator.icon(icon: 'search'),
-          MCPUIJsonGenerator.icon(icon: 'more_vert'),
-        ],
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Bottom Navigation Bar example
-      MCPUIJsonGenerator.text(
-        'Bottom Navigation Bar',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.bottomNavigationBar(
-        currentIndex: 0,
-        items: [
-          {'icon': 'home', 'label': 'Home'},
-          {'icon': 'search', 'label': 'Search'},
-          {'icon': 'favorite', 'label': 'Favorites'},
-          {'icon': 'person', 'label': 'Profile'},
-        ],
-        onTap: MCPUIJsonGenerator.stateAction(
-          action: 'set',
-          binding: 'currentTab',
-          value: '{{event.index}}',
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Drawer example
-      MCPUIJsonGenerator.text(
-        'Drawer',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.container(
-        width: 300,
-        height: 400,
-        decoration: MCPUIJsonGenerator.decoration(
-          border: MCPUIJsonGenerator.border(color: '#E0E0E0', width: 1),
-          borderRadius: 8,
-        ),
-        child: MCPUIJsonGenerator.drawer(
-          child: MCPUIJsonGenerator.column(
-            children: [
-              MCPUIJsonGenerator.container(
-                height: 120,
-                color: '#2196F3',
-                padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-                child: MCPUIJsonGenerator.column(
-                  crossAxisAlignment: 'start',
-                  mainAxisAlignment: 'end',
-                  children: [
-                    MCPUIJsonGenerator.text(
-                      'John Doe',
-                      style: MCPUIJsonGenerator.textStyle(
-                        color: 'white',
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                      ),
-                    ),
-                    MCPUIJsonGenerator.text(
-                      'john.doe@example.com',
-                      style: MCPUIJsonGenerator.textStyle(color: 'white'),
-                    ),
-                  ],
-                ),
-              ),
-              MCPUIJsonGenerator.listTile(
-                leading: MCPUIJsonGenerator.icon(icon: 'home'),
-                title: 'Home',
-              ),
-              MCPUIJsonGenerator.listTile(
-                leading: MCPUIJsonGenerator.icon(icon: 'settings'),
-                title: 'Settings',
-              ),
-              MCPUIJsonGenerator.listTile(
-                leading: MCPUIJsonGenerator.icon(icon: 'logout'),
-                title: 'Logout',
-              ),
-            ],
-          ),
-        ),
-      ),
-      
-      MCPUIJsonGenerator.sizedBox(height: 20),
-      
-      // Floating Action Button example
-      MCPUIJsonGenerator.text(
-        'Floating Action Button',
-        style: MCPUIJsonGenerator.textStyle(fontSize: 18, fontWeight: 'bold'),
-      ),
-      MCPUIJsonGenerator.sizedBox(height: 8),
-      MCPUIJsonGenerator.floatingActionButton(
-        onPressed: MCPUIJsonGenerator.toolAction('addNewItem'),
-        tooltip: 'Add new item',
-        child: MCPUIJsonGenerator.icon(icon: 'add'),
-      ),
-    ],
-  );
-
-  MCPUIJsonGenerator.generateJsonFile(navigationWidgets, 'widgets_showcase_navigation.json');
-  print('✓ Navigation widgets example created: widgets_showcase_navigation.json');
-}
-
-/// Complete page example
-void _demonstrateCompletePage() {
-  final completePage = MCPUIJsonGenerator.page(
-    title: 'Widget Showcase',
-    content: MCPUIJsonGenerator.column(
+    'linear_column_pattern': MCPUIJsonGenerator.linear(
+      direction: 'vertical',
       children: [
-        // Header
-        MCPUIJsonGenerator.appBar(
-          title: 'Widget Showcase',
-          elevation: 2,
-          actions: [
-            MCPUIJsonGenerator.icon(icon: 'refresh'),
-          ],
-        ),
-        
-        // Main content
+        MCPUIJsonGenerator.text('A'),
+        MCPUIJsonGenerator.sizedBox(height: 8),
+        MCPUIJsonGenerator.text('B'),
+      ],
+    ),
+    'linear_row_pattern': MCPUIJsonGenerator.linear(
+      direction: 'horizontal',
+      children: [
         MCPUIJsonGenerator.expanded(
-          child: MCPUIJsonGenerator.padding(
-            padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-            child: MCPUIJsonGenerator.column(
-              children: [
-                // Welcome card
-                MCPUIJsonGenerator.card(
-                  elevation: 4,
-                  child: MCPUIJsonGenerator.padding(
-                    padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-                    child: MCPUIJsonGenerator.row(
-                      children: [
-                        MCPUIJsonGenerator.icon(
-                          icon: 'widgets',
-                          size: 48,
-                          color: '#2196F3',
-                        ),
-                        MCPUIJsonGenerator.sizedBox(width: 16),
-                        MCPUIJsonGenerator.expanded(
-                          child: MCPUIJsonGenerator.column(
-                            crossAxisAlignment: 'start',
-                            children: [
-                              MCPUIJsonGenerator.text(
-                                'Welcome to Widget Showcase',
-                                style: MCPUIJsonGenerator.textStyle(
-                                  fontSize: 20,
-                                  fontWeight: 'bold',
-                                ),
-                              ),
-                              MCPUIJsonGenerator.sizedBox(height: 8),
-                              MCPUIJsonGenerator.text(
-                                'Explore all the widgets available in Flutter MCP UI Generator.',
-                                style: MCPUIJsonGenerator.textStyle(color: '#666666'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                
-                MCPUIJsonGenerator.sizedBox(height: 20),
-                
-                // Widget category grid
-                MCPUIJsonGenerator.expanded(
-                  child: MCPUIJsonGenerator.gridView(
-                    items: '{{widgetCategories}}',
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    itemTemplate: MCPUIJsonGenerator.card(
-                      elevation: 2,
-                      child: MCPUIJsonGenerator.container(
-                        padding: MCPUIJsonGenerator.edgeInsets(all: 16),
-                        child: MCPUIJsonGenerator.column(
-                          mainAxisAlignment: 'center',
-                          children: [
-                            MCPUIJsonGenerator.icon(
-                              icon: '{{item.icon}}',
-                              size: 48,
-                              color: '{{item.color}}',
-                            ),
-                            MCPUIJsonGenerator.sizedBox(height: 12),
-                            MCPUIJsonGenerator.text(
-                              '{{item.title}}',
-                              style: MCPUIJsonGenerator.textStyle(
-                                fontSize: 16,
-                                fontWeight: 'bold',
-                              ),
-                              textAlign: 'center',
-                            ),
-                            MCPUIJsonGenerator.sizedBox(height: 4),
-                            MCPUIJsonGenerator.text(
-                              '{{item.description}}',
-                              style: MCPUIJsonGenerator.textStyle(
-                                fontSize: 12,
-                                color: '#666666',
-                              ),
-                              textAlign: 'center',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          child: MCPUIJsonGenerator.text('A'),
         ),
-        
-        // Bottom navigation
-        MCPUIJsonGenerator.bottomNavigationBar(
-          currentIndex: 0,
-          items: [
-            {'icon': 'widgets', 'label': 'Widgets'},
-            {'icon': 'code', 'label': 'Examples'},
-            {'icon': 'help', 'label': 'Help'},
-          ],
-          onTap: MCPUIJsonGenerator.stateAction(
-            action: 'set',
-            binding: 'currentTab',
-            value: '{{event.index}}',
-          ),
+        MCPUIJsonGenerator.text('B'),
+      ],
+    ),
+  };
+}
+
+Map<String, dynamic> _convertDisplayPatternsToMcp(Map<String, dynamic> analysis) {
+  return {
+    'styled_text_pattern': MCPUIJsonGenerator.text(
+      'Hello',
+      style: MCPUIJsonGenerator.textStyle(
+        fontSize: 18.0,
+        fontWeight: 'bold',
+      ),
+    ),
+    'image_pattern': MCPUIJsonGenerator.image(
+      src: 'https://example.com/image.png',
+      fit: 'cover',
+    ),
+    'icon_pattern': MCPUIJsonGenerator.icon(
+      icon: 'home',
+      size: 24.0,
+      color: '#2196F3',
+    ),
+  };
+}
+
+Map<String, dynamic> _convertInputPatternsToMcp(Map<String, dynamic> analysis) {
+  return {
+    'text_input_pattern': MCPUIJsonGenerator.textInput(
+      label: 'Name',
+      value: MCPUIJsonGenerator.binding('user.name'),
+      change: MCPUIJsonGenerator.stateAction(
+        action: 'set',
+        path: 'user.name',
+        value: '{{event.value}}',
+      ),
+    ),
+    'button_pattern': MCPUIJsonGenerator.button(
+      label: 'Submit',
+      click: MCPUIJsonGenerator.toolAction('submit', params: {}),
+    ),
+    'checkbox_pattern': MCPUIJsonGenerator.checkbox(
+      label: 'Agree to terms',
+      value: MCPUIJsonGenerator.binding('form.agreed'),
+      change: MCPUIJsonGenerator.stateAction(
+        action: 'set',
+        path: 'form.agreed',
+        value: '{{event.value}}',
+      ),
+    ),
+  };
+}
+
+Map<String, dynamic> _convertListPatternsToMcp(Map<String, dynamic> analysis) {
+  return {
+    'list_pattern': MCPUIJsonGenerator.list(
+      items: MCPUIJsonGenerator.binding('items'),
+      template: MCPUIJsonGenerator.listTile(
+        title: MCPUIJsonGenerator.binding('item.title'),
+        subtitle: MCPUIJsonGenerator.binding('item.subtitle'),
+      ),
+    ),
+    'grid_pattern': MCPUIJsonGenerator.grid(
+      items: MCPUIJsonGenerator.binding('products'),
+      crossAxisCount: 2,
+      template: MCPUIJsonGenerator.card(
+        child: MCPUIJsonGenerator.text(MCPUIJsonGenerator.binding('item.name')),
+      ),
+    ),
+  };
+}
+
+Map<String, dynamic> _convertNavigationPatternsToMcp(Map<String, dynamic> analysis) {
+  return {
+    'header_bar_pattern': MCPUIJsonGenerator.headerBar(
+      title: 'Home',
+      actions: [
+        MCPUIJsonGenerator.button(
+          label: 'Action',
+          click: MCPUIJsonGenerator.toolAction('headerAction', params: {}),
         ),
       ],
     ),
+    'bottom_navigation_pattern': MCPUIJsonGenerator.bottomNavigation(
+      items: [
+        {'label': 'Home', 'icon': 'home'},
+        {'label': 'Profile', 'icon': 'person'},
+        {'label': 'Settings', 'icon': 'settings'},
+      ],
+      currentIndex: 0,
+      click: MCPUIJsonGenerator.stateAction(
+        action: 'set',
+        path: 'navigation.currentIndex',
+        value: '{{event.index}}',
+      ),
+    ),
+  };
+}
+
+Map<String, dynamic> _convertCompleteAppToMcp(Map<String, dynamic> analysis) {
+  return MCPUIJsonGenerator.application(
+    title: 'Analyzed Flutter App',
+    version: '1.0.0',
+    routes: {
+      '/': {'uri': 'ui://pages/home'},
+      '/profile': {'uri': 'ui://pages/profile'},
+      '/settings': {'uri': 'ui://pages/settings'},
+    },
+    initialRoute: '/',
+    navigation: {
+      'type': 'bottomNavigation',
+      'items': [
+        {'label': 'Home', 'icon': 'home', 'route': '/'},
+        {'label': 'Profile', 'icon': 'person', 'route': '/profile'},
+        {'label': 'Settings', 'icon': 'settings', 'route': '/settings'},
+      ],
+    },
     state: {
       'initial': {
-        'currentTab': 0,
-        'widgetCategories': [
-          {
-            'title': 'Layout',
-            'description': 'Container, Row, Column, Stack',
-            'icon': 'view_module',
-            'color': '#2196F3',
-          },
-          {
-            'title': 'Display',
-            'description': 'Text, Image, Icon, Card',
-            'icon': 'visibility',
-            'color': '#4CAF50',
-          },
-          {
-            'title': 'Input',
-            'description': 'Button, TextField, Slider',
-            'icon': 'input',
-            'color': '#FF9800',
-          },
-          {
-            'title': 'List',
-            'description': 'ListView, GridView, ListTile',
-            'icon': 'list',
-            'color': '#9C27B0',
-          },
-        ],
+        'navigation': {'currentIndex': 0},
+        'user': {'name': '', 'email': ''},
+        'settings': {'darkMode': false},
       },
     },
   );
+}
 
-  MCPUIJsonGenerator.generateJsonFile(completePage, 'widgets_showcase_complete.json');
-  print('✓ Complete page example created: widgets_showcase_complete.json');
+void _saveAnalysisResult(String filename, Map<String, dynamic> data) {
+  final outputFile = File('example/analysis_results/$filename');
+  outputFile.parent.createSync(recursive: true);
+  
+  final json = JsonEncoder.withIndent('  ').convert(data);
+  outputFile.writeAsStringSync(json);
+  
+  print('    → Saved to: $filename');
 }
