@@ -8,13 +8,15 @@ void main() {
         title: 'Test App',
         version: '1.0.0',
         routes: {
-          '/': {'uri': 'ui://pages/home'},
-          '/settings': {'uri': 'ui://pages/settings'},
+          '/': 'ui://pages/home',
+          '/settings': 'ui://pages/settings',
         },
         initialRoute: '/home',
         theme: {'primaryColor': '#2196F3'},
         navigation: {'type': 'drawer'},
-        state: {'initial': {'user': 'John'}},
+        state: {
+          'initial': {'user': 'John'}
+        },
       );
 
       expect(app['type'], 'application');
@@ -32,10 +34,16 @@ void main() {
         title: 'Test Page',
         content: {'type': 'text', 'content': 'Hello'},
         route: '/test',
-        state: {'initial': {'count': 0}},
+        state: {
+          'initial': {'count': 0}
+        },
         lifecycle: {
-          'onInit': [{'type': 'tool', 'name': 'loadData'}],
-          'onDestroy': [{'type': 'tool', 'name': 'cleanup'}],
+          'onInit': [
+            {'type': 'tool', 'name': 'loadData'}
+          ],
+          'onDestroy': [
+            {'type': 'tool', 'name': 'cleanup'}
+          ],
         },
       );
 

@@ -17,13 +17,13 @@ void main() {
     test('stateAction', () {
       final action = MCPUIJsonGenerator.stateAction(
         action: 'set',
-        path: 'user.name',
+        binding: 'user.name',
         value: 'John',
       );
 
       expect(action['type'], equals('state'));
       expect(action['action'], equals('set'));
-      expect(action['path'], equals('user.name'));
+      expect(action['binding'], equals('user.name'));
       expect(action['value'], equals('John'));
     });
 
@@ -58,7 +58,7 @@ void main() {
         actions: [
           MCPUIJsonGenerator.stateAction(
             action: 'set',
-            path: 'loading',
+            binding: 'loading',
             value: true,
           ),
           MCPUIJsonGenerator.toolAction('loadData'),

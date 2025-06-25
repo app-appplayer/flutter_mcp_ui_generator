@@ -3,18 +3,18 @@ import 'dart:io';
 import 'dart:convert';
 
 /// Login Form Analysis Example
-/// 
+///
 /// This example demonstrates analyzing existing Flutter login forms and converting them to MCP UI DSL.
 /// It shows pattern recognition for form layouts, input validation, and user authentication flows.
 void main() {
   print('=== Login Form Analysis Example ===\n');
-  
+
   print('Analyzing Flutter login form patterns...');
   _analyzeLoginFormPatterns();
-  
+
   print('\nGenerating MCP UI login form from analysis...');
   _generateMcpLoginForm();
-  
+
   print('\n=== Analysis complete! ===');
   print('Check the results:');
   print('- login_form_analysis.json');
@@ -23,7 +23,7 @@ void main() {
 
 void _analyzeLoginFormPatterns() {
   print('  Detecting common login form patterns...');
-  
+
   // Simulate analyzing existing Flutter login forms
   final loginFormAnalysis = {
     'form_structure': {
@@ -41,7 +41,7 @@ void _analyzeLoginFormPatterns() {
         'properties': ['padding', 'width', 'alignment']
       },
       {
-        'type': 'Card', 
+        'type': 'Card',
         'usage': 'Elevated form container',
         'properties': ['elevation', 'child']
       },
@@ -79,7 +79,7 @@ void _analyzeLoginFormPatterns() {
       'Error state display and clearing'
     ]
   };
-  
+
   // Save analysis results
   _saveAnalysisResult('login_form_analysis.json', loginFormAnalysis);
   print('  ✓ Login form patterns analyzed');
@@ -87,7 +87,7 @@ void _analyzeLoginFormPatterns() {
 
 void _generateMcpLoginForm() {
   print('  Converting analyzed patterns to MCP UI DSL...');
-  
+
   // Convert the analyzed patterns to MCP UI components
   final mcpLoginForm = MCPUIJsonGenerator.page(
     title: 'Login',
@@ -127,7 +127,7 @@ void _generateMcpLoginForm() {
                   ),
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 32),
-                
+
                 // Error message (conditional)
                 MCPUIJsonGenerator.conditionalWidget(
                   condition: '{{loginForm.error != null}}',
@@ -136,7 +136,8 @@ void _generateMcpLoginForm() {
                     decoration: MCPUIJsonGenerator.decoration(
                       color: '#FFEBEE',
                       borderRadius: 4.0,
-                      border: MCPUIJsonGenerator.border(color: '#F44336', width: 1),
+                      border:
+                          MCPUIJsonGenerator.border(color: '#F44336', width: 1),
                     ),
                     child: MCPUIJsonGenerator.text(
                       MCPUIJsonGenerator.binding('loginForm.error'),
@@ -146,7 +147,7 @@ void _generateMcpLoginForm() {
                   orElse: MCPUIJsonGenerator.sizedBox(height: 0),
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 16),
-                
+
                 // Email field
                 MCPUIJsonGenerator.textInput(
                   label: 'Email',
@@ -154,12 +155,12 @@ void _generateMcpLoginForm() {
                   value: MCPUIJsonGenerator.binding('loginForm.email'),
                   change: MCPUIJsonGenerator.stateAction(
                     action: 'set',
-                    path: 'loginForm.email',
+                    binding: 'loginForm.email',
                     value: '{{event.value}}',
                   ),
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 16),
-                
+
                 // Password field
                 MCPUIJsonGenerator.textInput(
                   label: 'Password',
@@ -167,13 +168,13 @@ void _generateMcpLoginForm() {
                   value: MCPUIJsonGenerator.binding('loginForm.password'),
                   change: MCPUIJsonGenerator.stateAction(
                     action: 'set',
-                    path: 'loginForm.password',
+                    binding: 'loginForm.password',
                     value: '{{event.value}}',
                   ),
                   obscureText: true,
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 24),
-                
+
                 // Login button
                 MCPUIJsonGenerator.button(
                   label: MCPUIJsonGenerator.conditional(
@@ -192,15 +193,16 @@ void _generateMcpLoginForm() {
                   style: 'elevated',
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 16),
-                
+
                 // Forgot password link
                 MCPUIJsonGenerator.button(
                   label: 'Forgot Password?',
-                  click: MCPUIJsonGenerator.navigationAction(action: 'push', route: '/forgot-password'),
+                  click: MCPUIJsonGenerator.navigationAction(
+                      action: 'push', route: '/forgot-password'),
                   style: 'text',
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 8),
-                
+
                 // Signup link
                 MCPUIJsonGenerator.linear(
                   direction: 'horizontal',
@@ -212,7 +214,8 @@ void _generateMcpLoginForm() {
                     ),
                     MCPUIJsonGenerator.button(
                       label: 'Sign Up',
-                      click: MCPUIJsonGenerator.navigationAction(action: 'push', route: '/signup'),
+                      click: MCPUIJsonGenerator.navigationAction(
+                          action: 'push', route: '/signup'),
                       style: 'text',
                     ),
                   ],
@@ -237,13 +240,13 @@ void _generateMcpLoginForm() {
       'onInit': [
         MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'loginForm.error',
+          binding: 'loginForm.error',
           value: null,
         ),
       ],
     },
   );
-  
+
   // Save the generated MCP UI form
   _saveAnalysisResult('mcp_login_form.json', mcpLoginForm);
   print('  ✓ MCP UI login form generated');
@@ -252,9 +255,9 @@ void _generateMcpLoginForm() {
 void _saveAnalysisResult(String filename, Map<String, dynamic> data) {
   final outputFile = File('example/analysis_results/$filename');
   outputFile.parent.createSync(recursive: true);
-  
+
   final json = JsonEncoder.withIndent('  ').convert(data);
   outputFile.writeAsStringSync(json);
-  
+
   print('    → Saved to: $filename');
 }

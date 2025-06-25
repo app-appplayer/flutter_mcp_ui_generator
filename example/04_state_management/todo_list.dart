@@ -1,7 +1,8 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import '../utils/file_writer.dart';
 
 /// Todo List Application Example
-/// 
+///
 /// This example shows a complete todo list app.
 /// It includes features like state management, CRUD operations, filtering, and search.
 void main() {
@@ -24,7 +25,7 @@ void main() {
             ),
             MCPUIJsonGenerator.button(
               label: '',
-              style: 'text', 
+              style: 'text',
               icon: 'filter_list',
               onTap: MCPUIJsonGenerator.stateAction(
                 action: 'toggle',
@@ -33,7 +34,7 @@ void main() {
             ),
           ],
         ),
-        
+
         // Search bar (conditional display)
         MCPUIJsonGenerator.container(
           child: MCPUIJsonGenerator.padding(
@@ -50,7 +51,7 @@ void main() {
             ),
           ),
         ),
-        
+
         // Filter chips (conditional display)
         MCPUIJsonGenerator.container(
           child: MCPUIJsonGenerator.padding(
@@ -69,7 +70,8 @@ void main() {
                 MCPUIJsonGenerator.sizedBox(width: 8),
                 MCPUIJsonGenerator.button(
                   label: 'Active ({{activeCount}})',
-                  style: '{{currentFilter == "active" ? "elevated" : "outlined"}}',
+                  style:
+                      '{{currentFilter == "active" ? "elevated" : "outlined"}}',
                   onTap: MCPUIJsonGenerator.stateAction(
                     action: 'set',
                     binding: 'currentFilter',
@@ -79,7 +81,8 @@ void main() {
                 MCPUIJsonGenerator.sizedBox(width: 8),
                 MCPUIJsonGenerator.button(
                   label: 'Done ({{completedCount}})',
-                  style: '{{currentFilter == "completed" ? "elevated" : "outlined"}}',
+                  style:
+                      '{{currentFilter == "completed" ? "elevated" : "outlined"}}',
                   onTap: MCPUIJsonGenerator.stateAction(
                     action: 'set',
                     binding: 'currentFilter',
@@ -90,7 +93,7 @@ void main() {
             ),
           ),
         ),
-        
+
         // Add new todo
         MCPUIJsonGenerator.padding(
           padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -133,7 +136,7 @@ void main() {
             ],
           ),
         ),
-        
+
         // Priority selection
         MCPUIJsonGenerator.padding(
           padding: MCPUIJsonGenerator.edgeInsets(horizontal: 16),
@@ -156,16 +159,17 @@ void main() {
             ],
           ),
         ),
-        
+
         MCPUIJsonGenerator.divider(),
-        
+
         // Todo list
         MCPUIJsonGenerator.expanded(
           child: MCPUIJsonGenerator.listView(
             items: '{{filteredTodos}}',
             itemSpacing: 4,
             itemTemplate: MCPUIJsonGenerator.card(
-              margin: MCPUIJsonGenerator.edgeInsets(horizontal: 16, vertical: 4),
+              margin:
+                  MCPUIJsonGenerator.edgeInsets(horizontal: 16, vertical: 4),
               child: MCPUIJsonGenerator.listTile(
                 leading: MCPUIJsonGenerator.checkbox(
                   value: '{{item.completed}}',
@@ -213,7 +217,7 @@ void main() {
             ),
           ),
         ),
-        
+
         // Bottom statistics
         MCPUIJsonGenerator.container(
           padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -292,9 +296,7 @@ void main() {
     },
   );
 
-  MCPUIJsonGenerator.generateJsonFile(todoApp, 'todo_list.json');
-  
-  print('✓ Todo list app created: todo_list.json');
+  ExampleFileWriter.writeJsonFile(todoApp, 'todo_list.json');
   print('\nKey features:');
   print('- CRUD operations (Create, Read, Update, Delete)');
   print('- Real-time filtering (All, Active, Completed)');

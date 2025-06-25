@@ -1,4 +1,10 @@
 
+## 0.2.1
+
+### Bug Fixes
+- Fixed app generator to use pub.dev packages instead of git URLs
+- Added configurable runtime version support
+
 ## 0.2.0
 
 ### Refactoring

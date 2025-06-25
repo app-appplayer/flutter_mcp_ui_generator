@@ -1,7 +1,8 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import '../utils/file_writer.dart';
 
 /// User Profile Form Example
-/// 
+///
 /// This example shows a user profile edit form.
 /// It includes various input widgets, validation, and file upload.
 void main() {
@@ -32,7 +33,7 @@ void main() {
             ),
           ],
         ),
-        
+
         // Main content
         MCPUIJsonGenerator.expanded(
           child: MCPUIJsonGenerator.padding(
@@ -80,8 +81,10 @@ void main() {
                                     top: 70,
                                     left: 70,
                                   ),
-                                  child: MCPUIJsonGenerator.floatingActionButton(
-                                    onPressed: MCPUIJsonGenerator.toolAction('pickImage'),
+                                  child:
+                                      MCPUIJsonGenerator.floatingActionButton(
+                                    onPressed: MCPUIJsonGenerator.toolAction(
+                                        'pickImage'),
                                     child: MCPUIJsonGenerator.icon(
                                       icon: 'camera_alt',
                                       size: 20,
@@ -96,9 +99,9 @@ void main() {
                     ),
                   ),
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 16),
-                
+
                 // Basic information section
                 QuickBuilders.section(
                   title: 'Basic Information',
@@ -111,7 +114,7 @@ void main() {
                       helperText: 'This will be displayed on your profile',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
+
                     // Email input
                     QuickBuilders.formField(
                       label: 'Email Address',
@@ -119,7 +122,7 @@ void main() {
                       placeholder: 'Enter your email address',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
+
                     // Phone number input
                     QuickBuilders.formField(
                       label: 'Phone Number',
@@ -128,7 +131,7 @@ void main() {
                       helperText: 'Include country code',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
+
                     // Country selection
                     MCPUIJsonGenerator.dropdown(
                       label: 'Country',
@@ -151,9 +154,9 @@ void main() {
                     ),
                   ],
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 16),
-                
+
                 // About me section
                 QuickBuilders.section(
                   title: 'About Me',
@@ -172,9 +175,9 @@ void main() {
                     ),
                   ],
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 16),
-                
+
                 // Settings section
                 QuickBuilders.section(
                   title: 'Preferences',
@@ -211,7 +214,8 @@ void main() {
                             MCPUIJsonGenerator.divider(),
                             MCPUIJsonGenerator.listTile(
                               title: 'Marketing Communications',
-                              subtitle: 'Receive promotional offers and updates',
+                              subtitle:
+                                  'Receive promotional offers and updates',
                               trailing: MCPUIJsonGenerator.switchWidget(
                                 value: '{{profile.notifications.marketing}}',
                                 onChange: MCPUIJsonGenerator.stateAction(
@@ -224,9 +228,9 @@ void main() {
                         ),
                       ),
                     ),
-                    
+
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
+
                     // Privacy settings
                     MCPUIJsonGenerator.text(
                       'Privacy Settings',
@@ -243,7 +247,8 @@ void main() {
                           children: [
                             MCPUIJsonGenerator.text(
                               'Who can see your profile?',
-                              style: MCPUIJsonGenerator.textStyle(fontWeight: 'bold'),
+                              style: MCPUIJsonGenerator.textStyle(
+                                  fontWeight: 'bold'),
                             ),
                             MCPUIJsonGenerator.sizedBox(height: 12),
                             MCPUIJsonGenerator.column(
@@ -283,9 +288,9 @@ void main() {
                     ),
                   ],
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 24),
-                
+
                 // Action buttons
                 MCPUIJsonGenerator.row(
                   children: [
@@ -293,7 +298,8 @@ void main() {
                       child: MCPUIJsonGenerator.button(
                         label: 'Cancel',
                         style: 'outlined',
-                        onTap: MCPUIJsonGenerator.navigationAction(action: 'pop'),
+                        onTap:
+                            MCPUIJsonGenerator.navigationAction(action: 'pop'),
                       ),
                     ),
                     MCPUIJsonGenerator.sizedBox(width: 16),
@@ -301,7 +307,7 @@ void main() {
                       child: MCPUIJsonGenerator.button(
                         label: '{{isSaving ? "Saving..." : "Save Changes"}}',
                         style: 'elevated',
-                                  onTap: MCPUIJsonGenerator.batchAction(
+                        onTap: MCPUIJsonGenerator.batchAction(
                           actions: [
                             MCPUIJsonGenerator.stateAction(
                               action: 'set',
@@ -320,7 +326,8 @@ void main() {
                                     binding: 'isSaving',
                                     value: false,
                                   ),
-                                  MCPUIJsonGenerator.navigationAction(action: 'pop'),
+                                  MCPUIJsonGenerator.navigationAction(
+                                      action: 'pop'),
                                 ],
                               ),
                               onError: MCPUIJsonGenerator.stateAction(
@@ -335,7 +342,7 @@ void main() {
                     ),
                   ],
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 16),
               ],
             ),
@@ -349,7 +356,8 @@ void main() {
           'name': 'John Doe',
           'email': 'john.doe@example.com',
           'phone': '+1 (555) 123-4567',
-          'bio': 'Software developer passionate about mobile and web technologies.',
+          'bio':
+              'Software developer passionate about mobile and web technologies.',
           'country': 'us',
           'avatarUrl': '',
           'notifications': {
@@ -365,8 +373,8 @@ void main() {
     },
   );
 
-  MCPUIJsonGenerator.generateJsonFile(profileForm, 'user_profile_form.json');
-  
+  ExampleFileWriter.writeJsonFile(profileForm, 'user_profile_form.json');
+
   print('✓ User profile form example created: user_profile_form.json');
   print('\nKey features:');
   print('- Profile picture upload');

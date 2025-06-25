@@ -3,28 +3,28 @@ import 'dart:io';
 import 'dart:convert';
 
 /// MCP UI DSL v1.0 Analysis Example
-/// 
+///
 /// This example demonstrates analyzing Flutter code that uses MCP UI DSL v1.0 patterns
 /// and converting them to the latest specification compliance.
 void main() {
   print('=== MCP UI DSL v1.0 Analysis Example ===\n');
-  
+
   // Analyze v1.0 compliance patterns
   print('1. Analyzing MCP UI DSL v1.0 compliance...');
   _analyzeV1Compliance();
-  
+
   // Demonstrate modern widget analysis
   print('\n2. Analyzing modern widget patterns...');
   _analyzeModernWidgets();
-  
+
   // Show accessibility pattern analysis
   print('\n3. Analyzing accessibility patterns...');
   _analyzeAccessibilityPatterns();
-  
+
   // Generate complete v1.0 compliant application
   print('\n4. Generating v1.0 compliant application...');
   _generateCompliantApplication();
-  
+
   print('\n=== Analysis complete! ===');
   print('Check the results:');
   print('- v1_compliance_analysis.json');
@@ -35,20 +35,21 @@ void main() {
 
 void _analyzeV1Compliance() {
   print('  Checking MCP UI DSL v1.0 specification compliance...');
-  
+
   final complianceAnalysis = {
     'specification_version': 'MCP UI DSL v1.0',
     'analyzed_features': {
       'widget_naming': {
         'compliant': [
           'linear (instead of column/row)',
-          'box (instead of container)', 
+          'box (instead of container)',
           'headerBar (instead of appBar)',
           'bottomNavigation (instead of bottomNavigationBar)',
           'textInput (instead of textField)',
           'loadingIndicator (instead of circularProgressIndicator)'
         ],
-        'analysis_notes': 'All widget names follow single-word lowercase or CamelCase convention'
+        'analysis_notes':
+            'All widget names follow single-word lowercase or CamelCase convention'
       },
       'event_handling': {
         'compliant': [
@@ -61,7 +62,7 @@ void _analyzeV1Compliance() {
       'action_parameters': {
         'compliant': [
           'path (for state actions)',
-          'target (for resource actions)', 
+          'target (for resource actions)',
           'params (for tool actions instead of args)'
         ],
         'analysis_notes': 'Parameter naming is consistent across action types'
@@ -72,7 +73,8 @@ void _analyzeV1Compliance() {
           'distribution property for alignment',
           'gap property for spacing'
         ],
-        'analysis_notes': 'Modern layout system replaces legacy row/column approach'
+        'analysis_notes':
+            'Modern layout system replaces legacy row/column approach'
       }
     },
     'compliance_score': '100%',
@@ -83,14 +85,14 @@ void _analyzeV1Compliance() {
       'State management follows binding/path distinction'
     ]
   };
-  
+
   _saveAnalysisResult('v1_compliance_analysis.json', complianceAnalysis);
   print('  ✓ v1.0 compliance analysis completed');
 }
 
 void _analyzeModernWidgets() {
   print('  Analyzing modern widget usage patterns...');
-  
+
   final modernWidgetAnalysis = {
     'modern_patterns': [
       {
@@ -120,7 +122,7 @@ void _analyzeModernWidgets() {
     ],
     'conversion_examples': _generateModernWidgetExamples()
   };
-  
+
   _saveAnalysisResult('modern_widgets_analysis.json', modernWidgetAnalysis);
   print('  ✓ Modern widget analysis completed');
 }
@@ -165,7 +167,7 @@ Map<String, dynamic> _generateModernWidgetExamples() {
           value: MCPUIJsonGenerator.binding('form.name'),
           change: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            path: 'form.name',
+            binding: 'form.name',
             value: '{{event.value}}',
           ),
         ),
@@ -174,7 +176,7 @@ Map<String, dynamic> _generateModernWidgetExamples() {
           value: MCPUIJsonGenerator.binding('form.notifications'),
           change: MCPUIJsonGenerator.stateAction(
             action: 'set',
-            path: 'form.notifications',
+            binding: 'form.notifications',
             value: '{{event.value}}',
           ),
         ),
@@ -195,7 +197,7 @@ Map<String, dynamic> _generateModernWidgetExamples() {
 
 void _analyzeAccessibilityPatterns() {
   print('  Analyzing accessibility implementation patterns...');
-  
+
   final accessibilityAnalysis = {
     'accessibility_features': {
       'semantic_widgets': [
@@ -240,7 +242,7 @@ void _analyzeAccessibilityPatterns() {
                 value: MCPUIJsonGenerator.binding('user.email'),
                 change: MCPUIJsonGenerator.stateAction(
                   action: 'set',
-                  path: 'user.email',
+                  binding: 'user.email',
                   value: '{{event.value}}',
                 ),
               ),
@@ -254,21 +256,21 @@ void _analyzeAccessibilityPatterns() {
       ],
     ),
   };
-  
+
   _saveAnalysisResult('accessibility_analysis.json', accessibilityAnalysis);
   print('  ✓ Accessibility analysis completed');
 }
 
 void _generateCompliantApplication() {
   print('  Generating MCP UI DSL v1.0 compliant application...');
-  
+
   final compliantApp = MCPUIJsonGenerator.application(
     title: 'MCP UI v1.0 Demo',
     version: '1.0.0',
     routes: {
-      '/': {'uri': 'ui://pages/home'},
-      '/settings': {'uri': 'ui://pages/settings'},
-      '/profile': {'uri': 'ui://pages/profile'},
+      '/': 'ui://pages/home',
+      '/settings': 'ui://pages/settings',
+      '/profile': 'ui://pages/profile',
     },
     initialRoute: '/',
     theme: {
@@ -299,7 +301,7 @@ void _generateCompliantApplication() {
       },
     },
   );
-  
+
   _saveAnalysisResult('v1_compliant_app.json', compliantApp);
   print('  ✓ v1.0 compliant application generated');
 }
@@ -307,9 +309,9 @@ void _generateCompliantApplication() {
 void _saveAnalysisResult(String filename, Map<String, dynamic> data) {
   final outputFile = File('example/analysis_results/$filename');
   outputFile.parent.createSync(recursive: true);
-  
+
   final json = JsonEncoder.withIndent('  ').convert(data);
   outputFile.writeAsStringSync(json);
-  
+
   print('    → Saved to: $filename');
 }

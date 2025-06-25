@@ -188,21 +188,19 @@ void main() {
 
   // Example 4: Using builder pattern for lifecycle
   final pageUsingBuilder = MCPUIBuilder.page(title: 'Builder Example')
-    .content(
-      MCPUIJsonGenerator.linear(
-        direction: 'vertical',
-        children: [
-          MCPUIJsonGenerator.text('Page created with builder'),
-        ],
-      ),
-    )
-    .onInit([
-      MCPUIJsonGenerator.toolAction('initializePage'),
-    ])
-    .onDestroy([
-      MCPUIJsonGenerator.toolAction('cleanupPage'),
-    ])
-    .build();
+      .content(
+    MCPUIJsonGenerator.linear(
+      direction: 'vertical',
+      children: [
+        MCPUIJsonGenerator.text('Page created with builder'),
+      ],
+    ),
+  )
+      .onInit([
+    MCPUIJsonGenerator.toolAction('initializePage'),
+  ]).onDestroy([
+    MCPUIJsonGenerator.toolAction('cleanupPage'),
+  ]).build();
 
   print('Lifecycle and Navigation Examples Generated Successfully!');
   print('\nPage with lifecycle hooks:');

@@ -424,7 +424,8 @@ void main() {
 
       expect(widget['type'], equals('avatar'));
       expect(widget['radius'], equals(25.0));
-      expect(widget['backgroundImage'], equals('https://example.com/avatar.jpg'));
+      expect(
+          widget['backgroundImage'], equals('https://example.com/avatar.jpg'));
       expect(widget['backgroundColor'], equals('#2196F3'));
       expect(widget['child'], isA<Map>());
     });
@@ -535,7 +536,7 @@ void main() {
         value: '{{inputValue}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'inputValue',
+          binding: 'inputValue',
           value: '{{event.value}}',
         ),
         placeholder: 'Type here...',
@@ -559,7 +560,7 @@ void main() {
         'value': '{{formValue}}',
         'change': MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'formValue',
+          binding: 'formValue',
           value: '{{event.value}}',
         ),
         'validation': {
@@ -582,7 +583,7 @@ void main() {
         value: '{{isChecked}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'isChecked',
+          binding: 'isChecked',
           value: '{{event.checked}}',
         ),
         label: 'Check me',
@@ -601,7 +602,7 @@ void main() {
         'groupValue': '{{radioGroup}}',
         'change': MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'radioGroup',
+          binding: 'radioGroup',
           value: '{{event.value}}',
         ),
         'label': 'Option A',
@@ -619,7 +620,7 @@ void main() {
         value: '{{isToggled}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'isToggled',
+          binding: 'isToggled',
           value: '{{event.value}}',
         ),
         label: 'Toggle me',
@@ -636,7 +637,7 @@ void main() {
         value: '{{sliderValue}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'sliderValue',
+          binding: 'sliderValue',
           value: '{{event.value}}',
         ),
         min: 0.0,
@@ -660,7 +661,7 @@ void main() {
         endValue: '{{endValue}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'rangeValue',
+          binding: 'rangeValue',
           value: '{{event.value}}',
         ),
         min: 0.0,
@@ -688,7 +689,7 @@ void main() {
         ],
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'selectedValue',
+          binding: 'selectedValue',
           value: '{{event.value}}',
         ),
         label: 'Select option',
@@ -731,7 +732,7 @@ void main() {
             value: '{{name}}',
             change: MCPUIJsonGenerator.stateAction(
               action: 'set',
-              path: 'name',
+              binding: 'name',
               value: '{{event.value}}',
             ),
           ),
@@ -750,7 +751,7 @@ void main() {
         value: '{{numberValue}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'numberValue',
+          binding: 'numberValue',
           value: '{{event.value}}',
         ),
         min: 0.0,
@@ -774,7 +775,7 @@ void main() {
         value: '{{color}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'color',
+          binding: 'color',
           value: '{{event.value}}',
         ),
         label: 'Pick Color',
@@ -799,7 +800,7 @@ void main() {
         ],
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'radioValue',
+          binding: 'radioValue',
           value: '{{event.value}}',
         ),
         label: 'Choose one',
@@ -823,7 +824,7 @@ void main() {
         ],
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'checkboxValues',
+          binding: 'checkboxValues',
           value: '{{event.value}}',
         ),
         label: 'Choose multiple',
@@ -848,7 +849,7 @@ void main() {
         ],
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'segmentValue',
+          binding: 'segmentValue',
           value: '{{event.value}}',
         ),
         label: 'Time Period',
@@ -866,7 +867,7 @@ void main() {
         value: '{{dateValue}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'dateValue',
+          binding: 'dateValue',
           value: '{{event.value}}',
         ),
         label: 'Select Date',
@@ -889,7 +890,7 @@ void main() {
         value: '{{timeValue}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'timeValue',
+          binding: 'timeValue',
           value: '{{event.value}}',
         ),
         label: 'Select Time',
@@ -911,7 +912,7 @@ void main() {
         endDate: '{{endDate}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'dateRange',
+          binding: 'dateRange',
           value: '{{event.value}}',
         ),
         label: 'Select Date Range',
@@ -935,7 +936,7 @@ void main() {
     test('list', () {
       final widget = MCPUIJsonGenerator.list(
         items: '{{listItems}}',
-        template: MCPUIJsonGenerator.listTile(
+        itemTemplate: MCPUIJsonGenerator.listTile(
           title: '{{item.name}}',
           subtitle: '{{item.description}}',
         ),
@@ -955,7 +956,7 @@ void main() {
     test('grid', () {
       final widget = MCPUIJsonGenerator.grid(
         items: '{{gridItems}}',
-        template: MCPUIJsonGenerator.card(
+        itemTemplate: MCPUIJsonGenerator.card(
           child: MCPUIJsonGenerator.text('{{item.name}}'),
         ),
         crossAxisCount: 2,
@@ -1022,7 +1023,7 @@ void main() {
         'currentIndex': 0,
         'onTap': MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'currentTab',
+          binding: 'currentTab',
           value: '{{event.index}}',
         ),
         'isScrollable': false,
@@ -1074,7 +1075,7 @@ void main() {
         currentIndex: 0,
         click: MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'currentIndex',
+          binding: 'currentIndex',
           value: '{{event.index}}',
         ),
         barType: 'fixed',
@@ -1097,7 +1098,7 @@ void main() {
         'selectedIndex': 0,
         'onDestinationSelected': MCPUIJsonGenerator.stateAction(
           action: 'set',
-          path: 'selectedIndex',
+          binding: 'selectedIndex',
           value: '{{event.index}}',
         ),
         'extended': false,

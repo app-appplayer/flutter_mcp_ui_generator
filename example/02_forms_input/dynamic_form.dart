@@ -3,18 +3,18 @@ import 'dart:io';
 import 'dart:convert';
 
 /// Dynamic Form Analysis Example
-/// 
+///
 /// This example demonstrates analyzing dynamic Flutter forms and converting them to MCP UI DSL.
 /// It shows pattern recognition for conditional form fields and reactive UI elements.
 void main() {
   print('=== Dynamic Form Analysis Example ===\n');
-  
+
   print('Analyzing dynamic form patterns...');
   _analyzeDynamicFormPatterns();
-  
+
   print('\nGenerating reactive MCP UI form...');
   _generateReactiveForm();
-  
+
   print('\n=== Analysis complete! ===');
   print('Check the results:');
   print('- dynamic_form_analysis.json');
@@ -23,13 +23,14 @@ void main() {
 
 void _analyzeDynamicFormPatterns() {
   print('  Detecting dynamic form patterns in Flutter code...');
-  
+
   final dynamicFormAnalysis = {
     'dynamic_patterns': [
       {
         'pattern': 'Conditional Field Display',
         'flutter_code': 'if (showField) TextFormField(...)',
-        'mcp_equivalent': 'conditionalWidget(condition: "{{showField}}", then: textInput(...))',
+        'mcp_equivalent':
+            'conditionalWidget(condition: "{{showField}}", then: textInput(...))',
         'frequency': 'high'
       },
       {
@@ -58,14 +59,14 @@ void _analyzeDynamicFormPatterns() {
       'Real-time validation feedback'
     ]
   };
-  
+
   _saveAnalysisResult('dynamic_form_analysis.json', dynamicFormAnalysis);
   print('  ✓ Dynamic form analysis completed');
 }
 
 void _generateReactiveForm() {
   print('  Converting to reactive MCP UI form...');
-  
+
   final reactiveForm = MCPUIJsonGenerator.page(
     title: 'Customer Survey',
     content: MCPUIJsonGenerator.linear(
@@ -100,18 +101,18 @@ void _generateReactiveForm() {
                   ),
                 ),
               ),
-              
+
               // Basic information
               MCPUIJsonGenerator.textInput(
                 label: 'Full Name',
                 value: MCPUIJsonGenerator.binding('survey.name'),
                 change: MCPUIJsonGenerator.stateAction(
                   action: 'set',
-                  path: 'survey.name',
+                  binding: 'survey.name',
                   value: '{{event.value}}',
                 ),
               ),
-              
+
               // Customer type selection
               MCPUIJsonGenerator.select(
                 label: 'Customer Type',
@@ -123,14 +124,15 @@ void _generateReactiveForm() {
                 ],
                 change: MCPUIJsonGenerator.stateAction(
                   action: 'set',
-                  path: 'survey.customerType',
+                  binding: 'survey.customerType',
                   value: '{{event.value}}',
                 ),
               ),
-              
+
               // Conditional business fields
               MCPUIJsonGenerator.conditionalWidget(
-                condition: '{{survey.customerType == "business" || survey.customerType == "enterprise"}}',
+                condition:
+                    '{{survey.customerType == "business" || survey.customerType == "enterprise"}}',
                 then: MCPUIJsonGenerator.linear(
                   direction: 'vertical',
                   gap: 12.0,
@@ -140,7 +142,7 @@ void _generateReactiveForm() {
                       value: MCPUIJsonGenerator.binding('survey.companyName'),
                       change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
-                        path: 'survey.companyName',
+                        binding: 'survey.companyName',
                         value: '{{event.value}}',
                       ),
                     ),
@@ -149,14 +151,14 @@ void _generateReactiveForm() {
                       value: MCPUIJsonGenerator.binding('survey.jobTitle'),
                       change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
-                        path: 'survey.jobTitle',
+                        binding: 'survey.jobTitle',
                         value: '{{event.value}}',
                       ),
                     ),
                   ],
                 ),
               ),
-              
+
               // Conditional enterprise fields
               MCPUIJsonGenerator.conditionalWidget(
                 condition: '{{survey.customerType == "enterprise"}}',
@@ -169,23 +171,24 @@ void _generateReactiveForm() {
                       value: MCPUIJsonGenerator.binding('survey.employeeCount'),
                       change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
-                        path: 'survey.employeeCount',
+                        binding: 'survey.employeeCount',
                         value: '{{event.value}}',
                       ),
                     ),
                     MCPUIJsonGenerator.checkbox(
                       label: 'Require enterprise support',
-                      value: MCPUIJsonGenerator.binding('survey.enterpriseSupport'),
+                      value: MCPUIJsonGenerator.binding(
+                          'survey.enterpriseSupport'),
                       change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
-                        path: 'survey.enterpriseSupport',
+                        binding: 'survey.enterpriseSupport',
                         value: '{{event.value}}',
                       ),
                     ),
                   ],
                 ),
               ),
-              
+
               // Submit button
               MCPUIJsonGenerator.button(
                 label: 'Submit Survey',
@@ -222,7 +225,7 @@ void _generateReactiveForm() {
       },
     },
   );
-  
+
   _saveAnalysisResult('reactive_mcp_form.json', reactiveForm);
   print('  ✓ Reactive MCP UI form generated');
 }
@@ -230,9 +233,9 @@ void _generateReactiveForm() {
 void _saveAnalysisResult(String filename, Map<String, dynamic> data) {
   final outputFile = File('example/analysis_results/$filename');
   outputFile.parent.createSync(recursive: true);
-  
+
   final json = JsonEncoder.withIndent('  ').convert(data);
   outputFile.writeAsStringSync(json);
-  
+
   print('    → Saved to: $filename');
 }

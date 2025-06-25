@@ -6,16 +6,16 @@ import 'json_generator.dart';
 class MCPUIAppGenerator {
   /// App configuration
   final AppConfig config;
-  
+
   MCPUIAppGenerator({required this.config});
-  
+
   /// Generate complete app structure
   Future<void> generateApp() async {
     print('🚀 Generating Flutter MCP UI App: ${config.appName}');
-    
+
     // Create directory structure
     await _createDirectoryStructure();
-    
+
     // Generate files
     await _generatePubspecYaml();
     await _generateMainDart();
@@ -23,11 +23,11 @@ class MCPUIAppGenerator {
     await _generatePages();
     await _generateAssets();
     await _generatePlatformFiles();
-    
+
     print('✅ App generation complete!');
     print('📁 Location: ${config.outputPath}/${config.packageName}');
   }
-  
+
   /// Create directory structure
   Future<void> _createDirectoryStructure() async {
     final dirs = [
@@ -42,12 +42,13 @@ class MCPUIAppGenerator {
       'android/app/src/main/kotlin/${config.organizationName.replaceAll('.', '/')}/${config.packageName}',
       'ios/Runner',
     ];
-    
+
     for (final dir in dirs) {
-      await Directory('${config.outputPath}/${config.packageName}/$dir').create(recursive: true);
+      await Directory('${config.outputPath}/${config.packageName}/$dir')
+          .create(recursive: true);
     }
   }
-  
+
   /// Generate pubspec.yaml
   Future<void> _generatePubspecYaml() async {
     final pubspec = '''
@@ -64,8 +65,7 @@ dependencies:
     sdk: flutter
   
   # MCP UI Runtime
-  flutter_mcp_ui_runtime:
-    ${config.useLocalPackages ? 'path: ${config.runtimePath}' : 'git:\n      url: https://github.com/yourusername/flutter_mcp_ui_runtime.git'}
+  flutter_mcp_ui_runtime: ${config.useLocalPackages ? '\n    path: ${config.runtimePath}' : config.runtimeVersion}
   
   # Additional dependencies
   provider: ^6.0.0
@@ -87,16 +87,16 @@ flutter:
   
   ${config.fonts.isNotEmpty ? _generateFontsSection() : ''}
 ''';
-    
-    await File('${config.outputPath}/${config.packageName}/pubspec.yaml').writeAsString(pubspec);
+
+    await File('${config.outputPath}/${config.packageName}/pubspec.yaml')
+        .writeAsString(pubspec);
   }
-  
+
   /// Generate main.dart
   Future<void> _generateMainDart() async {
     final mainDart = '''
 import 'package:flutter/material.dart';
 import 'package:flutter_mcp_ui_runtime/flutter_mcp_ui_runtime.dart';
-${config.multiPage ? "import 'dart:convert';" : ''}
 import 'config/app_config.dart';
 import 'generated/ui_definitions.dart';
 
@@ -109,14 +109,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '${config.appName}',
-      theme: ThemeData(
-        primarySwatch: ${config.primaryColor},
-        useMaterial3: ${config.useMaterial3},
-      ),
-      home: const MCPUIApp(),
-    );
+    return const MCPUIApp();
   }
 }
 
@@ -162,13 +155,13 @@ class _MCPUIAppState extends State<MCPUIApp> {
   }
   
   ${config.multiPage ? '''
-  Future<String> _loadPage(String pageUri) async {
+  Future<Map<String, dynamic>> _loadPage(String pageUri) async {
     // Load page from assets or network
     if (pageUri.startsWith('ui://')) {
       final pageName = pageUri.substring(5);
       final pageJson = pagesMap[pageName];
       if (pageJson != null) {
-        return jsonEncode(pageJson);
+        return pageJson;
       }
     }
     throw Exception('Page not found: \$pageUri');
@@ -178,25 +171,39 @@ class _MCPUIAppState extends State<MCPUIApp> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
+      return const MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
         ),
       );
     }
     
     if (error != null) {
-      return Scaffold(
-        body: Center(
-          child: Text('Error: \$error'),
+      return MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Text('Error: \$error'),
+          ),
         ),
       );
     }
     
-    return runtime.buildUI(
+    // ${config.multiPage ? 'Application type generates MaterialApp automatically' : 'Page type needs MaterialApp wrapper'}
+    ${config.multiPage ? '''return runtime.buildUI(
       initialState: AppConfig.initialState,
       onToolCall: _handleToolCall,
-    );
+    );''' : '''return MaterialApp(
+      title: '${config.appName}',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: runtime.buildUI(
+        initialState: pageDefinition['state']?['initial'] as Map<String, dynamic>? ?? {},
+        onToolCall: _handleToolCall,
+      ),
+    );'''}
   }
   
   void _handleToolCall(String tool, Map<String, dynamic> args) {
@@ -215,12 +222,41 @@ class _MCPUIAppState extends State<MCPUIApp> {
   }
 }
 ''';
-    
-    await File('${config.outputPath}/${config.packageName}/lib/main.dart').writeAsString(mainDart);
+
+    await File('${config.outputPath}/${config.packageName}/lib/main.dart')
+        .writeAsString(mainDart);
   }
-  
+
+  /// Merge all page states into a single initial state
+  Map<String, dynamic> _mergePageStates() {
+    final mergedState = <String, dynamic>{};
+
+    // Start with app-level initial state
+    mergedState.addAll(config.initialState);
+
+    // Merge state from all pages
+    for (final page in config.pages.values) {
+      final pageState = page['state']?['initial'] as Map<String, dynamic>?;
+      if (pageState != null) {
+        for (final entry in pageState.entries) {
+          if (mergedState.containsKey(entry.key)) {
+            print(
+                'Warning: State key "${entry.key}" already exists, overwriting...');
+          }
+          mergedState[entry.key] = entry.value;
+        }
+      }
+    }
+
+    return mergedState;
+  }
+
   /// Generate app config
   Future<void> _generateAppConfig() async {
+    // Merge state from all pages for multi-page apps
+    final finalState =
+        config.multiPage ? _mergePageStates() : config.initialState;
+
     final appConfig = '''
 /// App Configuration
 class AppConfig {
@@ -240,7 +276,7 @@ class AppConfig {
   '''}
   
   /// Initial State
-  static final Map<String, dynamic> initialState = ${const JsonEncoder.withIndent('    ').convert(config.initialState)};
+  static final Map<String, dynamic> initialState = ${const JsonEncoder.withIndent('    ').convert(finalState)};
   
   /// Feature Flags
   static const bool enableAnalytics = ${config.enableAnalytics};
@@ -248,10 +284,12 @@ class AppConfig {
   static const bool enableDebugMode = ${config.enableDebugMode};
 }
 ''';
-    
-    await File('${config.outputPath}/${config.packageName}/lib/config/app_config.dart').writeAsString(appConfig);
+
+    await File(
+            '${config.outputPath}/${config.packageName}/lib/config/app_config.dart')
+        .writeAsString(appConfig);
   }
-  
+
   /// Generate pages
   Future<void> _generatePages() async {
     if (config.multiPage) {
@@ -265,17 +303,18 @@ class AppConfig {
         theme: config.theme,
         state: {'initial': config.initialState},
       );
-      
+
       // Escape dollar signs in the JSON string
       final appDefJson = const JsonEncoder.withIndent('  ').convert(appDef);
       final escapedAppDef = appDefJson.replaceAll(r'$', r'\$');
-      
+
       final pagesJson = config.pages.entries.map((entry) {
-        final pageJson = const JsonEncoder.withIndent('    ').convert(entry.value);
+        final pageJson =
+            const JsonEncoder.withIndent('    ').convert(entry.value);
         final escapedPage = pageJson.replaceAll(r'$', r'\$');
         return "  '${entry.key}': $escapedPage,";
       }).join('\n');
-      
+
       final appDefCode = '''
 /// Application Definition
 final Map<String, dynamic> applicationDefinition = $escapedAppDef;
@@ -285,50 +324,55 @@ final Map<String, Map<String, dynamic>> pagesMap = {
 $pagesJson
 };
 ''';
-      
-      await File('${config.outputPath}/${config.packageName}/lib/generated/ui_definitions.dart').writeAsString(appDefCode);
+
+      await File(
+              '${config.outputPath}/${config.packageName}/lib/generated/ui_definitions.dart')
+          .writeAsString(appDefCode);
     } else {
       // Single page app
       final pageDef = config.pages.values.first;
       final pageDefJson = const JsonEncoder.withIndent('  ').convert(pageDef);
       final escapedPageDef = pageDefJson.replaceAll(r'$', r'\$');
-      
+
       final pageDefCode = '''
 /// Page Definition
 final Map<String, dynamic> pageDefinition = $escapedPageDef;
 ''';
-      
-      await File('${config.outputPath}/${config.packageName}/lib/generated/ui_definitions.dart').writeAsString(pageDefCode);
+
+      await File(
+              '${config.outputPath}/${config.packageName}/lib/generated/ui_definitions.dart')
+          .writeAsString(pageDefCode);
     }
   }
-  
+
   /// Generate assets
   Future<void> _generateAssets() async {
     // Create UI JSON files in assets
     for (final entry in config.pages.entries) {
-      final jsonFile = File('${config.outputPath}/${config.packageName}/assets/ui/${entry.key}.json');
+      final jsonFile = File(
+          '${config.outputPath}/${config.packageName}/assets/ui/${entry.key}.json');
       await jsonFile.create(recursive: true);
       await jsonFile.writeAsString(jsonEncode(entry.value));
     }
-    
+
     // Create placeholder README in images
-    await File('${config.outputPath}/${config.packageName}/assets/images/README.md').writeAsString(
-      '# Images\n\nPlace your image assets here.'
-    );
+    await File(
+            '${config.outputPath}/${config.packageName}/assets/images/README.md')
+        .writeAsString('# Images\n\nPlace your image assets here.');
   }
-  
+
   /// Generate platform-specific files
   Future<void> _generatePlatformFiles() async {
     // Android MainActivity
     await _generateAndroidMainActivity();
-    
+
     // iOS Info.plist updates
     await _generateIOSConfig();
-    
+
     // README
     await _generateReadme();
   }
-  
+
   /// Generate Android MainActivity
   Future<void> _generateAndroidMainActivity() async {
     final mainActivity = '''
@@ -339,11 +383,12 @@ import io.flutter.embedding.android.FlutterActivity
 class MainActivity: FlutterActivity() {
 }
 ''';
-    
-    await File('${config.outputPath}/${config.packageName}/android/app/src/main/kotlin/${config.organizationName.replaceAll('.', '/')}/${config.packageName}/MainActivity.kt')
+
+    await File(
+            '${config.outputPath}/${config.packageName}/android/app/src/main/kotlin/${config.organizationName.replaceAll('.', '/')}/${config.packageName}/MainActivity.kt')
         .writeAsString(mainActivity);
   }
-  
+
   /// Generate iOS configuration
   Future<void> _generateIOSConfig() async {
     // This would normally update Info.plist
@@ -355,10 +400,11 @@ Remember to update Info.plist with:
 - CFBundleDisplayName: ${config.appName}
 - CFBundleIdentifier: ${config.organizationName}.${config.packageName}
 ''';
-    
-    await File('${config.outputPath}/${config.packageName}/ios/README.md').writeAsString(iosReadme);
+
+    await File('${config.outputPath}/${config.packageName}/ios/README.md')
+        .writeAsString(iosReadme);
   }
-  
+
   /// Generate README
   Future<void> _generateReadme() async {
     final readme = '''
@@ -405,10 +451,11 @@ See `lib/config/app_config.dart` for app configuration options.
 
 ${config.additionalReadmeContent ?? ''}
 ''';
-    
-    await File('${config.outputPath}/${config.packageName}/README.md').writeAsString(readme);
+
+    await File('${config.outputPath}/${config.packageName}/README.md')
+        .writeAsString(readme);
   }
-  
+
   /// Generate fonts section for pubspec
   String _generateFontsSection() {
     return '''
@@ -434,36 +481,37 @@ class AppConfig {
   final String description;
   final String appVersion;
   final String outputPath;
-  
+
   // UI Configuration
   final bool multiPage;
   final Map<String, Map<String, dynamic>> pages;
-  final Map<String, Map<String, dynamic>> routes;
+  final Map<String, String> routes;
   final String initialRoute;
   final Map<String, dynamic>? navigation;
   final Map<String, dynamic>? theme;
   final Map<String, dynamic> initialState;
-  
+
   // Platform Configuration
   final String primaryColor;
   final bool useMaterial3;
   final List<FontConfig> fonts;
-  
+
   // MCP Configuration
   final String? mcpServerUrl;
   final List<ToolConfig> tools;
-  
+
   // Development Configuration
   final bool useLocalPackages;
   final String? runtimePath;
+  final String runtimeVersion;
   final bool enableAnalytics;
   final bool enableCrashReporting;
   final bool enableDebugMode;
-  
+
   // Additional
   final List<String> additionalDependencies;
   final String? additionalReadmeContent;
-  
+
   AppConfig({
     required this.appName,
     required this.packageName,
@@ -485,6 +533,7 @@ class AppConfig {
     this.tools = const [],
     this.useLocalPackages = false,
     this.runtimePath,
+    this.runtimeVersion = '^0.2.0',
     this.enableAnalytics = false,
     this.enableCrashReporting = false,
     this.enableDebugMode = true,
@@ -497,7 +546,7 @@ class AppConfig {
 class FontConfig {
   final String family;
   final List<FontAsset> fonts;
-  
+
   FontConfig({
     required this.family,
     required this.fonts,
@@ -509,7 +558,7 @@ class FontAsset {
   final String asset;
   final int? weight;
   final String? style;
-  
+
   FontAsset({
     required this.asset,
     this.weight,
@@ -521,7 +570,7 @@ class FontAsset {
 class ToolConfig {
   final String name;
   final String handler;
-  
+
   ToolConfig({
     required this.name,
     required this.handler,

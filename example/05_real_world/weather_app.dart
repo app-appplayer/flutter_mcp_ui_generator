@@ -1,7 +1,8 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import '../utils/file_writer.dart';
 
 /// Weather Application Example
-/// 
+///
 /// This example has a structure similar to a real weather app.
 /// It demonstrates real app patterns such as data loading, error handling, and refresh.
 void main() {
@@ -20,7 +21,6 @@ void main() {
             ),
           ],
         ),
-        
         MCPUIJsonGenerator.expanded(
           child: MCPUIJsonGenerator.padding(
             padding: MCPUIJsonGenerator.edgeInsets(all: 16),
@@ -49,7 +49,7 @@ void main() {
                           ),
                         ),
                         MCPUIJsonGenerator.sizedBox(height: 24),
-                        
+
                         MCPUIJsonGenerator.row(
                           mainAxisAlignment: 'center',
                           children: [
@@ -78,9 +78,9 @@ void main() {
                             ),
                           ],
                         ),
-                        
+
                         MCPUIJsonGenerator.sizedBox(height: 24),
-                        
+
                         // Detailed information
                         MCPUIJsonGenerator.row(
                           mainAxisAlignment: 'spaceAround',
@@ -136,9 +136,9 @@ void main() {
                     ),
                   ),
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 20),
-                
+
                 // Hourly forecast
                 MCPUIJsonGenerator.text(
                   'Hourly Forecast',
@@ -148,7 +148,7 @@ void main() {
                   ),
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 12),
-                
+
                 MCPUIJsonGenerator.container(
                   height: 120,
                   child: MCPUIJsonGenerator.listView(
@@ -183,9 +183,9 @@ void main() {
                     ),
                   ),
                 ),
-                
+
                 MCPUIJsonGenerator.sizedBox(height: 20),
-                
+
                 // Weekly forecast
                 MCPUIJsonGenerator.text(
                   '7-Day Forecast',
@@ -195,7 +195,7 @@ void main() {
                   ),
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 12),
-                
+
                 MCPUIJsonGenerator.expanded(
                   child: MCPUIJsonGenerator.listView(
                     items: '{{weeklyForecast}}',
@@ -257,13 +257,55 @@ void main() {
           {'time': '5PM', 'icon': 'cloud', 'temp': 24},
         ],
         'weeklyForecast': [
-          {'day': 'Today', 'condition': 'Sunny', 'icon': 'wb_sunny', 'high': 28, 'low': 18},
-          {'day': 'Tomorrow', 'condition': 'Partly Cloudy', 'icon': 'partly_cloudy_day', 'high': 26, 'low': 16},
-          {'day': 'Saturday', 'condition': 'Rainy', 'icon': 'rainy', 'high': 22, 'low': 14},
-          {'day': 'Sunday', 'condition': 'Cloudy', 'icon': 'cloud', 'high': 24, 'low': 15},
-          {'day': 'Monday', 'condition': 'Sunny', 'icon': 'wb_sunny', 'high': 27, 'low': 17},
-          {'day': 'Tuesday', 'condition': 'Partly Cloudy', 'icon': 'partly_cloudy_day', 'high': 25, 'low': 16},
-          {'day': 'Wednesday', 'condition': 'Thunderstorm', 'icon': 'thunderstorm', 'high': 21, 'low': 13},
+          {
+            'day': 'Today',
+            'condition': 'Sunny',
+            'icon': 'wb_sunny',
+            'high': 28,
+            'low': 18
+          },
+          {
+            'day': 'Tomorrow',
+            'condition': 'Partly Cloudy',
+            'icon': 'partly_cloudy_day',
+            'high': 26,
+            'low': 16
+          },
+          {
+            'day': 'Saturday',
+            'condition': 'Rainy',
+            'icon': 'rainy',
+            'high': 22,
+            'low': 14
+          },
+          {
+            'day': 'Sunday',
+            'condition': 'Cloudy',
+            'icon': 'cloud',
+            'high': 24,
+            'low': 15
+          },
+          {
+            'day': 'Monday',
+            'condition': 'Sunny',
+            'icon': 'wb_sunny',
+            'high': 27,
+            'low': 17
+          },
+          {
+            'day': 'Tuesday',
+            'condition': 'Partly Cloudy',
+            'icon': 'partly_cloudy_day',
+            'high': 25,
+            'low': 16
+          },
+          {
+            'day': 'Wednesday',
+            'condition': 'Thunderstorm',
+            'icon': 'thunderstorm',
+            'high': 21,
+            'low': 13
+          },
         ],
         'isLoading': false,
         'lastUpdated': '2024-06-13T12:00:00Z',
@@ -276,8 +318,8 @@ void main() {
     },
   );
 
-  MCPUIJsonGenerator.generateJsonFile(weatherApp, 'weather_app.json');
-  
+  ExampleFileWriter.writeJsonFile(weatherApp, 'weather_app.json');
+
   print('✓ Weather app example created: weather_app.json');
   print('\nKey features:');
   print('- Display current weather information');

@@ -1,7 +1,8 @@
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
+import '../utils/file_writer.dart';
 
 /// New Widgets Showcase
-/// 
+///
 /// This example demonstrates all 12 new widgets added to Flutter MCP UI Generator:
 /// - numberField, colorPicker, radioGroup, checkboxGroup, segmentedControl
 /// - dateField, timeField, dateRangePicker
@@ -29,7 +30,7 @@ void main() {
 /// New Input Widgets Example
 void _createInputWidgetsExample() {
   print('Creating new input widgets example...');
-  
+
   final page = MCPUIJsonGenerator.page(
     title: 'New Input Widgets',
     content: MCPUIJsonGenerator.padding(
@@ -60,7 +61,7 @@ void _createInputWidgetsExample() {
             helperText: 'Choose quantity (0-100)',
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Color Picker
           MCPUIJsonGenerator.text(
             'Color Picker Example',
@@ -79,14 +80,26 @@ void _createInputWidgetsExample() {
             ),
             label: 'Choose Theme Color',
             swatchColors: [
-              '#FF5252', '#E91E63', '#9C27B0', '#673AB7',
-              '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4',
-              '#009688', '#4CAF50', '#8BC34A', '#CDDC39',
-              '#FFEB3B', '#FFC107', '#FF9800', '#FF5722',
+              '#FF5252',
+              '#E91E63',
+              '#9C27B0',
+              '#673AB7',
+              '#3F51B5',
+              '#2196F3',
+              '#03A9F4',
+              '#00BCD4',
+              '#009688',
+              '#4CAF50',
+              '#8BC34A',
+              '#CDDC39',
+              '#FFEB3B',
+              '#FFC107',
+              '#FF9800',
+              '#FF5722',
             ],
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Radio Group
           MCPUIJsonGenerator.text(
             'Radio Group Example',
@@ -113,7 +126,7 @@ void _createInputWidgetsExample() {
             orientation: 'horizontal',
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Checkbox Group
           MCPUIJsonGenerator.text(
             'Checkbox Group Example',
@@ -140,7 +153,7 @@ void _createInputWidgetsExample() {
             label: 'Select Features',
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Segmented Control
           MCPUIJsonGenerator.text(
             'Segmented Control Example',
@@ -177,15 +190,15 @@ void _createInputWidgetsExample() {
       },
     },
   );
-  
-  MCPUIJsonGenerator.generateJsonFile(page, 'new_widgets_input.json');
+
+  ExampleFileWriter.writeJsonFile(page, 'new_widgets_input.json');
   print('✓ Created new_widgets_input.json');
 }
 
 /// Date & Time Widgets Example
 void _createDateTimeWidgetsExample() {
   print('Creating date & time widgets example...');
-  
+
   final page = MCPUIJsonGenerator.page(
     title: 'Date & Time Widgets',
     content: MCPUIJsonGenerator.padding(
@@ -216,7 +229,7 @@ void _createDateTimeWidgetsExample() {
             placeholder: 'Select your birth date',
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Time Field
           MCPUIJsonGenerator.text(
             'Time Field Example',
@@ -239,7 +252,7 @@ void _createDateTimeWidgetsExample() {
             placeholder: 'Select time',
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Date Range Picker
           MCPUIJsonGenerator.text(
             'Date Range Picker Example',
@@ -274,7 +287,7 @@ void _createDateTimeWidgetsExample() {
             format: 'yyyy-MM-dd',
           ),
           MCPUIJsonGenerator.sizedBox(height: 24),
-          
+
           // Display selected values
           MCPUIJsonGenerator.card(
             child: MCPUIJsonGenerator.padding(
@@ -291,7 +304,8 @@ void _createDateTimeWidgetsExample() {
                   MCPUIJsonGenerator.sizedBox(height: 8),
                   MCPUIJsonGenerator.text('Birth Date: {{birthDate}}'),
                   MCPUIJsonGenerator.text('Appointment: {{appointmentTime}}'),
-                  MCPUIJsonGenerator.text('Vacation: {{vacationStart}} to {{vacationEnd}}'),
+                  MCPUIJsonGenerator.text(
+                      'Vacation: {{vacationStart}} to {{vacationEnd}}'),
                 ],
               ),
             ),
@@ -308,15 +322,15 @@ void _createDateTimeWidgetsExample() {
       },
     },
   );
-  
-  MCPUIJsonGenerator.generateJsonFile(page, 'new_widgets_datetime.json');
+
+  ExampleFileWriter.writeJsonFile(page, 'new_widgets_datetime.json');
   print('✓ Created new_widgets_datetime.json');
 }
 
 /// Layout & Control Widgets Example
 void _createLayoutControlWidgetsExample() {
   print('Creating layout & control widgets example...');
-  
+
   final page = MCPUIJsonGenerator.page(
     title: 'Layout & Control Widgets',
     content: MCPUIJsonGenerator.padding(
@@ -332,7 +346,7 @@ void _createLayoutControlWidgetsExample() {
             ),
           ),
           MCPUIJsonGenerator.sizedBox(height: 16),
-          
+
           MCPUIJsonGenerator.switchWidget(
             value: '{{showContent}}',
             onChange: MCPUIJsonGenerator.stateAction(
@@ -343,7 +357,7 @@ void _createLayoutControlWidgetsExample() {
             label: 'Show Content',
           ),
           MCPUIJsonGenerator.sizedBox(height: 16),
-          
+
           MCPUIJsonGenerator.conditionalWidget(
             condition: '{{showContent}}',
             then: MCPUIJsonGenerator.card(
@@ -384,7 +398,7 @@ void _createLayoutControlWidgetsExample() {
             ),
           ),
           MCPUIJsonGenerator.sizedBox(height: 32),
-          
+
           // ScrollView Example
           MCPUIJsonGenerator.text(
             'ScrollView Example',
@@ -394,7 +408,7 @@ void _createLayoutControlWidgetsExample() {
             ),
           ),
           MCPUIJsonGenerator.sizedBox(height: 16),
-          
+
           MCPUIJsonGenerator.container(
             height: 200,
             decoration: MCPUIJsonGenerator.decoration(
@@ -406,8 +420,9 @@ void _createLayoutControlWidgetsExample() {
             ),
             child: MCPUIJsonGenerator.scrollView(
               child: MCPUIJsonGenerator.column(
-                children: List.generate(20, (index) => 
-                  MCPUIJsonGenerator.listTile(
+                children: List.generate(
+                  20,
+                  (index) => MCPUIJsonGenerator.listTile(
                     title: 'Item ${index + 1}',
                     subtitle: 'This is item number ${index + 1}',
                     leading: MCPUIJsonGenerator.icon(
@@ -433,15 +448,15 @@ void _createLayoutControlWidgetsExample() {
       },
     },
   );
-  
-  MCPUIJsonGenerator.generateJsonFile(page, 'new_widgets_layout.json');
+
+  ExampleFileWriter.writeJsonFile(page, 'new_widgets_layout.json');
   print('✓ Created new_widgets_layout.json');
 }
 
 /// Drag & Drop Example
 void _createDragDropExample() {
   print('Creating drag & drop example...');
-  
+
   final page = MCPUIJsonGenerator.page(
     title: 'Drag & Drop Demo',
     content: MCPUIJsonGenerator.padding(
@@ -456,7 +471,6 @@ void _createDragDropExample() {
             ),
           ),
           MCPUIJsonGenerator.sizedBox(height: 16),
-          
           MCPUIJsonGenerator.row(
             crossAxisAlignment: 'start',
             children: [
@@ -477,73 +491,78 @@ void _createDragDropExample() {
                         ),
                       ),
                       MCPUIJsonGenerator.sizedBox(height: 16),
-                      
+
                       // Draggable items
-                      ...['Apple', 'Banana', 'Orange', 'Grape'].map((fruit) =>
-                        MCPUIJsonGenerator.padding(
-                          padding: MCPUIJsonGenerator.edgeInsets(bottom: 8),
-                          child: MCPUIJsonGenerator.draggable(
-                            child: MCPUIJsonGenerator.container(
-                              decoration: MCPUIJsonGenerator.decoration(
-                                color: '#FFFFFF',
-                                borderRadius: 8,
-                                boxShadow: [
-                                  {
-                                    'color': '#00000020',
-                                    'offset': {'x': 0, 'y': 2},
-                                    'blurRadius': 4,
-                                  },
-                                ],
-                              ),
-                              padding: MCPUIJsonGenerator.edgeInsets(all: 12),
-                              child: MCPUIJsonGenerator.row(
-                                children: [
-                                  MCPUIJsonGenerator.icon(
-                                    icon: 'drag_indicator',
-                                    color: '#757575',
+                      ...['Apple', 'Banana', 'Orange', 'Grape']
+                          .map(
+                            (fruit) => MCPUIJsonGenerator.padding(
+                              padding: MCPUIJsonGenerator.edgeInsets(bottom: 8),
+                              child: MCPUIJsonGenerator.draggable(
+                                child: MCPUIJsonGenerator.container(
+                                  decoration: MCPUIJsonGenerator.decoration(
+                                    color: '#FFFFFF',
+                                    borderRadius: 8,
+                                    boxShadow: [
+                                      {
+                                        'color': '#00000020',
+                                        'offset': {'x': 0, 'y': 2},
+                                        'blurRadius': 4,
+                                      },
+                                    ],
                                   ),
-                                  MCPUIJsonGenerator.sizedBox(width: 8),
-                                  MCPUIJsonGenerator.text(fruit),
-                                ],
-                              ),
-                            ),
-                            feedback: MCPUIJsonGenerator.container(
-                              decoration: MCPUIJsonGenerator.decoration(
-                                color: '#2196F3',
-                                borderRadius: 8,
-                              ),
-                              padding: MCPUIJsonGenerator.edgeInsets(all: 12),
-                              child: MCPUIJsonGenerator.text(
-                                fruit,
-                                style: MCPUIJsonGenerator.textStyle(
-                                  color: '#FFFFFF',
-                                  fontWeight: 'bold',
+                                  padding:
+                                      MCPUIJsonGenerator.edgeInsets(all: 12),
+                                  child: MCPUIJsonGenerator.row(
+                                    children: [
+                                      MCPUIJsonGenerator.icon(
+                                        icon: 'drag_indicator',
+                                        color: '#757575',
+                                      ),
+                                      MCPUIJsonGenerator.sizedBox(width: 8),
+                                      MCPUIJsonGenerator.text(fruit),
+                                    ],
+                                  ),
+                                ),
+                                feedback: MCPUIJsonGenerator.container(
+                                  decoration: MCPUIJsonGenerator.decoration(
+                                    color: '#2196F3',
+                                    borderRadius: 8,
+                                  ),
+                                  padding:
+                                      MCPUIJsonGenerator.edgeInsets(all: 12),
+                                  child: MCPUIJsonGenerator.text(
+                                    fruit,
+                                    style: MCPUIJsonGenerator.textStyle(
+                                      color: '#FFFFFF',
+                                      fontWeight: 'bold',
+                                    ),
+                                  ),
+                                ),
+                                data: {'name': fruit, 'type': 'fruit'},
+                                childWhenDragging: MCPUIJsonGenerator.container(
+                                  decoration: MCPUIJsonGenerator.decoration(
+                                    color: '#E0E0E0',
+                                    borderRadius: 8,
+                                  ),
+                                  padding:
+                                      MCPUIJsonGenerator.edgeInsets(all: 12),
+                                  child: MCPUIJsonGenerator.text(
+                                    '...',
+                                    style: MCPUIJsonGenerator.textStyle(
+                                      color: '#757575',
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            data: {'name': fruit, 'type': 'fruit'},
-                            childWhenDragging: MCPUIJsonGenerator.container(
-                              decoration: MCPUIJsonGenerator.decoration(
-                                color: '#E0E0E0',
-                                borderRadius: 8,
-                              ),
-                              padding: MCPUIJsonGenerator.edgeInsets(all: 12),
-                              child: MCPUIJsonGenerator.text(
-                                '...',
-                                style: MCPUIJsonGenerator.textStyle(
-                                  color: '#757575',
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ).toList(),
+                          )
+                          .toList(),
                     ],
                   ),
                 ),
               ),
               MCPUIJsonGenerator.sizedBox(width: 16),
-              
+
               // Drop target
               MCPUIJsonGenerator.expanded(
                 child: MCPUIJsonGenerator.dragTarget(
@@ -580,8 +599,10 @@ void _createDragDropExample() {
                                     color: '#4CAF50',
                                     borderRadius: 8,
                                   ),
-                                  padding: MCPUIJsonGenerator.edgeInsets(all: 8),
-                                  margin: MCPUIJsonGenerator.edgeInsets(bottom: 4),
+                                  padding:
+                                      MCPUIJsonGenerator.edgeInsets(all: 8),
+                                  margin:
+                                      MCPUIJsonGenerator.edgeInsets(bottom: 4),
                                   child: MCPUIJsonGenerator.text(
                                     '{{item.name}}',
                                     style: MCPUIJsonGenerator.textStyle(
@@ -632,15 +653,15 @@ void _createDragDropExample() {
       },
     },
   );
-  
-  MCPUIJsonGenerator.generateJsonFile(page, 'new_widgets_dragdrop.json');
+
+  ExampleFileWriter.writeJsonFile(page, 'new_widgets_dragdrop.json');
   print('✓ Created new_widgets_dragdrop.json');
 }
 
 /// Complete Form Example with All New Widgets
 void _createCompleteFormExample() {
   print('Creating complete form example...');
-  
+
   final page = MCPUIJsonGenerator.page(
     title: 'Event Registration Form',
     content: MCPUIJsonGenerator.scrollView(
@@ -657,7 +678,7 @@ void _createCompleteFormExample() {
               ),
             ),
             MCPUIJsonGenerator.sizedBox(height: 24),
-            
+
             // Personal Information Section
             MCPUIJsonGenerator.card(
               child: MCPUIJsonGenerator.padding(
@@ -673,7 +694,6 @@ void _createCompleteFormExample() {
                       ),
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.textField(
                       label: 'Full Name',
                       value: '{{fullName}}',
@@ -685,7 +705,6 @@ void _createCompleteFormExample() {
                       placeholder: 'Enter your full name',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.dateField(
                       value: '{{birthDate}}',
                       onChange: MCPUIJsonGenerator.stateAction(
@@ -698,7 +717,6 @@ void _createCompleteFormExample() {
                       placeholder: 'Select date',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.numberField(
                       label: 'Age',
                       value: '{{age}}',
@@ -716,7 +734,7 @@ void _createCompleteFormExample() {
               ),
             ),
             MCPUIJsonGenerator.sizedBox(height: 16),
-            
+
             // Event Preferences Section
             MCPUIJsonGenerator.card(
               child: MCPUIJsonGenerator.padding(
@@ -732,7 +750,6 @@ void _createCompleteFormExample() {
                       ),
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.segmentedControl(
                       value: '{{ticketType}}',
                       items: [
@@ -748,7 +765,6 @@ void _createCompleteFormExample() {
                       label: 'Ticket Type',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.radioGroup(
                       value: '{{mealPreference}}',
                       items: [
@@ -765,7 +781,6 @@ void _createCompleteFormExample() {
                       label: 'Meal Preference',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.checkboxGroup(
                       value: '{{workshops}}',
                       items: [
@@ -787,7 +802,7 @@ void _createCompleteFormExample() {
               ),
             ),
             MCPUIJsonGenerator.sizedBox(height: 16),
-            
+
             // Schedule Section
             MCPUIJsonGenerator.card(
               child: MCPUIJsonGenerator.padding(
@@ -803,7 +818,6 @@ void _createCompleteFormExample() {
                       ),
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.dateRangePicker(
                       startDate: '{{eventStart}}',
                       endDate: '{{eventEnd}}',
@@ -826,7 +840,6 @@ void _createCompleteFormExample() {
                       maxDate: '2025-12-31',
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.timeField(
                       value: '{{preferredSessionTime}}',
                       onChange: MCPUIJsonGenerator.stateAction(
@@ -842,7 +855,7 @@ void _createCompleteFormExample() {
               ),
             ),
             MCPUIJsonGenerator.sizedBox(height: 16),
-            
+
             // Customization Section
             MCPUIJsonGenerator.card(
               child: MCPUIJsonGenerator.padding(
@@ -858,7 +871,6 @@ void _createCompleteFormExample() {
                       ),
                     ),
                     MCPUIJsonGenerator.sizedBox(height: 16),
-                    
                     MCPUIJsonGenerator.colorPicker(
                       value: '{{badgeColor}}',
                       onChange: MCPUIJsonGenerator.stateAction(
@@ -874,7 +886,7 @@ void _createCompleteFormExample() {
               ),
             ),
             MCPUIJsonGenerator.sizedBox(height: 24),
-            
+
             // Submit Button
             MCPUIJsonGenerator.button(
               label: 'Submit Registration',
@@ -919,7 +931,7 @@ void _createCompleteFormExample() {
       },
     },
   );
-  
-  MCPUIJsonGenerator.generateJsonFile(page, 'new_widgets_form.json');
+
+  ExampleFileWriter.writeJsonFile(page, 'new_widgets_form.json');
   print('✓ Created new_widgets_form.json');
 }

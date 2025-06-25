@@ -69,7 +69,7 @@ void main() {
             label: 'Increment',
             click: MCPUIJsonGenerator.stateAction(
               action: 'increment',
-              path: 'counter',
+              binding: 'counter',
             ),
           ),
         ],

@@ -68,6 +68,5 @@ void main() {
       expect(border['width'], equals(2.0));
       expect(border['style'], equals('solid'));
     });
-
   });
 }

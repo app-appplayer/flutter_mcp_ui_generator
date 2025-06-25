@@ -187,7 +187,7 @@ List<Map<String, dynamic>> analyzeLayoutPatterns() {
       'pattern': 'Column with Padding',
       'frequency': 'high',
       'flutter_code': 'Column(children: [Padding(...), Text(...)])',
-      'mcp_equivalent': 'linear(direction: vertical, children: [padding(...), text(...)])',
+      'mcp_equivalent': 'linear(direction: vertical, children: [padding(...), label(...)])',
     },
     {
       'pattern': 'Row with Expanded',
@@ -303,19 +303,19 @@ MCPUIBuilder()
 
 ### Common Methods
 
-- **Layout**: `column()`, `row()`, `container()`, `padding()`, `center()`, `conditionalWidget()`, `scrollView()`
-- **Display**: `text()`, `icon()`, `image()`, `card()`
+- **Layout**: `linear()`, `box()`, `padding()`, `center()`, `conditionalWidget()`, `scrollView()`
+- **Display**: `label()`, `icon()`, `image()`, `card()`
 - **Input**: `textField()`, `button()`, `checkbox()`, `slider()`, `numberField()`, `colorPicker()`, `radioGroup()`, `checkboxGroup()`, `segmentedControl()`
 - **Date/Time**: `dateField()`, `timeField()`, `dateRangePicker()`
 - **Drag & Drop**: `draggable()`, `dragTarget()`
 - **Properties**: `width()`, `height()`, `color()`, `margin()`, `elevation()`
-- **Actions**: `onTap()`, `onTapTool()`, `onTapState()`, `bindTo()`
+- **Actions**: `click()`, `clickTool()`, `clickState()`, `bindTo()`
 
 ### Extensions
 
 ```dart
 builder
-  .listView(
+  .list(
     items: '{{products}}',
     itemTemplate: {...},
   )
@@ -333,7 +333,8 @@ builder
 void main() {
   // Build a complete form using the builder
   final formUI = MCPUIBuilder()
-    .column()
+    .linear()
+    .property('direction', 'vertical')
     .children()
       .appBar('User Registration')
       .end()
@@ -377,7 +378,7 @@ void main() {
               .sizedBox(height: 24)
               .end()
               .button('Submit')
-              .onTapTool('submitForm', {'data': '{{form}}'})
+              .clickTool('submitForm', {'data': '{{form}}'})
               .end()
             .end()
           .end()
@@ -409,9 +410,10 @@ Map<String, dynamic> myCustomPattern({
   required String title,
   required List<String> items,
 }) {
-  return MCPUIJsonGenerator.column(
+  return MCPUIJsonGenerator.linear(
+    direction: 'vertical',
     children: [
-      MCPUIJsonGenerator.text(title, fontSize: 20),
+      MCPUIJsonGenerator.label(title, fontSize: 20),
       ...items.map((item) => MCPUIJsonGenerator.widget('listtile',
         properties: {'title': item},
       )),

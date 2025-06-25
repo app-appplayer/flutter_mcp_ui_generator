@@ -5,8 +5,10 @@ void main() {
   group('Helpers', () {
     test('binding', () {
       expect(MCPUIJsonGenerator.binding('user.name'), equals('{{user.name}}'));
-      expect(MCPUIJsonGenerator.binding('form.email'), equals('{{form.email}}'));
-      expect(MCPUIJsonGenerator.binding('data.items'), equals('{{data.items}}'));
+      expect(
+          MCPUIJsonGenerator.binding('form.email'), equals('{{form.email}}'));
+      expect(
+          MCPUIJsonGenerator.binding('data.items'), equals('{{data.items}}'));
     });
 
     test('conditional', () {
