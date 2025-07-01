@@ -212,7 +212,7 @@
             <div class="file-input" onclick="document.getElementById('fileInput').click()">
                 <input type="file" id="fileInput" accept=".json" onchange="loadFile(event)">
                 <div class="file-input-label">
-                    📄 클릭하여 JSON 파일을 선택하거나 드래그 & 드롭하세요
+                    📄 Click to select JSON file or drag & drop
                 </div>
             </div>
             
@@ -231,10 +231,10 @@
             <div class="json-info" id="jsonInfo"></div>
             
             <div style="margin-bottom: 20px;">
-                <button class="btn" onclick="expandAll()">모두 펼치기</button>
-                <button class="btn" onclick="collapseAll()">모두 접기</button>
-                <button class="btn" onclick="copyJson()">JSON 복사</button>
-                <button class="btn" onclick="downloadJson()">다운로드</button>
+                <button class="btn" onclick="expandAll()">Expand All</button>
+                <button class="btn" onclick="collapseAll()">Collapse All</button>
+                <button class="btn" onclick="copyJson()">Copy JSON</button>
+                <button class="btn" onclick="downloadJson()">Download</button>
             </div>
             
             <div class="json-tree" id="jsonTree"></div>
@@ -287,7 +287,7 @@
                     const json = JSON.parse(e.target.result);
                     displayJson(json);
                 } catch (error) {
-                    alert('JSON 파일 형식이 올바르지 않습니다: ' + error.message);
+                    alert('Invalid JSON file format: ' + error.message);
                 }
             };
             
@@ -302,7 +302,7 @@
                 currentFileName = fileName;
                 displayJson(demoData);
             } catch (error) {
-                alert('예제 파일을 불러올 수 없습니다: ' + error.message);
+                alert('Cannot load example file: ' + error.message);
             }
         }
         
@@ -517,8 +517,8 @@
         function copyJson() {
             if (currentJson) {
                 navigator.clipboard.writeText(JSON.stringify(currentJson, null, 2))
-                    .then(() => alert('JSON이 클립보드에 복사되었습니다!'))
-                    .catch(() => alert('복사에 실패했습니다.'));
+                    .then(() => alert('JSON copied to clipboard!'))
+                    .catch(() => alert('Failed to copy.'));
             }
         }
         
