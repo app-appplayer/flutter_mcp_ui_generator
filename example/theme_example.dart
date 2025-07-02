@@ -60,7 +60,7 @@ void main() {
         child: MCPUIJsonGenerator.text(
           'This is a themed container',
           style: MCPUIJsonGenerator.textStyle(
-            color: MCPUIJsonGenerator.themeColor('onSurface'),
+            color: MCPUIJsonGenerator.themeColor('textOnSurface'),
             fontSize: 16,
           ),
         ),
@@ -122,14 +122,14 @@ void main() {
         'colors': {
           'primary': '#2196F3',
           'background': '#FFFFFF',
-          'onBackground': '#000000',
+          'textOnBackground': '#000000',
         },
       },
       dark: {
         'colors': {
           'primary': '#1976D2',
           'background': '#121212',
-          'onBackground': '#FFFFFF',
+          'textOnBackground': '#FFFFFF',
         },
       },
     ),

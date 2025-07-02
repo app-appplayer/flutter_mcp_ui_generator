@@ -947,7 +947,7 @@ void main() {
 
       expect(widget['type'], equals('list'));
       expect(widget['items'], equals('{{listItems}}'));
-      expect(widget['template'], isA<Map>());
+      expect(widget['itemTemplate'], isA<Map>());
       expect(widget['itemSpacing'], equals(8.0));
       expect(widget['shrinkWrap'], equals(true));
       expect(widget['scrollDirection'], equals('vertical'));
@@ -967,7 +967,7 @@ void main() {
 
       expect(widget['type'], equals('grid'));
       expect(widget['items'], equals('{{gridItems}}'));
-      expect(widget['template'], isA<Map>());
+      expect(widget['itemTemplate'], isA<Map>());
       expect(widget['crossAxisCount'], equals(2));
       expect(widget['mainAxisSpacing'], equals(8.0));
       expect(widget['crossAxisSpacing'], equals(8.0));

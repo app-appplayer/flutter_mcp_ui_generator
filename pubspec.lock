@@ -130,10 +130,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_mcp_ui_core
-      sha256: "194bbf93080f4a8322139c3d6aae407461c6a3886432da9bf5dbc0e0ba0d03a9"
+      sha256: "0dafd7ae9539aa7fee79456ca8a8a3269ca4ea824ec8e5749f2e0a58d2b44619"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

@@ -10,16 +10,16 @@
         "secondary": "#FFFF9800",
         "background": "#FFF8F9FA",
         "surface": "#FFFFFFFF",
-        "onPrimary": "#FFFFFFFF",
-        "onSecondary": "#FF000000",
-        "onBackground": "#FF212121",
-        "onSurface": "#FF212121"
+        "textOnPrimary": "#FFFFFFFF",
+        "textOnSecondary": "#FF000000",
+        "textOnBackground": "#FF212121",
+        "textOnSurface": "#FF212121"
       },
       "typography": {
         "h1": {"fontSize": 32, "fontWeight": "bold", "color": "{{theme.colors.primary}}"},
-        "h2": {"fontSize": 24, "fontWeight": "bold", "color": "{{theme.colors.onSurface}}"},
-        "body1": {"fontSize": 16, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"},
-        "caption": {"fontSize": 12, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"}
+        "h2": {"fontSize": 24, "fontWeight": "bold", "color": "{{theme.colors.textOnSurface}}"},
+        "body1": {"fontSize": 16, "fontWeight": "normal", "color": "{{theme.colors.textOnSurface}}"},
+        "caption": {"fontSize": 12, "fontWeight": "normal", "color": "{{theme.colors.textOnSurface}}"}
       }
     },
     "dark": {
@@ -28,16 +28,16 @@
         "secondary": "#FFF57C00",
         "background": "#FF121212",
         "surface": "#FF1E1E1E",
-        "onPrimary": "#FFFFFFFF",
-        "onSecondary": "#FF000000",
-        "onBackground": "#FFFFFFFF",
-        "onSurface": "#FFFFFFFF"
+        "textOnPrimary": "#FFFFFFFF",
+        "textOnSecondary": "#FF000000",
+        "textOnBackground": "#FFFFFFFF",
+        "textOnSurface": "#FFFFFFFF"
       },
       "typography": {
         "h1": {"fontSize": 32, "fontWeight": "bold", "color": "{{theme.colors.primary}}"},
-        "h2": {"fontSize": 24, "fontWeight": "bold", "color": "{{theme.colors.onSurface}}"},
-        "body1": {"fontSize": 16, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"},
-        "caption": {"fontSize": 12, "fontWeight": "normal", "color": "{{theme.colors.onSurface}}"}
+        "h2": {"fontSize": 24, "fontWeight": "bold", "color": "{{theme.colors.textOnSurface}}"},
+        "body1": {"fontSize": 16, "fontWeight": "normal", "color": "{{theme.colors.textOnSurface}}"},
+        "caption": {"fontSize": 12, "fontWeight": "normal", "color": "{{theme.colors.textOnSurface}}"}
       }
     },
     "spacing": {

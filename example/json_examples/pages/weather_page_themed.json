@@ -49,7 +49,7 @@
                             "style": {
                               "fontSize": 48,
                               "fontWeight": "bold",
-                              "color": "{{theme.colors.onSurface}}"
+                              "color": "{{theme.colors.textOnSurface}}"
                             }
                           },
                           {
@@ -57,7 +57,7 @@
                             "value": "{{weather}}",
                             "style": {
                               "fontSize": "{{theme.typography.body1.fontSize}}",
-                              "color": "{{theme.colors.onSurface}}"
+                              "color": "{{theme.colors.textOnSurface}}"
                             }
                           }
                         ]
@@ -108,7 +108,7 @@
                           "value": "Humidity",
                           "style": {
                             "fontSize": "{{theme.typography.caption.fontSize}}",
-                            "color": "{{theme.colors.onSurface}}"
+                            "color": "{{theme.colors.textOnSurface}}"
                           }
                         },
                         {
@@ -117,7 +117,7 @@
                           "style": {
                             "fontSize": "{{theme.typography.body1.fontSize}}",
                             "fontWeight": "bold",
-                            "color": "{{theme.colors.onSurface}}"
+                            "color": "{{theme.colors.textOnSurface}}"
                           }
                         }
                       ]
@@ -156,7 +156,7 @@
                           "value": "Wind",
                           "style": {
                             "fontSize": "{{theme.typography.caption.fontSize}}",
-                            "color": "{{theme.colors.onSurface}}"
+                            "color": "{{theme.colors.textOnSurface}}"
                           }
                         },
                         {
@@ -165,7 +165,7 @@
                           "style": {
                             "fontSize": "{{theme.typography.body1.fontSize}}",
                             "fontWeight": "bold",
-                            "color": "{{theme.colors.onSurface}}"
+                            "color": "{{theme.colors.textOnSurface}}"
                           }
                         }
                       ]
