@@ -402,14 +402,14 @@ void main() {
         'type': 'chip',
         'label': 'Tag',
         'avatar': MCPUIJsonGenerator.icon(icon: 'person'),
-        'onDeleted': MCPUIJsonGenerator.toolAction('deleteChip'),
+        'delete': MCPUIJsonGenerator.toolAction('deleteChip'),
         'backgroundColor': '#e0e0e0',
       };
 
       expect(widget['type'], equals('chip'));
       expect(widget['label'], equals('Tag'));
       expect(widget['avatar'], isA<Map>());
-      expect(widget['onDeleted'], isA<Map>());
+      expect(widget['delete'], isA<Map>());
       expect(widget['backgroundColor'], equals('#e0e0e0'));
     });
 
@@ -712,14 +712,14 @@ void main() {
           {'value': 'edit', 'label': 'Edit'},
           {'value': 'delete', 'label': 'Delete'},
         ],
-        'onSelected': MCPUIJsonGenerator.toolAction('onMenuSelected'),
+        'select': MCPUIJsonGenerator.toolAction('onMenuSelected'),
         'tooltip': 'More options',
       };
 
       expect(widget['type'], equals('popupMenuButton'));
       expect(widget['icon'], equals('more_vert'));
       expect(widget['items'], isA<List>());
-      expect(widget['onSelected'], isA<Map>());
+      expect(widget['select'], isA<Map>());
       expect(widget['tooltip'], equals('More options'));
     });
 
@@ -1021,7 +1021,7 @@ void main() {
           {'text': 'Tab 2', 'icon': 'settings'},
         ],
         'currentIndex': 0,
-        'onTap': MCPUIJsonGenerator.stateAction(
+        'click': MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'currentTab',
           value: '{{event.index}}',
@@ -1032,7 +1032,7 @@ void main() {
       expect(widget['type'], equals('tabBar'));
       expect(widget['tabs'], isA<List>());
       expect(widget['currentIndex'], equals(0));
-      expect(widget['onTap'], isA<Map>());
+      expect(widget['click'], isA<Map>());
       expect(widget['isScrollable'], equals(false));
     });
 
@@ -1096,7 +1096,7 @@ void main() {
           {'icon': 'settings', 'label': 'Settings'},
         ],
         'selectedIndex': 0,
-        'onDestinationSelected': MCPUIJsonGenerator.stateAction(
+        'select': MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'selectedIndex',
           value: '{{event.index}}',
@@ -1107,7 +1107,7 @@ void main() {
       expect(widget['type'], equals('navigationRail'));
       expect(widget['destinations'], isA<List>());
       expect(widget['selectedIndex'], equals(0));
-      expect(widget['onDestinationSelected'], isA<Map>());
+      expect(widget['select'], isA<Map>());
       expect(widget['extended'], equals(false));
     });
 
@@ -1215,25 +1215,25 @@ void main() {
       final widget = {
         'type': 'gestureDetector',
         'child': MCPUIJsonGenerator.text('Tap me'),
-        'onTap': MCPUIJsonGenerator.toolAction('onTap'),
-        'onDoubleTap': MCPUIJsonGenerator.toolAction('onDoubleTap'),
-        'onLongPress': MCPUIJsonGenerator.toolAction('onLongPress'),
-        'onPanUpdate': MCPUIJsonGenerator.toolAction('onPanUpdate'),
+        'tap': MCPUIJsonGenerator.toolAction('onTap'),
+        'doubleTap': MCPUIJsonGenerator.toolAction('onDoubleTap'),
+        'longPress': MCPUIJsonGenerator.toolAction('onLongPress'),
+        'panUpdate': MCPUIJsonGenerator.toolAction('onPanUpdate'),
       };
 
       expect(widget['type'], equals('gestureDetector'));
       expect(widget['child'], isA<Map>());
-      expect(widget['onTap'], isA<Map>());
-      expect(widget['onDoubleTap'], isA<Map>());
-      expect(widget['onLongPress'], isA<Map>());
-      expect(widget['onPanUpdate'], isA<Map>());
+      expect(widget['tap'], isA<Map>());
+      expect(widget['doubleTap'], isA<Map>());
+      expect(widget['longPress'], isA<Map>());
+      expect(widget['panUpdate'], isA<Map>());
     });
 
     test('inkWell', () {
       final widget = {
         'type': 'inkWell',
         'child': MCPUIJsonGenerator.text('Ripple effect'),
-        'onTap': MCPUIJsonGenerator.toolAction('onInkWellTap'),
+        'tap': MCPUIJsonGenerator.toolAction('onInkWellTap'),
         'borderRadius': 8.0,
         'splashColor': '#2196F3',
         'highlightColor': '#E3F2FD',
@@ -1241,7 +1241,7 @@ void main() {
 
       expect(widget['type'], equals('inkWell'));
       expect(widget['child'], isA<Map>());
-      expect(widget['onTap'], isA<Map>());
+      expect(widget['tap'], isA<Map>());
       expect(widget['borderRadius'], equals(8.0));
       expect(widget['splashColor'], equals('#2196F3'));
       expect(widget['highlightColor'], equals('#E3F2FD'));

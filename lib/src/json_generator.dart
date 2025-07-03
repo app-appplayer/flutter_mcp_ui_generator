@@ -1710,4 +1710,78 @@ class MCPUIJsonGenerator {
       dark: dark,
     );
   }
+
+  // ===== Convenience Aliases (for backward compatibility) =====
+  
+  /// Alias for linear with vertical direction
+  static Map<String, dynamic> column({
+    required List<Map<String, dynamic>> children,
+    String distribution = 'start',
+    String alignment = 'center',
+    double? gap,
+    bool wrap = false,
+  }) {
+    return linear(
+      children: children,
+      direction: 'vertical',
+      distribution: distribution,
+      alignment: alignment,
+      gap: gap,
+      wrap: wrap,
+    );
+  }
+
+  /// Alias for linear with horizontal direction
+  static Map<String, dynamic> row({
+    required List<Map<String, dynamic>> children,
+    String distribution = 'start',
+    String alignment = 'center',
+    double? gap,
+    bool wrap = false,
+  }) {
+    return linear(
+      children: children,
+      direction: 'horizontal',
+      distribution: distribution,
+      alignment: alignment,
+      gap: gap,
+      wrap: wrap,
+    );
+  }
+
+  /// Alias for box widget
+  static Map<String, dynamic> container({
+    Map<String, dynamic>? child,
+    double? width,
+    double? height,
+    Map<String, dynamic>? padding,
+    Map<String, dynamic>? margin,
+    Map<String, dynamic>? decoration,
+    String? color,
+  }) {
+    return box(
+      child: child,
+      width: width,
+      height: height,
+      padding: padding,
+      margin: margin,
+      decoration: decoration,
+      color: color,
+    );
+  }
+
+  /// Alias for headerBar widget
+  static Map<String, dynamic> appBar({
+    required String title,
+    List<Map<String, dynamic>>? actions,
+    Map<String, dynamic>? leading,
+    double elevation = 4,
+  }) {
+    return headerBar(
+      title: title,
+      actions: actions,
+      leading: leading,
+      elevation: elevation,
+    );
+  }
 }

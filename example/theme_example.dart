@@ -68,7 +68,7 @@ void main() {
       MCPUIJsonGenerator.button(
         label: 'Themed Button',
         style: 'elevated',
-        onTap: MCPUIJsonGenerator.toolAction('handleClick'),
+        click: MCPUIJsonGenerator.toolAction('handleClick'),
       ),
     ],
   );

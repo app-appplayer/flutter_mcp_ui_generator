@@ -18,9 +18,9 @@ void main() {
             MCPUIJsonGenerator.button(
               label: 'Save',
               style: 'text',
-              onTap: MCPUIJsonGenerator.toolAction(
+              click: MCPUIJsonGenerator.toolAction(
                 'saveProfile',
-                args: {
+                params: {
                   'name': '{{profile.name}}',
                   'email': '{{profile.email}}',
                   'phone': '{{profile.phone}}',
@@ -83,7 +83,7 @@ void main() {
                                   ),
                                   child:
                                       MCPUIJsonGenerator.floatingActionButton(
-                                    onPressed: MCPUIJsonGenerator.toolAction(
+                                    click: MCPUIJsonGenerator.toolAction(
                                         'pickImage'),
                                     child: MCPUIJsonGenerator.icon(
                                       icon: 'camera_alt',
@@ -146,7 +146,7 @@ void main() {
                         {'value': 'de', 'label': 'Germany'},
                         {'value': 'fr', 'label': 'France'},
                       ],
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'profile.country',
                         value: '{{event.value}}',
@@ -167,7 +167,7 @@ void main() {
                       placeholder: 'Tell us about yourself...',
                       maxLines: 4,
                       helperText: 'Maximum 500 characters',
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'profile.bio',
                         value: '{{event.value}}',
@@ -193,7 +193,7 @@ void main() {
                               subtitle: 'Receive updates via email',
                               trailing: MCPUIJsonGenerator.switchWidget(
                                 value: '{{profile.notifications.email}}',
-                                onChange: MCPUIJsonGenerator.stateAction(
+                                change: MCPUIJsonGenerator.stateAction(
                                   action: 'toggle',
                                   binding: 'profile.notifications.email',
                                 ),
@@ -205,7 +205,7 @@ void main() {
                               subtitle: 'Receive push notifications on mobile',
                               trailing: MCPUIJsonGenerator.switchWidget(
                                 value: '{{profile.notifications.push}}',
-                                onChange: MCPUIJsonGenerator.stateAction(
+                                change: MCPUIJsonGenerator.stateAction(
                                   action: 'toggle',
                                   binding: 'profile.notifications.push',
                                 ),
@@ -218,7 +218,7 @@ void main() {
                                   'Receive promotional offers and updates',
                               trailing: MCPUIJsonGenerator.switchWidget(
                                 value: '{{profile.notifications.marketing}}',
-                                onChange: MCPUIJsonGenerator.stateAction(
+                                change: MCPUIJsonGenerator.stateAction(
                                   action: 'toggle',
                                   binding: 'profile.notifications.marketing',
                                 ),
@@ -256,7 +256,7 @@ void main() {
                                 MCPUIJsonGenerator.checkbox(
                                   label: 'Everyone',
                                   value: '{{profile.privacy == "public"}}',
-                                  onChange: MCPUIJsonGenerator.stateAction(
+                                  change: MCPUIJsonGenerator.stateAction(
                                     action: 'set',
                                     binding: 'profile.privacy',
                                     value: 'public',
@@ -265,7 +265,7 @@ void main() {
                                 MCPUIJsonGenerator.checkbox(
                                   label: 'Friends only',
                                   value: '{{profile.privacy == "friends"}}',
-                                  onChange: MCPUIJsonGenerator.stateAction(
+                                  change: MCPUIJsonGenerator.stateAction(
                                     action: 'set',
                                     binding: 'profile.privacy',
                                     value: 'friends',
@@ -274,7 +274,7 @@ void main() {
                                 MCPUIJsonGenerator.checkbox(
                                   label: 'Private',
                                   value: '{{profile.privacy == "private"}}',
-                                  onChange: MCPUIJsonGenerator.stateAction(
+                                  change: MCPUIJsonGenerator.stateAction(
                                     action: 'set',
                                     binding: 'profile.privacy',
                                     value: 'private',
@@ -298,7 +298,7 @@ void main() {
                       child: MCPUIJsonGenerator.button(
                         label: 'Cancel',
                         style: 'outlined',
-                        onTap:
+                        click:
                             MCPUIJsonGenerator.navigationAction(action: 'pop'),
                       ),
                     ),
@@ -307,7 +307,7 @@ void main() {
                       child: MCPUIJsonGenerator.button(
                         label: '{{isSaving ? "Saving..." : "Save Changes"}}',
                         style: 'elevated',
-                        onTap: MCPUIJsonGenerator.batchAction(
+                        click: MCPUIJsonGenerator.batchAction(
                           actions: [
                             MCPUIJsonGenerator.stateAction(
                               action: 'set',

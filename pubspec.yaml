@@ -5,6 +5,7 @@ homepage: https://app-appplayer.github.io/makemind
 repository: https://github.com/app-appplayer/flutter_mcp_ui_generator
 documentation: https://pub.dev/documentation/flutter_mcp_ui_generator/latest/
 license: Apache-2.0
+publish_to: none
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -13,7 +14,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_mcp_ui_core: ^0.2.1
+  flutter_mcp_ui_core: ^0.2.2
   meta: ^1.9.0
 
 dev_dependencies:

@@ -273,7 +273,7 @@ void _createProfilePage() {
                 MCPUIJsonGenerator.button(
                   label: 'Edit',
                   style: 'text',
-                  onTap: MCPUIJsonGenerator.navigationAction(
+                  click: MCPUIJsonGenerator.navigationAction(
                     action: 'push',
                     route: '/profile/edit',
                   ),
@@ -339,7 +339,7 @@ void _createProfilePage() {
                                 subtitle: 'Update your personal information',
                                 trailing: MCPUIJsonGenerator.icon(
                                     icon: 'arrow_forward_ios'),
-                                onTap: MCPUIJsonGenerator.navigationAction(
+                                click: MCPUIJsonGenerator.navigationAction(
                                   action: 'push',
                                   route: '/profile/edit',
                                 ),
@@ -352,7 +352,7 @@ void _createProfilePage() {
                                 subtitle: 'Password and security settings',
                                 trailing: MCPUIJsonGenerator.icon(
                                     icon: 'arrow_forward_ios'),
-                                onTap: MCPUIJsonGenerator.navigationAction(
+                                click: MCPUIJsonGenerator.navigationAction(
                                   action: 'push',
                                   route: '/profile/security',
                                 ),
@@ -365,7 +365,7 @@ void _createProfilePage() {
                                 subtitle: 'Manage notification preferences',
                                 trailing: MCPUIJsonGenerator.icon(
                                     icon: 'arrow_forward_ios'),
-                                onTap: MCPUIJsonGenerator.navigationAction(
+                                click: MCPUIJsonGenerator.navigationAction(
                                   action: 'push',
                                   route: '/profile/notifications',
                                 ),
@@ -383,7 +383,7 @@ void _createProfilePage() {
                                   color: '#F44336',
                                 ),
                                 title: 'Sign Out',
-                                onTap: MCPUIJsonGenerator.toolAction('signOut'),
+                                click: MCPUIJsonGenerator.toolAction('signOut'),
                               ),
                             ],
                           ),
@@ -428,7 +428,7 @@ void _createSettingsPage() {
                             subtitle: 'Switch to dark theme',
                             trailing: MCPUIJsonGenerator.switchWidget(
                               value: '{{settings.darkMode}}',
-                              onChange: MCPUIJsonGenerator.stateAction(
+                              change: MCPUIJsonGenerator.stateAction(
                                 action: 'toggle',
                                 binding: 'settings.darkMode',
                               ),
@@ -448,7 +448,7 @@ void _createSettingsPage() {
                                     icon: 'arrow_forward_ios'),
                               ],
                             ),
-                            onTap: MCPUIJsonGenerator.navigationAction(
+                            click: MCPUIJsonGenerator.navigationAction(
                               action: 'push',
                               route: '/settings/language',
                             ),
@@ -475,7 +475,7 @@ void _createSettingsPage() {
                             subtitle: 'Receive push notifications',
                             trailing: MCPUIJsonGenerator.switchWidget(
                               value: '{{settings.notifications}}',
-                              onChange: MCPUIJsonGenerator.stateAction(
+                              change: MCPUIJsonGenerator.stateAction(
                                 action: 'toggle',
                                 binding: 'settings.notifications',
                               ),
@@ -488,7 +488,7 @@ void _createSettingsPage() {
                             subtitle: 'Receive email updates',
                             trailing: MCPUIJsonGenerator.switchWidget(
                               value: '{{settings.emailNotifications}}',
-                              onChange: MCPUIJsonGenerator.stateAction(
+                              change: MCPUIJsonGenerator.stateAction(
                                 action: 'toggle',
                                 binding: 'settings.emailNotifications',
                               ),

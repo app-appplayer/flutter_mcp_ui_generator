@@ -50,7 +50,7 @@ void _createInputWidgetsExample() {
           MCPUIJsonGenerator.numberField(
             label: 'Quantity',
             value: '{{quantity}}',
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'quantity',
               value: '{{event.value}}',
@@ -73,7 +73,7 @@ void _createInputWidgetsExample() {
           MCPUIJsonGenerator.sizedBox(height: 8),
           MCPUIJsonGenerator.colorPicker(
             value: '{{selectedColor}}',
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'selectedColor',
               value: '{{event.value}}',
@@ -117,7 +117,7 @@ void _createInputWidgetsExample() {
               {'value': 'large', 'label': 'Large'},
               {'value': 'xlarge', 'label': 'Extra Large'},
             ],
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'size',
               value: '{{event.value}}',
@@ -145,7 +145,7 @@ void _createInputWidgetsExample() {
               {'value': 'gym', 'label': 'Gym'},
               {'value': 'pets', 'label': 'Pet Friendly'},
             ],
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'features',
               value: '{{event.value}}',
@@ -170,7 +170,7 @@ void _createInputWidgetsExample() {
               {'value': 'grid', 'label': 'Grid'},
               {'value': 'map', 'label': 'Map'},
             ],
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'viewMode',
               value: '{{event.value}}',
@@ -217,7 +217,7 @@ void _createDateTimeWidgetsExample() {
           MCPUIJsonGenerator.sizedBox(height: 8),
           MCPUIJsonGenerator.dateField(
             value: '{{birthDate}}',
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'birthDate',
               value: '{{event.value}}',
@@ -241,7 +241,7 @@ void _createDateTimeWidgetsExample() {
           MCPUIJsonGenerator.sizedBox(height: 8),
           MCPUIJsonGenerator.timeField(
             value: '{{appointmentTime}}',
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'appointmentTime',
               value: '{{event.value}}',
@@ -265,7 +265,7 @@ void _createDateTimeWidgetsExample() {
           MCPUIJsonGenerator.dateRangePicker(
             startDate: '{{vacationStart}}',
             endDate: '{{vacationEnd}}',
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'batch',
               binding: '',
               value: [
@@ -349,7 +349,7 @@ void _createLayoutControlWidgetsExample() {
 
           MCPUIJsonGenerator.switchWidget(
             value: '{{showContent}}',
-            onChange: MCPUIJsonGenerator.stateAction(
+            change: MCPUIJsonGenerator.stateAction(
               action: 'set',
               binding: 'showContent',
               value: '{{event.value}}',
@@ -697,7 +697,7 @@ void _createCompleteFormExample() {
                     MCPUIJsonGenerator.textField(
                       label: 'Full Name',
                       value: '{{fullName}}',
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'fullName',
                         value: '{{event.value}}',
@@ -707,7 +707,7 @@ void _createCompleteFormExample() {
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     MCPUIJsonGenerator.dateField(
                       value: '{{birthDate}}',
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'birthDate',
                         value: '{{event.value}}',
@@ -720,7 +720,7 @@ void _createCompleteFormExample() {
                     MCPUIJsonGenerator.numberField(
                       label: 'Age',
                       value: '{{age}}',
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'age',
                         value: '{{event.value}}',
@@ -757,7 +757,7 @@ void _createCompleteFormExample() {
                         {'value': 'vip', 'label': 'VIP'},
                         {'value': 'premium', 'label': 'Premium'},
                       ],
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'ticketType',
                         value: '{{event.value}}',
@@ -773,7 +773,7 @@ void _createCompleteFormExample() {
                         {'value': 'regular', 'label': 'Regular'},
                         {'value': 'none', 'label': 'No meal'},
                       ],
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'mealPreference',
                         value: '{{event.value}}',
@@ -790,7 +790,7 @@ void _createCompleteFormExample() {
                         {'value': 'cloud', 'label': 'Cloud Computing'},
                         {'value': 'security', 'label': 'Cybersecurity'},
                       ],
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'workshops',
                         value: '{{event.value}}',
@@ -821,7 +821,7 @@ void _createCompleteFormExample() {
                     MCPUIJsonGenerator.dateRangePicker(
                       startDate: '{{eventStart}}',
                       endDate: '{{eventEnd}}',
-                      onChange: MCPUIJsonGenerator.batchAction(
+                      change: MCPUIJsonGenerator.batchAction(
                         actions: [
                           MCPUIJsonGenerator.stateAction(
                             action: 'set',
@@ -842,7 +842,7 @@ void _createCompleteFormExample() {
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     MCPUIJsonGenerator.timeField(
                       value: '{{preferredSessionTime}}',
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'preferredSessionTime',
                         value: '{{event.value}}',
@@ -873,7 +873,7 @@ void _createCompleteFormExample() {
                     MCPUIJsonGenerator.sizedBox(height: 16),
                     MCPUIJsonGenerator.colorPicker(
                       value: '{{badgeColor}}',
-                      onChange: MCPUIJsonGenerator.stateAction(
+                      change: MCPUIJsonGenerator.stateAction(
                         action: 'set',
                         binding: 'badgeColor',
                         value: '{{event.value}}',
@@ -890,7 +890,7 @@ void _createCompleteFormExample() {
             // Submit Button
             MCPUIJsonGenerator.button(
               label: 'Submit Registration',
-              onTap: MCPUIJsonGenerator.toolAction(
+              click: MCPUIJsonGenerator.toolAction(
                 'submitRegistration',
                 args: {
                   'fullName': '{{fullName}}',

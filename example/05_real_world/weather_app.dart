@@ -17,7 +17,7 @@ void main() {
               label: '',
               style: 'text',
               icon: 'refresh',
-              onTap: MCPUIJsonGenerator.toolAction('refreshWeather'),
+              click: MCPUIJsonGenerator.toolAction('refreshWeather'),
             ),
           ],
         ),

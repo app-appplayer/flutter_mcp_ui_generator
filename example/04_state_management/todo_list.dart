@@ -18,7 +18,7 @@ void main() {
               label: '',
               style: 'text',
               icon: 'search',
-              onTap: MCPUIJsonGenerator.stateAction(
+              click: MCPUIJsonGenerator.stateAction(
                 action: 'toggle',
                 binding: 'showSearch',
               ),
@@ -27,7 +27,7 @@ void main() {
               label: '',
               style: 'text',
               icon: 'filter_list',
-              onTap: MCPUIJsonGenerator.stateAction(
+              click: MCPUIJsonGenerator.stateAction(
                 action: 'toggle',
                 binding: 'showFilters',
               ),
@@ -43,7 +43,7 @@ void main() {
               label: 'Search todos',
               value: '{{searchQuery}}',
               placeholder: 'Type to search...',
-              onChange: MCPUIJsonGenerator.stateAction(
+              change: MCPUIJsonGenerator.stateAction(
                 action: 'set',
                 binding: 'searchQuery',
                 value: '{{event.value}}',
@@ -61,7 +61,7 @@ void main() {
                 MCPUIJsonGenerator.button(
                   label: 'All ({{totalCount}})',
                   style: '{{currentFilter == "all" ? "elevated" : "outlined"}}',
-                  onTap: MCPUIJsonGenerator.stateAction(
+                  click: MCPUIJsonGenerator.stateAction(
                     action: 'set',
                     binding: 'currentFilter',
                     value: 'all',
@@ -72,7 +72,7 @@ void main() {
                   label: 'Active ({{activeCount}})',
                   style:
                       '{{currentFilter == "active" ? "elevated" : "outlined"}}',
-                  onTap: MCPUIJsonGenerator.stateAction(
+                  click: MCPUIJsonGenerator.stateAction(
                     action: 'set',
                     binding: 'currentFilter',
                     value: 'active',
@@ -83,7 +83,7 @@ void main() {
                   label: 'Done ({{completedCount}})',
                   style:
                       '{{currentFilter == "completed" ? "elevated" : "outlined"}}',
-                  onTap: MCPUIJsonGenerator.stateAction(
+                  click: MCPUIJsonGenerator.stateAction(
                     action: 'set',
                     binding: 'currentFilter',
                     value: 'completed',
@@ -104,7 +104,7 @@ void main() {
                   label: 'Add new todo',
                   value: '{{newTodoText}}',
                   placeholder: 'What needs to be done?',
-                  onChange: MCPUIJsonGenerator.stateAction(
+                  change: MCPUIJsonGenerator.stateAction(
                     action: 'set',
                     binding: 'newTodoText',
                     value: '{{event.value}}',
@@ -116,7 +116,7 @@ void main() {
                 label: 'Add',
                 style: 'elevated',
                 icon: 'add',
-                onTap: MCPUIJsonGenerator.batchAction(
+                click: MCPUIJsonGenerator.batchAction(
                   actions: [
                     MCPUIJsonGenerator.toolAction(
                       'addTodo',
@@ -150,7 +150,7 @@ void main() {
                   {'value': 'medium', 'label': '🟡 Medium'},
                   {'value': 'high', 'label': '🔴 High'},
                 ],
-                onChange: MCPUIJsonGenerator.stateAction(
+                change: MCPUIJsonGenerator.stateAction(
                   action: 'set',
                   binding: 'newTodoPriority',
                   value: '{{event.value}}',
@@ -173,7 +173,7 @@ void main() {
               child: MCPUIJsonGenerator.listTile(
                 leading: MCPUIJsonGenerator.checkbox(
                   value: '{{item.completed}}',
-                  onChange: MCPUIJsonGenerator.toolAction(
+                  change: MCPUIJsonGenerator.toolAction(
                     'toggleTodo',
                     args: {'id': '{{item.id}}'},
                   ),
@@ -187,7 +187,7 @@ void main() {
                       label: '',
                       style: 'text',
                       icon: 'edit',
-                      onTap: MCPUIJsonGenerator.batchAction(
+                      click: MCPUIJsonGenerator.batchAction(
                         actions: [
                           MCPUIJsonGenerator.stateAction(
                             action: 'set',
@@ -206,7 +206,7 @@ void main() {
                       label: '',
                       style: 'text',
                       icon: 'delete',
-                      onTap: MCPUIJsonGenerator.toolAction(
+                      click: MCPUIJsonGenerator.toolAction(
                         'deleteTodo',
                         args: {'id': '{{item.id}}'},
                       ),
@@ -242,7 +242,7 @@ void main() {
               MCPUIJsonGenerator.button(
                 label: 'Clear Completed',
                 style: 'text',
-                onTap: MCPUIJsonGenerator.toolAction('clearCompleted'),
+                click: MCPUIJsonGenerator.toolAction('clearCompleted'),
               ),
             ],
           ),

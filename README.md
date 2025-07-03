@@ -21,7 +21,7 @@ Support makemind via [PayPal](https://www.paypal.com/ncp/payment/F7G56QD9LSJ92)
 
 ---
 
-JSON generation tools for Flutter MCP UI Runtime. Create UI definitions programmatically with templates and fluent API. Based on the [MCP UI DSL v1.0 Specification](./doc/specification/MCP_UI_DSL_v1.0_Specification.md).
+JSON generation tools for Flutter MCP UI Runtime. Create UI definitions programmatically with templates and fluent API. Based on the [MCP UI DSL v1.0 Specification](https://github.com/app-appplayer/makemind/blob/main/doc/specification/MCP_UI_DSL_v1.0_Specification.md).
 
 ## Features
 
@@ -435,12 +435,12 @@ Map<String, dynamic> myCustomPattern({
 
 ## Documentation
 
-- [MCP UI DSL v1.0 Specification](./doc/specification/MCP_UI_DSL_v1.0_Specification.md) - Complete specification for Model Context Protocol UI Definition Language
-- [API Reference](./doc/api/) - Detailed API documentation
-- [Architecture Overview](./doc/architecture/overview.md) - System architecture and design
-- [Getting Started Guide](./doc/guides/getting-started.md) - Quick start guide
-- [Examples](./doc/examples/) - Sample implementations
-- [Widget Reference](./doc/api/widget-reference.md) - Complete widget property reference
+- [MCP UI DSL v1.0 Specification](https://github.com/app-appplayer/makemind/blob/main/doc/specification/MCP_UI_DSL_v1.0_Specification.md) - Complete specification for Model Context Protocol UI Definition Language
+- [API Reference](https://github.com/app-appplayer/makemind/tree/main/doc/api) - Detailed API documentation
+- [Architecture Overview](https://github.com/app-appplayer/makemind/blob/main/doc/architecture/overview.md) - System architecture and design
+- [Getting Started Guide](https://github.com/app-appplayer/makemind/blob/main/doc/guides/getting-started.md) - Quick start guide
+- [Examples](https://github.com/app-appplayer/makemind/tree/main/doc/examples) - Sample implementations
+- [Widget Reference](https://github.com/app-appplayer/makemind/blob/main/doc/api/widget-reference.md) - Complete widget property reference
 
 ## License
 
