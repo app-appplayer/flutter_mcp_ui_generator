@@ -6,6 +6,25 @@ import 'package:flutter_mcp_ui_core/flutter_mcp_ui_core.dart' as core;
 /// Generates JSON UI definitions for MCP UI DSL v1.0 specification
 /// Compatible with flutter_mcp_ui_runtime
 class MCPUIJsonGenerator {
+  // ===== MCP UI DSL v1.0 Dimension Helpers =====
+  
+  /// Create a dimension value in MCP UI DSL v1.0 format
+  /// Format: {"value": 100, "unit": "px"}
+  static Map<String, dynamic> dimension(double value, [String unit = 'px']) {
+    return {
+      'value': value,
+      'unit': unit,
+    };
+  }
+  
+  /// Helper to convert direct number to dimension format if needed
+  /// Returns either the direct number or the MCP UI DSL v1.0 format
+  /// Set useMCPFormat to true to always use MCP UI DSL v1.0 format
+  static dynamic toDimension(double? value, {bool useMCPFormat = false, String unit = 'px'}) {
+    if (value == null) return null;
+    return useMCPFormat ? dimension(value, unit) : value;
+  }
+
   // ===== Spec-based Widget Creation =====
 
   /// Create a widget using the spec registry with validation
