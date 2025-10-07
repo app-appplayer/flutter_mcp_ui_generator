@@ -38,7 +38,7 @@ JSON generation tools for Flutter MCP UI Runtime. Create UI definitions programm
 
 ```yaml
 dependencies:
-  flutter_mcp_ui_generator: ^0.2.3
+  flutter_mcp_ui_generator: ^0.2.4
 ```
 
 ## Quick Start
