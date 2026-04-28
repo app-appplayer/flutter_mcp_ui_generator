@@ -11,7 +11,7 @@ class MCPUIAppGenerator {
 
   /// Generate complete app structure
   Future<void> generateApp() async {
-    print('🚀 Generating Flutter MCP UI App: ${config.appName}');
+    // Generate Flutter MCP UI App: ${config.appName}
 
     // Create directory structure
     await _createDirectoryStructure();
@@ -24,8 +24,7 @@ class MCPUIAppGenerator {
     await _generateAssets();
     await _generatePlatformFiles();
 
-    print('✅ App generation complete!');
-    print('📁 Location: ${config.outputPath}/${config.packageName}');
+    // App generation complete. Output: ${config.outputPath}/${config.packageName}
   }
 
   /// Create directory structure
@@ -207,9 +206,7 @@ class _MCPUIAppState extends State<MCPUIApp> {
   }
   
   void _handleToolCall(String tool, Map<String, dynamic> args) {
-    // Handle tool calls
-    print('Tool called: \$tool with args: \$args');
-    
+    // Handle tool calls from MCP UI runtime
     switch (tool) {
       ${config.tools.map((tool) => '''
       case '${tool.name}':
@@ -217,7 +214,8 @@ class _MCPUIAppState extends State<MCPUIApp> {
         break;
       ''').join('\n      ')}
       default:
-        print('Unknown tool: \$tool');
+        // Unhandled tool call: tool name available in 'tool' variable
+        break;
     }
   }
 }
@@ -240,8 +238,7 @@ class _MCPUIAppState extends State<MCPUIApp> {
       if (pageState != null) {
         for (final entry in pageState.entries) {
           if (mergedState.containsKey(entry.key)) {
-            print(
-                'Warning: State key "${entry.key}" already exists, overwriting...');
+            // State key conflict: "${entry.key}" already exists, overwriting with page value
           }
           mergedState[entry.key] = entry.value;
         }

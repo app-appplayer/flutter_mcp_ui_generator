@@ -2,7 +2,9 @@ import 'package:test/test.dart';
 import 'package:flutter_mcp_ui_generator/flutter_mcp_ui_generator.dart';
 
 void main() {
+  // TC-109, TC-111, TC-112, TC-113: Static method references for actions
   group('Actions', () {
+    // TC-109: toolAction (static method reference)
     test('toolAction', () {
       final action = MCPUIJsonGenerator.toolAction(
         'submitForm',
@@ -10,7 +12,7 @@ void main() {
       );
 
       expect(action['type'], equals('tool'));
-      expect(action['name'], equals('submitForm'));
+      expect(action['tool'], equals('submitForm'));
       expect(action['params'], isA<Map>());
     });
 
@@ -40,25 +42,25 @@ void main() {
       expect(action['params'], isA<Map>());
     });
 
+    // TC-111: resourceAction (static method reference)
     test('resourceAction', () {
       final action = MCPUIJsonGenerator.resourceAction(
-        action: 'subscribe',
         uri: 'data://temperature',
-        target: 'currentTemp',
+        binding: 'currentTemp',
       );
 
       expect(action['type'], equals('resource'));
-      expect(action['action'], equals('subscribe'));
       expect(action['uri'], equals('data://temperature'));
-      expect(action['target'], equals('currentTemp'));
+      expect(action['binding'], equals('currentTemp'));
     });
 
+    // TC-112: batchAction (static method reference)
     test('batchAction', () {
       final action = MCPUIJsonGenerator.batchAction(
         actions: [
           MCPUIJsonGenerator.stateAction(
             action: 'set',
-            binding: 'loading',
+            path: 'loading',
             value: true,
           ),
           MCPUIJsonGenerator.toolAction('loadData'),
@@ -70,6 +72,7 @@ void main() {
       expect(action['actions'].length, equals(2));
     });
 
+    // TC-113: conditionalAction (static method reference)
     test('conditionalAction', () {
       final action = MCPUIJsonGenerator.conditionalAction(
         condition: '{{isLoggedIn}}',

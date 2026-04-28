@@ -63,6 +63,7 @@ class MCPUIJsonGenerator {
     Map<String, dynamic>? theme,
     Map<String, dynamic>? navigation,
     Map<String, dynamic>? state,
+    Map<String, dynamic>? dashboard,
   }) {
     return {
       'type': 'application',
@@ -73,6 +74,20 @@ class MCPUIJsonGenerator {
       if (theme != null) 'theme': theme,
       if (navigation != null) 'navigation': navigation,
       if (state != null) 'state': state,
+      if (dashboard != null) 'dashboard': dashboard,
+    };
+  }
+
+  /// Create a dashboard configuration (v1.3)
+  static Map<String, dynamic> dashboard({
+    required Map<String, dynamic> content,
+    int? refreshInterval,
+    Map<String, dynamic>? onTap,
+  }) {
+    return {
+      'content': content,
+      if (refreshInterval != null) 'refreshInterval': refreshInterval,
+      if (onTap != null) 'onTap': onTap,
     };
   }
 
@@ -102,8 +117,9 @@ class MCPUIJsonGenerator {
     required List<Map<String, dynamic>> children,
     String direction = 'vertical',
     String distribution = 'start',
-    String alignment = 'center',
-    double? gap,
+    String alignment = 'start',
+    double? spacing,
+    @Deprecated('Use spacing instead') double? gap,
     bool wrap = false,
   }) {
     return {
@@ -112,7 +128,8 @@ class MCPUIJsonGenerator {
       'direction': direction,
       'distribution': distribution,
       'alignment': alignment,
-      if (gap != null) 'gap': gap,
+      if (spacing != null) 'spacing': spacing
+      else if (gap != null) 'spacing': gap,
       'wrap': wrap,
     };
   }
@@ -209,6 +226,23 @@ class MCPUIJsonGenerator {
     };
   }
 
+  /// Create a mediaQuery conditional renderer (MCP UI DSL v1.1)
+  ///
+  /// Renders different widget subtrees based on media query conditions.
+  /// Condition examples: "minWidth: 600", "orientation: landscape", "platform: desktop"
+  static Map<String, dynamic> mediaQuery({
+    required String condition,
+    required Map<String, dynamic> then,
+    Map<String, dynamic>? orElse,
+  }) {
+    return {
+      'type': 'mediaQuery',
+      'condition': condition,
+      'then': then,
+      if (orElse != null) 'else': orElse,
+    };
+  }
+
   /// Create a scroll-view widget (MCP UI DSL v1.0)
   static Map<String, dynamic> scrollView({
     required Map<String, dynamic> child,
@@ -255,7 +289,7 @@ class MCPUIJsonGenerator {
   }) {
     return {
       'type': 'text',
-      'content': content, // MCP UI DSL v1.0 uses 'content'
+      'content': content, // MCP UI DSL callback uses 'content'
       if (style != null) 'style': style,
       if (textAlign != null) 'textAlign': textAlign,
       if (maxLines != null) 'maxLines': maxLines,
@@ -268,7 +302,7 @@ class MCPUIJsonGenerator {
     required String src,
     double? width,
     double? height,
-    String fit = 'cover',
+    String fit = 'contain',
     String? testId,
   }) {
     return {
@@ -324,8 +358,8 @@ class MCPUIJsonGenerator {
     };
   }
 
-  /// Create a loading indicator (MCP UI DSL v1.0)
-  static Map<String, dynamic> loadingIndicator({
+  /// Create a progressBar (canonical per spec 17_Naming §17.2.1).
+  static Map<String, dynamic> progressBar({
     double? value,
     String? color,
     double size = 24,
@@ -333,7 +367,7 @@ class MCPUIJsonGenerator {
     String? message,
   }) {
     return {
-      'type': 'loadingIndicator',
+      'type': 'progressBar',
       if (value != null) 'value': value,
       if (color != null) 'color': color,
       'size': size,
@@ -342,18 +376,36 @@ class MCPUIJsonGenerator {
     };
   }
 
+  /// Alias for progressBar (legacy name per spec §17.3.1). Emits the canonical
+  /// `'type': 'progressBar'` to comply with §17.5.2 canonical emission.
+  static Map<String, dynamic> loadingIndicator({
+    double? value,
+    String? color,
+    double size = 24,
+    String indicatorType = 'circular',
+    String? message,
+  }) {
+    return progressBar(
+      value: value,
+      color: color,
+      size: size,
+      indicatorType: indicatorType,
+      message: message,
+    );
+  }
+
   // ===== Input Widgets =====
 
   static Map<String, dynamic> button({
     required String label,
-    required Map<String, dynamic> click, // MCP UI DSL v1.0
+    required Map<String, dynamic> click, // MCP UI DSL callback
     Map<String, dynamic>? doubleClick,
     Map<String, dynamic>? longPress,
     Map<String, dynamic>? rightClick,
     Map<String, dynamic>? hover,
     Map<String, dynamic>? focus,
     Map<String, dynamic>? blur,
-    String style = 'elevated',
+    String variant = 'elevated',
     String? icon,
     bool disabled = false,
     bool loading = false,
@@ -363,14 +415,14 @@ class MCPUIJsonGenerator {
     return {
       'type': 'button',
       'label': label,
-      'click': click,
-      if (doubleClick != null) 'doubleClick': doubleClick,
-      if (longPress != null) 'longPress': longPress,
-      if (rightClick != null) 'rightClick': rightClick,
-      if (hover != null) 'hover': hover,
-      if (focus != null) 'focus': focus,
-      if (blur != null) 'blur': blur,
-      'style': style,
+      'onTap': click,
+      if (doubleClick != null) 'onDoubleTap': doubleClick,
+      if (longPress != null) 'onLongPress': longPress,
+      if (rightClick != null) 'onRightClick': rightClick,
+      if (hover != null) 'onHover': hover,
+      if (focus != null) 'onFocus': focus,
+      if (blur != null) 'onBlur': blur,
+      'variant': variant,
       if (icon != null) 'icon': icon,
       'disabled': disabled,
       'loading': loading,
@@ -380,10 +432,20 @@ class MCPUIJsonGenerator {
   }
 
   /// Create a text-input widget (MCP UI DSL v1.0)
+  /// Canonical text input widget per spec §2.6.3.
+  ///
+  /// Either [value]+[change] OR [binding] MUST be provided. [binding] declares
+  /// a two-way state path; [value]+[change] gives explicit control. When both
+  /// are present, [value]/[change] take precedence (spec §2.6.3).
+  ///
+  /// [validation] accepts both shapes defined in spec §7.2.1:
+  /// * `Map<String, dynamic>` — constraint object `{kind, sanitize, maxLength, pattern, message}`
+  /// * `List<Map<String, dynamic>>` — rule array `[{rule, value, message}, ...]`
   static Map<String, dynamic> textInput({
-    required String label,
-    required String value,
-    required Map<String, dynamic> change,
+    String? label,
+    String? value,
+    Map<String, dynamic>? change,
+    String? binding,
     Map<String, dynamic>? submit,
     Map<String, dynamic>? focus,
     Map<String, dynamic>? blur,
@@ -392,38 +454,86 @@ class MCPUIJsonGenerator {
     String? errorText,
     bool obscureText = false,
     int? maxLines,
-    Map<String, dynamic>? validation,
+    String? inputType,
+    Object? validation,
     bool? error,
     String? testId,
   }) {
+    assert(
+      (value != null && change != null) || binding != null,
+      'textInput requires either (value + change) or binding (spec §2.6.3).',
+    );
+    assert(
+      validation == null ||
+          validation is Map<String, dynamic> ||
+          validation is List,
+      'textInput validation must be a Map (Shape A) or List (Shape B) per spec §7.2.1.',
+    );
     return {
       'type': 'textInput',
-      'label': label,
-      'value': value,
-      'change': change,
-      if (submit != null) 'submit': submit,
-      if (focus != null) 'focus': focus,
-      if (blur != null) 'blur': blur,
+      if (label != null) 'label': label,
+      if (value != null) 'value': value,
+      if (change != null) 'onChange': change,
+      if (binding != null) 'binding': binding,
+      if (submit != null) 'onSubmit': submit,
+      if (focus != null) 'onFocus': focus,
+      if (blur != null) 'onBlur': blur,
       if (placeholder != null) 'placeholder': placeholder,
       if (helperText != null) 'helperText': helperText,
       if (errorText != null) 'errorText': errorText,
       'obscureText': obscureText,
       if (maxLines != null) 'maxLines': maxLines,
+      if (inputType != null) 'inputType': inputType,
       if (validation != null) 'validation': validation,
       if (error != null) 'error': error,
       if (testId != null) 'testId': testId,
     };
   }
 
+  /// Legacy alias — emits canonical `textInput` per spec §17.3.1, §17.5.2.
+  ///
+  /// Deprecated in favor of [textInput]. Form-aware behavior is folded into
+  /// `textInput` via [binding] and [validation].
+  @Deprecated('Use textInput(); textFormField is a legacy alias per spec §17.3.1.')
+  static Map<String, dynamic> textFormField({
+    String? label,
+    String? binding,
+    String? value,
+    Map<String, dynamic>? change,
+    String? placeholder,
+    String? helperText,
+    String? errorText,
+    bool obscureText = false,
+    int? maxLines,
+    String? inputType,
+    Object? validation,
+    String? testId,
+  }) {
+    return textInput(
+      label: label,
+      binding: binding,
+      value: value,
+      change: change,
+      placeholder: placeholder,
+      helperText: helperText,
+      errorText: errorText,
+      obscureText: obscureText,
+      maxLines: maxLines,
+      inputType: inputType,
+      validation: validation,
+      testId: testId,
+    );
+  }
+
   static Map<String, dynamic> checkbox({
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
   }) {
     return {
       'type': 'checkbox',
       'value': value,
-      'change': change,
+      'onChange': change,
       if (label != null) 'label': label,
     };
   }
@@ -431,20 +541,20 @@ class MCPUIJsonGenerator {
   /// Create a toggle widget (MCP UI DSL v1.0)
   static Map<String, dynamic> toggle({
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0 uses 'change'
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
   }) {
     return {
       'type': 'toggle',
       'value': value,
-      'change': change,
+      'onChange': change,
       if (label != null) 'label': label,
     };
   }
 
   static Map<String, dynamic> slider({
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change, // MCP UI DSL callback
     double min = 0,
     double max = 100,
     int? divisions,
@@ -453,7 +563,7 @@ class MCPUIJsonGenerator {
     return {
       'type': 'slider',
       'value': value,
-      'change': change,
+      'onChange': change,
       'min': min,
       'max': max,
       if (divisions != null) 'divisions': divisions,
@@ -464,16 +574,16 @@ class MCPUIJsonGenerator {
   /// Create a select widget (MCP UI DSL v1.0)
   static Map<String, dynamic> select({
     required String value,
-    required List<Map<String, dynamic>> items,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0 uses 'change'
+    required List<Map<String, dynamic>> options,
+    required Map<String, dynamic> change,
     String? label,
     String? placeholder,
   }) {
     return {
       'type': 'select',
       'value': value,
-      'items': items,
-      'change': change,
+      'options': options,
+      'onChange': change,
       if (label != null) 'label': label,
       if (placeholder != null) 'placeholder': placeholder,
     };
@@ -482,7 +592,7 @@ class MCPUIJsonGenerator {
   static Map<String, dynamic> numberField({
     required String label,
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change, // MCP UI DSL callback
     double? min,
     double? max,
     double? step,
@@ -500,7 +610,7 @@ class MCPUIJsonGenerator {
       'type': 'numberField',
       'label': label,
       'value': value,
-      'change': change,
+      'onChange': change,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (step != null) 'step': step,
@@ -518,43 +628,43 @@ class MCPUIJsonGenerator {
 
   static Map<String, dynamic> colorPicker({
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change,
     String? label,
     bool enableAlpha = true,
     bool showAlpha = true,
     bool showLabel = true,
     String pickerType = 'wheel',
     bool enableHistory = false,
-    List<String>? swatchColors,
+    List<String>? swatches,
     String? testId,
   }) {
     return {
       'type': 'colorPicker',
       'value': value,
-      'change': change,
+      'onChange': change,
       if (label != null) 'label': label,
       'enableAlpha': enableAlpha,
       'showAlpha': showAlpha,
       'showLabel': showLabel,
       'pickerType': pickerType,
       'enableHistory': enableHistory,
-      if (swatchColors != null) 'swatchColors': swatchColors,
+      if (swatches != null) 'swatches': swatches,
       if (testId != null) 'testId': testId,
     };
   }
 
   static Map<String, dynamic> radioGroup({
     required String value,
-    required List<Map<String, dynamic>> items,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required List<Map<String, dynamic>> options,
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
     String orientation = 'vertical',
   }) {
     return {
       'type': 'radioGroup',
       'value': value,
-      'items': items,
-      'change': change,
+      'options': options,
+      'onChange': change,
       if (label != null) 'label': label,
       'orientation': orientation,
     };
@@ -562,16 +672,16 @@ class MCPUIJsonGenerator {
 
   static Map<String, dynamic> checkboxGroup({
     required String value,
-    required List<Map<String, dynamic>> items,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required List<Map<String, dynamic>> options,
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
     String orientation = 'vertical',
   }) {
     return {
       'type': 'checkboxGroup',
       'value': value,
-      'items': items,
-      'change': change,
+      'options': options,
+      'onChange': change,
       if (label != null) 'label': label,
       'orientation': orientation,
     };
@@ -579,22 +689,22 @@ class MCPUIJsonGenerator {
 
   static Map<String, dynamic> segmentedControl({
     required String value,
-    required List<Map<String, dynamic>> items,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required List<Map<String, dynamic>> options,
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
   }) {
     return {
       'type': 'segmentedControl',
       'value': value,
-      'items': items,
-      'change': change,
+      'options': options,
+      'onChange': change,
       if (label != null) 'label': label,
     };
   }
 
   static Map<String, dynamic> dateField({
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
     String? minDate,
     String? maxDate,
@@ -604,7 +714,7 @@ class MCPUIJsonGenerator {
     return {
       'type': 'dateField',
       'value': value,
-      'change': change,
+      'onChange': change,
       if (label != null) 'label': label,
       if (minDate != null) 'minDate': minDate,
       if (maxDate != null) 'maxDate': maxDate,
@@ -615,7 +725,7 @@ class MCPUIJsonGenerator {
 
   static Map<String, dynamic> timeField({
     required String value,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
     String format = 'HH:mm',
     bool use24HourFormat = true,
@@ -624,7 +734,7 @@ class MCPUIJsonGenerator {
     return {
       'type': 'timeField',
       'value': value,
-      'change': change,
+      'onChange': change,
       if (label != null) 'label': label,
       'format': format,
       'use24HourFormat': use24HourFormat,
@@ -635,7 +745,7 @@ class MCPUIJsonGenerator {
   static Map<String, dynamic> dateRangePicker({
     required String startDate,
     required String endDate,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required Map<String, dynamic> change, // MCP UI DSL callback
     String? label,
     String? minDate,
     String? maxDate,
@@ -645,7 +755,7 @@ class MCPUIJsonGenerator {
       'type': 'dateRangePicker',
       'startDate': startDate,
       'endDate': endDate,
-      'change': change,
+      'onChange': change,
       if (label != null) 'label': label,
       if (minDate != null) 'minDate': minDate,
       if (maxDate != null) 'maxDate': maxDate,
@@ -654,9 +764,8 @@ class MCPUIJsonGenerator {
   }
 
   static Map<String, dynamic> rangeSlider({
-    required String startValue,
-    required String endValue,
-    required Map<String, dynamic> change, // MCP UI DSL v1.0
+    required String value,
+    required Map<String, dynamic> change, // MCP UI DSL callback
     double min = 0,
     double max = 100,
     int? divisions,
@@ -664,9 +773,8 @@ class MCPUIJsonGenerator {
   }) {
     return {
       'type': 'rangeSlider',
-      'startValue': startValue,
-      'endValue': endValue,
-      'change': change,
+      'value': value,
+      'onChange': change,
       'min': min,
       'max': max,
       if (divisions != null) 'divisions': divisions,
@@ -703,18 +811,18 @@ class MCPUIJsonGenerator {
 
   static Map<String, dynamic> dragTarget({
     required Map<String, dynamic> builder,
-    required Map<String, dynamic> onAccept,
-    Map<String, dynamic>? onWillAccept,
-    Map<String, dynamic>? onLeave,
-    Map<String, dynamic>? onMove,
+    required Map<String, dynamic> drop,
+    String? canDrop,
+    Map<String, dynamic>? dragEnter,
+    Map<String, dynamic>? dragLeave,
   }) {
     return {
       'type': 'dragTarget',
       'builder': builder,
-      'onAccept': onAccept,
-      if (onWillAccept != null) 'onWillAccept': onWillAccept,
-      if (onLeave != null) 'onLeave': onLeave,
-      if (onMove != null) 'onMove': onMove,
+      'onDrop': drop,
+      if (canDrop != null) 'canDrop': canDrop,
+      if (dragEnter != null) 'onDragEnter': dragEnter,
+      if (dragLeave != null) 'onDragLeave': dragLeave,
     };
   }
 
@@ -723,21 +831,22 @@ class MCPUIJsonGenerator {
   /// Create a list widget (MCP UI DSL v1.0)
   static Map<String, dynamic> list({
     required String items,
-    required Map<String, dynamic>
-        itemTemplate, // MCP UI DSL v1.0 uses 'itemTemplate'
+    required Map<String, dynamic> itemTemplate,
     Map<String, dynamic>? itemTap,
-    double itemSpacing = 0,
+    double spacing = 0,
     bool shrinkWrap = false,
-    String scrollDirection = 'vertical',
+    String orientation = 'vertical',
+    Map<String, dynamic>? pagination,
   }) {
     return {
       'type': 'list',
       'items': items,
-      'itemTemplate': itemTemplate, // MCP UI DSL v1.0 uses 'itemTemplate'
-      if (itemTap != null) 'item-tap': itemTap,
-      'itemSpacing': itemSpacing,
+      'itemTemplate': itemTemplate,
+      if (itemTap != null) 'onItemTap': itemTap,
+      'spacing': spacing,
       'shrinkWrap': shrinkWrap,
-      'scrollDirection': scrollDirection,
+      'orientation': orientation,
+      if (pagination != null) 'pagination': pagination,
     };
   }
 
@@ -745,7 +854,7 @@ class MCPUIJsonGenerator {
   static Map<String, dynamic> grid({
     required String items,
     required Map<String, dynamic>
-        itemTemplate, // MCP UI DSL v1.0 uses 'itemTemplate'
+        itemTemplate, // MCP UI DSL callback uses 'itemTemplate'
     Map<String, dynamic>? itemTap,
     int crossAxisCount = 2,
     double mainAxisSpacing = 0,
@@ -755,8 +864,8 @@ class MCPUIJsonGenerator {
     return {
       'type': 'grid',
       'items': items,
-      'itemTemplate': itemTemplate, // MCP UI DSL v1.0 uses 'itemTemplate'
-      if (itemTap != null) 'item-tap': itemTap,
+      'itemTemplate': itemTemplate, // MCP UI DSL callback uses 'itemTemplate'
+      if (itemTap != null) 'onItemTap': itemTap,
       'crossAxisCount': crossAxisCount,
       'mainAxisSpacing': mainAxisSpacing,
       'crossAxisSpacing': crossAxisSpacing,
@@ -764,21 +873,41 @@ class MCPUIJsonGenerator {
     };
   }
 
-  static Map<String, dynamic> listTile({
-    String? title,
-    String? subtitle,
+  /// Create a listItem (canonical per spec 17_Naming §17.2.1).
+  /// [title] and [subtitle] accept either a String or a widget Map for rich content.
+  static Map<String, dynamic> listItem({
+    dynamic title,
+    dynamic subtitle,
     Map<String, dynamic>? leading,
     Map<String, dynamic>? trailing,
     Map<String, dynamic>? click,
   }) {
     return {
-      'type': 'listTile',
+      'type': 'listItem',
       if (title != null) 'title': title,
       if (subtitle != null) 'subtitle': subtitle,
       if (leading != null) 'leading': leading,
       if (trailing != null) 'trailing': trailing,
-      if (click != null) 'click': click,
+      if (click != null) 'onTap': click,
     };
+  }
+
+  /// Alias for listItem (legacy name per spec §17.3.1). Emits the canonical
+  /// `'type': 'listItem'` to comply with §17.5.2 canonical emission.
+  static Map<String, dynamic> listTile({
+    dynamic title,
+    dynamic subtitle,
+    Map<String, dynamic>? leading,
+    Map<String, dynamic>? trailing,
+    Map<String, dynamic>? click,
+  }) {
+    return listItem(
+      title: title,
+      subtitle: subtitle,
+      leading: leading,
+      trailing: trailing,
+      click: click,
+    );
   }
 
   // ===== Navigation Widgets =====
@@ -803,18 +932,20 @@ class MCPUIJsonGenerator {
   static Map<String, dynamic> bottomNavigation({
     required List<Map<String, dynamic>> items,
     required int currentIndex,
-    required Map<String, dynamic> click,
+    required Map<String, dynamic> change,
     String barType = 'fixed',
   }) {
     return {
       'type': 'bottomNavigation',
       'items': items,
       'currentIndex': currentIndex,
-      'click': click,
+      'onChange': change,
       'barType': barType,
     };
   }
 
+  /// Creates a drawer widget with arbitrary child content.
+  /// For navigation-oriented drawers with item lists, use [drawerNavigation].
   static Map<String, dynamic> drawer({
     required Map<String, dynamic> child,
   }) {
@@ -826,20 +957,23 @@ class MCPUIJsonGenerator {
 
   static Map<String, dynamic> floatingActionButton({
     required Map<String, dynamic> click,
-    required Map<String, dynamic> child,
+    String? icon,
+    String? label,
     String? tooltip,
   }) {
     return {
       'type': 'floatingActionButton',
-      'click': click,
-      'child': child,
+      'onTap': click,
+      if (icon != null) 'icon': icon,
+      if (label != null) 'label': label,
       if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   // ===== Navigation Structure Helpers =====
 
-  /// Create a drawer navigation structure
+  /// Creates a drawer with a navigation items list, optional header and footer.
+  /// For drawers with arbitrary child content, use [MCPWidgets.drawer].
   static Map<String, dynamic> drawerNavigation({
     required List<Map<String, dynamic>> items,
     Map<String, dynamic>? header,
@@ -965,6 +1099,9 @@ class MCPUIJsonGenerator {
   static Map<String, dynamic> calendar({
     String view = 'month',
     String? selectedDate,
+    String? firstDate,
+    String? lastDate,
+    Map<String, dynamic>? change,
     List<Map<String, dynamic>>? events,
     bool showHeader = true,
     double? width,
@@ -974,6 +1111,9 @@ class MCPUIJsonGenerator {
       'type': 'calendar',
       'view': view,
       if (selectedDate != null) 'selectedDate': selectedDate,
+      if (firstDate != null) 'firstDate': firstDate,
+      if (lastDate != null) 'lastDate': lastDate,
+      if (change != null) 'onChange': change,
       if (events != null) 'events': events,
       'showHeader': showHeader,
       if (width != null) 'width': width,
@@ -981,9 +1121,9 @@ class MCPUIJsonGenerator {
     };
   }
 
-  /// Create a tree widget
+  /// Create a tree widget. [data] accepts a binding string or a literal list.
   static Map<String, dynamic> tree({
-    required List<Map<String, dynamic>> data,
+    required dynamic data,
     bool expandAll = false,
     bool showLines = true,
     double? width,
@@ -1003,30 +1143,35 @@ class MCPUIJsonGenerator {
 
   /// Create a tool action (MCP UI DSL v1.0 spec)
   static Map<String, dynamic> toolAction(
-    String name, {
+    String tool, {
     Map<String, dynamic>? params,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
   }) {
     return {
       'type': 'tool',
-      'name': name, // Changed from 'tool' to 'name' per spec
-      if (params != null)
-        'params': params, // Changed from 'args' to 'params' per spec
+      'tool': tool,
+      if (params != null) 'params': params,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
     };
   }
 
   /// Create a state action (MCP UI DSL v1.0 spec)
   static Map<String, dynamic> stateAction({
     required String action,
-    required String binding, // MCP UI DSL v1.0 uses 'binding' for state actions
+    String? binding,
+    @Deprecated('Use binding instead') String? path,
     dynamic value,
     num? amount,
   }) {
+    final effectiveBinding = binding ?? path;
     return {
       'type': 'state',
       'action': action,
-      'binding': binding, // MCP UI DSL v1.0 uses 'binding' for state actions
+      if (effectiveBinding != null) 'binding': effectiveBinding,
       if (value != null) 'value': value,
-      if (amount != null) 'amount': amount, // Added amount parameter per spec
+      if (amount != null) 'amount': amount,
     };
   }
 
@@ -1035,7 +1180,7 @@ class MCPUIJsonGenerator {
     required String action,
     String? route,
     Map<String, dynamic>? params,
-    String? index, // Added index parameter for setIndex action
+    int? index, // Tab/page index for setIndex action
   }) {
     return {
       'type': 'navigation',
@@ -1048,31 +1193,34 @@ class MCPUIJsonGenerator {
 
   /// Create a resource action (MCP UI DSL v1.0 spec)
   static Map<String, dynamic> resourceAction({
-    required String action,
-    String? uri,
-    String? pattern,
-    String? target, // Changed from 'binding' to 'target' per spec
+    required String uri,
+    String? binding,
+    @Deprecated('Use binding instead') String? target,
+    Duration? refreshInterval,
+    Map<String, dynamic>? onUpdate,
+    Map<String, dynamic>? onError,
   }) {
+    final effectiveBinding = binding ?? target;
     return {
       'type': 'resource',
-      'action': action,
-      if (uri != null) 'uri': uri,
-      if (pattern != null)
-        'pattern': pattern, // Added pattern parameter per spec
-      if (target != null)
-        'target': target, // Changed from 'binding' to 'target' per spec
+      'uri': uri,
+      if (effectiveBinding != null) 'binding': effectiveBinding,
+      if (refreshInterval != null)
+        'refreshInterval': refreshInterval.inMilliseconds,
+      if (onUpdate != null) 'onUpdate': onUpdate,
+      if (onError != null) 'onError': onError,
     };
   }
 
   /// Create a batch action (MCP UI DSL v1.0 spec)
   static Map<String, dynamic> batchAction({
     required List<Map<String, dynamic>> actions,
-    bool parallel = false, // Added parallel parameter per spec
+    bool? sequential,
   }) {
     return {
       'type': 'batch',
       'actions': actions,
-      'parallel': parallel, // Added parallel parameter per spec
+      if (sequential != null) 'sequential': sequential,
     };
   }
 
@@ -1086,20 +1234,28 @@ class MCPUIJsonGenerator {
       'type': 'conditional',
       'condition': condition,
       'then': then,
-      if (orElse != null) 'else': orElse, // 'else' is correct per spec
+      if (orElse != null) 'else': orElse,
     };
   }
 
   // ===== Theme Builders =====
 
-  /// Create a complete theme definition
+  /// Create a complete 1.3 theme definition map (M3 14-domain).
   static Map<String, dynamic> theme({
-    String mode = 'light',
-    Map<String, dynamic>? colors,
+    String mode = 'system',
+    Map<String, dynamic>? color,
     Map<String, dynamic>? typography,
     Map<String, dynamic>? spacing,
-    Map<String, dynamic>? borderRadius,
+    Map<String, dynamic>? shape,
     Map<String, dynamic>? elevation,
+    Map<String, dynamic>? motion,
+    Map<String, dynamic>? density,
+    Map<String, dynamic>? breakpoints,
+    Map<String, dynamic>? border,
+    Map<String, dynamic>? opacity,
+    Map<String, dynamic>? focusRing,
+    Map<String, dynamic>? zIndex,
+    Map<String, dynamic>? component,
     Map<String, dynamic>? light,
     Map<String, dynamic>? dark,
   }) {
@@ -1107,133 +1263,244 @@ class MCPUIJsonGenerator {
       'mode': mode,
     };
 
-    // Add theme sections
-    if (colors != null) theme['colors'] = colors;
+    if (color != null) theme['color'] = color;
     if (typography != null) theme['typography'] = typography;
     if (spacing != null) theme['spacing'] = spacing;
-    if (borderRadius != null) theme['borderRadius'] = borderRadius;
+    if (shape != null) theme['shape'] = shape;
     if (elevation != null) theme['elevation'] = elevation;
+    if (motion != null) theme['motion'] = motion;
+    if (density != null) theme['density'] = density;
+    if (breakpoints != null) theme['breakpoints'] = breakpoints;
+    if (border != null) theme['border'] = border;
+    if (opacity != null) theme['opacity'] = opacity;
+    if (focusRing != null) theme['focusRing'] = focusRing;
+    if (zIndex != null) theme['zIndex'] = zIndex;
+    if (component != null) theme['component'] = component;
 
-    // Add light/dark mode themes
     if (light != null) theme['light'] = light;
     if (dark != null) theme['dark'] = dark;
 
     return theme;
   }
 
-  /// Create theme colors (MCP UI DSL v1.0)
+  /// Build a 1.3 [color] block (Material 3 28-role) — accepts only the
+  /// values you want to override, falling back to seed-derived defaults
+  /// at runtime when [seed] is provided.
   static Map<String, dynamic> themeColors({
-    String primary = '#FF2196F3',
-    String secondary = '#FFFF4081',
-    String background = '#FFFFFFFF',
-    String surface = '#FFF5F5F5',
-    String error = '#FFF44336',
-    String textOnPrimary = '#FFFFFFFF',
-    String textOnSecondary = '#FF000000',
-    String textOnBackground = '#FF000000',
-    String textOnSurface = '#FF000000',
-    String textOnError = '#FFFFFFFF',
+    String? seed,
+    String? primary,
+    String? onPrimary,
+    String? primaryContainer,
+    String? onPrimaryContainer,
+    String? secondary,
+    String? onSecondary,
+    String? secondaryContainer,
+    String? onSecondaryContainer,
+    String? tertiary,
+    String? onTertiary,
+    String? tertiaryContainer,
+    String? onTertiaryContainer,
+    String? error,
+    String? onError,
+    String? errorContainer,
+    String? onErrorContainer,
+    String? surface,
+    String? onSurface,
+    String? onSurfaceVariant,
+    String? surfaceTint,
+    String? surfaceBright,
+    String? surfaceDim,
+    String? surfaceContainerLowest,
+    String? surfaceContainerLow,
+    String? surfaceContainer,
+    String? surfaceContainerHigh,
+    String? surfaceContainerHighest,
+    String? outline,
+    String? outlineVariant,
+    String? inverseSurface,
+    String? onInverseSurface,
+    String? inversePrimary,
+    String? scrim,
+    String? shadow,
+    String? success,
+    String? onSuccess,
+    String? warning,
+    String? onWarning,
+    String? info,
+    String? onInfo,
+    Map<String, dynamic>? stateLayer,
   }) {
-    return {
-      'primary': primary,
-      'secondary': secondary,
-      'background': background,
-      'surface': surface,
-      'error': error,
-      'textOnPrimary': textOnPrimary,
-      'textOnSecondary': textOnSecondary,
-      'textOnBackground': textOnBackground,
-      'textOnSurface': textOnSurface,
-      'textOnError': textOnError,
-    };
+    final out = <String, dynamic>{};
+    void put(String k, Object? v) {
+      if (v != null) out[k] = v;
+    }
+
+    put('seed', seed);
+    put('primary', primary);
+    put('onPrimary', onPrimary);
+    put('primaryContainer', primaryContainer);
+    put('onPrimaryContainer', onPrimaryContainer);
+    put('secondary', secondary);
+    put('onSecondary', onSecondary);
+    put('secondaryContainer', secondaryContainer);
+    put('onSecondaryContainer', onSecondaryContainer);
+    put('tertiary', tertiary);
+    put('onTertiary', onTertiary);
+    put('tertiaryContainer', tertiaryContainer);
+    put('onTertiaryContainer', onTertiaryContainer);
+    put('error', error);
+    put('onError', onError);
+    put('errorContainer', errorContainer);
+    put('onErrorContainer', onErrorContainer);
+    put('surface', surface);
+    put('onSurface', onSurface);
+    put('onSurfaceVariant', onSurfaceVariant);
+    put('surfaceTint', surfaceTint);
+    put('surfaceBright', surfaceBright);
+    put('surfaceDim', surfaceDim);
+    put('surfaceContainerLowest', surfaceContainerLowest);
+    put('surfaceContainerLow', surfaceContainerLow);
+    put('surfaceContainer', surfaceContainer);
+    put('surfaceContainerHigh', surfaceContainerHigh);
+    put('surfaceContainerHighest', surfaceContainerHighest);
+    put('outline', outline);
+    put('outlineVariant', outlineVariant);
+    put('inverseSurface', inverseSurface);
+    put('onInverseSurface', onInverseSurface);
+    put('inversePrimary', inversePrimary);
+    put('scrim', scrim);
+    put('shadow', shadow);
+    put('success', success);
+    put('onSuccess', onSuccess);
+    put('warning', warning);
+    put('onWarning', onWarning);
+    put('info', info);
+    put('onInfo', onInfo);
+    put('stateLayer', stateLayer);
+    return out;
   }
 
-  /// Create theme typography
+  /// Build a 1.3 typography block (Material 3 — 15 role).
+  ///
+  /// Roles: `displayLarge/Medium/Small`, `headlineLarge/Medium/Small`,
+  /// `titleLarge/Medium/Small`, `bodyLarge/Medium/Small`,
+  /// `labelLarge/Medium/Small`. Defaults follow M3 type scale.
   static Map<String, dynamic> themeTypography({
-    Map<String, dynamic>? h1,
-    Map<String, dynamic>? h2,
-    Map<String, dynamic>? h3,
-    Map<String, dynamic>? h4,
-    Map<String, dynamic>? h5,
-    Map<String, dynamic>? h6,
-    Map<String, dynamic>? body1,
-    Map<String, dynamic>? body2,
-    Map<String, dynamic>? caption,
-    Map<String, dynamic>? button,
+    Map<String, dynamic>? displayLarge,
+    Map<String, dynamic>? displayMedium,
+    Map<String, dynamic>? displaySmall,
+    Map<String, dynamic>? headlineLarge,
+    Map<String, dynamic>? headlineMedium,
+    Map<String, dynamic>? headlineSmall,
+    Map<String, dynamic>? titleLarge,
+    Map<String, dynamic>? titleMedium,
+    Map<String, dynamic>? titleSmall,
+    Map<String, dynamic>? bodyLarge,
+    Map<String, dynamic>? bodyMedium,
+    Map<String, dynamic>? bodySmall,
+    Map<String, dynamic>? labelLarge,
+    Map<String, dynamic>? labelMedium,
+    Map<String, dynamic>? labelSmall,
   }) {
+    Map<String, dynamic> ts(
+            num size, String w, num lh, num spacing) =>
+        {'fontSize': size, 'fontWeight': w, 'lineHeight': lh, 'letterSpacing': spacing};
     return {
-      'h1': h1 ?? {'fontSize': 32, 'fontWeight': 'bold', 'letterSpacing': -1.5},
-      'h2': h2 ?? {'fontSize': 28, 'fontWeight': 'bold', 'letterSpacing': -0.5},
-      'h3': h3 ?? {'fontSize': 24, 'fontWeight': 'bold', 'letterSpacing': 0},
-      'h4': h4 ?? {'fontSize': 20, 'fontWeight': 'bold', 'letterSpacing': 0.25},
-      'h5': h5 ?? {'fontSize': 18, 'fontWeight': 'bold', 'letterSpacing': 0},
-      'h6': h6 ?? {'fontSize': 16, 'fontWeight': 'bold', 'letterSpacing': 0.15},
-      'body1': body1 ??
-          {'fontSize': 16, 'fontWeight': 'normal', 'letterSpacing': 0.5},
-      'body2': body2 ??
-          {'fontSize': 14, 'fontWeight': 'normal', 'letterSpacing': 0.25},
-      'caption': caption ??
-          {'fontSize': 12, 'fontWeight': 'normal', 'letterSpacing': 0.4},
-      'button': button ??
-          {
-            'fontSize': 14,
-            'fontWeight': 'medium',
-            'letterSpacing': 1.25,
-            'textTransform': 'uppercase'
-          },
+      'displayLarge': displayLarge ?? ts(57, 'regular', 64, -0.25),
+      'displayMedium': displayMedium ?? ts(45, 'regular', 52, 0),
+      'displaySmall': displaySmall ?? ts(36, 'regular', 44, 0),
+      'headlineLarge': headlineLarge ?? ts(32, 'regular', 40, 0),
+      'headlineMedium': headlineMedium ?? ts(28, 'regular', 36, 0),
+      'headlineSmall': headlineSmall ?? ts(24, 'regular', 32, 0),
+      'titleLarge': titleLarge ?? ts(22, 'medium', 28, 0),
+      'titleMedium': titleMedium ?? ts(16, 'medium', 24, 0.15),
+      'titleSmall': titleSmall ?? ts(14, 'medium', 20, 0.1),
+      'bodyLarge': bodyLarge ?? ts(16, 'regular', 24, 0.5),
+      'bodyMedium': bodyMedium ?? ts(14, 'regular', 20, 0.25),
+      'bodySmall': bodySmall ?? ts(12, 'regular', 16, 0.4),
+      'labelLarge': labelLarge ?? ts(14, 'medium', 20, 0.1),
+      'labelMedium': labelMedium ?? ts(12, 'medium', 16, 0.5),
+      'labelSmall': labelSmall ?? ts(11, 'medium', 16, 0.5),
     };
   }
 
-  /// Create theme spacing
+  /// Build a 1.3 spacing block (8pt grid · 9 primitives + 4 layout aliases).
+  ///
+  /// Wire keys for 2xl/3xl/4xl follow MCP UI DSL canonical form.
   static Map<String, dynamic> themeSpacing({
-    int xs = 4,
-    int sm = 8,
-    int md = 16,
-    int lg = 24,
-    int xl = 32,
-    int xxl = 48,
+    num xxs = 2,
+    num xs = 4,
+    num sm = 8,
+    num md = 16,
+    num lg = 24,
+    num xl = 32,
+    num xxl = 48,
+    num xxxl = 64,
+    num xxxxl = 96,
+    num? screenPadding,
+    num? cardPadding,
+    num? sectionGap,
+    num? inlineGap,
   }) {
-    return {
+    final m = <String, dynamic>{
+      'xxs': xxs,
       'xs': xs,
       'sm': sm,
       'md': md,
       'lg': lg,
       'xl': xl,
-      'xxl': xxl,
+      '2xl': xxl,
+      '3xl': xxxl,
+      '4xl': xxxxl,
     };
+    if (screenPadding != null) m['screenPadding'] = screenPadding;
+    if (cardPadding != null) m['cardPadding'] = cardPadding;
+    if (sectionGap != null) m['sectionGap'] = sectionGap;
+    if (inlineGap != null) m['inlineGap'] = inlineGap;
+    return m;
   }
 
-  /// Create theme border radius
-  static Map<String, dynamic> themeBorderRadius({
-    int sm = 4,
-    int md = 8,
-    int lg = 16,
-    int xl = 24,
-    int round = 9999,
-  }) {
-    return {
-      'sm': sm,
-      'md': md,
-      'lg': lg,
-      'xl': xl,
-      'round': round,
-    };
-  }
-
-  /// Create theme elevation
-  static Map<String, dynamic> themeElevation({
-    int none = 0,
-    int sm = 2,
-    int md = 4,
-    int lg = 8,
-    int xl = 16,
+  /// Build a 1.3 shape block (Material 3 — 7 family + per-corner override).
+  static Map<String, dynamic> themeShape({
+    Object none = 0,
+    Object extraSmall = 4,
+    Object small = 8,
+    Object medium = 12,
+    Object large = 16,
+    Object extraLarge = 28,
+    Object full = 9999,
   }) {
     return {
       'none': none,
-      'sm': sm,
-      'md': md,
-      'lg': lg,
-      'xl': xl,
+      'extraSmall': extraSmall,
+      'small': small,
+      'medium': medium,
+      'large': large,
+      'extraLarge': extraLarge,
+      'full': full,
+    };
+  }
+
+  /// Build a 1.3 elevation block (Material 3 — 6 levels: 0/1/3/6/8/12).
+  static Map<String, dynamic> themeElevation({
+    num level0Shadow = 0,
+    num level1Shadow = 1,
+    num level2Shadow = 3,
+    num level3Shadow = 6,
+    num level4Shadow = 8,
+    num level5Shadow = 12,
+    String? tint,
+  }) {
+    Map<String, dynamic> level(num shadow) => tint == null
+        ? {'shadow': shadow}
+        : {'shadow': shadow, 'tint': tint};
+    return {
+      'level0': level(level0Shadow),
+      'level1': level(level1Shadow),
+      'level2': level(level2Shadow),
+      'level3': level(level3Shadow),
+      'level4': level(level4Shadow),
+      'level5': level(level5Shadow),
     };
   }
 
@@ -1349,24 +1616,25 @@ class MCPUIJsonGenerator {
 
   // ===== Theme Binding Helpers =====
 
-  /// Get theme color binding
-  static String themeColor(String colorName) =>
-      themeBinding('colors.$colorName');
+  /// Get theme color binding (M3 28-role slot: `primary`, `surface`, ...).
+  static String themeColor(String slot) => themeBinding('color.$slot');
 
-  /// Get theme typography binding
-  static String themeTypographyProperty(String style, String property) =>
-      themeBinding('typography.$style.$property');
+  /// Get theme typography binding (e.g. `('bodyLarge', 'fontSize')`).
+  static String themeTypographyProperty(String role, String property) =>
+      themeBinding('typography.$role.$property');
 
-  /// Get theme spacing binding
-  static String themeSpacingValue(String size) => themeBinding('spacing.$size');
+  /// Get theme spacing binding (`xxs/xs/sm/md/lg/xl/2xl/3xl/4xl`).
+  static String themeSpacingValue(String token) =>
+      themeBinding('spacing.$token');
 
-  /// Get theme border radius binding
-  static String themeBorderRadiusValue(String size) =>
-      themeBinding('borderRadius.$size');
+  /// Get theme shape binding
+  /// (`none/extraSmall/small/medium/large/extraLarge/full`).
+  static String themeShapeValue(String family) =>
+      themeBinding('shape.$family');
 
-  /// Get theme elevation binding
+  /// Get theme elevation binding (`level0/level1/level2/level3/level4/level5`).
   static String themeElevationValue(String level) =>
-      themeBinding('elevation.$level');
+      themeBinding('elevation.$level.shadow');
 
   // ===== Size Unit Helpers =====
 
@@ -1474,24 +1742,37 @@ class MCPUIJsonGenerator {
 
   // ===== Accessibility Helpers =====
 
-  /// Add accessibility properties to a widget
+  /// Add accessibility properties to a widget (platform-agnostic naming per P3)
   static Map<String, dynamic> withAccessibility(
     Map<String, dynamic> widget, {
-    String? ariaLabel,
-    String? ariaRole,
-    String? ariaDescription,
-    bool? ariaHidden,
-    String? ariaLive,
+    String? label,
+    String? role,
+    String? description,
+    bool? hidden,
+    String? live,
+    // Legacy parameter names for backward compatibility
+    @Deprecated('Use label instead') String? ariaLabel,
+    @Deprecated('Use role instead') String? ariaRole,
+    @Deprecated('Use description instead') String? ariaDescription,
+    @Deprecated('Use hidden instead') bool? ariaHidden,
+    @Deprecated('Use live instead') String? ariaLive,
   }) {
     final updatedWidget = Map<String, dynamic>.from(widget);
 
-    if (ariaLabel != null) updatedWidget['aria-label'] = ariaLabel;
-    if (ariaRole != null) updatedWidget['aria-role'] = ariaRole;
-    if (ariaDescription != null) {
-      updatedWidget['aria-description'] = ariaDescription;
+    // Platform-agnostic names (preferred)
+    final effectiveLabel = label ?? ariaLabel;
+    final effectiveRole = role ?? ariaRole;
+    final effectiveDescription = description ?? ariaDescription;
+    final effectiveHidden = hidden ?? ariaHidden;
+    final effectiveLive = live ?? ariaLive;
+
+    if (effectiveLabel != null) updatedWidget['label'] = effectiveLabel;
+    if (effectiveRole != null) updatedWidget['role'] = effectiveRole;
+    if (effectiveDescription != null) {
+      updatedWidget['description'] = effectiveDescription;
     }
-    if (ariaHidden != null) updatedWidget['aria-hidden'] = ariaHidden;
-    if (ariaLive != null) updatedWidget['aria-live'] = ariaLive;
+    if (effectiveHidden != null) updatedWidget['hidden'] = effectiveHidden;
+    if (effectiveLive != null) updatedWidget['live'] = effectiveLive;
 
     return updatedWidget;
   }
@@ -1500,9 +1781,9 @@ class MCPUIJsonGenerator {
   static Map<String, dynamic> accessibleButton({
     required String label,
     required Map<String, dynamic> click,
-    String? ariaLabel,
-    String? ariaRole = 'button',
-    String style = 'elevated',
+    String? accessibilityLabel,
+    String? accessibilityRole = 'button',
+    String variant = 'elevated',
     String? icon,
     bool disabled = false,
   }) {
@@ -1510,12 +1791,12 @@ class MCPUIJsonGenerator {
       button(
         label: label,
         click: click,
-        style: style,
+        variant: variant,
         icon: icon,
         disabled: disabled,
       ),
-      ariaLabel: ariaLabel ?? label,
-      ariaRole: ariaRole,
+      label: accessibilityLabel ?? label,
+      role: accessibilityRole,
     );
   }
 
@@ -1524,9 +1805,9 @@ class MCPUIJsonGenerator {
     required String label,
     required String value,
     required Map<String, dynamic> change,
-    String? ariaLabel,
-    String? ariaRole = 'textbox',
-    String? ariaDescription,
+    String? accessibilityLabel,
+    String? accessibilityRole = 'textbox',
+    String? accessibilityDescription,
     String? placeholder,
     String? helperText,
     String? errorText,
@@ -1544,9 +1825,9 @@ class MCPUIJsonGenerator {
         obscureText: obscureText,
         maxLines: maxLines,
       ),
-      ariaLabel: ariaLabel ?? label,
-      ariaRole: ariaRole,
-      ariaDescription: ariaDescription ?? helperText,
+      label: accessibilityLabel ?? label,
+      role: accessibilityRole,
+      description: accessibilityDescription ?? helperText,
     );
   }
 
@@ -1624,8 +1905,8 @@ class MCPUIJsonGenerator {
   }
 
   /// Create translations for a locale
-  static Map<String, String> i18nTranslations(
-      Map<String, String> translations) {
+  static Map<String, dynamic> i18nTranslations(
+      Map<String, dynamic> translations) {
     return translations;
   }
 
@@ -1652,14 +1933,14 @@ class MCPUIJsonGenerator {
     required String labelKey,
     Map<String, String>? labelArgs,
     required Map<String, dynamic> click,
-    String style = 'elevated',
+    String variant = 'elevated',
     String? icon,
     bool disabled = false,
   }) {
     return button(
       label: i18n(labelKey, args: labelArgs),
       click: click,
-      style: style,
+      variant: variant,
       icon: icon,
       disabled: disabled,
     );
@@ -1707,27 +1988,45 @@ class MCPUIJsonGenerator {
     );
   }
 
-  /// Create ThemeConfig
-  static core.ThemeConfig themeConfig({
-    String mode = 'light',
-    Map<String, dynamic>? colors,
+  /// Build a 1.3 [core.ThemeDefinition] from a JSON map covering any of the
+  /// 14 M3 token domains (color, typography, spacing, shape, elevation, motion,
+  /// density, breakpoints, border, opacity, focusRing, zIndex, component) plus
+  /// optional `light` / `dark` mode-specific overrides.
+  static core.ThemeDefinition themeDefinition({
+    String mode = 'system',
+    Map<String, dynamic>? color,
     Map<String, dynamic>? typography,
     Map<String, dynamic>? spacing,
-    Map<String, dynamic>? borderRadius,
+    Map<String, dynamic>? shape,
     Map<String, dynamic>? elevation,
+    Map<String, dynamic>? motion,
+    Map<String, dynamic>? density,
+    Map<String, dynamic>? breakpoints,
+    Map<String, dynamic>? border,
+    Map<String, dynamic>? opacity,
+    Map<String, dynamic>? focusRing,
+    Map<String, dynamic>? zIndex,
+    Map<String, dynamic>? component,
     Map<String, dynamic>? light,
     Map<String, dynamic>? dark,
   }) {
-    return core.ThemeConfig(
-      mode: mode,
-      colors: colors,
-      typography: typography,
-      spacing: spacing,
-      borderRadius: borderRadius,
-      elevation: elevation,
-      light: light,
-      dark: dark,
-    );
+    final json = <String, dynamic>{'mode': mode};
+    if (color != null) json['color'] = color;
+    if (typography != null) json['typography'] = typography;
+    if (spacing != null) json['spacing'] = spacing;
+    if (shape != null) json['shape'] = shape;
+    if (elevation != null) json['elevation'] = elevation;
+    if (motion != null) json['motion'] = motion;
+    if (density != null) json['density'] = density;
+    if (breakpoints != null) json['breakpoints'] = breakpoints;
+    if (border != null) json['border'] = border;
+    if (opacity != null) json['opacity'] = opacity;
+    if (focusRing != null) json['focusRing'] = focusRing;
+    if (zIndex != null) json['zIndex'] = zIndex;
+    if (component != null) json['component'] = component;
+    if (light != null) json['light'] = light;
+    if (dark != null) json['dark'] = dark;
+    return core.ThemeDefinition.fromJson(json);
   }
 
   // ===== Convenience Aliases (for backward compatibility) =====
@@ -1802,5 +2101,379 @@ class MCPUIJsonGenerator {
       leading: leading,
       elevation: elevation,
     );
+  }
+
+  // ===== v1.1 Client Action Helpers =====
+
+  /// Generate client.selectFile action (v1.1)
+  static Map<String, dynamic> clientSelectFile({
+    String? title,
+    List<Map<String, dynamic>>? filters,
+    String? defaultPath,
+    bool multiple = false,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.selectFile',
+      if (title != null) 'title': title,
+      if (filters != null) 'filters': filters,
+      if (defaultPath != null) 'defaultPath': defaultPath,
+      'multiple': multiple,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.readFile action (v1.1)
+  static Map<String, dynamic> clientReadFile({
+    required String path,
+    String encoding = 'utf-8',
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.readFile',
+      'path': path,
+      'encoding': encoding,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.writeFile action (v1.1)
+  static Map<String, dynamic> clientWriteFile({
+    required String path,
+    required String content,
+    String? confirmMessage,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.writeFile',
+      'path': path,
+      'content': content,
+      if (confirmMessage != null) 'confirmMessage': confirmMessage,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.saveFile action (save-as dialog) (v1.1)
+  static Map<String, dynamic> clientSaveFile({
+    required String content,
+    String? defaultName,
+    List<Map<String, dynamic>>? filters,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.saveFile',
+      'content': content,
+      if (defaultName != null) 'defaultName': defaultName,
+      if (filters != null) 'filters': filters,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.listFiles action (v1.1)
+  static Map<String, dynamic> clientListFiles({
+    required String path,
+    String? pattern,
+    bool recursive = false,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.listFiles',
+      'path': path,
+      if (pattern != null) 'pattern': pattern,
+      'recursive': recursive,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.httpRequest action (v1.1)
+  static Map<String, dynamic> clientHttpRequest({
+    required String url,
+    String method = 'GET',
+    Map<String, String>? headers,
+    dynamic body,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.httpRequest',
+      'url': url,
+      'method': method,
+      if (headers != null) 'headers': headers,
+      if (body != null) 'body': body,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.getSystemInfo action (v1.1)
+  static Map<String, dynamic> clientGetSystemInfo({
+    List<String>? properties,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.getSystemInfo',
+      if (properties != null) 'properties': properties,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Generate client.exec action (v1.1)
+  static Map<String, dynamic> clientExec({
+    required String command,
+    List<String>? args,
+    String? cwd,
+    int? timeout,
+    bool requireConfirmation = true,
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'client.exec',
+      'command': command,
+      if (args != null) 'args': args,
+      if (cwd != null) 'cwd': cwd,
+      if (timeout != null) 'timeout': timeout,
+      'requireConfirmation': requireConfirmation,
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  // ===== v1.1 Permission Helpers =====
+
+  /// Generate permissions declaration for screen/page level (v1.1)
+  static Map<String, dynamic> permissions({
+    Map<String, dynamic>? file,
+    Map<String, dynamic>? network,
+    Map<String, dynamic>? system,
+  }) {
+    return {
+      'permissions': {
+        if (file != null) 'file': file,
+        if (network != null) 'network': network,
+        if (system != null) 'system': system,
+      },
+    };
+  }
+
+  /// Generate file permission definition (v1.1)
+  static Map<String, dynamic> filePermissions({
+    Map<String, dynamic>? read,
+    Map<String, dynamic>? write,
+  }) {
+    return {
+      if (read != null) 'read': read,
+      if (write != null) 'write': write,
+    };
+  }
+
+  /// Generate network permission definition (v1.1)
+  static Map<String, dynamic> networkPermissions({
+    Map<String, dynamic>? http,
+  }) {
+    return {
+      if (http != null) 'http': http,
+    };
+  }
+
+  /// Generate system permission definition (v1.1)
+  static Map<String, dynamic> systemPermissions({
+    List<String>? info,
+    Map<String, dynamic>? exec,
+  }) {
+    return {
+      if (info != null) 'info': info,
+      if (exec != null) 'exec': exec,
+    };
+  }
+
+  /// Generate permissionPrompt widget definition (v1.1)
+  static Map<String, dynamic> permissionPrompt({
+    required List<String> permissions,
+    String? title,
+    String? message,
+    bool? remember,
+  }) {
+    return {
+      'type': 'permissionPrompt',
+      'permissions': permissions,
+      if (title != null) 'title': title,
+      if (message != null) 'message': message,
+      if (remember != null) 'remember': remember,
+    };
+  }
+
+  // ===== v1.1 Channel Helpers =====
+
+  /// Generate channels declaration for screen/page level (v1.1)
+  static Map<String, dynamic> channels(
+      Map<String, Map<String, dynamic>> channelDefs) {
+    return {
+      'channels': channelDefs,
+    };
+  }
+
+  /// Generate client.watchFile channel definition (v1.1)
+  static Map<String, dynamic> watchFileChannel({
+    required String path,
+    List<String>? events,
+  }) {
+    return {
+      'type': 'client.watchFile',
+      'path': path,
+      if (events != null) 'events': events,
+    };
+  }
+
+  /// Generate client.watchDirectory channel definition (v1.1)
+  static Map<String, dynamic> watchDirectoryChannel({
+    required String path,
+    bool recursive = false,
+    List<String>? events,
+  }) {
+    return {
+      'type': 'client.watchDirectory',
+      'path': path,
+      'recursive': recursive,
+      if (events != null) 'events': events,
+    };
+  }
+
+  /// Generate client.systemMonitor channel definition (v1.1)
+  static Map<String, dynamic> systemMonitorChannel({
+    required List<String> metrics,
+    int interval = 1000,
+  }) {
+    return {
+      'type': 'client.systemMonitor',
+      'metrics': metrics,
+      'interval': interval,
+    };
+  }
+
+  /// Generate client.poll channel definition (v1.1)
+  static Map<String, dynamic> pollChannel({
+    required Map<String, dynamic> action,
+    required int interval,
+    String? binding,
+  }) {
+    return {
+      'type': 'client.poll',
+      'action': action,
+      'interval': interval,
+      if (binding != null) 'binding': binding,
+    };
+  }
+
+  /// Generate channel.start/stop/toggle action (v1.1)
+  static Map<String, dynamic> channelAction({
+    required String channel,
+    required String action,
+  }) {
+    return {
+      'type': 'channel.$action',
+      'channel': channel,
+    };
+  }
+
+  // ===== v1.1 Client Binding Helpers =====
+
+  /// Client data binding (v1.1)
+  static String clientBinding(String path) => '{{client.$path}}';
+
+  /// Client working directory binding (v1.1)
+  static String clientWorkingDirectory() => '{{client.workingDirectory}}';
+
+  /// Client user name binding (v1.1)
+  static String clientUserName() => '{{client.userName}}';
+
+  /// Client platform binding (v1.1)
+  static String clientPlatform() => '{{client.platform}}';
+
+  /// Client locale binding (v1.1)
+  static String clientLocale() => '{{client.locale}}';
+
+  /// Client theme property binding (v1.1)
+  static String clientTheme(String property) =>
+      '{{client.theme.$property}}';
+
+  /// Permission state binding (v1.1)
+  static String permissionBinding(String path) =>
+      '{{permissions.$path}}';
+
+  /// Channel data binding (v1.1)
+  static String channelBinding(String name, String property) =>
+      '{{channels.$name.$property}}';
+
+  // ===== v1.3 Widgets =====
+
+  /// Create a canvas widget (v1.3)
+  static Map<String, dynamic> canvas({
+    required double width,
+    required double height,
+    required List<Map<String, dynamic>> commands,
+    String? backgroundColor,
+  }) {
+    return {
+      'type': 'canvas',
+      'width': width,
+      'height': height,
+      'commands': commands,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+    };
+  }
+
+  /// Create an opacity widget (v1.3)
+  static Map<String, dynamic> opacity({
+    required double opacity,
+    required Map<String, dynamic> child,
+    bool? animated,
+    int? duration,
+    String? curve,
+  }) {
+    return {
+      'type': 'opacity',
+      'opacity': opacity,
+      'child': child,
+      if (animated != null) 'animated': animated,
+      if (duration != null) 'duration': duration,
+      if (curve != null) 'curve': curve,
+    };
+  }
+
+  /// Create a transform widget (v1.3)
+  static Map<String, dynamic> transform({
+    required Map<String, dynamic> child,
+    double? rotate,
+    dynamic scale,
+    Map<String, dynamic>? translate,
+    Map<String, dynamic>? origin,
+    bool? animated,
+    int? duration,
+    String? curve,
+  }) {
+    return {
+      'type': 'transform',
+      'child': child,
+      if (rotate != null) 'rotate': rotate,
+      if (scale != null) 'scale': scale,
+      if (translate != null) 'translate': translate,
+      if (origin != null) 'origin': origin,
+      if (animated != null) 'animated': animated,
+      if (duration != null) 'duration': duration,
+      if (curve != null) 'curve': curve,
+    };
   }
 }

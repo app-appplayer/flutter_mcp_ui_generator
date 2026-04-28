@@ -20,7 +20,7 @@ void main() {
       expect(widget['direction'], equals('vertical'));
       expect(widget['distribution'], equals('start'));
       expect(widget['alignment'], equals('center'));
-      expect(widget['gap'], equals(8.0));
+      expect(widget['spacing'], equals(8.0));
     });
 
     test('stack', () {
@@ -453,7 +453,8 @@ void main() {
         message: 'Loading...',
       );
 
-      expect(widget['type'], equals('loadingIndicator'));
+      // loadingIndicator() delegates to canonical progressBar() per spec §17.5.2
+      expect(widget['type'], equals('progressBar'));
       expect(widget['value'], equals(0.5));
       expect(widget['color'], equals('#2196F3'));
       expect(widget['size'], equals(24.0));
@@ -499,15 +500,15 @@ void main() {
       final widget = MCPUIJsonGenerator.button(
         label: 'Click me',
         click: MCPUIJsonGenerator.toolAction('onButtonClick'),
-        style: 'elevated',
+        variant: 'elevated',
         icon: 'add',
         disabled: false,
       );
 
       expect(widget['type'], equals('button'));
       expect(widget['label'], equals('Click me'));
-      expect(widget['click'], isA<Map>());
-      expect(widget['style'], equals('elevated'));
+      expect(widget['onTap'], isA<Map>());
+      expect(widget['variant'], equals('elevated'));
       expect(widget['icon'], equals('add'));
       expect(widget['disabled'], equals(false));
     });
@@ -516,7 +517,7 @@ void main() {
       final widget = {
         'type': 'iconButton',
         'icon': 'add',
-        'click': MCPUIJsonGenerator.toolAction('onIconClick'),
+        'onTap': MCPUIJsonGenerator.toolAction('onIconClick'),
         'size': 24.0,
         'color': '#2196F3',
         'tooltip': 'Add item',
@@ -524,7 +525,7 @@ void main() {
 
       expect(widget['type'], equals('iconButton'));
       expect(widget['icon'], equals('add'));
-      expect(widget['click'], isA<Map>());
+      expect(widget['onTap'], isA<Map>());
       expect(widget['size'], equals(24.0));
       expect(widget['color'], equals('#2196F3'));
       expect(widget['tooltip'], equals('Add item'));
@@ -547,7 +548,7 @@ void main() {
       expect(widget['type'], equals('textInput'));
       expect(widget['label'], equals('Enter text'));
       expect(widget['value'], equals('{{inputValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['placeholder'], equals('Type here...'));
       expect(widget['helperText'], equals('Helper text'));
       expect(widget['maxLines'], equals(1));
@@ -558,7 +559,7 @@ void main() {
         'type': 'textFormField',
         'label': 'Form Field',
         'value': '{{formValue}}',
-        'change': MCPUIJsonGenerator.stateAction(
+        'onChange': MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'formValue',
           value: '{{event.value}}',
@@ -573,7 +574,7 @@ void main() {
       expect(widget['type'], equals('textFormField'));
       expect(widget['label'], equals('Form Field'));
       expect(widget['value'], equals('{{formValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['validation'], isA<Map>());
       expect(widget['autovalidate'], equals(true));
     });
@@ -591,7 +592,7 @@ void main() {
 
       expect(widget['type'], equals('checkbox'));
       expect(widget['value'], equals('{{isChecked}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Check me'));
     });
 
@@ -600,7 +601,7 @@ void main() {
         'type': 'radio',
         'value': '{{selectedValue}}',
         'groupValue': '{{radioGroup}}',
-        'change': MCPUIJsonGenerator.stateAction(
+        'onChange': MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'radioGroup',
           value: '{{event.value}}',
@@ -611,7 +612,7 @@ void main() {
       expect(widget['type'], equals('radio'));
       expect(widget['value'], equals('{{selectedValue}}'));
       expect(widget['groupValue'], equals('{{radioGroup}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Option A'));
     });
 
@@ -628,7 +629,7 @@ void main() {
 
       expect(widget['type'], equals('toggle'));
       expect(widget['value'], equals('{{isToggled}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Toggle me'));
     });
 
@@ -648,7 +649,7 @@ void main() {
 
       expect(widget['type'], equals('slider'));
       expect(widget['value'], equals('{{sliderValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['min'], equals(0.0));
       expect(widget['max'], equals(100.0));
       expect(widget['divisions'], equals(10));
@@ -657,8 +658,7 @@ void main() {
 
     test('rangeSlider', () {
       final widget = MCPUIJsonGenerator.rangeSlider(
-        startValue: '{{startValue}}',
-        endValue: '{{endValue}}',
+        value: '{{rangeValues}}',
         change: MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'rangeValue',
@@ -671,9 +671,8 @@ void main() {
       );
 
       expect(widget['type'], equals('rangeSlider'));
-      expect(widget['startValue'], equals('{{startValue}}'));
-      expect(widget['endValue'], equals('{{endValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['value'], equals('{{rangeValues}}'));
+      expect(widget['onChange'], isA<Map>());
       expect(widget['min'], equals(0.0));
       expect(widget['max'], equals(100.0));
       expect(widget['divisions'], equals(10));
@@ -683,7 +682,7 @@ void main() {
     test('select', () {
       final widget = MCPUIJsonGenerator.select(
         value: '{{selectedValue}}',
-        items: [
+        options: [
           {'value': 'option1', 'label': 'Option 1'},
           {'value': 'option2', 'label': 'Option 2'},
         ],
@@ -698,8 +697,8 @@ void main() {
 
       expect(widget['type'], equals('select'));
       expect(widget['value'], equals('{{selectedValue}}'));
-      expect(widget['items'], isA<List>());
-      expect(widget['change'], isA<Map>());
+      expect(widget['options'], isA<List>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Select option'));
       expect(widget['placeholder'], equals('Choose...'));
     });
@@ -763,7 +762,7 @@ void main() {
       expect(widget['type'], equals('numberField'));
       expect(widget['label'], equals('Number'));
       expect(widget['value'], equals('{{numberValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['min'], equals(0.0));
       expect(widget['max'], equals(100.0));
       expect(widget['step'], equals(1.0));
@@ -785,7 +784,7 @@ void main() {
 
       expect(widget['type'], equals('colorPicker'));
       expect(widget['value'], equals('{{color}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Pick Color'));
       expect(widget['enableAlpha'], equals(true));
       expect(widget['pickerType'], equals('wheel'));
@@ -794,7 +793,7 @@ void main() {
     test('radioGroup', () {
       final widget = MCPUIJsonGenerator.radioGroup(
         value: '{{radioValue}}',
-        items: [
+        options: [
           {'value': 'option1', 'label': 'Option 1'},
           {'value': 'option2', 'label': 'Option 2'},
         ],
@@ -809,8 +808,8 @@ void main() {
 
       expect(widget['type'], equals('radioGroup'));
       expect(widget['value'], equals('{{radioValue}}'));
-      expect(widget['items'], isA<List>());
-      expect(widget['change'], isA<Map>());
+      expect(widget['options'], isA<List>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Choose one'));
       expect(widget['orientation'], equals('vertical'));
     });
@@ -818,7 +817,7 @@ void main() {
     test('checkboxGroup', () {
       final widget = MCPUIJsonGenerator.checkboxGroup(
         value: '{{checkboxValues}}',
-        items: [
+        options: [
           {'value': 'option1', 'label': 'Option 1'},
           {'value': 'option2', 'label': 'Option 2'},
         ],
@@ -833,8 +832,8 @@ void main() {
 
       expect(widget['type'], equals('checkboxGroup'));
       expect(widget['value'], equals('{{checkboxValues}}'));
-      expect(widget['items'], isA<List>());
-      expect(widget['change'], isA<Map>());
+      expect(widget['options'], isA<List>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Choose multiple'));
       expect(widget['orientation'], equals('horizontal'));
     });
@@ -842,7 +841,7 @@ void main() {
     test('segmentedControl', () {
       final widget = MCPUIJsonGenerator.segmentedControl(
         value: '{{segmentValue}}',
-        items: [
+        options: [
           {'value': 'day', 'label': 'Day'},
           {'value': 'week', 'label': 'Week'},
           {'value': 'month', 'label': 'Month'},
@@ -857,8 +856,8 @@ void main() {
 
       expect(widget['type'], equals('segmentedControl'));
       expect(widget['value'], equals('{{segmentValue}}'));
-      expect(widget['items'], isA<List>());
-      expect(widget['change'], isA<Map>());
+      expect(widget['options'], isA<List>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Time Period'));
     });
 
@@ -878,7 +877,7 @@ void main() {
 
       expect(widget['type'], equals('dateField'));
       expect(widget['value'], equals('{{dateValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Select Date'));
       expect(widget['minDate'], equals('2020-01-01'));
       expect(widget['maxDate'], equals('2030-12-31'));
@@ -900,7 +899,7 @@ void main() {
 
       expect(widget['type'], equals('timeField'));
       expect(widget['value'], equals('{{timeValue}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Select Time'));
       expect(widget['format'], equals('HH:mm'));
       expect(widget['use24HourFormat'], equals(true));
@@ -924,7 +923,7 @@ void main() {
       expect(widget['type'], equals('dateRangePicker'));
       expect(widget['startDate'], equals('{{startDate}}'));
       expect(widget['endDate'], equals('{{endDate}}'));
-      expect(widget['change'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['label'], equals('Select Date Range'));
       expect(widget['minDate'], equals('2020-01-01'));
       expect(widget['maxDate'], equals('2030-12-31'));
@@ -940,17 +939,17 @@ void main() {
           title: '{{item.name}}',
           subtitle: '{{item.description}}',
         ),
-        itemSpacing: 8.0,
+        spacing: 8.0,
         shrinkWrap: true,
-        scrollDirection: 'vertical',
+        orientation: 'vertical',
       );
 
       expect(widget['type'], equals('list'));
       expect(widget['items'], equals('{{listItems}}'));
       expect(widget['itemTemplate'], isA<Map>());
-      expect(widget['itemSpacing'], equals(8.0));
+      expect(widget['spacing'], equals(8.0));
       expect(widget['shrinkWrap'], equals(true));
-      expect(widget['scrollDirection'], equals('vertical'));
+      expect(widget['orientation'], equals('vertical'));
     });
 
     test('grid', () {
@@ -983,12 +982,13 @@ void main() {
         click: MCPUIJsonGenerator.toolAction('onItemClick'),
       );
 
-      expect(widget['type'], equals('listTile'));
+      // listTile() delegates to canonical listItem() per spec §17.5.2
+      expect(widget['type'], equals('listItem'));
       expect(widget['title'], equals('List item title'));
       expect(widget['subtitle'], equals('List item subtitle'));
       expect(widget['leading'], isA<Map>());
       expect(widget['trailing'], isA<Map>());
-      expect(widget['click'], isA<Map>());
+      expect(widget['onTap'], isA<Map>());
     });
   });
 
@@ -1021,7 +1021,7 @@ void main() {
           {'text': 'Tab 2', 'icon': 'settings'},
         ],
         'currentIndex': 0,
-        'click': MCPUIJsonGenerator.stateAction(
+        'onTap': MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'currentTab',
           value: '{{event.index}}',
@@ -1032,7 +1032,7 @@ void main() {
       expect(widget['type'], equals('tabBar'));
       expect(widget['tabs'], isA<List>());
       expect(widget['currentIndex'], equals(0));
-      expect(widget['click'], isA<Map>());
+      expect(widget['onTap'], isA<Map>());
       expect(widget['isScrollable'], equals(false));
     });
 
@@ -1073,7 +1073,7 @@ void main() {
           {'icon': 'settings', 'label': 'Settings'},
         ],
         currentIndex: 0,
-        click: MCPUIJsonGenerator.stateAction(
+        change: MCPUIJsonGenerator.stateAction(
           action: 'set',
           binding: 'currentIndex',
           value: '{{event.index}}',
@@ -1084,7 +1084,7 @@ void main() {
       expect(widget['type'], equals('bottomNavigation'));
       expect(widget['items'], isA<List>());
       expect(widget['currentIndex'], equals(0));
-      expect(widget['click'], isA<Map>());
+      expect(widget['onChange'], isA<Map>());
       expect(widget['barType'], equals('fixed'));
     });
 
@@ -1114,13 +1114,15 @@ void main() {
     test('floatingActionButton', () {
       final widget = MCPUIJsonGenerator.floatingActionButton(
         click: MCPUIJsonGenerator.toolAction('onFabClick'),
-        child: MCPUIJsonGenerator.icon(icon: 'add'),
+        icon: 'add',
+        label: 'Add item',
         tooltip: 'Add item',
       );
 
       expect(widget['type'], equals('floatingActionButton'));
-      expect(widget['click'], isA<Map>());
-      expect(widget['child'], isA<Map>());
+      expect(widget['onTap'], isA<Map>());
+      expect(widget['icon'], equals('add'));
+      expect(widget['label'], equals('Add item'));
       expect(widget['tooltip'], equals('Add item'));
     });
   });
@@ -1215,25 +1217,25 @@ void main() {
       final widget = {
         'type': 'gestureDetector',
         'child': MCPUIJsonGenerator.text('Tap me'),
-        'tap': MCPUIJsonGenerator.toolAction('onTap'),
-        'doubleTap': MCPUIJsonGenerator.toolAction('onDoubleTap'),
-        'longPress': MCPUIJsonGenerator.toolAction('onLongPress'),
-        'panUpdate': MCPUIJsonGenerator.toolAction('onPanUpdate'),
+        'onTap': MCPUIJsonGenerator.toolAction('onTap'),
+        'onDoubleTap': MCPUIJsonGenerator.toolAction('onDoubleTap'),
+        'onLongPress': MCPUIJsonGenerator.toolAction('onLongPress'),
+        'onPanUpdate': MCPUIJsonGenerator.toolAction('onPanUpdate'),
       };
 
       expect(widget['type'], equals('gestureDetector'));
       expect(widget['child'], isA<Map>());
-      expect(widget['tap'], isA<Map>());
-      expect(widget['doubleTap'], isA<Map>());
-      expect(widget['longPress'], isA<Map>());
-      expect(widget['panUpdate'], isA<Map>());
+      expect(widget['onTap'], isA<Map>());
+      expect(widget['onDoubleTap'], isA<Map>());
+      expect(widget['onLongPress'], isA<Map>());
+      expect(widget['onPanUpdate'], isA<Map>());
     });
 
     test('inkWell', () {
       final widget = {
         'type': 'inkWell',
         'child': MCPUIJsonGenerator.text('Ripple effect'),
-        'tap': MCPUIJsonGenerator.toolAction('onInkWellTap'),
+        'onTap': MCPUIJsonGenerator.toolAction('onInkWellTap'),
         'borderRadius': 8.0,
         'splashColor': '#2196F3',
         'highlightColor': '#E3F2FD',
@@ -1241,7 +1243,7 @@ void main() {
 
       expect(widget['type'], equals('inkWell'));
       expect(widget['child'], isA<Map>());
-      expect(widget['tap'], isA<Map>());
+      expect(widget['onTap'], isA<Map>());
       expect(widget['borderRadius'], equals(8.0));
       expect(widget['splashColor'], equals('#2196F3'));
       expect(widget['highlightColor'], equals('#E3F2FD'));
@@ -1269,16 +1271,18 @@ void main() {
     test('dragTarget', () {
       final widget = MCPUIJsonGenerator.dragTarget(
         builder: MCPUIJsonGenerator.text('Drop here'),
-        onAccept: MCPUIJsonGenerator.toolAction('onAccept'),
-        onWillAccept: MCPUIJsonGenerator.toolAction('onWillAccept'),
-        onLeave: MCPUIJsonGenerator.toolAction('onLeave'),
+        drop: MCPUIJsonGenerator.toolAction('onDrop'),
+        canDrop: '{{canDropExpression}}',
+        dragEnter: MCPUIJsonGenerator.toolAction('dragEnter'),
+        dragLeave: MCPUIJsonGenerator.toolAction('dragLeave'),
       );
 
       expect(widget['type'], equals('dragTarget'));
       expect(widget['builder'], isA<Map>());
-      expect(widget['onAccept'], isA<Map>());
-      expect(widget['onWillAccept'], isA<Map>());
-      expect(widget['onLeave'], isA<Map>());
+      expect(widget['onDrop'], isA<Map>());
+      expect(widget['canDrop'], equals('{{canDropExpression}}'));
+      expect(widget['onDragEnter'], isA<Map>());
+      expect(widget['onDragLeave'], isA<Map>());
     });
   });
 

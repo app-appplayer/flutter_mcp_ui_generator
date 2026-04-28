@@ -166,6 +166,109 @@ class ApplicationBuilder {
     return this;
   }
 
+  // ===== v1.2 Metadata Methods =====
+
+  /// Set app unique identifier (e.g., `com.example.myapp`)
+  ApplicationBuilder id(String id) {
+    _definition['id'] = id;
+    return this;
+  }
+
+  /// Set app description for listing display
+  ApplicationBuilder description(String description) {
+    _definition['description'] = description;
+    return this;
+  }
+
+  /// Set app icon — URL, data URI, or `bundle://` reference
+  ApplicationBuilder icon(String icon) {
+    _definition['icon'] = icon;
+    return this;
+  }
+
+  /// Set splash screen configuration
+  ///
+  /// [image] — splash image URL, data URI, or `bundle://` reference
+  /// [backgroundColor] — background hex color (e.g., `#FFFFFF`)
+  /// [duration] — display duration in milliseconds
+  ApplicationBuilder splash({
+    String? image,
+    String? backgroundColor,
+    int? duration,
+  }) {
+    _definition['splash'] = {
+      if (image != null) 'image': image,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (duration != null) 'duration': duration,
+    };
+    return this;
+  }
+
+  /// Set app category (e.g., `productivity`, `education`, `entertainment`)
+  ApplicationBuilder category(String category) {
+    _definition['category'] = category;
+    return this;
+  }
+
+  /// Set publisher information
+  ///
+  /// [name] — publisher display name (required)
+  /// [logo] — publisher logo URL or data URI
+  /// [url] — publisher website URL
+  /// [email] — contact email
+  ApplicationBuilder publisher({
+    required String name,
+    String? logo,
+    String? url,
+    String? email,
+  }) {
+    _definition['publisher'] = {
+      'name': name,
+      if (logo != null) 'logo': logo,
+      if (url != null) 'url': url,
+      if (email != null) 'email': email,
+    };
+    return this;
+  }
+
+  /// Set creation and update timestamps (ISO 8601 strings)
+  ApplicationBuilder timestamps({
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    _definition['timestamps'] = {
+      if (createdAt != null) 'createdAt': createdAt,
+      if (updatedAt != null) 'updatedAt': updatedAt,
+    };
+    return this;
+  }
+
+  /// Set preview screenshots — URLs, data URIs, or `bundle://` references
+  ApplicationBuilder screenshots(List<String> screenshots) {
+    _definition['screenshots'] = screenshots;
+    return this;
+  }
+
+  // ===== v1.3 Dashboard =====
+
+  /// Set dashboard compact rendering configuration (v1.3)
+  ///
+  /// [content] — compact widget tree for dashboard display
+  /// [refreshInterval] — auto-refresh interval in milliseconds
+  /// [onTap] — action when dashboard card is tapped
+  ApplicationBuilder dashboard({
+    required Map<String, dynamic> content,
+    int? refreshInterval,
+    Map<String, dynamic>? onTap,
+  }) {
+    _definition['dashboard'] = {
+      'content': content,
+      if (refreshInterval != null) 'refreshInterval': refreshInterval,
+      if (onTap != null) 'onTap': onTap,
+    };
+    return this;
+  }
+
   Map<String, dynamic> build() => _definition;
 }
 
@@ -204,6 +307,24 @@ class PageBuilder {
   PageBuilder onDestroy(List<Map<String, dynamic>> actions) {
     _definition['lifecycle'] ??= <String, dynamic>{};
     (_definition['lifecycle'] as Map<String, dynamic>)['onDestroy'] = actions;
+    return this;
+  }
+
+  /// Set DSL version - "1.0" or "1.1" (v1.1)
+  PageBuilder version(String version) {
+    _definition['version'] = version;
+    return this;
+  }
+
+  /// Declare required permissions (v1.1)
+  PageBuilder permissions(Map<String, dynamic> permissions) {
+    _definition['permissions'] = permissions['permissions'] ?? permissions;
+    return this;
+  }
+
+  /// Declare bidirectional channels (v1.1)
+  PageBuilder channels(Map<String, dynamic> channelDefs) {
+    _definition['channels'] = channelDefs['channels'] ?? channelDefs;
     return this;
   }
 
@@ -334,8 +455,8 @@ class ListViewBuilder {
           'itemTemplate': itemTemplate,
         };
 
-  ListViewBuilder itemSpacing(double spacing) {
-    _definition['itemSpacing'] = spacing;
+  ListViewBuilder spacing(double spacing) {
+    _definition['spacing'] = spacing;
     return this;
   }
 
@@ -344,8 +465,8 @@ class ListViewBuilder {
     return this;
   }
 
-  ListViewBuilder scrollDirection(String direction) {
-    _definition['scrollDirection'] = direction;
+  ListViewBuilder orientation(String direction) {
+    _definition['orientation'] = direction;
     return this;
   }
 
@@ -397,7 +518,7 @@ class QuickBuilders {
     return MCPUIJsonGenerator.button(
       label: label,
       click: click,
-      style: 'text',
+      variant: 'text',
     );
   }
 
@@ -411,7 +532,7 @@ class QuickBuilders {
       label: label,
       icon: icon,
       click: click,
-      style: 'elevated',
+      variant: 'elevated',
     );
   }
 
@@ -533,8 +654,10 @@ class LinearBuilder {
     return this;
   }
 
+  /// Sets the spacing between children. The `gap` parameter maps to the
+  /// `spacing` property in the generated JSON output.
   LinearBuilder gap(double gap) {
-    _definition['gap'] = gap;
+    _definition['spacing'] = gap;
     return this;
   }
 

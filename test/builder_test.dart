@@ -52,7 +52,7 @@ void main() {
       expect(layout['direction'], 'vertical');
       expect(layout['distribution'], 'center');
       expect(layout['alignment'], 'start');
-      expect(layout['gap'], 16.0);
+      expect(layout['spacing'], 16.0);
     });
 
     test('box builder', () {
@@ -119,14 +119,14 @@ void main() {
           title: '{{item.name}}',
           subtitle: '{{item.description}}',
         ),
-      ).itemSpacing(8).shrinkWrap(true).scrollDirection('vertical').build();
+      ).spacing(8).shrinkWrap(true).orientation('vertical').build();
 
       expect(listView['type'], 'list');
       expect(listView['items'], '{{items}}');
       expect(listView['itemTemplate'], isA<Map>());
-      expect(listView['itemSpacing'], 8);
+      expect(listView['spacing'], 8);
       expect(listView['shrinkWrap'], true);
-      expect(listView['scrollDirection'], 'vertical');
+      expect(listView['orientation'], 'vertical');
     });
 
     test('gridView builder', () {

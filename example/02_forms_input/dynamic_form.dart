@@ -117,7 +117,7 @@ void _generateReactiveForm() {
               MCPUIJsonGenerator.select(
                 label: 'Customer Type',
                 value: MCPUIJsonGenerator.binding('survey.customerType'),
-                items: [
+                options: [
                   {'value': 'individual', 'label': 'Individual'},
                   {'value': 'business', 'label': 'Business'},
                   {'value': 'enterprise', 'label': 'Enterprise'},

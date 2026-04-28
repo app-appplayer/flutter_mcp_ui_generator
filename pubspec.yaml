@@ -1,19 +1,19 @@
 name: flutter_mcp_ui_generator
 description: JSON generation tools for Flutter MCP UI Renderer. Create UI definitions programmatically with templates and fluent API.
-version: 0.2.4
+version: 0.3.0
 homepage: https://app-appplayer.github.io/makemind
 repository: https://github.com/app-appplayer/flutter_mcp_ui_generator
-documentation: https://pub.dev/documentation/flutter_mcp_ui_generator/latest/
-license: Apache-2.0
+issue_tracker: https://github.com/app-appplayer/flutter_mcp_ui_generator/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=1.17.0"
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_mcp_ui_core: ^0.2.3
+  flutter_mcp_ui_core: ^0.3.0
+  mcp_bundle: ^0.3.0
   meta: ^1.9.0
 
 dev_dependencies:

@@ -316,7 +316,7 @@ void main() {
                             ),
                             MCPUIJsonGenerator.toolAction(
                               'saveProfile',
-                              args: {
+                              params: {
                                 'profile': '{{profile}}',
                               },
                               onSuccess: MCPUIJsonGenerator.batchAction(
