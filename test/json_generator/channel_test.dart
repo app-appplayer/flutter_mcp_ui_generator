@@ -37,17 +37,17 @@ void main() {
       );
 
       expect(ch['type'], equals('client.watchFile'));
-      expect(ch['path'], equals('./config.json'));
-      expect(ch['events'], isA<List>());
-      expect((ch['events'] as List).length, equals(3));
+      expect(ch['params']['path'], equals('./config.json'));
+      expect(ch['params']['events'], isA<List>());
+      expect((ch['params']['events'] as List).length, equals(3));
     });
 
     test('Boundary: path only', () {
       final ch = MCPUIJsonGenerator.watchFileChannel(path: './data.json');
 
       expect(ch['type'], equals('client.watchFile'));
-      expect(ch['path'], equals('./data.json'));
-      expect(ch.containsKey('events'), isFalse);
+      expect(ch['params']['path'], equals('./data.json'));
+      expect((ch['params'] as Map).containsKey('events'), isFalse);
     });
   });
 
@@ -60,8 +60,8 @@ void main() {
       );
 
       expect(ch['type'], equals('client.watchDirectory'));
-      expect(ch['path'], equals('{{currentDir}}'));
-      expect(ch['recursive'], isFalse);
+      expect(ch['params']['path'], equals('{{currentDir}}'));
+      expect(ch['params']['recursive'], isFalse);
     });
 
     test('Boundary: path only', () {
@@ -80,8 +80,8 @@ void main() {
       );
 
       expect(ch['type'], equals('client.systemMonitor'));
-      expect(ch['metrics'], isA<List>());
-      expect(ch['interval'], equals(1000));
+      expect(ch['params']['metrics'], isA<List>());
+      expect(ch['params']['interval'], equals(1000));
     });
 
     test('Boundary: single metric', () {
@@ -89,7 +89,7 @@ void main() {
         metrics: ['cpu'],
       );
 
-      expect((ch['metrics'] as List).length, equals(1));
+      expect((ch['params']['metrics'] as List).length, equals(1));
     });
   });
 
@@ -105,8 +105,8 @@ void main() {
       );
 
       expect(ch['type'], equals('client.poll'));
-      expect(ch['action'], isA<Map>());
-      expect(ch['interval'], equals(5000));
+      expect(ch['params']['action'], isA<Map>());
+      expect(ch['params']['interval'], equals(5000));
       expect(ch['binding'], equals('apiStatus'));
     });
 
@@ -129,7 +129,8 @@ void main() {
         action: 'start',
       );
 
-      expect(a['type'], equals('channel.start'));
+      expect(a['type'], equals('channel'));
+      expect(a['action'], equals('channel.start'));
       expect(a['channel'], equals('systemMonitor'));
     });
 
@@ -139,7 +140,8 @@ void main() {
         action: 'stop',
       );
 
-      expect(a['type'], equals('channel.stop'));
+      expect(a['type'], equals('channel'));
+      expect(a['action'], equals('channel.stop'));
     });
 
     test('Normal: toggle action', () {
@@ -148,7 +150,8 @@ void main() {
         action: 'toggle',
       );
 
-      expect(a['type'], equals('channel.toggle'));
+      expect(a['type'], equals('channel'));
+      expect(a['action'], equals('channel.toggle'));
     });
   });
 }

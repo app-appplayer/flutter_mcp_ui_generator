@@ -395,13 +395,13 @@ void main() {
       ).publisher(
         name: 'Example Corp',
         logo: 'logo.png',
-        url: 'https://example.com',
+        website: 'https://example.com',
         email: 'contact@example.com',
       ).build();
 
       expect(app['publisher']['name'], equals('Example Corp'));
       expect(app['publisher']['logo'], equals('logo.png'));
-      expect(app['publisher']['url'], equals('https://example.com'));
+      expect(app['publisher']['website'], equals('https://example.com'));
       expect(app['publisher']['email'], equals('contact@example.com'));
     });
 

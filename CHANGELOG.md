@@ -1,4 +1,13 @@
 
+## [0.4.0] - 2026-05-03 - Spec ↔ implementation alignment (1.3.3)
+
+- `MCPUIWidgetBuilders` (`widget_builders.g.dart`) — generated 1:1 from yaml so every spec widget has a builder.
+- Action helpers added — `parallelAction` / `sequenceAction` / `cancelAction` / `notificationAction` / `animationAction` / `dialogAction` / `permissionRevokeAction` / `clientClipboard` / `clientNotification` / `clientStorage*`.
+- `ApplicationBuilder.i18n / .services / .templateLibraries` fluent setters; `publisher.url` → `website`.
+- Channel helpers wrap type-specific fields in `params:`; `channelAction` emits canonical `{type: "channel", action: "channel.<sub>"}`; new `websocketChannel`.
+- New code generators: `CCodeGenerator` (single-include `.h` returning escaped JSON `const char*`), `CppCodeGenerator` (single-include `.hpp` with C++11 raw-string `inline std::string` + namespace option).
+- Bumps `flutter_mcp_ui_core` to `^0.4.0`.
+
 ## [0.3.0] - 2026-04-28 - MCP UI DSL 1.3 (Material 3 Helpers)
 
 ### Changed (breaking)

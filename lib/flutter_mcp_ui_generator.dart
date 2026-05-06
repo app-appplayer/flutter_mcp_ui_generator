@@ -15,6 +15,7 @@ library;
 export 'src/json_generator.dart';
 export 'src/templates.dart';
 export 'src/ui_builder.dart';
+export 'src/widget_builders.g.dart';
 // Note: app_generator.dart is not exported as it uses dart:io
 // which would limit platform compatibility
 
@@ -22,7 +23,10 @@ export 'src/ui_builder.dart';
 export 'src/bundle/bundle_ui_write_adapter.dart';
 
 // Multi-language code generation (spec §5.3)
+export 'src/codegen/dart_generator.dart';
 export 'src/codegen/python_generator.dart';
 export 'src/codegen/typescript_generator.dart';
 export 'src/codegen/javascript_generator.dart';
 export 'src/codegen/go_generator.dart';
+export 'src/codegen/c_generator.dart';
+export 'src/codegen/cpp_generator.dart';

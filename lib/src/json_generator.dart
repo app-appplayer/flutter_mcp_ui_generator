@@ -1238,6 +1238,127 @@ class MCPUIJsonGenerator {
     };
   }
 
+  /// Run several actions concurrently (spec § 4 — `parallel`).
+  static Map<String, dynamic> parallelAction({
+    required List<Map<String, dynamic>> actions,
+  }) {
+    return {'type': 'parallel', 'actions': actions};
+  }
+
+  /// Run several actions in declared order (spec § 4 — `sequence`).
+  static Map<String, dynamic> sequenceAction({
+    required List<Map<String, dynamic>> actions,
+  }) {
+    return {'type': 'sequence', 'actions': actions};
+  }
+
+  /// Cancel a previously-dispatched in-flight action by [actionId].
+  /// Spec § 4 — `cancel`.
+  static Map<String, dynamic> cancelAction({required String actionId}) {
+    return {'type': 'cancel', 'actionId': actionId};
+  }
+
+  /// Show a transient notification (spec § 4 — `notification`).
+  static Map<String, dynamic> notificationAction({
+    required String message,
+    String? severity,
+    int? durationMs,
+  }) {
+    return {
+      'type': 'notification',
+      'message': message,
+      if (severity != null) 'severity': severity,
+      if (durationMs != null) 'duration': durationMs,
+    };
+  }
+
+  /// Trigger a pre-defined animation (spec § 4 — `animation`).
+  static Map<String, dynamic> animationAction({
+    required String target,
+    String? animation,
+    int? durationMs,
+    Map<String, dynamic>? params,
+  }) {
+    return {
+      'type': 'animation',
+      'target': target,
+      if (animation != null) 'animation': animation,
+      if (durationMs != null) 'duration': durationMs,
+      if (params != null) 'params': params,
+    };
+  }
+
+  /// Open a dialog declared elsewhere (spec § 4 — `dialog`).
+  static Map<String, dynamic> dialogAction({
+    required Map<String, dynamic> dialog,
+  }) {
+    return {'type': 'dialog', 'dialog': dialog};
+  }
+
+  /// Revoke a previously-granted client permission
+  /// (spec § 8.4.6 — `permission.revoke`).
+  static Map<String, dynamic> permissionRevokeAction({
+    required String permission,
+  }) {
+    return {'type': 'permission.revoke', 'permission': permission};
+  }
+
+  // ===== Client Action Builders (spec § 8.2) =====
+
+  /// Read or write OS clipboard (spec § 8.2.3 — `client.clipboard`).
+  static Map<String, dynamic> clientClipboardAction({
+    required String operation,
+    String? value,
+  }) {
+    return {
+      'type': 'client.clipboard',
+      'operation': operation,
+      if (value != null) 'value': value,
+    };
+  }
+
+  /// Show a host-native notification (spec § 8.2.3 — `client.notification`).
+  static Map<String, dynamic> clientNotificationAction({
+    required String title,
+    String? body,
+    String? icon,
+  }) {
+    return {
+      'type': 'client.notification',
+      'title': title,
+      if (body != null) 'body': body,
+      if (icon != null) 'icon': icon,
+    };
+  }
+
+  /// Read a key from local storage (spec § 8.2.4 — `client.storage.get`).
+  static Map<String, dynamic> clientStorageGetAction({
+    required String key,
+    String? binding,
+  }) {
+    return {
+      'type': 'client.storage.get',
+      'key': key,
+      if (binding != null) 'binding': binding,
+    };
+  }
+
+  /// Write a key to local storage (spec § 8.2.4 — `client.storage.set`).
+  static Map<String, dynamic> clientStorageSetAction({
+    required String key,
+    required dynamic value,
+  }) {
+    return {'type': 'client.storage.set', 'key': key, 'value': value};
+  }
+
+  /// Remove a key from local storage
+  /// (spec § 8.2.4 — `client.storage.remove`).
+  static Map<String, dynamic> clientStorageRemoveAction({
+    required String key,
+  }) {
+    return {'type': 'client.storage.remove', 'key': key};
+  }
+
   // ===== Theme Builders =====
 
   /// Create a complete 1.3 theme definition map (M3 14-domain).
@@ -2325,19 +2446,21 @@ class MCPUIJsonGenerator {
     };
   }
 
-  /// Generate client.watchFile channel definition (v1.1)
+  /// Generate client.watchFile channel definition (spec § 8.6.2)
   static Map<String, dynamic> watchFileChannel({
     required String path,
     List<String>? events,
   }) {
     return {
       'type': 'client.watchFile',
-      'path': path,
-      if (events != null) 'events': events,
+      'params': {
+        'path': path,
+        if (events != null) 'events': events,
+      },
     };
   }
 
-  /// Generate client.watchDirectory channel definition (v1.1)
+  /// Generate client.watchDirectory channel definition (spec § 8.6.2)
   static Map<String, dynamic> watchDirectoryChannel({
     required String path,
     bool recursive = false,
@@ -2345,25 +2468,29 @@ class MCPUIJsonGenerator {
   }) {
     return {
       'type': 'client.watchDirectory',
-      'path': path,
-      'recursive': recursive,
-      if (events != null) 'events': events,
+      'params': {
+        'path': path,
+        'recursive': recursive,
+        if (events != null) 'events': events,
+      },
     };
   }
 
-  /// Generate client.systemMonitor channel definition (v1.1)
+  /// Generate client.systemMonitor channel definition (spec § 8.6.2)
   static Map<String, dynamic> systemMonitorChannel({
     required List<String> metrics,
     int interval = 1000,
   }) {
     return {
       'type': 'client.systemMonitor',
-      'metrics': metrics,
-      'interval': interval,
+      'params': {
+        'metrics': metrics,
+        'interval': interval,
+      },
     };
   }
 
-  /// Generate client.poll channel definition (v1.1)
+  /// Generate client.poll channel definition (spec § 8.6.2)
   static Map<String, dynamic> pollChannel({
     required Map<String, dynamic> action,
     required int interval,
@@ -2371,20 +2498,43 @@ class MCPUIJsonGenerator {
   }) {
     return {
       'type': 'client.poll',
-      'action': action,
-      'interval': interval,
+      'params': {
+        'action': action,
+        'interval': interval,
+      },
       if (binding != null) 'binding': binding,
     };
   }
 
-  /// Generate channel.start/stop/toggle action (v1.1)
+  /// Generate client.websocket channel definition (spec § 8.6.2)
+  static Map<String, dynamic> websocketChannel({
+    required String url,
+    List<String>? protocols,
+    Map<String, String>? headers,
+  }) {
+    return {
+      'type': 'client.websocket',
+      'url': url,
+      if (protocols != null || headers != null)
+        'params': {
+          if (protocols != null) 'protocols': protocols,
+          if (headers != null) 'headers': headers,
+        },
+    };
+  }
+
+  /// Generate `channel.start` / `stop` / `restart` / `toggle` / `send`
+  /// lifecycle action (spec § 8.6.3 canonical shape).
   static Map<String, dynamic> channelAction({
     required String channel,
     required String action,
+    Map<String, dynamic>? payload,
   }) {
     return {
-      'type': 'channel.$action',
+      'type': 'channel',
+      'action': action.startsWith('channel.') ? action : 'channel.$action',
       'channel': channel,
+      if (payload != null) 'payload': payload,
     };
   }
 
@@ -2474,6 +2624,111 @@ class MCPUIJsonGenerator {
       if (animated != null) 'animated': animated,
       if (duration != null) 'duration': duration,
       if (curve != null) 'curve': curve,
+    };
+  }
+
+  // ------------------------------------------------------------------
+  // Phase 1-5 shared primitives — builder helpers for the cross-schema
+  // primitives declared under `configs/_primitive/`. Each emits a JSON
+  // map matching the spec's $defs body so authors don't have to write
+  // raw maps when composing decoration / motion / navigation blocks.
+  // ------------------------------------------------------------------
+
+  /// Spec § Gradient — `linear` / `radial` / `sweep` shader.
+  static Map<String, dynamic> gradient({
+    required String type,
+    required List<String> colors,
+    List<num>? stops,
+    String? begin,
+    String? end,
+    String? center,
+    num? radius,
+    num? startAngle,
+    num? endAngle,
+    String? tileMode,
+  }) {
+    return <String, dynamic>{
+      'type': type,
+      'colors': colors,
+      if (stops != null) 'stops': stops,
+      if (begin != null) 'begin': begin,
+      if (end != null) 'end': end,
+      if (center != null) 'center': center,
+      if (radius != null) 'radius': radius,
+      if (startAngle != null) 'startAngle': startAngle,
+      if (endAngle != null) 'endAngle': endAngle,
+      if (tileMode != null) 'tileMode': tileMode,
+    };
+  }
+
+  /// Spec § BackgroundImage — image fill behind a box.
+  static Map<String, dynamic> backgroundImage({
+    required String image,
+    String? fit,
+    String? alignment,
+    num? opacity,
+    Map<String, dynamic>? colorFilter,
+    String? repeat,
+  }) {
+    return <String, dynamic>{
+      'image': image,
+      if (fit != null) 'fit': fit,
+      if (alignment != null) 'alignment': alignment,
+      if (opacity != null) 'opacity': opacity,
+      if (colorFilter != null) 'colorFilter': colorFilter,
+      if (repeat != null) 'repeat': repeat,
+    };
+  }
+
+  /// Spec § NavigationStyle — visual styling for a nav surface
+  /// (drawer / rail / tabs / bottomBar). Used by
+  /// `NavigationConfig.style` and `NavItem.style`.
+  static Map<String, dynamic> navigationStyle({
+    String? backgroundColor,
+    Map<String, dynamic>? backgroundImage,
+    String? indicatorColor,
+    dynamic indicatorShape,
+    String? dividerColor,
+    num? dividerThickness,
+    num? dividerIndent,
+    Map<String, dynamic>? labelStyle,
+    Map<String, dynamic>? iconStyle,
+    String? selectedColor,
+    String? unselectedColor,
+    num? elevation,
+  }) {
+    return <String, dynamic>{
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (backgroundImage != null) 'backgroundImage': backgroundImage,
+      if (indicatorColor != null) 'indicatorColor': indicatorColor,
+      if (indicatorShape != null) 'indicatorShape': indicatorShape,
+      if (dividerColor != null) 'dividerColor': dividerColor,
+      if (dividerThickness != null) 'dividerThickness': dividerThickness,
+      if (dividerIndent != null) 'dividerIndent': dividerIndent,
+      if (labelStyle != null) 'labelStyle': labelStyle,
+      if (iconStyle != null) 'iconStyle': iconStyle,
+      if (selectedColor != null) 'selectedColor': selectedColor,
+      if (unselectedColor != null) 'unselectedColor': unselectedColor,
+      if (elevation != null) 'elevation': elevation,
+    };
+  }
+
+  /// Spec § RouteTransition — per-route page transition style.
+  /// Attached to a `RouteValue` via `{ page, transition }` or to a
+  /// navigate action via the `transition` field.
+  static Map<String, dynamic> routeTransition({
+    required String style,
+    num? duration,
+    String? curve,
+    String? axis,
+    bool? reverse,
+  }) {
+    return <String, dynamic>{
+      'style': style,
+      if (duration != null) 'duration': duration,
+      if (curve != null) 'curve': curve,
+      if (axis != null) 'axis': axis,
+      if (reverse != null) 'reverse': reverse,
     };
   }
 }

@@ -286,7 +286,7 @@ void main() {
       );
 
       expect(channel['type'], equals('client.watchFile'));
-      expect(channel['path'], equals('./config.json'));
+      expect(channel['params']['path'], equals('./config.json'));
     });
 
     test('Normal: watchDirectoryChannel', () {
@@ -323,7 +323,8 @@ void main() {
         action: 'start',
       );
 
-      expect(action['type'], equals('channel.start'));
+      expect(action['type'], equals('channel'));
+      expect(action['action'], equals('channel.start'));
     });
   });
 

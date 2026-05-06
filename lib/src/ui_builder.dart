@@ -214,18 +214,18 @@ class ApplicationBuilder {
   ///
   /// [name] — publisher display name (required)
   /// [logo] — publisher logo URL or data URI
-  /// [url] — publisher website URL
+  /// [website] — publisher website URL (spec § PublisherInfo `website`)
   /// [email] — contact email
   ApplicationBuilder publisher({
     required String name,
     String? logo,
-    String? url,
+    String? website,
     String? email,
   }) {
     _definition['publisher'] = {
       'name': name,
       if (logo != null) 'logo': logo,
-      if (url != null) 'url': url,
+      if (website != null) 'website': website,
       if (email != null) 'email': email,
     };
     return this;
@@ -266,6 +266,44 @@ class ApplicationBuilder {
       if (refreshInterval != null) 'refreshInterval': refreshInterval,
       if (onTap != null) 'onTap': onTap,
     };
+    return this;
+  }
+
+  /// Set application-scope `i18n` block per spec § 12.1.1.
+  ApplicationBuilder i18n({
+    required String defaultLocale,
+    List<String>? locales,
+    String? fallbackLocale,
+    Map<String, dynamic>? text,
+    Map<String, dynamic>? pluralization,
+    Map<String, dynamic>? numberFormat,
+    Map<String, dynamic>? dateFormat,
+    Map<String, dynamic>? textDirection,
+  }) {
+    _definition['i18n'] = {
+      'defaultLocale': defaultLocale,
+      if (locales != null) 'locales': locales,
+      if (fallbackLocale != null) 'fallbackLocale': fallbackLocale,
+      if (text != null) 'text': text,
+      if (pluralization != null) 'pluralization': pluralization,
+      if (numberFormat != null) 'numberFormat': numberFormat,
+      if (dateFormat != null) 'dateFormat': dateFormat,
+      if (textDirection != null) 'textDirection': textDirection,
+    };
+    return this;
+  }
+
+  /// Register an application-scope background service (spec § 1.2.1).
+  ApplicationBuilder services(Map<String, Map<String, dynamic>> services) {
+    _definition['services'] = services;
+    return this;
+  }
+
+  /// Reference remote template libraries per spec § 9.11.1.
+  /// Each entry is a `{ uri, version?, integrity? }` map.
+  ApplicationBuilder templateLibraries(
+      List<Map<String, dynamic>> libraries) {
+    _definition['templateLibraries'] = libraries;
     return this;
   }
 

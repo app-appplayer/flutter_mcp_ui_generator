@@ -236,7 +236,7 @@
                                 "type": "state",
                                 "action": "set",
                                 "binding": "error",
-                                "value": "{{error.message}}"
+                                "value": "{{event.message}}"
                               }
                             ]
                           }
