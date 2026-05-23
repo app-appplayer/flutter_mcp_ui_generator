@@ -153,7 +153,7 @@ void main() {
       expect(result.success, isTrue);
       final screens = result.data!.uiSection.pages;
       expect(screens.length, equals(2));
-      expect(screens.map((s) => s.id).toList(), containsAll(['home', 'settings']));
+      expect(screens.values.map((s) => s.id).toList(), containsAll(['home', 'settings']));
     });
 
     // TC-V12-036 (continued): Extracts screen ID from resource URI
@@ -163,7 +163,7 @@ void main() {
       });
 
       expect(result.success, isTrue);
-      final screen = result.data!.uiSection.pages.first;
+      final screen = result.data!.uiSection.pages.values.first;
       expect(screen.id, equals('dashboard'));
       expect(screen.route, equals('/dashboard'));
     });
@@ -180,7 +180,7 @@ void main() {
       });
 
       expect(result.success, isTrue);
-      final screen = result.data!.uiSection.pages.first;
+      final screen = result.data!.uiSection.pages.values.first;
       expect(screen.root.type, equals('text'));
     });
 
@@ -191,7 +191,7 @@ void main() {
       });
 
       expect(result.success, isTrue);
-      final screen = result.data!.uiSection.pages.first;
+      final screen = result.data!.uiSection.pages.values.first;
       expect(screen.root.type, equals('container'));
     });
 
@@ -247,7 +247,7 @@ void main() {
       expect(meta.containsKey('updatedAt'), isFalse);
       // UiSection should have one route
       expect(result.data!.uiSection.pages.length, equals(1));
-      expect(result.data!.uiSection.pages.first.route, equals('/'));
+      expect(result.data!.uiSection.pages.values.first.route, equals('/'));
     });
   });
 
@@ -349,11 +349,11 @@ void main() {
       // Verify uiSection contains correct pages
       final pages = output.uiSection.pages;
       expect(pages.length, equals(3));
-      final pageIds = pages.map((p) => p.id).toSet();
+      final pageIds = pages.values.map((p) => p.id).toSet();
       expect(pageIds, containsAll(['home', 'settings', 'profile']));
 
       // Verify routes are preserved on page definitions
-      final homePage = pages.firstWhere((p) => p.id == 'home');
+      final homePage = pages.values.firstWhere((p) => p.id == 'home');
       expect(homePage.route, equals('/'));
       expect(homePage.root.type, equals('column'));
 

@@ -15,7 +15,7 @@ class BundleUiWriteAdapter implements UiPort {
     // Handle empty definition gracefully
     if (definitionJson.isEmpty) {
       return UiResult.ok(UiWriteOutput(
-        uiSection: const UiSection(pages: []),
+        uiSection: const UiSection(),
         manifestMetadata: {},
       ));
     }
@@ -136,8 +136,11 @@ class BundleUiWriteAdapter implements UiPort {
       }
     }
 
-    final uiSection = UiSection(
-      pages: pageDefinitions,
+    // The `UiSection.fromPagesList` factory performs the list → map
+    // synthesis, so this generator keeps building its list variable
+    // exactly as before. Added in mcp_bundle 0.4.0.
+    final uiSection = UiSection.fromPagesList(
+      pageDefinitions,
       theme: themeConfig,
       navigation: navigationConfig,
       state: stateMap,

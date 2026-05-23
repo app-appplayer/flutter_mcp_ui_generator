@@ -1,4 +1,13 @@
 
+## [0.4.1] - 2026-05-23 — common widget property fanout (spec 1.3.4) + mcp_bundle 0.4.0 cascade
+
+### Changed (cascade)
+- `mcp_bundle` caret bumped from `^0.3.0` to `^0.4.0`. The downstream `UiSection.pages` field switched to `Map<String, PageDefinition>`. `BundleUiWriteAdapter` now hands the in-memory `List<PageDefinition>` it builds to the new `UiSection.fromPagesList` factory, so existing caller code stays unchanged.
+- `flutter_mcp_ui_core` caret bumped to `^0.4.1` (mcp_bundle cascade).
+
+### Added
+- Every `MCPUIWidgetBuilders.<widget>` static builder gains optional `click` and `tooltip` typed parameters (spec 1.3.4 §2.2). Sourced from `specs/mcp_ui_dsl/spec/1.3/widgets/_common.yaml` and merged by the generator codegen into every widget's parameter set; a widget-declared same-named property still wins. Bundles that omit `click` / `tooltip` are unaffected — additive.
+
 ## [0.4.0] - 2026-05-03 - Spec ↔ implementation alignment (1.3.3)
 
 - `MCPUIWidgetBuilders` (`widget_builders.g.dart`) — generated 1:1 from yaml so every spec widget has a builder.

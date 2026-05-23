@@ -13,11 +13,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> accessibleWrapper({
     required dynamic child,
     dynamic accessibility,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'accessibleWrapper',
       'child': child,
       if (accessibility != null) 'accessibility': accessibility,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -32,6 +36,8 @@ class MCPUIWidgetBuilders {
     bool? dismissible,
     dynamic onClose,
     dynamic actions,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'alertDialog',
@@ -40,6 +46,8 @@ class MCPUIWidgetBuilders {
       if (dismissible != null) 'dismissible': dismissible,
       if (onClose != null) 'onClose': onClose,
       if (actions != null) 'actions': actions,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -47,11 +55,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> align({
     dynamic alignment,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'align',
       if (alignment != null) 'alignment': alignment,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -63,6 +75,8 @@ class MCPUIWidgetBuilders {
     dynamic curve,
     dynamic onEnd,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'animatedAlign',
@@ -71,6 +85,8 @@ class MCPUIWidgetBuilders {
       if (curve != null) 'curve': curve,
       if (onEnd != null) 'onEnd': onEnd,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -89,6 +105,8 @@ class MCPUIWidgetBuilders {
     dynamic decoration,
     dynamic onEnd,
     dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'animatedContainer',
@@ -102,6 +120,8 @@ class MCPUIWidgetBuilders {
       if (decoration != null) 'decoration': decoration,
       if (onEnd != null) 'onEnd': onEnd,
       if (child != null) 'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -116,6 +136,8 @@ class MCPUIWidgetBuilders {
     dynamic curve,
     dynamic onEnd,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'animatedDefaultTextStyle',
@@ -124,6 +146,8 @@ class MCPUIWidgetBuilders {
       if (curve != null) 'curve': curve,
       if (onEnd != null) 'onEnd': onEnd,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -136,6 +160,8 @@ class MCPUIWidgetBuilders {
     dynamic curve,
     dynamic onEnd,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'animatedOpacity',
@@ -144,6 +170,8 @@ class MCPUIWidgetBuilders {
       if (curve != null) 'curve': curve,
       if (onEnd != null) 'onEnd': onEnd,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -161,6 +189,8 @@ class MCPUIWidgetBuilders {
     dynamic curve,
     dynamic onEnd,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'animatedPositioned',
@@ -174,6 +204,8 @@ class MCPUIWidgetBuilders {
       if (curve != null) 'curve': curve,
       if (onEnd != null) 'onEnd': onEnd,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -181,11 +213,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> aspectRatio({
     num? aspectRatio,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'aspectRatio',
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -195,6 +231,8 @@ class MCPUIWidgetBuilders {
     String? label,
     num? size,
     String? color,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'avatar',
@@ -202,6 +240,8 @@ class MCPUIWidgetBuilders {
       if (label != null) 'label': label,
       if (size != null) 'size': size,
       if (color != null) 'color': color,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -210,12 +250,16 @@ class MCPUIWidgetBuilders {
     String? label,
     String? color,
     dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'badge',
       if (label != null) 'label': label,
       if (color != null) 'color': color,
       if (child != null) 'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -225,6 +269,8 @@ class MCPUIWidgetBuilders {
     String? severity,
     dynamic actions,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'banner',
@@ -232,6 +278,8 @@ class MCPUIWidgetBuilders {
       if (severity != null) 'severity': severity,
       if (actions != null) 'actions': actions,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -240,12 +288,16 @@ class MCPUIWidgetBuilders {
     required num baseline,
     String? baselineType,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'baseline',
       'baseline': baseline,
       if (baselineType != null) 'baselineType': baselineType,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -254,12 +306,16 @@ class MCPUIWidgetBuilders {
     dynamic selectedIndex,
     required dynamic items,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'bottomNavigation',
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'items': items,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -271,6 +327,8 @@ class MCPUIWidgetBuilders {
     String? backgroundColor,
     dynamic shape,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'bottomSheet',
@@ -280,6 +338,8 @@ class MCPUIWidgetBuilders {
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (shape != null) 'shape': shape,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -298,6 +358,8 @@ class MCPUIWidgetBuilders {
     dynamic alignment,
     dynamic color,
     dynamic decoration,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'box',
@@ -312,6 +374,8 @@ class MCPUIWidgetBuilders {
       if (alignment != null) 'alignment': alignment,
       if (color != null) 'color': color,
       if (decoration != null) 'decoration': decoration,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -325,6 +389,8 @@ class MCPUIWidgetBuilders {
     dynamic onTap,
     dynamic onDoubleTap,
     dynamic onLongPress,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'button',
@@ -336,6 +402,8 @@ class MCPUIWidgetBuilders {
       if (onTap != null) 'onTap': onTap,
       if (onDoubleTap != null) 'onDoubleTap': onDoubleTap,
       if (onLongPress != null) 'onLongPress': onLongPress,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -347,6 +415,8 @@ class MCPUIWidgetBuilders {
     String? lastDate,
     String? view,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'calendar',
@@ -356,13 +426,20 @@ class MCPUIWidgetBuilders {
       if (lastDate != null) 'lastDate': lastDate,
       if (view != null) 'view': view,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// General-purpose vector drawing via an ordered command array. All numeric and color properties support binding expressions, enabling data-driven graphics (progress rings, custom indicators, composable chart primitives).
-  static Map<String, dynamic> canvas() {
+  static Map<String, dynamic> canvas({
+    dynamic click,
+    String? tooltip,
+  }) {
     return <String, dynamic>{
       'type': 'canvas',
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -373,6 +450,8 @@ class MCPUIWidgetBuilders {
     String? shape,
     dynamic color,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'card',
@@ -381,6 +460,8 @@ class MCPUIWidgetBuilders {
       if (shape != null) 'shape': shape,
       if (color != null) 'color': color,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -402,6 +483,8 @@ class MCPUIWidgetBuilders {
     String? transition,
     String? indicatorPosition,
     dynamic onPageChanged,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'carousel',
@@ -416,16 +499,22 @@ class MCPUIWidgetBuilders {
       if (transition != null) 'transition': transition,
       if (indicatorPosition != null) 'indicatorPosition': indicatorPosition,
       if (onPageChanged != null) 'onPageChanged': onPageChanged,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Centers a single child within available space.
   static Map<String, dynamic> center({
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'center',
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -443,6 +532,8 @@ class MCPUIWidgetBuilders {
     String? options_legend_position,
     num? width,
     num? height,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'chart',
@@ -458,16 +549,22 @@ class MCPUIWidgetBuilders {
       if (options_legend_position != null) 'options.legend.position': options_legend_position,
       if (width != null) 'width': width,
       if (height != null) 'height': height,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Boolean checkbox. Shared rows per §2.6.0; `value` is `boolean`.
   static Map<String, dynamic> checkbox({
     String? label,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'checkbox',
       if (label != null) 'label': label,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -475,11 +572,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> checkboxGroup({
     required dynamic options,
     String? orientation,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'checkboxGroup',
       'options': options,
       if (orientation != null) 'orientation': orientation,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -491,6 +592,8 @@ class MCPUIWidgetBuilders {
     String? variant,
     dynamic onDelete,
     dynamic onTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'chip',
@@ -500,16 +603,22 @@ class MCPUIWidgetBuilders {
       if (variant != null) 'variant': variant,
       if (onDelete != null) 'onDelete': onDelete,
       if (onTap != null) 'onTap': onTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Clips a child to an oval.
   static Map<String, dynamic> clipOval({
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'clipOval',
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -517,11 +626,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> clipRRect({
     dynamic borderRadius,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'clipRRect',
       if (borderRadius != null) 'borderRadius': borderRadius,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -540,6 +653,8 @@ class MCPUIWidgetBuilders {
     String? backgroundColor,
     String? textColor,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'codeEditor',
@@ -556,6 +671,8 @@ class MCPUIWidgetBuilders {
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (textColor != null) 'textColor': textColor,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -565,6 +682,8 @@ class MCPUIWidgetBuilders {
     bool? showLabel,
     String? pickerType,
     bool? enableHistory,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'colorPicker',
@@ -572,6 +691,8 @@ class MCPUIWidgetBuilders {
       if (showLabel != null) 'showLabel': showLabel,
       if (pickerType != null) 'pickerType': pickerType,
       if (enableHistory != null) 'enableHistory': enableHistory,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -583,6 +704,8 @@ class MCPUIWidgetBuilders {
     dynamic switch_,
     dynamic cases,
     dynamic default_,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'conditional',
@@ -592,6 +715,8 @@ class MCPUIWidgetBuilders {
       if (switch_ != null) 'switch': switch_,
       if (cases != null) 'cases': cases,
       if (default_ != null) 'default': default_,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -600,12 +725,16 @@ class MCPUIWidgetBuilders {
     required dynamic child,
     bool? dismissible,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'customDialog',
       'child': child,
       if (dismissible != null) 'dismissible': dismissible,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -614,12 +743,16 @@ class MCPUIWidgetBuilders {
     dynamic content,
     num? refreshInterval,
     dynamic onTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'dashboard',
       if (content != null) 'content': content,
       if (refreshInterval != null) 'refreshInterval': refreshInterval,
       if (onTap != null) 'onTap': onTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -637,6 +770,8 @@ class MCPUIWidgetBuilders {
     dynamic sortAscending,
     dynamic onSort,
     dynamic onRowTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'dataTable',
@@ -652,6 +787,8 @@ class MCPUIWidgetBuilders {
       if (sortAscending != null) 'sortAscending': sortAscending,
       if (onSort != null) 'onSort': onSort,
       if (onRowTap != null) 'onRowTap': onRowTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -663,6 +800,8 @@ class MCPUIWidgetBuilders {
     String? lastDate,
     String? mode,
     String? locale,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'dateField',
@@ -672,6 +811,8 @@ class MCPUIWidgetBuilders {
       if (lastDate != null) 'lastDate': lastDate,
       if (mode != null) 'mode': mode,
       if (locale != null) 'locale': locale,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -679,11 +820,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> datePicker({
     String? firstDate,
     String? lastDate,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'datePicker',
       if (firstDate != null) 'firstDate': firstDate,
       if (lastDate != null) 'lastDate': lastDate,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -698,6 +843,8 @@ class MCPUIWidgetBuilders {
     String? locale,
     bool? enabled,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'dateRangePicker',
@@ -710,6 +857,8 @@ class MCPUIWidgetBuilders {
       if (locale != null) 'locale': locale,
       if (enabled != null) 'enabled': enabled,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -729,6 +878,8 @@ class MCPUIWidgetBuilders {
     num? backdropBlur,
     dynamic child,
     dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'decoration',
@@ -743,6 +894,8 @@ class MCPUIWidgetBuilders {
       if (backdropBlur != null) 'backdropBlur': backdropBlur,
       if (child != null) 'child': child,
       if (children != null) 'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -752,6 +905,8 @@ class MCPUIWidgetBuilders {
     String? color,
     num? indent,
     num? endIndent,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'divider',
@@ -759,6 +914,8 @@ class MCPUIWidgetBuilders {
       if (color != null) 'color': color,
       if (indent != null) 'indent': indent,
       if (endIndent != null) 'endIndent': endIndent,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -770,6 +927,8 @@ class MCPUIWidgetBuilders {
     dynamic onDrop,
     dynamic onDragEnter,
     dynamic onDragLeave,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'dragTarget',
@@ -779,6 +938,8 @@ class MCPUIWidgetBuilders {
       if (onDrop != null) 'onDrop': onDrop,
       if (onDragEnter != null) 'onDragEnter': onDragEnter,
       if (onDragLeave != null) 'onDragLeave': onDragLeave,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -788,6 +949,8 @@ class MCPUIWidgetBuilders {
     dynamic feedback,
     dynamic childWhenDragging,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'draggable',
@@ -795,6 +958,8 @@ class MCPUIWidgetBuilders {
       if (feedback != null) 'feedback': feedback,
       if (childWhenDragging != null) 'childWhenDragging': childWhenDragging,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -805,6 +970,8 @@ class MCPUIWidgetBuilders {
     dynamic header,
     dynamic onSelect,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'drawer',
@@ -813,6 +980,8 @@ class MCPUIWidgetBuilders {
       if (header != null) 'header': header,
       if (onSelect != null) 'onSelect': onSelect,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -821,12 +990,16 @@ class MCPUIWidgetBuilders {
     required dynamic child,
     dynamic fallback,
     dynamic onError,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'errorBoundary',
       'child': child,
       if (fallback != null) 'fallback': fallback,
       if (onError != null) 'onError': onError,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -838,6 +1011,8 @@ class MCPUIWidgetBuilders {
     dynamic handlers,
     dynamic onError,
     bool? showDetails,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'errorRecovery',
@@ -847,6 +1022,8 @@ class MCPUIWidgetBuilders {
       if (handlers != null) 'handlers': handlers,
       if (onError != null) 'onError': onError,
       if (showDetails != null) 'showDetails': showDetails,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -854,11 +1031,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> expanded({
     num? flex,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'expanded',
       if (flex != null) 'flex': flex,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -876,6 +1057,8 @@ class MCPUIWidgetBuilders {
     String? selectedColor,
     dynamic onSelect,
     dynamic onOpen,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'fileExplorer',
@@ -891,6 +1074,8 @@ class MCPUIWidgetBuilders {
       if (selectedColor != null) 'selectedColor': selectedColor,
       if (onSelect != null) 'onSelect': onSelect,
       if (onOpen != null) 'onOpen': onOpen,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -899,12 +1084,16 @@ class MCPUIWidgetBuilders {
     String? fit,
     dynamic alignment,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'fittedBox',
       if (fit != null) 'fit': fit,
       if (alignment != null) 'alignment': alignment,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -913,12 +1102,16 @@ class MCPUIWidgetBuilders {
     num? flex,
     String? fit,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'flexible',
       if (flex != null) 'flex': flex,
       if (fit != null) 'fit': fit,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -927,12 +1120,16 @@ class MCPUIWidgetBuilders {
     String? icon,
     String? label,
     dynamic onTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'floatingActionButton',
       if (icon != null) 'icon': icon,
       if (label != null) 'label': label,
       if (onTap != null) 'onTap': onTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -942,6 +1139,8 @@ class MCPUIWidgetBuilders {
     String? direction,
     num? spacing,
     String? alignment,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'flow',
@@ -949,6 +1148,8 @@ class MCPUIWidgetBuilders {
       if (direction != null) 'direction': direction,
       if (spacing != null) 'spacing': spacing,
       if (alignment != null) 'alignment': alignment,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -957,12 +1158,16 @@ class MCPUIWidgetBuilders {
     required dynamic children,
     String? showErrorsOn,
     dynamic onSubmit,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'form',
       'children': children,
       if (showErrorsOn != null) 'showErrorsOn': showErrorsOn,
       if (onSubmit != null) 'onSubmit': onSubmit,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -971,12 +1176,16 @@ class MCPUIWidgetBuilders {
     num? widthFactor,
     num? heightFactor,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'fractionallySized',
       if (widthFactor != null) 'widthFactor': widthFactor,
       if (heightFactor != null) 'heightFactor': heightFactor,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -994,6 +1203,8 @@ class MCPUIWidgetBuilders {
     String? labelFormat,
     num? startAngle,
     num? sweepAngle,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'gauge',
@@ -1009,6 +1220,8 @@ class MCPUIWidgetBuilders {
       if (labelFormat != null) 'labelFormat': labelFormat,
       if (startAngle != null) 'startAngle': startAngle,
       if (sweepAngle != null) 'sweepAngle': sweepAngle,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1021,6 +1234,8 @@ class MCPUIWidgetBuilders {
     dynamic onPanStart,
     dynamic onPanUpdate,
     dynamic onPanEnd,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'gestureDetector',
@@ -1031,6 +1246,8 @@ class MCPUIWidgetBuilders {
       if (onPanStart != null) 'onPanStart': onPanStart,
       if (onPanUpdate != null) 'onPanUpdate': onPanUpdate,
       if (onPanEnd != null) 'onPanEnd': onPanEnd,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1046,6 +1263,8 @@ class MCPUIWidgetBuilders {
     dynamic fillColor,
     dynamic gridColor,
     num? strokeWidth,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'graph',
@@ -1059,6 +1278,8 @@ class MCPUIWidgetBuilders {
       if (fillColor != null) 'fillColor': fillColor,
       if (gridColor != null) 'gridColor': gridColor,
       if (strokeWidth != null) 'strokeWidth': strokeWidth,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1071,6 +1292,8 @@ class MCPUIWidgetBuilders {
     num? rowGap,
     num? columnGap,
     num? itemAspectRatio,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'grid',
@@ -1081,6 +1304,8 @@ class MCPUIWidgetBuilders {
       if (rowGap != null) 'rowGap': rowGap,
       if (columnGap != null) 'columnGap': columnGap,
       if (itemAspectRatio != null) 'itemAspectRatio': itemAspectRatio,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1093,6 +1318,8 @@ class MCPUIWidgetBuilders {
     String? backgroundColor,
     num? elevation,
     bool? centerTitle,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'headerBar',
@@ -1103,6 +1330,8 @@ class MCPUIWidgetBuilders {
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (elevation != null) 'elevation': elevation,
       if (centerTitle != null) 'centerTitle': centerTitle,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1115,6 +1344,8 @@ class MCPUIWidgetBuilders {
     dynamic colorRange,
     bool? showValues,
     dynamic onCellTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'heatmap',
@@ -1125,6 +1356,8 @@ class MCPUIWidgetBuilders {
       if (colorRange != null) 'colorRange': colorRange,
       if (showValues != null) 'showValues': showValues,
       if (onCellTap != null) 'onCellTap': onCellTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1139,6 +1372,8 @@ class MCPUIWidgetBuilders {
     required dynamic child,
     bool? transitionOnUserGestures,
     dynamic flightShuttleBuilder,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'hero',
@@ -1146,6 +1381,8 @@ class MCPUIWidgetBuilders {
       'child': child,
       if (transitionOnUserGestures != null) 'transitionOnUserGestures': transitionOnUserGestures,
       if (flightShuttleBuilder != null) 'flightShuttleBuilder': flightShuttleBuilder,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1171,6 +1408,8 @@ class MCPUIWidgetBuilders {
     String? sizeToken,
     dynamic color,
     dynamic shader,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'icon',
@@ -1179,6 +1418,8 @@ class MCPUIWidgetBuilders {
       if (sizeToken != null) 'sizeToken': sizeToken,
       if (color != null) 'color': color,
       if (shader != null) 'shader': shader,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1189,6 +1430,8 @@ class MCPUIWidgetBuilders {
     String? color,
     bool? enabled,
     dynamic onTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'iconButton',
@@ -1197,6 +1440,8 @@ class MCPUIWidgetBuilders {
       if (color != null) 'color': color,
       if (enabled != null) 'enabled': enabled,
       if (onTap != null) 'onTap': onTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1207,6 +1452,8 @@ class MCPUIWidgetBuilders {
     num? height,
     String? fit,
     dynamic alignment,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'image',
@@ -1215,6 +1462,8 @@ class MCPUIWidgetBuilders {
       if (height != null) 'height': height,
       if (fit != null) 'fit': fit,
       if (alignment != null) 'alignment': alignment,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1227,12 +1476,16 @@ class MCPUIWidgetBuilders {
     required String filter,
     num? intensity,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'imageFilter',
       'filter': filter,
       if (intensity != null) 'intensity': intensity,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1241,12 +1494,16 @@ class MCPUIWidgetBuilders {
     dynamic index,
     dynamic alignment,
     required dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'indexedStack',
       if (index != null) 'index': index,
       if (alignment != null) 'alignment': alignment,
       'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1256,6 +1513,8 @@ class MCPUIWidgetBuilders {
     num? borderRadius,
     dynamic onTap,
     dynamic onLongPress,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'inkWell',
@@ -1263,26 +1522,36 @@ class MCPUIWidgetBuilders {
       if (borderRadius != null) 'borderRadius': borderRadius,
       if (onTap != null) 'onTap': onTap,
       if (onLongPress != null) 'onLongPress': onLongPress,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Constrains a child to the intrinsic height required by its content.
   static Map<String, dynamic> intrinsicHeight({
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'intrinsicHeight',
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Constrains a child to the intrinsic width required by its content.
   static Map<String, dynamic> intrinsicWidth({
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'intrinsicWidth',
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1302,6 +1571,8 @@ class MCPUIWidgetBuilders {
     dynamic width,
     dynamic height,
     String? fit,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'kenBurnsImage',
@@ -1315,6 +1586,8 @@ class MCPUIWidgetBuilders {
       if (width != null) 'width': width,
       if (height != null) 'height': height,
       if (fit != null) 'fit': fit,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1323,12 +1596,16 @@ class MCPUIWidgetBuilders {
     dynamic breakpoints,
     dynamic layouts,
     dynamic default_,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'layoutBuilder',
       if (breakpoints != null) 'breakpoints': breakpoints,
       if (layouts != null) 'layouts': layouts,
       if (default_ != null) 'default': default_,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1340,6 +1617,8 @@ class MCPUIWidgetBuilders {
     String? trigger,
     dynamic onLoad,
     dynamic onError,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'lazy',
@@ -1349,6 +1628,8 @@ class MCPUIWidgetBuilders {
       if (trigger != null) 'trigger': trigger,
       if (onLoad != null) 'onLoad': onLoad,
       if (onError != null) 'onError': onError,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1365,6 +1646,8 @@ class MCPUIWidgetBuilders {
     dynamic backgroundColor,
     dynamic onIndexChanged,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'lightbox',
@@ -1376,6 +1659,8 @@ class MCPUIWidgetBuilders {
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (onIndexChanged != null) 'onIndexChanged': onIndexChanged,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1384,12 +1669,16 @@ class MCPUIWidgetBuilders {
     num? maxWidth,
     num? maxHeight,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'limitedBox',
       if (maxWidth != null) 'maxWidth': maxWidth,
       if (maxHeight != null) 'maxHeight': maxHeight,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1403,6 +1692,8 @@ class MCPUIWidgetBuilders {
     String? distribution,
     num? spacing,
     required dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'linear',
@@ -1412,6 +1703,8 @@ class MCPUIWidgetBuilders {
       if (distribution != null) 'distribution': distribution,
       if (spacing != null) 'spacing': spacing,
       'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1424,6 +1717,8 @@ class MCPUIWidgetBuilders {
     String? orientation,
     String? emptyMessage,
     num? itemExtent,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'list',
@@ -1434,6 +1729,8 @@ class MCPUIWidgetBuilders {
       if (orientation != null) 'orientation': orientation,
       if (emptyMessage != null) 'emptyMessage': emptyMessage,
       if (itemExtent != null) 'itemExtent': itemExtent,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1446,6 +1743,8 @@ class MCPUIWidgetBuilders {
     dynamic onTap,
     bool? selected,
     bool? enabled,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'listItem',
@@ -1456,6 +1755,8 @@ class MCPUIWidgetBuilders {
       if (onTap != null) 'onTap': onTap,
       if (selected != null) 'selected': selected,
       if (enabled != null) 'enabled': enabled,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1464,12 +1765,16 @@ class MCPUIWidgetBuilders {
     required String src,
     bool? autoPlay,
     bool? loop,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'lottieAnimation',
       'src': src,
       if (autoPlay != null) 'autoPlay': autoPlay,
       if (loop != null) 'loop': loop,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1495,6 +1800,8 @@ class MCPUIWidgetBuilders {
     num? overlays___strokeWidth,
     dynamic onMarkerTap,
     dynamic onMapTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'map',
@@ -1518,6 +1825,8 @@ class MCPUIWidgetBuilders {
       if (overlays___strokeWidth != null) 'overlays[].strokeWidth': overlays___strokeWidth,
       if (onMarkerTap != null) 'onMarkerTap': onMarkerTap,
       if (onMapTap != null) 'onMapTap': onMapTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1525,11 +1834,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> margin({
     required dynamic margin,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'margin',
       'margin': margin,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1544,6 +1857,8 @@ class MCPUIWidgetBuilders {
     String? linkColor,
     String? codeBackgroundColor,
     dynamic onLinkTap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'markdown',
@@ -1556,6 +1871,8 @@ class MCPUIWidgetBuilders {
       if (linkColor != null) 'linkColor': linkColor,
       if (codeBackgroundColor != null) 'codeBackgroundColor': codeBackgroundColor,
       if (onLinkTap != null) 'onLinkTap': onLinkTap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1577,6 +1894,8 @@ class MCPUIWidgetBuilders {
     dynamic onEnded,
     dynamic onTimeUpdate,
     dynamic onError,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'mediaPlayer',
@@ -1596,6 +1915,8 @@ class MCPUIWidgetBuilders {
       if (onEnded != null) 'onEnded': onEnded,
       if (onTimeUpdate != null) 'onTimeUpdate': onTimeUpdate,
       if (onError != null) 'onError': onError,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1606,6 +1927,8 @@ class MCPUIWidgetBuilders {
     dynamic else_,
     dynamic breakpoints,
     dynamic defaultChild,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'mediaQuery',
@@ -1614,6 +1937,8 @@ class MCPUIWidgetBuilders {
       if (else_ != null) 'else': else_,
       if (breakpoints != null) 'breakpoints': breakpoints,
       if (defaultChild != null) 'defaultChild': defaultChild,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1622,19 +1947,28 @@ class MCPUIWidgetBuilders {
     dynamic selectedIndex,
     required dynamic items,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'navigationRail',
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'items': items,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Network topology graph. Same node/edge model as `graph`, with topology-oriented defaults (hierarchical layout, directed edges).
-  static Map<String, dynamic> networkGraph() {
+  static Map<String, dynamic> networkGraph({
+    dynamic click,
+    String? tooltip,
+  }) {
     return <String, dynamic>{
       'type': 'networkGraph',
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1648,6 +1982,8 @@ class MCPUIWidgetBuilders {
     String? prefix,
     String? suffix,
     String? thousandSeparator,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'numberField',
@@ -1659,6 +1995,8 @@ class MCPUIWidgetBuilders {
       if (prefix != null) 'prefix': prefix,
       if (suffix != null) 'suffix': suffix,
       if (thousandSeparator != null) 'thousandSeparator': thousandSeparator,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1667,12 +2005,16 @@ class MCPUIWidgetBuilders {
     num? min,
     num? max,
     num? step,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'numberStepper',
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (step != null) 'step': step,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1685,6 +2027,8 @@ class MCPUIWidgetBuilders {
     bool? showRetry,
     dynamic onRetry,
     dynamic isOnline,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'offlineFallback',
@@ -1695,6 +2039,8 @@ class MCPUIWidgetBuilders {
       if (showRetry != null) 'showRetry': showRetry,
       if (onRetry != null) 'onRetry': onRetry,
       if (isOnline != null) 'isOnline': isOnline,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1705,6 +2051,8 @@ class MCPUIWidgetBuilders {
     num? duration,
     String? curve,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'opacity',
@@ -1713,6 +2061,8 @@ class MCPUIWidgetBuilders {
       if (duration != null) 'duration': duration,
       if (curve != null) 'curve': curve,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1720,11 +2070,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> padding({
     required dynamic padding,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'padding',
       'padding': padding,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1740,6 +2094,8 @@ class MCPUIWidgetBuilders {
     String? scrollPhysics,
     bool? allowImplicitScrolling,
     dynamic onPageChanged,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'pageView',
@@ -1750,6 +2106,8 @@ class MCPUIWidgetBuilders {
       if (scrollPhysics != null) 'scrollPhysics': scrollPhysics,
       if (allowImplicitScrolling != null) 'allowImplicitScrolling': allowImplicitScrolling,
       if (onPageChanged != null) 'onPageChanged': onPageChanged,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1764,6 +2122,8 @@ class MCPUIWidgetBuilders {
     bool? allowPartial,
     dynamic onAllow,
     dynamic onDeny,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'permissionPrompt',
@@ -1776,6 +2136,8 @@ class MCPUIWidgetBuilders {
       if (allowPartial != null) 'allowPartial': allowPartial,
       if (onAllow != null) 'onAllow': onAllow,
       if (onDeny != null) 'onDeny': onDeny,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1786,6 +2148,8 @@ class MCPUIWidgetBuilders {
     String? color,
     num? strokeWidth,
     dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'placeholder',
@@ -1794,6 +2158,8 @@ class MCPUIWidgetBuilders {
       if (color != null) 'color': color,
       if (strokeWidth != null) 'strokeWidth': strokeWidth,
       if (child != null) 'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1802,22 +2168,30 @@ class MCPUIWidgetBuilders {
     String? icon,
     required dynamic items,
     dynamic onSelect,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'popupMenuButton',
       if (icon != null) 'icon': icon,
       'items': items,
       if (onSelect != null) 'onSelect': onSelect,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Positions a child within a `stack` using offsets.
   static Map<String, dynamic> positioned({
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'positioned',
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1827,6 +2201,8 @@ class MCPUIWidgetBuilders {
     String? indicatorType,
     String? color,
     String? backgroundColor,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'progressBar',
@@ -1834,6 +2210,8 @@ class MCPUIWidgetBuilders {
       if (indicatorType != null) 'indicatorType': indicatorType,
       if (color != null) 'color': color,
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1843,6 +2221,8 @@ class MCPUIWidgetBuilders {
     required dynamic groupValue,
     String? label,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'radio',
@@ -1850,6 +2230,8 @@ class MCPUIWidgetBuilders {
       'groupValue': groupValue,
       if (label != null) 'label': label,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1857,11 +2239,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> radioGroup({
     required dynamic options,
     String? orientation,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'radioGroup',
       'options': options,
       if (orientation != null) 'orientation': orientation,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1870,12 +2256,16 @@ class MCPUIWidgetBuilders {
     num? min,
     num? max,
     num? divisions,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'rangeSlider',
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (divisions != null) 'divisions': divisions,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1884,12 +2274,16 @@ class MCPUIWidgetBuilders {
     num? max,
     String? icon,
     String? color,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'rating',
       if (max != null) 'max': max,
       if (icon != null) 'icon': icon,
       if (color != null) 'color': color,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1907,6 +2301,8 @@ class MCPUIWidgetBuilders {
     num? maxLines,
     String? overflow,
     bool? softWrap,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'richText',
@@ -1918,6 +2314,8 @@ class MCPUIWidgetBuilders {
       if (maxLines != null) 'maxLines': maxLines,
       if (overflow != null) 'overflow': overflow,
       if (softWrap != null) 'softWrap': softWrap,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1938,6 +2336,8 @@ class MCPUIWidgetBuilders {
     dynamic alignment,
     dynamic width,
     dynamic height,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'rive',
@@ -1950,16 +2350,22 @@ class MCPUIWidgetBuilders {
       if (alignment != null) 'alignment': alignment,
       if (width != null) 'width': width,
       if (height != null) 'height': height,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Insets children so they avoid system UI overlaps (notch, status bar, home indicator).
   static Map<String, dynamic> safeArea({
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'safeArea',
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1976,11 +2382,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> scrollAnimated({
     required dynamic bindings,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'scrollAnimated',
       'bindings': bindings,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -1994,6 +2404,8 @@ class MCPUIWidgetBuilders {
     num? radius,
     dynamic child,
     dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'scrollBar',
@@ -2003,6 +2415,8 @@ class MCPUIWidgetBuilders {
       if (radius != null) 'radius': radius,
       if (child != null) 'child': child,
       if (children != null) 'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2024,6 +2438,8 @@ class MCPUIWidgetBuilders {
     dynamic child,
     dynamic children,
     dynamic slivers,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'scrollView',
@@ -2033,6 +2449,8 @@ class MCPUIWidgetBuilders {
       if (child != null) 'child': child,
       if (children != null) 'children': children,
       if (slivers != null) 'slivers': slivers,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2040,11 +2458,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> segmentedControl({
     required dynamic options,
     String? variant,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'segmentedControl',
       'options': options,
       if (variant != null) 'variant': variant,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2052,11 +2474,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> select({
     required dynamic options,
     String? placeholder,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'select',
       'options': options,
       if (placeholder != null) 'placeholder': placeholder,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2073,6 +2499,8 @@ class MCPUIWidgetBuilders {
     bool? showGuide,
     dynamic onSignatureEnd,
     dynamic onClear,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'signature',
@@ -2087,6 +2515,8 @@ class MCPUIWidgetBuilders {
       if (showGuide != null) 'showGuide': showGuide,
       if (onSignatureEnd != null) 'onSignatureEnd': onSignatureEnd,
       if (onClear != null) 'onClear': onClear,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2097,6 +2527,8 @@ class MCPUIWidgetBuilders {
     dynamic children,
     dynamic onSelect,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'simpleDialog',
@@ -2105,6 +2537,8 @@ class MCPUIWidgetBuilders {
       if (children != null) 'children': children,
       if (onSelect != null) 'onSelect': onSelect,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2114,6 +2548,8 @@ class MCPUIWidgetBuilders {
     dynamic padding,
     dynamic child,
     dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'singleChildScrollView',
@@ -2121,6 +2557,8 @@ class MCPUIWidgetBuilders {
       if (padding != null) 'padding': padding,
       if (child != null) 'child': child,
       if (children != null) 'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2129,12 +2567,16 @@ class MCPUIWidgetBuilders {
     num? width,
     num? height,
     dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'sizedBox',
       if (width != null) 'width': width,
       if (height != null) 'height': height,
       if (child != null) 'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2144,6 +2586,8 @@ class MCPUIWidgetBuilders {
     num? min,
     num? max,
     num? divisions,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'slider',
@@ -2151,6 +2595,8 @@ class MCPUIWidgetBuilders {
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (divisions != null) 'divisions': divisions,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2160,6 +2606,8 @@ class MCPUIWidgetBuilders {
     num? duration,
     dynamic action,
     dynamic onClose,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'snackBar',
@@ -2167,16 +2615,22 @@ class MCPUIWidgetBuilders {
       if (duration != null) 'duration': duration,
       if (action != null) 'action': action,
       if (onClose != null) 'onClose': onClose,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Flexible empty space inside a `linear` parent.
   static Map<String, dynamic> spacer({
     num? flex,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'spacer',
       if (flex != null) 'flex': flex,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2185,12 +2639,16 @@ class MCPUIWidgetBuilders {
     dynamic alignment,
     String? fit,
     required dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'stack',
       if (alignment != null) 'alignment': alignment,
       if (fit != null) 'fit': fit,
       'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2208,6 +2666,8 @@ class MCPUIWidgetBuilders {
     num? crossAxisSpacing,
     dynamic padding,
     String? scrollDirection,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'staggeredGrid',
@@ -2219,6 +2679,8 @@ class MCPUIWidgetBuilders {
       if (crossAxisSpacing != null) 'crossAxisSpacing': crossAxisSpacing,
       if (padding != null) 'padding': padding,
       if (scrollDirection != null) 'scrollDirection': scrollDirection,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2230,6 +2692,8 @@ class MCPUIWidgetBuilders {
     dynamic onStepTapped,
     dynamic onStepContinue,
     dynamic onStepCancel,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'stepper',
@@ -2239,6 +2703,8 @@ class MCPUIWidgetBuilders {
       if (onStepTapped != null) 'onStepTapped': onStepTapped,
       if (onStepContinue != null) 'onStepContinue': onStepContinue,
       if (onStepCancel != null) 'onStepCancel': onStepCancel,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2247,12 +2713,16 @@ class MCPUIWidgetBuilders {
     dynamic selectedIndex,
     required dynamic tabs,
     dynamic onChange,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'tabBar',
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'tabs': tabs,
       if (onChange != null) 'onChange': onChange,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2260,11 +2730,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> tabBarView({
     dynamic selectedIndex,
     required dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'tabBarView',
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2275,6 +2749,8 @@ class MCPUIWidgetBuilders {
     dynamic defaultColumnWidth,
     String? defaultVerticalAlignment,
     dynamic columnWidths,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'table',
@@ -2283,6 +2759,8 @@ class MCPUIWidgetBuilders {
       if (defaultColumnWidth != null) 'defaultColumnWidth': defaultColumnWidth,
       if (defaultVerticalAlignment != null) 'defaultVerticalAlignment': defaultVerticalAlignment,
       if (columnWidths != null) 'columnWidths': columnWidths,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2299,6 +2777,8 @@ class MCPUIWidgetBuilders {
     String? textColor,
     String? promptColor,
     dynamic onCommand,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'terminal',
@@ -2313,6 +2793,8 @@ class MCPUIWidgetBuilders {
       if (textColor != null) 'textColor': textColor,
       if (promptColor != null) 'promptColor': promptColor,
       if (onCommand != null) 'onCommand': onCommand,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2325,6 +2807,8 @@ class MCPUIWidgetBuilders {
     num? maxLines,
     String? overflow,
     String? textAlign,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'text',
@@ -2335,6 +2819,8 @@ class MCPUIWidgetBuilders {
       if (maxLines != null) 'maxLines': maxLines,
       if (overflow != null) 'overflow': overflow,
       if (textAlign != null) 'textAlign': textAlign,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2358,6 +2844,8 @@ class MCPUIWidgetBuilders {
     int? maxLength,
     String? inputType,
     dynamic validation,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'textInput',
@@ -2375,6 +2863,8 @@ class MCPUIWidgetBuilders {
       if (maxLength != null) 'maxLength': maxLength,
       if (inputType != null) 'inputType': inputType,
       if (validation != null) 'validation': validation,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2384,6 +2874,8 @@ class MCPUIWidgetBuilders {
     String? format,
     bool? use24HourFormat,
     String? mode,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'timeField',
@@ -2391,16 +2883,22 @@ class MCPUIWidgetBuilders {
       if (format != null) 'format': format,
       if (use24HourFormat != null) 'use24HourFormat': use24HourFormat,
       if (mode != null) 'mode': mode,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Standalone time picker surface. Shared rows per §2.6.0; `value` is a time string.
   static Map<String, dynamic> timePicker({
     bool? use24HourFormat,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'timePicker',
       if (use24HourFormat != null) 'use24HourFormat': use24HourFormat,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2413,6 +2911,8 @@ class MCPUIWidgetBuilders {
     String? items___time,
     String? items___color,
     String? orientation,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'timeline',
@@ -2423,13 +2923,20 @@ class MCPUIWidgetBuilders {
       if (items___time != null) 'items[].time': items___time,
       if (items___color != null) 'items[].color': items___color,
       if (orientation != null) 'orientation': orientation,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// Binary on/off control. Shared `binding` / `value` / `enabled` / `onChange` per §2.6.0; `value` is `boolean`.
-  static Map<String, dynamic> toggle() {
+  static Map<String, dynamic> toggle({
+    dynamic click,
+    String? tooltip,
+  }) {
     return <String, dynamic>{
       'type': 'toggle',
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2437,11 +2944,15 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> tooltip({
     required String message,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'tooltip',
       'message': message,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2455,6 +2966,8 @@ class MCPUIWidgetBuilders {
     num? duration,
     String? curve,
     required dynamic child,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'transform',
@@ -2466,6 +2979,8 @@ class MCPUIWidgetBuilders {
       if (duration != null) 'duration': duration,
       if (curve != null) 'curve': curve,
       'child': child,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2488,6 +3003,8 @@ class MCPUIWidgetBuilders {
     dynamic onSelect,
     dynamic onExpand,
     dynamic onCollapse,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'tree',
@@ -2508,6 +3025,8 @@ class MCPUIWidgetBuilders {
       if (onSelect != null) 'onSelect': onSelect,
       if (onExpand != null) 'onExpand': onExpand,
       if (onCollapse != null) 'onCollapse': onCollapse,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2516,12 +3035,16 @@ class MCPUIWidgetBuilders {
     required String template,
     dynamic params,
     dynamic slots,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'use',
       'template': template,
       if (params != null) 'params': params,
       if (slots != null) 'slots': slots,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2532,6 +3055,8 @@ class MCPUIWidgetBuilders {
     String? color,
     num? indent,
     num? endIndent,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'verticalDivider',
@@ -2540,6 +3065,8 @@ class MCPUIWidgetBuilders {
       if (color != null) 'color': color,
       if (indent != null) 'indent': indent,
       if (endIndent != null) 'endIndent': endIndent,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2551,6 +3078,8 @@ class MCPUIWidgetBuilders {
     dynamic replacement,
     dynamic child,
     dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'visibility',
@@ -2560,6 +3089,8 @@ class MCPUIWidgetBuilders {
       if (replacement != null) 'replacement': replacement,
       if (child != null) 'child': child,
       if (children != null) 'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2575,6 +3106,8 @@ class MCPUIWidgetBuilders {
     dynamic onPageStarted,
     dynamic onPageFinished,
     dynamic onError,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'webView',
@@ -2588,6 +3121,8 @@ class MCPUIWidgetBuilders {
       if (onPageStarted != null) 'onPageStarted': onPageStarted,
       if (onPageFinished != null) 'onPageFinished': onPageFinished,
       if (onError != null) 'onError': onError,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
@@ -2598,6 +3133,8 @@ class MCPUIWidgetBuilders {
     num? runSpacing,
     String? alignment,
     required dynamic children,
+    dynamic click,
+    String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'wrap',
@@ -2606,6 +3143,8 @@ class MCPUIWidgetBuilders {
       if (runSpacing != null) 'runSpacing': runSpacing,
       if (alignment != null) 'alignment': alignment,
       'children': children,
+      if (click != null) 'click': click,
+      if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
