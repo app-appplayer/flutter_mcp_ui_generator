@@ -23,6 +23,17 @@ landed. The tool now takes `--spec-version` and defaults to the current spec.
 
 ### Changed
 
+- `applicationConfig` / `pageConfig` are marked `@Deprecated`. They return
+  `ApplicationConfig` / `PageConfig`, which are themselves deprecated in favour
+  of the typed `ApplicationDefinition` / `PageDefinition`. Kept rather than
+  removed — they are public API, and moving is the caller's decision.
+- README rewritten against the real API: the Quick Start called
+  `MCPUIJsonGenerator.application(metadata:)` with no `title`/`version`/
+  `routes`, passed a `ThemeDefinition` where a `Map` is required, and used
+  `text(value:)` — none of it compiled.
+
+### Changed (build)
+
 - Generated file now carries `// ignore_for_file: non_constant_identifier_names`.
   Nested array properties keep their spec path in the parameter name
   (`markers[].color` → `markers___color`), which is how a caller sees which

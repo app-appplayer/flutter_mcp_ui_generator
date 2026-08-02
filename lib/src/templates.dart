@@ -3,6 +3,8 @@
 /// Each template class generates a complete MCP UI DSL page definition
 /// for a specific UI pattern. Templates accept configuration via [generate()]
 /// and produce valid `Map<String, dynamic>` output.
+
+library;
 import 'json_generator.dart';
 
 /// Base class for all templates

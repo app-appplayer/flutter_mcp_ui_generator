@@ -2109,7 +2109,14 @@ class MCPUIJsonGenerator {
 
   // ===== Core Model Converters =====
 
-  /// Convert application JSON to ApplicationConfig
+  /// Convert application JSON to ApplicationConfig.
+  ///
+  /// Kept because it is public API; `ApplicationConfig` itself is deprecated
+  /// in favour of `ApplicationDefinition`, which is typed rather than a bag of
+  /// maps. Callers should move over — this stays so moving is their decision
+  /// and not a breaking change made for them.
+  @Deprecated('Use ApplicationDefinition; this returns the untyped legacy shape')
+  // ignore: deprecated_member_use
   static core.ApplicationConfig applicationConfig({
     required String title,
     required String version,
@@ -2119,6 +2126,7 @@ class MCPUIJsonGenerator {
     Map<String, dynamic>? navigation,
     Map<String, dynamic>? state,
   }) {
+    // ignore: deprecated_member_use
     return core.ApplicationConfig(
       title: title,
       version: version,
@@ -2130,7 +2138,12 @@ class MCPUIJsonGenerator {
     );
   }
 
-  /// Convert page JSON to PageConfig
+  /// Convert page JSON to PageConfig.
+  ///
+  /// Same standing as [applicationConfig]: public API returning a deprecated
+  /// untyped shape. `PageDefinition` is the typed replacement.
+  @Deprecated('Use PageDefinition; this returns the untyped legacy shape')
+  // ignore: deprecated_member_use
   static core.PageConfig pageConfig({
     required String title,
     required Map<String, dynamic> content,
@@ -2139,6 +2152,7 @@ class MCPUIJsonGenerator {
     Map<String, dynamic>? lifecycle,
     Map<String, dynamic>? themeOverride,
   }) {
+    // ignore: deprecated_member_use
     return core.PageConfig(
       title: title,
       content: content,
