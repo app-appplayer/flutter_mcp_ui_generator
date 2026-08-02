@@ -1,3 +1,0 @@
-dependency_overrides:
-  flutter_mcp_ui_core:
-    path: ../../flutter_mcp_ui_core
