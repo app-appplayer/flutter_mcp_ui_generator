@@ -1335,6 +1335,47 @@ class MCPUIJsonGenerator {
     return {'type': 'dialog', 'dialog': dialog};
   }
 
+  /// Submit the enclosing `form` (spec § 4.22).
+  ///
+  /// Form-scoped: the widget carrying it resolves it against the nearest
+  /// `form` ancestor, so it never reaches the action dispatcher. With no
+  /// `form` above it there is nothing to submit.
+  static Map<String, dynamic> submitAction() {
+    return {'type': 'submit'};
+  }
+
+  /// Emit a named in-document event (spec § 4.23).
+  ///
+  /// The runtime writes [data] to `_events.<event>.data` and a timestamp to
+  /// `_events.<event>.timestamp`; listeners read those paths like any other
+  /// state.
+  static Map<String, dynamic> eventAction({
+    required String event,
+    Object? data,
+  }) {
+    return {
+      'type': 'event',
+      'event': event,
+      if (data != null) 'data': data,
+    };
+  }
+
+  /// Revoke previously-granted client permissions
+  /// (spec § 4.14 — canonical grouped `permission` form).
+  ///
+  /// Prefer this over [permissionRevokeAction], which emits the § 17.3.4
+  /// legacy dotted spelling.
+  static Map<String, dynamic> permissionAction({
+    required List<String> permissions,
+    String action = 'revoke',
+  }) {
+    return {
+      'type': 'permission',
+      'action': action,
+      'permissions': permissions,
+    };
+  }
+
   /// Revoke a previously-granted client permission
   /// (spec § 8.4.6 — `permission.revoke`).
   static Map<String, dynamic> permissionRevokeAction({

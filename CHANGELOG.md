@@ -5,6 +5,11 @@ gains the properties its duplicate definition had been hiding, and
 `graph.data` / `markdown.text` accept the binding their truncated entries
 denied. The floor stays `^0.5.0` and the builder API is unchanged.
 
+Three action types §17.2.2 registers had no builder: `submitAction()` (§4.22),
+`eventAction()` (§4.23) and `permissionAction()` — the canonical grouped
+`{type: "permission", action: "revoke"}` form, where `permissionRevokeAction()`
+emits the §17.3.4 legacy dotted spelling.
+
 `example/pubspec_overrides.yaml` is no longer tracked, so it stops shipping in
 the archive — `0.5.0` published it by accident.
 
