@@ -42,3 +42,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 EOF < /dev/null
+
+# Local dependency overrides — never shipped; a clone must not resolve
+# against a path that exists on one machine.
+pubspec_overrides.yaml
+**/pubspec_overrides.yaml
