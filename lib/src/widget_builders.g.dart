@@ -1138,7 +1138,7 @@ class MCPUIWidgetBuilders {
   /// Drop area that accepts dragged data.
   static Map<String, dynamic> dragTarget({
     dynamic canDrop,
-    dynamic builder,
+    required dynamic builder,
     dynamic children,
     dynamic onDrop,
     dynamic onDragEnter,
@@ -1149,7 +1149,7 @@ class MCPUIWidgetBuilders {
     return <String, dynamic>{
       'type': 'dragTarget',
       if (canDrop != null) 'canDrop': canDrop,
-      if (builder != null) 'builder': builder,
+      'builder': builder,
       if (children != null) 'children': children,
       if (onDrop != null) 'onDrop': onDrop,
       if (onDragEnter != null) 'onDragEnter': onDragEnter,
