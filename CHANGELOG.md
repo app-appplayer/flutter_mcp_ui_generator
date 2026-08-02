@@ -1,11 +1,12 @@
 ## [0.5.1] - 2026-08-03 — builders regenerated
 
-Picks up `flutter_mcp_ui_core 0.5.1`. The floor stays `^0.5.0` and the builder
-API is unchanged.
+Picks up the spec 1.4 registry fixes in `flutter_mcp_ui_core 0.5.1`: `lazy`
+gains the properties its duplicate definition had been hiding, and
+`graph.data` / `markdown.text` accept the binding their truncated entries
+denied. The floor stays `^0.5.0` and the builder API is unchanged.
 
-Picks up the registry fixes in spec 1.4: `lazy` gains the properties its
-duplicate definition had been hiding, and `graph.data` / `markdown.text` accept
-the binding their truncated entries denied.
+`example/pubspec_overrides.yaml` is no longer tracked, so it stops shipping in
+the archive — `0.5.0` published it by accident.
 
 ## [0.5.0] - 2026-08-03 — Builders for spec 1.4 (134 → 158)
 
