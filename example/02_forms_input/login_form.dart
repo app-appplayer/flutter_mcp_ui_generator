@@ -190,7 +190,7 @@ void _generateMcpLoginForm() {
                     },
                   ),
                   disabled: false,
-                  style: 'elevated',
+                  variant: 'elevated',
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 16),
 
@@ -199,7 +199,7 @@ void _generateMcpLoginForm() {
                   label: 'Forgot Password?',
                   click: MCPUIJsonGenerator.navigationAction(
                       action: 'push', route: '/forgot-password'),
-                  style: 'text',
+                  variant: 'text',
                 ),
                 MCPUIJsonGenerator.sizedBox(height: 8),
 
@@ -216,7 +216,7 @@ void _generateMcpLoginForm() {
                       label: 'Sign Up',
                       click: MCPUIJsonGenerator.navigationAction(
                           action: 'push', route: '/signup'),
-                      style: 'text',
+                      variant: 'text',
                     ),
                   ],
                 ),

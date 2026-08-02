@@ -79,7 +79,7 @@ void _generateReactiveForm() {
           padding: MCPUIJsonGenerator.edgeInsets(all: 16),
           child: MCPUIJsonGenerator.linear(
             direction: 'vertical',
-            gap: 16.0,
+            spacing: 16.0,
             children: [
               // Progress indicator
               MCPUIJsonGenerator.card(
@@ -87,7 +87,7 @@ void _generateReactiveForm() {
                   padding: MCPUIJsonGenerator.edgeInsets(all: 16),
                   child: MCPUIJsonGenerator.linear(
                     direction: 'vertical',
-                    gap: 8.0,
+                    spacing: 8.0,
                     children: [
                       MCPUIJsonGenerator.text(
                         'Survey Progress',
@@ -135,7 +135,7 @@ void _generateReactiveForm() {
                     '{{survey.customerType == "business" || survey.customerType == "enterprise"}}',
                 then: MCPUIJsonGenerator.linear(
                   direction: 'vertical',
-                  gap: 12.0,
+                  spacing: 12.0,
                   children: [
                     MCPUIJsonGenerator.textInput(
                       label: 'Company Name',
@@ -164,7 +164,7 @@ void _generateReactiveForm() {
                 condition: '{{survey.customerType == "enterprise"}}',
                 then: MCPUIJsonGenerator.linear(
                   direction: 'vertical',
-                  gap: 12.0,
+                  spacing: 12.0,
                   children: [
                     MCPUIJsonGenerator.textInput(
                       label: 'Employee Count',
@@ -203,7 +203,7 @@ void _generateReactiveForm() {
                     'enterpriseSupport': '{{survey.enterpriseSupport}}',
                   },
                 ),
-                style: 'elevated',
+                variant: 'elevated',
               ),
             ],
           ),

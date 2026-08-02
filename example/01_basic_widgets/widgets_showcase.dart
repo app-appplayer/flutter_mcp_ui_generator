@@ -385,7 +385,10 @@ Map<String, dynamic> _convertNavigationPatternsToMcp(
         {'label': 'Settings', 'icon': 'settings'},
       ],
       currentIndex: 0,
-      click: MCPUIJsonGenerator.stateAction(
+      // Selection changes are an onChange, not a click: the bar reports which
+      // destination was chosen, and `MCPUIJsonGenerator.bottomNavigation`
+      // names that parameter `change`.
+      change: MCPUIJsonGenerator.stateAction(
         action: 'set',
         binding: 'navigation.currentIndex',
         value: '{{event.index}}',

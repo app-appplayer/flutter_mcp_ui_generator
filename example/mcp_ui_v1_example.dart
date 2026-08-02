@@ -132,7 +132,7 @@ Map<String, dynamic> _generateModernWidgetExamples() {
     'linear_layout_example': MCPUIJsonGenerator.linear(
       direction: 'vertical',
       distribution: 'space-between',
-      gap: 16.0,
+      spacing: 16.0,
       children: [
         MCPUIJsonGenerator.headerBar(
           title: 'Modern App',
@@ -160,7 +160,7 @@ Map<String, dynamic> _generateModernWidgetExamples() {
     ),
     'advanced_form_example': MCPUIJsonGenerator.linear(
       direction: 'vertical',
-      gap: 12.0,
+      spacing: 12.0,
       children: [
         MCPUIJsonGenerator.textInput(
           label: 'Name',
@@ -227,7 +227,7 @@ void _analyzeAccessibilityPatterns() {
           padding: MCPUIJsonGenerator.edgeInsets(all: 16),
           child: MCPUIJsonGenerator.linear(
             direction: 'vertical',
-            gap: 16.0,
+            spacing: 16.0,
             children: [
               MCPUIJsonGenerator.text(
                 'Please fill out the form',
