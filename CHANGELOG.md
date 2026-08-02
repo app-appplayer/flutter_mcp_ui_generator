@@ -1,3 +1,34 @@
+## [0.5.0] - 2026-08-03 — Builders for spec 1.4 (134 → 158)
+
+### Fixed
+
+`generator_codegen` was pinned to spec 1.3 while the spec moved on, so every
+1.4 widget was missing from this package **by construction** rather than by
+omission — including the Composition Profile's `view`, absent since 1.4
+landed. The tool now takes `--spec-version` and defaults to the current spec.
+
+### Added
+
+- **24 widget builders**: `accordion` `barcode` `breadcrumb` `combobox`
+  `contextMenu` `dateTimePicker` `diffViewer` `fileInput` `gantt` `kanban`
+  `link` `menu` `multiSelect` `otpInput` `pagination` `pdfViewer` `popover`
+  `qrCode` `resizable` `richTextEditor` `spreadsheet` `splitter` `view`
+  `voiceInput`.
+- **`identityPromoteAction` / `identityReleaseAction`** (spec §8.9.3). Neither
+  takes credentials nor returns any; the closed `outcome` vocabulary is what
+  lets a document tell `declined` from `unavailable` — one invites a second
+  try, the other must stop asking.
+- **`origin(connectionId)`** (spec §1.9). Takes an id rather than a sealed
+  enum, because the primitive is deliberately open.
+
+### Changed
+
+- Generated file now carries `// ignore_for_file: non_constant_identifier_names`.
+  Nested array properties keep their spec path in the parameter name
+  (`markers[].color` → `markers___color`), which is how a caller sees which
+  nested field it fills; renaming them would break every caller.
+- `flutter_mcp_ui_core ^0.4.1 → ^0.5.0`, `mcp_bundle ^0.4.0 → ^0.4.9`.
+
 
 ## [0.4.1] - 2026-05-23 — common widget property fanout (spec 1.3.4) + mcp_bundle 0.4.0 cascade
 
