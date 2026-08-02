@@ -412,8 +412,8 @@ class MCPUIWidgetBuilders {
   /// decoration (background color, border, shadow, gradient, borderRadius). Most
   /// commonly used as a styled wrapper around any child widget.
   static Map<String, dynamic> box({
-    num? width,
-    num? height,
+    dynamic width,
+    dynamic height,
     num? minWidth,
     num? maxWidth,
     num? minHeight,
@@ -1563,7 +1563,7 @@ class MCPUIWidgetBuilders {
 
   /// Time-series / numeric data graph (line, bar, area, scatter) drawn on a single set of axes. For node/edge topology visualization use `networkGraph` (§10.13).
   static Map<String, dynamic> graph({
-    dynamic data,
+    required dynamic data,
     String? chartType,
     num? width,
     num? height,
@@ -1578,7 +1578,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'graph',
-      if (data != null) 'data': data,
+      'data': data,
       if (chartType != null) 'chartType': chartType,
       if (width != null) 'width': width,
       if (height != null) 'height': height,
@@ -1965,6 +1965,7 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> lazy({
     dynamic placeholder,
     dynamic content,
+    dynamic child,
     dynamic children,
     String? trigger,
     dynamic onLoad,
@@ -1976,6 +1977,7 @@ class MCPUIWidgetBuilders {
       'type': 'lazy',
       if (placeholder != null) 'placeholder': placeholder,
       if (content != null) 'content': content,
+      if (child != null) 'child': child,
       if (children != null) 'children': children,
       if (trigger != null) 'trigger': trigger,
       if (onLoad != null) 'onLoad': onLoad,
@@ -2247,7 +2249,7 @@ class MCPUIWidgetBuilders {
 
   /// Markdown renderer.
   static Map<String, dynamic> markdown({
-    dynamic text,
+    required dynamic text,
     bool? selectable,
     num? width,
     num? height,
@@ -2261,7 +2263,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'markdown',
-      if (text != null) 'text': text,
+      'text': text,
       if (selectable != null) 'selectable': selectable,
       if (width != null) 'width': width,
       if (height != null) 'height': height,

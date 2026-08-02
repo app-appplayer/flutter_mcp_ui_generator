@@ -1,3 +1,9 @@
+## [0.5.1] - 2026-08-03 — builders regenerated
+
+Picks up the registry fixes in spec 1.4: `lazy` gains the properties its
+duplicate definition had been hiding, and `graph.data` / `markdown.text` accept
+the binding their truncated entries denied.
+
 ## [0.5.0] - 2026-08-03 — Builders for spec 1.4 (134 → 158)
 
 ### Fixed
