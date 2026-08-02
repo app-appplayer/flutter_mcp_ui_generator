@@ -1191,6 +1191,46 @@ class MCPUIJsonGenerator {
     };
   }
 
+  /// Ask the host to identify the current viewer (spec §8.9.3).
+  ///
+  /// Takes no credentials and returns none. The result reports `outcome` from
+  /// a closed vocabulary — `promoted`, `declined`, `unavailable`, `failed` —
+  /// because a document that cannot tell `declined` from `unavailable` cannot
+  /// phrase either honestly: one invites a second try, the other must stop
+  /// asking.
+  static Map<String, dynamic> identityPromoteAction({
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'identity.promote',
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Return to `guest`, or end the session where the host requires
+  /// identification (spec §8.9.3).
+  static Map<String, dynamic> identityReleaseAction({
+    Map<String, dynamic>? onSuccess,
+    Map<String, dynamic>? onError,
+  }) {
+    return {
+      'type': 'identity.release',
+      if (onSuccess != null) 'onSuccess': onSuccess,
+      if (onError != null) 'onError': onError,
+    };
+  }
+
+  /// Names the origin serving a definition (spec §1.9, `Origin` primitive).
+  ///
+  /// Deliberately open in the spec — `{connection: id}` is the shape defined
+  /// today and others may follow without changing any document that uses it,
+  /// which is why this takes the id rather than a sealed enum.
+  static Map<String, dynamic> origin(String connectionId) {
+    return {'connection': connectionId};
+  }
+
   /// Create a resource action (MCP UI DSL v1.0 spec)
   static Map<String, dynamic> resourceAction({
     required String uri,

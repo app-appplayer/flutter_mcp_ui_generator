@@ -1,0 +1,12 @@
+# Local-dev override — point flutter_mcp_ui_core at the workspace
+# checkout so generator tests resolve before core 0.4.0 is published.
+# Gitignored; remove (or leave the file empty) once core is on pub.
+dependency_overrides:
+  flutter_mcp_ui_core:
+    path: ../flutter_mcp_ui_core
+  # Points at the workspace mcp_bundle (0.4.0 staged) so we can call
+  # the new `UiSection.fromPagesList` factory and the spec-aligned Map
+  # form of `UiSection.pages`. Remove this override once mcp_bundle 0.4.0
+  # is published.
+  mcp_bundle:
+    path: ../../../mcp_bundle/dart
