@@ -656,6 +656,7 @@ class MCPUIWidgetBuilders {
 
   /// Multi-selection checkbox group. Shared rows per §2.6.0; `binding` holds an `array` of selected values (top-level, not per-option).
   static Map<String, dynamic> checkboxGroup({
+    String? label,
     required dynamic options,
     String? orientation,
     dynamic click,
@@ -663,6 +664,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'checkboxGroup',
+      if (label != null) 'label': label,
       'options': options,
       if (orientation != null) 'orientation': orientation,
       if (click != null) 'click': click,
@@ -768,6 +770,7 @@ class MCPUIWidgetBuilders {
 
   /// Color selection. Shared rows per §2.6.0; `value` is a hex color string.
   static Map<String, dynamic> colorPicker({
+    String? label,
     bool? showAlpha,
     bool? showLabel,
     String? pickerType,
@@ -777,6 +780,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'colorPicker',
+      if (label != null) 'label': label,
       if (showAlpha != null) 'showAlpha': showAlpha,
       if (showLabel != null) 'showLabel': showLabel,
       if (pickerType != null) 'pickerType': pickerType,
@@ -796,6 +800,7 @@ class MCPUIWidgetBuilders {
   /// move a highlight without moving the caret, and Escape must close the list
   /// without clearing the text. Those are one widget's job.
   static Map<String, dynamic> combobox({
+    String? label,
     dynamic options,
     bool? allowCustom,
     dynamic onSearch,
@@ -807,6 +812,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'combobox',
+      if (label != null) 'label': label,
       if (options != null) 'options': options,
       if (allowCustom != null) 'allowCustom': allowCustom,
       if (onSearch != null) 'onSearch': onSearch,
@@ -974,6 +980,7 @@ class MCPUIWidgetBuilders {
 
   /// Standalone date picker surface. Shared rows per §2.6.0; `value` is an ISO date string.
   static Map<String, dynamic> datePicker({
+    String? label,
     String? firstDate,
     String? lastDate,
     dynamic click,
@@ -981,6 +988,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'datePicker',
+      if (label != null) 'label': label,
       if (firstDate != null) 'firstDate': firstDate,
       if (lastDate != null) 'lastDate': lastDate,
       if (click != null) 'click': click,
@@ -1025,6 +1033,7 @@ class MCPUIWidgetBuilders {
   /// author must then recombine, and the recombination is where time zones get
   /// lost. One widget, one instant, one binding.
   static Map<String, dynamic> dateTimePicker({
+    String? label,
     String? min,
     String? max,
     String? dateFormat,
@@ -1036,6 +1045,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'dateTimePicker',
+      if (label != null) 'label': label,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (dateFormat != null) 'dateFormat': dateFormat,
@@ -2384,6 +2394,7 @@ class MCPUIWidgetBuilders {
   /// type of what lands in state is the kind of thing an author discovers at
   /// runtime.
   static Map<String, dynamic> multiSelect({
+    String? label,
     required dynamic options,
     String? placeholder,
     num? maxSelections,
@@ -2395,6 +2406,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'multiSelect',
+      if (label != null) 'label': label,
       'options': options,
       if (placeholder != null) 'placeholder': placeholder,
       if (maxSelections != null) 'maxSelections': maxSelections,
@@ -2468,6 +2480,7 @@ class MCPUIWidgetBuilders {
 
   /// Incremental numeric input with plus/minus buttons. Shared rows per §2.6.0; `value` is `number`.
   static Map<String, dynamic> numberStepper({
+    String? label,
     num? min,
     num? max,
     num? step,
@@ -2476,6 +2489,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'numberStepper',
+      if (label != null) 'label': label,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (step != null) 'step': step,
@@ -2867,6 +2881,7 @@ class MCPUIWidgetBuilders {
 
   /// Single-selection radio group. Shared rows per §2.6.0.
   static Map<String, dynamic> radioGroup({
+    String? label,
     required dynamic options,
     String? orientation,
     dynamic click,
@@ -2874,6 +2889,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'radioGroup',
+      if (label != null) 'label': label,
       'options': options,
       if (orientation != null) 'orientation': orientation,
       if (click != null) 'click': click,
@@ -3153,6 +3169,7 @@ class MCPUIWidgetBuilders {
 
   /// Segmented selection, styled as tabs or buttons. Shared rows per §2.6.0.
   static Map<String, dynamic> segmentedControl({
+    String? label,
     required dynamic options,
     String? variant,
     dynamic click,
@@ -3160,6 +3177,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'segmentedControl',
+      if (label != null) 'label': label,
       'options': options,
       if (variant != null) 'variant': variant,
       if (click != null) 'click': click,
@@ -3279,6 +3297,7 @@ class MCPUIWidgetBuilders {
 
   /// Continuous single-value selection. Shared rows per §2.6.0; `value` is `number`.
   static Map<String, dynamic> slider({
+    String? label,
     num? value,
     num? min,
     num? max,
@@ -3288,6 +3307,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'slider',
+      if (label != null) 'label': label,
       if (value != null) 'value': value,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
@@ -3658,12 +3678,14 @@ class MCPUIWidgetBuilders {
 
   /// Standalone time picker surface. Shared rows per §2.6.0; `value` is a time string.
   static Map<String, dynamic> timePicker({
+    String? label,
     bool? use24HourFormat,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'timePicker',
+      if (label != null) 'label': label,
       if (use24HourFormat != null) 'use24HourFormat': use24HourFormat,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
