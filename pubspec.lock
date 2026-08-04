@@ -137,10 +137,9 @@ packages:
   flutter_mcp_ui_core:
     dependency: "direct main"
     description:
-      name: flutter_mcp_ui_core
-      sha256: "3e88e46387ade358ddc6fca84e3778524a9f2cff8643bb611d90f3d5ded14c56"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../flutter_mcp_ui_core"
+      relative: true
+    source: path
     version: "0.5.1"
   flutter_test:
     dependency: "direct dev"
