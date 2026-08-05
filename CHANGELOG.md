@@ -1,3 +1,25 @@
+## [0.6.0] - 2026-08-05 — builders regenerated against spec 1.4.1
+
+The registry gained 330 properties and lost three legacy spellings, and the
+builders are generated from it, so both sides move together. What a caller
+sees:
+
+- **`otpInputBuilder` emits `onComplete`, not `autoSubmit`.** §17.1.4 spells
+  callbacks `on` + PascalCase, so the old name left the canonical surface;
+  a runtime still accepts it, and a document *generated* here now carries the
+  spelling the registry declares. This was the one place the rename had not
+  reached — the generated file still emitted `autoSubmit` after the spec and
+  runtime had both moved.
+- **Promoted properties are reachable as named arguments** — `inkWell`'s
+  splash / hover / focus colours, `tabBar`'s indicator set, `tooltip`'s
+  `preferBelow` / `showDuration`, `listItem`'s `dense` / `tileColor`, and the
+  rest of the 330. Before this a caller had to drop to a raw map for any of
+  them.
+- **`linear.distribution` and `qrCode.errorCorrection` take the canonical
+  values only** (`spaceBetween` …, `low` / `medium` / `quartile` / `high`).
+
+No API removals; every existing builder keeps its signature.
+
 ## [0.5.1] - 2026-08-03 — builders regenerated
 
 Picks up the spec 1.4 registry fixes in `flutter_mcp_ui_core 0.5.1`: `lazy`

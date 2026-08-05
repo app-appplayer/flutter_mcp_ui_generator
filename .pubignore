@@ -33,3 +33,9 @@ mcp_ui_designer_plan.md
 
 # Other
 pubspec.lock
+
+# Local resolution only — never part of the published archive. 0.5.0 shipped
+# `example/pubspec_overrides.yaml` by accident: pub reads `.gitignore` for the
+# package root, and the example resolves separately.
+pubspec_overrides.yaml
+**/pubspec_overrides.yaml

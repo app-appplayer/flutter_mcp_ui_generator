@@ -13,6 +13,14 @@ class MCPUIWidgetBuilders {
 
   /// Wraps a child with accessibility annotations (ARIA-style). See [`13_Accessibility.md`](13_Accessibility.md) for the full property set.
   static Map<String, dynamic> accessibleWrapper({
+    bool? announceNavigation,
+    bool? announceOnChange,
+    bool? autoFocus,
+    String? focusGroup,
+    num? focusOrder,
+    String? liveRegion,
+    String? navigationMessage,
+    String? watchPath,
     required dynamic child,
     dynamic accessibility,
     dynamic click,
@@ -20,6 +28,14 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'accessibleWrapper',
+      if (announceNavigation != null) 'announceNavigation': announceNavigation,
+      if (announceOnChange != null) 'announceOnChange': announceOnChange,
+      if (autoFocus != null) 'autoFocus': autoFocus,
+      if (focusGroup != null) 'focusGroup': focusGroup,
+      if (focusOrder != null) 'focusOrder': focusOrder,
+      if (liveRegion != null) 'liveRegion': liveRegion,
+      if (navigationMessage != null) 'navigationMessage': navigationMessage,
+      if (watchPath != null) 'watchPath': watchPath,
       'child': child,
       if (accessibility != null) 'accessibility': accessibility,
       if (click != null) 'click': click,
@@ -66,21 +82,39 @@ class MCPUIWidgetBuilders {
   /// runtime renders it as a `Dialog` surface scoped to the current navigator
   /// (not the root navigator), so tapping an action pops only the dialog.
   static Map<String, dynamic> alertDialog({
+    dynamic insetPadding,
+    bool? scrollable,
+    String? clipBehavior,
+    dynamic shadowColor,
+    dynamic shape,
+    dynamic surfaceTintColor,
     String? title,
     dynamic content,
     bool? dismissible,
     dynamic onClose,
     dynamic actions,
+    dynamic alignment,
+    dynamic backgroundColor,
+    dynamic elevation,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'alertDialog',
+      if (insetPadding != null) 'insetPadding': insetPadding,
+      if (scrollable != null) 'scrollable': scrollable,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (shape != null) 'shape': shape,
+      if (surfaceTintColor != null) 'surfaceTintColor': surfaceTintColor,
       if (title != null) 'title': title,
       if (content != null) 'content': content,
       if (dismissible != null) 'dismissible': dismissible,
       if (onClose != null) 'onClose': onClose,
       if (actions != null) 'actions': actions,
+      if (alignment != null) 'alignment': alignment,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (elevation != null) 'elevation': elevation,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -88,6 +122,8 @@ class MCPUIWidgetBuilders {
 
   /// Aligns a single child at a specified alignment.
   static Map<String, dynamic> align({
+    num? heightFactor,
+    num? widthFactor,
     dynamic alignment,
     required dynamic child,
     dynamic click,
@@ -95,6 +131,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'align',
+      if (heightFactor != null) 'heightFactor': heightFactor,
+      if (widthFactor != null) 'widthFactor': widthFactor,
       if (alignment != null) 'alignment': alignment,
       'child': child,
       if (click != null) 'click': click,
@@ -130,6 +168,11 @@ class MCPUIWidgetBuilders {
   /// builds the runtime tweens between the old and new values over
   /// `duration` using `curve`.
   static Map<String, dynamic> animatedContainer({
+    dynamic foregroundDecoration,
+    dynamic transform,
+    dynamic transformAlignment,
+    String? clipBehavior,
+    dynamic constraints,
     dynamic duration,
     dynamic curve,
     dynamic width,
@@ -145,6 +188,11 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'animatedContainer',
+      if (foregroundDecoration != null) 'foregroundDecoration': foregroundDecoration,
+      if (transform != null) 'transform': transform,
+      if (transformAlignment != null) 'transformAlignment': transformAlignment,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (constraints != null) 'constraints': constraints,
       if (duration != null) 'duration': duration,
       if (curve != null) 'curve': curve,
       if (width != null) 'width': width,
@@ -266,6 +314,10 @@ class MCPUIWidgetBuilders {
     String? label,
     num? size,
     dynamic color,
+    dynamic backgroundImage,
+    dynamic foregroundColor,
+    dynamic icon,
+    num? radius,
     dynamic click,
     String? tooltip,
   }) {
@@ -275,6 +327,10 @@ class MCPUIWidgetBuilders {
       if (label != null) 'label': label,
       if (size != null) 'size': size,
       if (color != null) 'color': color,
+      if (backgroundImage != null) 'backgroundImage': backgroundImage,
+      if (foregroundColor != null) 'foregroundColor': foregroundColor,
+      if (icon != null) 'icon': icon,
+      if (radius != null) 'radius': radius,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -282,17 +338,29 @@ class MCPUIWidgetBuilders {
 
   /// Small status indicator typically anchored to another widget.
   static Map<String, dynamic> badge({
+    bool? isLabelVisible,
+    bool? smallSize,
+    dynamic offset,
     String? label,
     dynamic color,
     dynamic child,
+    dynamic alignment,
+    dynamic backgroundColor,
+    dynamic textColor,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'badge',
+      if (isLabelVisible != null) 'isLabelVisible': isLabelVisible,
+      if (smallSize != null) 'smallSize': smallSize,
+      if (offset != null) 'offset': offset,
       if (label != null) 'label': label,
       if (color != null) 'color': color,
       if (child != null) 'child': child,
+      if (alignment != null) 'alignment': alignment,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (textColor != null) 'textColor': textColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -368,17 +436,53 @@ class MCPUIWidgetBuilders {
 
   /// Bottom navigation bar. Each item's text field is `label`.
   static Map<String, dynamic> bottomNavigation({
+    dynamic fixedColor,
+    dynamic selectedFontSize,
+    dynamic selectedIconTheme,
+    dynamic selectedItemColor,
+    dynamic selectedLabelStyle,
+    bool? showSelectedLabels,
+    bool? showUnselectedLabels,
+    dynamic unselectedFontSize,
+    dynamic unselectedIconTheme,
+    dynamic unselectedItemColor,
+    dynamic unselectedLabelStyle,
+    bool? enableFeedback,
+    dynamic iconSize,
     dynamic selectedIndex,
     required dynamic items,
     dynamic onChange,
+    dynamic backgroundColor,
+    dynamic change,
+    dynamic elevation,
+    dynamic onTap,
+    num? currentIndex,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'bottomNavigation',
+      if (fixedColor != null) 'fixedColor': fixedColor,
+      if (selectedFontSize != null) 'selectedFontSize': selectedFontSize,
+      if (selectedIconTheme != null) 'selectedIconTheme': selectedIconTheme,
+      if (selectedItemColor != null) 'selectedItemColor': selectedItemColor,
+      if (selectedLabelStyle != null) 'selectedLabelStyle': selectedLabelStyle,
+      if (showSelectedLabels != null) 'showSelectedLabels': showSelectedLabels,
+      if (showUnselectedLabels != null) 'showUnselectedLabels': showUnselectedLabels,
+      if (unselectedFontSize != null) 'unselectedFontSize': unselectedFontSize,
+      if (unselectedIconTheme != null) 'unselectedIconTheme': unselectedIconTheme,
+      if (unselectedItemColor != null) 'unselectedItemColor': unselectedItemColor,
+      if (unselectedLabelStyle != null) 'unselectedLabelStyle': unselectedLabelStyle,
+      if (enableFeedback != null) 'enableFeedback': enableFeedback,
+      if (iconSize != null) 'iconSize': iconSize,
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'items': items,
       if (onChange != null) 'onChange': onChange,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (change != null) 'change': change,
+      if (elevation != null) 'elevation': elevation,
+      if (onTap != null) 'onTap': onTap,
+      if (currentIndex != null) 'currentIndex': currentIndex,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -386,23 +490,39 @@ class MCPUIWidgetBuilders {
 
   /// Modal bottom sheet with swipeable handle.
   static Map<String, dynamic> bottomSheet({
+    dynamic dragHandleColor,
+    dynamic dragHandleSize,
+    dynamic onClosing,
+    bool? showDragHandle,
+    String? clipBehavior,
+    dynamic constraints,
+    dynamic shadowColor,
     required dynamic child,
     bool? isDismissible,
     bool? enableDrag,
     dynamic backgroundColor,
     dynamic shape,
     dynamic onClose,
+    dynamic elevation,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'bottomSheet',
+      if (dragHandleColor != null) 'dragHandleColor': dragHandleColor,
+      if (dragHandleSize != null) 'dragHandleSize': dragHandleSize,
+      if (onClosing != null) 'onClosing': onClosing,
+      if (showDragHandle != null) 'showDragHandle': showDragHandle,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (constraints != null) 'constraints': constraints,
+      if (shadowColor != null) 'shadowColor': shadowColor,
       'child': child,
       if (isDismissible != null) 'isDismissible': isDismissible,
       if (enableDrag != null) 'enableDrag': enableDrag,
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (shape != null) 'shape': shape,
       if (onClose != null) 'onClose': onClose,
+      if (elevation != null) 'elevation': elevation,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -412,6 +532,7 @@ class MCPUIWidgetBuilders {
   /// decoration (background color, border, shadow, gradient, borderRadius). Most
   /// commonly used as a styled wrapper around any child widget.
   static Map<String, dynamic> box({
+    dynamic constraints,
     dynamic width,
     dynamic height,
     num? minWidth,
@@ -428,6 +549,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'box',
+      if (constraints != null) 'constraints': constraints,
       if (width != null) 'width': width,
       if (height != null) 'height': height,
       if (minWidth != null) 'minWidth': minWidth,
@@ -467,6 +589,11 @@ class MCPUIWidgetBuilders {
 
   /// Interactive button. The canonical label field is `label`.
   static Map<String, dynamic> button({
+    bool? fullWidth,
+    String? iconPosition,
+    String? ariaLabel,
+    dynamic borderWidth,
+    dynamic size,
     required String label,
     String? variant,
     String? elevation,
@@ -475,11 +602,22 @@ class MCPUIWidgetBuilders {
     dynamic onTap,
     dynamic onDoubleTap,
     dynamic onLongPress,
+    dynamic backgroundColor,
+    dynamic borderColor,
+    dynamic foregroundColor,
+    bool? loading,
+    dynamic onSubmit,
+    dynamic submit,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'button',
+      if (fullWidth != null) 'fullWidth': fullWidth,
+      if (iconPosition != null) 'iconPosition': iconPosition,
+      if (ariaLabel != null) 'ariaLabel': ariaLabel,
+      if (borderWidth != null) 'borderWidth': borderWidth,
+      if (size != null) 'size': size,
       'label': label,
       if (variant != null) 'variant': variant,
       if (elevation != null) 'elevation': elevation,
@@ -488,6 +626,12 @@ class MCPUIWidgetBuilders {
       if (onTap != null) 'onTap': onTap,
       if (onDoubleTap != null) 'onDoubleTap': onDoubleTap,
       if (onLongPress != null) 'onLongPress': onLongPress,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (borderColor != null) 'borderColor': borderColor,
+      if (foregroundColor != null) 'foregroundColor': foregroundColor,
+      if (loading != null) 'loading': loading,
+      if (onSubmit != null) 'onSubmit': onSubmit,
+      if (submit != null) 'submit': submit,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -495,35 +639,64 @@ class MCPUIWidgetBuilders {
 
   /// Calendar view for date selection and event display.
   static Map<String, dynamic> calendar({
+    dynamic eventColor,
+    num? firstDayOfWeek,
+    dynamic onMonthChange,
+    dynamic primaryColor,
+    bool? showHeader,
+    bool? showWeekNumbers,
+    dynamic todayColor,
+    dynamic height,
     dynamic selectedDate,
     dynamic events,
     String? firstDate,
     String? lastDate,
     String? view,
     dynamic onChange,
+    dynamic backgroundColor,
+    dynamic change,
+    dynamic selectedColor,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'calendar',
+      if (eventColor != null) 'eventColor': eventColor,
+      if (firstDayOfWeek != null) 'firstDayOfWeek': firstDayOfWeek,
+      if (onMonthChange != null) 'onMonthChange': onMonthChange,
+      if (primaryColor != null) 'primaryColor': primaryColor,
+      if (showHeader != null) 'showHeader': showHeader,
+      if (showWeekNumbers != null) 'showWeekNumbers': showWeekNumbers,
+      if (todayColor != null) 'todayColor': todayColor,
+      if (height != null) 'height': height,
       if (selectedDate != null) 'selectedDate': selectedDate,
       if (events != null) 'events': events,
       if (firstDate != null) 'firstDate': firstDate,
       if (lastDate != null) 'lastDate': lastDate,
       if (view != null) 'view': view,
       if (onChange != null) 'onChange': onChange,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (change != null) 'change': change,
+      if (selectedColor != null) 'selectedColor': selectedColor,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
   }
 
   /// General-purpose vector drawing via an ordered command array. All numeric and color properties support binding expressions, enabling data-driven graphics (progress rings, custom indicators, composable chart primitives).
+  /// backgroundColor:
+  /// type: Color
+  /// description: "Legacy alias of `color`."
   static Map<String, dynamic> canvas({
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'canvas',
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -531,6 +704,10 @@ class MCPUIWidgetBuilders {
 
   /// Elevated single-child container.
   static Map<String, dynamic> card({
+    bool? semanticContainer,
+    String? clipBehavior,
+    dynamic shadowColor,
+    dynamic surfaceTintColor,
     String? elevation,
     dynamic margin,
     String? shape,
@@ -541,6 +718,10 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'card',
+      if (semanticContainer != null) 'semanticContainer': semanticContainer,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (surfaceTintColor != null) 'surfaceTintColor': surfaceTintColor,
       if (elevation != null) 'elevation': elevation,
       if (margin != null) 'margin': margin,
       if (shape != null) 'shape': shape,
@@ -564,7 +745,7 @@ class MCPUIWidgetBuilders {
     String? scrollDirection,
     num? viewportFraction,
     bool? loop,
-    num? autoPlay,
+    dynamic autoPlay,
     num? initialIndex,
     String? transition,
     String? indicatorPosition,
@@ -592,12 +773,16 @@ class MCPUIWidgetBuilders {
 
   /// Centers a single child within available space.
   static Map<String, dynamic> center({
+    num? heightFactor,
+    num? widthFactor,
     required dynamic child,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'center',
+      if (heightFactor != null) 'heightFactor': heightFactor,
+      if (widthFactor != null) 'widthFactor': widthFactor,
       'child': child,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
@@ -606,6 +791,12 @@ class MCPUIWidgetBuilders {
 
   /// Data visualization widget with multiple chart types.
   static Map<String, dynamic> chart({
+    dynamic colors,
+    dynamic primaryColor,
+    bool? showGrid,
+    bool? showLabels,
+    bool? showLegend,
+    dynamic labelColor,
     required String chartType,
     required dynamic data,
     String? data_datasets___label,
@@ -618,11 +809,20 @@ class MCPUIWidgetBuilders {
     String? options_legend_position,
     num? width,
     num? height,
+    dynamic backgroundColor,
+    dynamic gridColor,
+    String? title,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'chart',
+      if (colors != null) 'colors': colors,
+      if (primaryColor != null) 'primaryColor': primaryColor,
+      if (showGrid != null) 'showGrid': showGrid,
+      if (showLabels != null) 'showLabels': showLabels,
+      if (showLegend != null) 'showLegend': showLegend,
+      if (labelColor != null) 'labelColor': labelColor,
       'chartType': chartType,
       'data': data,
       if (data_datasets___label != null) 'data.datasets[].label': data_datasets___label,
@@ -635,6 +835,9 @@ class MCPUIWidgetBuilders {
       if (options_legend_position != null) 'options.legend.position': options_legend_position,
       if (width != null) 'width': width,
       if (height != null) 'height': height,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (gridColor != null) 'gridColor': gridColor,
+      if (title != null) 'title': title,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -643,12 +846,16 @@ class MCPUIWidgetBuilders {
   /// Boolean checkbox. Shared rows per §2.6.0; `value` is `boolean`.
   static Map<String, dynamic> checkbox({
     String? label,
+    bool? tristate,
+    dynamic change,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'checkbox',
       if (label != null) 'label': label,
+      if (tristate != null) 'tristate': tristate,
+      if (change != null) 'change': change,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -659,6 +866,8 @@ class MCPUIWidgetBuilders {
     String? label,
     required dynamic options,
     String? orientation,
+    dynamic change,
+    String? direction,
     dynamic click,
     String? tooltip,
   }) {
@@ -667,6 +876,8 @@ class MCPUIWidgetBuilders {
       if (label != null) 'label': label,
       'options': options,
       if (orientation != null) 'orientation': orientation,
+      if (change != null) 'change': change,
+      if (direction != null) 'direction': direction,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -674,23 +885,43 @@ class MCPUIWidgetBuilders {
 
   /// Compact element representing an attribute, action, or filter.
   static Map<String, dynamic> chip({
+    dynamic deleteIcon,
+    dynamic onDeleted,
+    dynamic side,
+    dynamic padding,
+    dynamic shadowColor,
+    dynamic shape,
     required String label,
     dynamic avatar,
     bool? selected,
     String? variant,
     dynamic onDelete,
     dynamic onTap,
+    dynamic backgroundColor,
+    dynamic elevation,
+    dynamic labelStyle,
+    dynamic onPressed,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'chip',
+      if (deleteIcon != null) 'deleteIcon': deleteIcon,
+      if (onDeleted != null) 'onDeleted': onDeleted,
+      if (side != null) 'side': side,
+      if (padding != null) 'padding': padding,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (shape != null) 'shape': shape,
       'label': label,
       if (avatar != null) 'avatar': avatar,
       if (selected != null) 'selected': selected,
       if (variant != null) 'variant': variant,
       if (onDelete != null) 'onDelete': onDelete,
       if (onTap != null) 'onTap': onTap,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (elevation != null) 'elevation': elevation,
+      if (labelStyle != null) 'labelStyle': labelStyle,
+      if (onPressed != null) 'onPressed': onPressed,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -698,12 +929,14 @@ class MCPUIWidgetBuilders {
 
   /// Clips a child to an oval.
   static Map<String, dynamic> clipOval({
+    String? clipBehavior,
     required dynamic child,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'clipOval',
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       'child': child,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
@@ -712,6 +945,7 @@ class MCPUIWidgetBuilders {
 
   /// Clips a child to a rounded rectangle.
   static Map<String, dynamic> clipRRect({
+    String? clipBehavior,
     dynamic borderRadius,
     required dynamic child,
     dynamic click,
@@ -719,6 +953,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'clipRRect',
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       if (borderRadius != null) 'borderRadius': borderRadius,
       'child': child,
       if (click != null) 'click': click,
@@ -728,6 +963,7 @@ class MCPUIWidgetBuilders {
 
   /// Syntax-highlighted code editor.
   static Map<String, dynamic> codeEditor({
+    dynamic lineNumberColor,
     bool? copyable,
     bool? expandAll,
     dynamic code,
@@ -743,11 +979,14 @@ class MCPUIWidgetBuilders {
     dynamic backgroundColor,
     dynamic textColor,
     dynamic onChange,
+    String? binding,
+    dynamic change,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'codeEditor',
+      if (lineNumberColor != null) 'lineNumberColor': lineNumberColor,
       if (copyable != null) 'copyable': copyable,
       if (expandAll != null) 'expandAll': expandAll,
       if (code != null) 'code': code,
@@ -763,6 +1002,8 @@ class MCPUIWidgetBuilders {
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (textColor != null) 'textColor': textColor,
       if (onChange != null) 'onChange': onChange,
+      if (binding != null) 'binding': binding,
+      if (change != null) 'change': change,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -874,17 +1115,39 @@ class MCPUIWidgetBuilders {
 
   /// Dialog with arbitrary widget content.
   static Map<String, dynamic> customDialog({
+    dynamic actions,
+    dynamic insetPadding,
+    String? clipBehavior,
+    dynamic shadowColor,
+    dynamic shape,
+    dynamic surfaceTintColor,
     required dynamic child,
     bool? dismissible,
     dynamic onClose,
+    dynamic alignment,
+    dynamic backgroundColor,
+    String? content,
+    dynamic elevation,
+    String? title,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'customDialog',
+      if (actions != null) 'actions': actions,
+      if (insetPadding != null) 'insetPadding': insetPadding,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (shape != null) 'shape': shape,
+      if (surfaceTintColor != null) 'surfaceTintColor': surfaceTintColor,
       'child': child,
       if (dismissible != null) 'dismissible': dismissible,
       if (onClose != null) 'onClose': onClose,
+      if (alignment != null) 'alignment': alignment,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (content != null) 'content': content,
+      if (elevation != null) 'elevation': elevation,
+      if (title != null) 'title': title,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -956,6 +1219,7 @@ class MCPUIWidgetBuilders {
 
   /// Date input with calendar/text entry modes. Shared rows per §2.6.0; `value` is an ISO date string.
   static Map<String, dynamic> dateField({
+    String? errorText,
     String? label,
     String? format,
     String? firstDate,
@@ -967,6 +1231,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'dateField',
+      if (errorText != null) 'errorText': errorText,
       if (label != null) 'label': label,
       if (format != null) 'format': format,
       if (firstDate != null) 'firstDate': firstDate,
@@ -980,17 +1245,27 @@ class MCPUIWidgetBuilders {
 
   /// Standalone date picker surface. Shared rows per §2.6.0; `value` is an ISO date string.
   static Map<String, dynamic> datePicker({
+    String? initialDate,
     String? label,
     String? firstDate,
     String? lastDate,
+    dynamic change,
+    String? dateFormat,
+    dynamic icon,
+    String? variant,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'datePicker',
+      if (initialDate != null) 'initialDate': initialDate,
       if (label != null) 'label': label,
       if (firstDate != null) 'firstDate': firstDate,
       if (lastDate != null) 'lastDate': lastDate,
+      if (change != null) 'change': change,
+      if (dateFormat != null) 'dateFormat': dateFormat,
+      if (icon != null) 'icon': icon,
+      if (variant != null) 'variant': variant,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -998,6 +1273,7 @@ class MCPUIWidgetBuilders {
 
   /// Date range selection. Exception to §2.6.0: instead of a single `binding`, the range is bound via **two separate properties** — `startDate` and `endDate` — each independently following §2.6.0 two-way semantics (each accepts a literal ISO string, a `{{path}}` expression for read-only display, or a plain state-path string for two-way binding). `firstDate`/`lastDate` remain one-way constraints on the allowed range.
   static Map<String, dynamic> dateRangePicker({
+    String? errorText,
     String? startDate,
     String? endDate,
     String? label,
@@ -1007,11 +1283,13 @@ class MCPUIWidgetBuilders {
     String? locale,
     bool? enabled,
     dynamic onChange,
+    dynamic change,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'dateRangePicker',
+      if (errorText != null) 'errorText': errorText,
       if (startDate != null) 'startDate': startDate,
       if (endDate != null) 'endDate': endDate,
       if (label != null) 'label': label,
@@ -1021,6 +1299,7 @@ class MCPUIWidgetBuilders {
       if (locale != null) 'locale': locale,
       if (enabled != null) 'enabled': enabled,
       if (onChange != null) 'onChange': onChange,
+      if (change != null) 'change': change,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1062,6 +1341,7 @@ class MCPUIWidgetBuilders {
   /// `BoxDecoration` may be supplied via `decoration:`, or any of its
   /// fields may appear flat at the top level for ergonomic shorthand.
   static Map<String, dynamic> decoration({
+    String? position,
     dynamic decoration,
     dynamic color,
     dynamic borderRadius,
@@ -1078,6 +1358,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'decoration',
+      if (position != null) 'position': position,
       if (decoration != null) 'decoration': decoration,
       if (color != null) 'color': color,
       if (borderRadius != null) 'borderRadius': borderRadius,
@@ -1127,6 +1408,8 @@ class MCPUIWidgetBuilders {
 
   /// Horizontal separator.
   static Map<String, dynamic> divider({
+    bool? vertical,
+    dynamic height,
     num? thickness,
     dynamic color,
     num? indent,
@@ -1136,6 +1419,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'divider',
+      if (vertical != null) 'vertical': vertical,
+      if (height != null) 'height': height,
       if (thickness != null) 'thickness': thickness,
       if (color != null) 'color': color,
       if (indent != null) 'indent': indent,
@@ -1171,6 +1456,13 @@ class MCPUIWidgetBuilders {
 
   /// Drag source widget that produces drag data and feedback visuals.
   static Map<String, dynamic> draggable({
+    String? affinity,
+    String? axis,
+    String? dragAnchorStrategy,
+    dynamic onDragCompleted,
+    dynamic onDragEnd,
+    dynamic onDragStarted,
+    dynamic onDraggableCanceled,
     required dynamic data,
     dynamic feedback,
     dynamic childWhenDragging,
@@ -1180,6 +1472,13 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'draggable',
+      if (affinity != null) 'affinity': affinity,
+      if (axis != null) 'axis': axis,
+      if (dragAnchorStrategy != null) 'dragAnchorStrategy': dragAnchorStrategy,
+      if (onDragCompleted != null) 'onDragCompleted': onDragCompleted,
+      if (onDragEnd != null) 'onDragEnd': onDragEnd,
+      if (onDragStarted != null) 'onDragStarted': onDragStarted,
+      if (onDraggableCanceled != null) 'onDraggableCanceled': onDraggableCanceled,
       'data': data,
       if (feedback != null) 'feedback': feedback,
       if (childWhenDragging != null) 'childWhenDragging': childWhenDragging,
@@ -1191,21 +1490,35 @@ class MCPUIWidgetBuilders {
 
   /// Side navigation drawer. Each item's text field is `label`.
   static Map<String, dynamic> drawer({
+    String? semanticLabel,
+    dynamic shadowColor,
+    dynamic shape,
+    dynamic surfaceTintColor,
     dynamic items,
     dynamic children,
     dynamic header,
     dynamic onSelect,
     dynamic onClose,
+    dynamic backgroundColor,
+    dynamic elevation,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'drawer',
+      if (semanticLabel != null) 'semanticLabel': semanticLabel,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (shape != null) 'shape': shape,
+      if (surfaceTintColor != null) 'surfaceTintColor': surfaceTintColor,
       if (items != null) 'items': items,
       if (children != null) 'children': children,
       if (header != null) 'header': header,
       if (onSelect != null) 'onSelect': onSelect,
       if (onClose != null) 'onClose': onClose,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (elevation != null) 'elevation': elevation,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1271,6 +1584,7 @@ class MCPUIWidgetBuilders {
 
   /// File and directory browser.
   static Map<String, dynamic> fileExplorer({
+    dynamic iconColor,
     dynamic items,
     String? rootPath,
     dynamic files,
@@ -1283,11 +1597,13 @@ class MCPUIWidgetBuilders {
     dynamic selectedColor,
     dynamic onSelect,
     dynamic onOpen,
+    dynamic backgroundColor,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'fileExplorer',
+      if (iconColor != null) 'iconColor': iconColor,
       if (items != null) 'items': items,
       if (rootPath != null) 'rootPath': rootPath,
       if (files != null) 'files': files,
@@ -1300,6 +1616,7 @@ class MCPUIWidgetBuilders {
       if (selectedColor != null) 'selectedColor': selectedColor,
       if (onSelect != null) 'onSelect': onSelect,
       if (onOpen != null) 'onOpen': onOpen,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1363,6 +1680,7 @@ class MCPUIWidgetBuilders {
 
   /// Scales and aligns its child to fit available space.
   static Map<String, dynamic> fittedBox({
+    String? clipBehavior,
     String? fit,
     dynamic alignment,
     required dynamic child,
@@ -1371,6 +1689,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'fittedBox',
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       if (fit != null) 'fit': fit,
       if (alignment != null) 'alignment': alignment,
       'child': child,
@@ -1399,17 +1718,53 @@ class MCPUIWidgetBuilders {
 
   /// Floating action button (FAB).
   static Map<String, dynamic> floatingActionButton({
+    dynamic disabledElevation,
+    dynamic focusElevation,
+    String? heroTag,
+    dynamic highlightElevation,
+    dynamic hoverElevation,
+    bool? isExtended,
+    String? materialTapTargetSize,
+    bool? mini,
+    bool? autofocus,
+    String? clipBehavior,
+    dynamic focusColor,
+    dynamic hoverColor,
+    dynamic shape,
+    dynamic splashColor,
     dynamic icon,
     String? label,
     dynamic onTap,
+    dynamic backgroundColor,
+    dynamic elevation,
+    dynamic foregroundColor,
+    dynamic onLongPress,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'floatingActionButton',
+      if (disabledElevation != null) 'disabledElevation': disabledElevation,
+      if (focusElevation != null) 'focusElevation': focusElevation,
+      if (heroTag != null) 'heroTag': heroTag,
+      if (highlightElevation != null) 'highlightElevation': highlightElevation,
+      if (hoverElevation != null) 'hoverElevation': hoverElevation,
+      if (isExtended != null) 'isExtended': isExtended,
+      if (materialTapTargetSize != null) 'materialTapTargetSize': materialTapTargetSize,
+      if (mini != null) 'mini': mini,
+      if (autofocus != null) 'autofocus': autofocus,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (focusColor != null) 'focusColor': focusColor,
+      if (hoverColor != null) 'hoverColor': hoverColor,
+      if (shape != null) 'shape': shape,
+      if (splashColor != null) 'splashColor': splashColor,
       if (icon != null) 'icon': icon,
       if (label != null) 'label': label,
       if (onTap != null) 'onTap': onTap,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (elevation != null) 'elevation': elevation,
+      if (foregroundColor != null) 'foregroundColor': foregroundColor,
+      if (onLongPress != null) 'onLongPress': onLongPress,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1458,6 +1813,7 @@ class MCPUIWidgetBuilders {
     num? widthFactor,
     num? heightFactor,
     required dynamic child,
+    dynamic alignment,
     dynamic click,
     String? tooltip,
   }) {
@@ -1466,6 +1822,7 @@ class MCPUIWidgetBuilders {
       if (widthFactor != null) 'widthFactor': widthFactor,
       if (heightFactor != null) 'heightFactor': heightFactor,
       'child': child,
+      if (alignment != null) 'alignment': alignment,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1547,6 +1904,7 @@ class MCPUIWidgetBuilders {
 
   /// Detects touch and pointer gestures on its child.
   static Map<String, dynamic> gestureDetector({
+    dynamic onScaleUpdate,
     required dynamic child,
     dynamic onTap,
     dynamic onDoubleTap,
@@ -1559,6 +1917,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'gestureDetector',
+      if (onScaleUpdate != null) 'onScaleUpdate': onScaleUpdate,
       'child': child,
       if (onTap != null) 'onTap': onTap,
       if (onDoubleTap != null) 'onDoubleTap': onDoubleTap,
@@ -1573,6 +1932,7 @@ class MCPUIWidgetBuilders {
 
   /// Time-series / numeric data graph (line, bar, area, scatter) drawn on a single set of axes. For node/edge topology visualization use `networkGraph` (§10.13).
   static Map<String, dynamic> graph({
+    dynamic labelColor,
     required dynamic data,
     String? chartType,
     num? width,
@@ -1588,6 +1948,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'graph',
+      if (labelColor != null) 'labelColor': labelColor,
       'data': data,
       if (chartType != null) 'chartType': chartType,
       if (width != null) 'width': width,
@@ -1605,6 +1966,12 @@ class MCPUIWidgetBuilders {
 
   /// Scrollable two-dimensional collection.
   static Map<String, dynamic> grid({
+    dynamic mainAxisExtent,
+    dynamic maxCrossAxisExtent,
+    dynamic padding,
+    String? physics,
+    bool? shrinkWrap,
+    dynamic spacing,
     dynamic items,
     dynamic itemTemplate,
     dynamic children,
@@ -1612,11 +1979,20 @@ class MCPUIWidgetBuilders {
     num? rowGap,
     num? columnGap,
     num? itemAspectRatio,
+    bool? reverse,
+    String? scrollDirection,
+    dynamic template,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'grid',
+      if (mainAxisExtent != null) 'mainAxisExtent': mainAxisExtent,
+      if (maxCrossAxisExtent != null) 'maxCrossAxisExtent': maxCrossAxisExtent,
+      if (padding != null) 'padding': padding,
+      if (physics != null) 'physics': physics,
+      if (shrinkWrap != null) 'shrinkWrap': shrinkWrap,
+      if (spacing != null) 'spacing': spacing,
       if (items != null) 'items': items,
       if (itemTemplate != null) 'itemTemplate': itemTemplate,
       if (children != null) 'children': children,
@@ -1624,6 +2000,9 @@ class MCPUIWidgetBuilders {
       if (rowGap != null) 'rowGap': rowGap,
       if (columnGap != null) 'columnGap': columnGap,
       if (itemAspectRatio != null) 'itemAspectRatio': itemAspectRatio,
+      if (reverse != null) 'reverse': reverse,
+      if (scrollDirection != null) 'scrollDirection': scrollDirection,
+      if (template != null) 'template': template,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1631,6 +2010,14 @@ class MCPUIWidgetBuilders {
 
   /// Application header / toolbar at the top of a page.
   static Map<String, dynamic> headerBar({
+    bool? automaticallyImplyLeading,
+    dynamic bottomHeight,
+    num? bottomOpacity,
+    dynamic flexibleSpace,
+    dynamic toolbarHeight,
+    num? toolbarOpacity,
+    dynamic shadowColor,
+    dynamic shape,
     dynamic title,
     dynamic leading,
     dynamic actions,
@@ -1638,11 +2025,21 @@ class MCPUIWidgetBuilders {
     dynamic backgroundColor,
     num? elevation,
     bool? centerTitle,
+    dynamic bottom,
+    dynamic foregroundColor,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'headerBar',
+      if (automaticallyImplyLeading != null) 'automaticallyImplyLeading': automaticallyImplyLeading,
+      if (bottomHeight != null) 'bottomHeight': bottomHeight,
+      if (bottomOpacity != null) 'bottomOpacity': bottomOpacity,
+      if (flexibleSpace != null) 'flexibleSpace': flexibleSpace,
+      if (toolbarHeight != null) 'toolbarHeight': toolbarHeight,
+      if (toolbarOpacity != null) 'toolbarOpacity': toolbarOpacity,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (shape != null) 'shape': shape,
       if (title != null) 'title': title,
       if (leading != null) 'leading': leading,
       if (actions != null) 'actions': actions,
@@ -1650,6 +2047,8 @@ class MCPUIWidgetBuilders {
       if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (elevation != null) 'elevation': elevation,
       if (centerTitle != null) 'centerTitle': centerTitle,
+      if (bottom != null) 'bottom': bottom,
+      if (foregroundColor != null) 'foregroundColor': foregroundColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1657,6 +2056,12 @@ class MCPUIWidgetBuilders {
 
   /// Two-dimensional heatmap visualization.
   static Map<String, dynamic> heatmap({
+    dynamic cellGap,
+    String? colorScheme,
+    num? columns,
+    num? maxValue,
+    num? minValue,
+    bool? showLabels,
     required dynamic data,
     dynamic columnLabels,
     dynamic rowLabels,
@@ -1671,6 +2076,12 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'heatmap',
+      if (cellGap != null) 'cellGap': cellGap,
+      if (colorScheme != null) 'colorScheme': colorScheme,
+      if (columns != null) 'columns': columns,
+      if (maxValue != null) 'maxValue': maxValue,
+      if (minValue != null) 'minValue': minValue,
+      if (showLabels != null) 'showLabels': showLabels,
       'data': data,
       if (columnLabels != null) 'columnLabels': columnLabels,
       if (rowLabels != null) 'rowLabels': rowLabels,
@@ -1751,21 +2162,39 @@ class MCPUIWidgetBuilders {
 
   /// Icon-only button for compact actions.
   static Map<String, dynamic> iconButton({
+    String? fontFamily,
+    dynamic disabledColor,
+    bool? enableFeedback,
+    dynamic highlightColor,
+    dynamic iconSize,
+    dynamic padding,
+    dynamic splashColor,
+    dynamic splashRadius,
     required dynamic icon,
     num? size,
     dynamic color,
     bool? enabled,
     dynamic onTap,
+    dynamic alignment,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'iconButton',
+      if (fontFamily != null) 'fontFamily': fontFamily,
+      if (disabledColor != null) 'disabledColor': disabledColor,
+      if (enableFeedback != null) 'enableFeedback': enableFeedback,
+      if (highlightColor != null) 'highlightColor': highlightColor,
+      if (iconSize != null) 'iconSize': iconSize,
+      if (padding != null) 'padding': padding,
+      if (splashColor != null) 'splashColor': splashColor,
+      if (splashRadius != null) 'splashRadius': splashRadius,
       'icon': icon,
       if (size != null) 'size': size,
       if (color != null) 'color': color,
       if (enabled != null) 'enabled': enabled,
       if (onTap != null) 'onTap': onTap,
+      if (alignment != null) 'alignment': alignment,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1777,21 +2206,33 @@ class MCPUIWidgetBuilders {
   /// of those it resolves (`06_Runtime_Contract.md` §6.12) and routes the
   /// rest to `fallback` / `fallbackUrl` / `fallbackBehavior`.
   static Map<String, dynamic> image({
+    String? errorWidget,
+    String? fallbackBehavior,
+    dynamic fallbackUrl,
     required dynamic src,
     num? width,
     num? height,
     String? fit,
     dynamic alignment,
+    dynamic fallback,
+    dynamic loading,
+    String? placeholder,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'image',
+      if (errorWidget != null) 'errorWidget': errorWidget,
+      if (fallbackBehavior != null) 'fallbackBehavior': fallbackBehavior,
+      if (fallbackUrl != null) 'fallbackUrl': fallbackUrl,
       'src': src,
       if (width != null) 'width': width,
       if (height != null) 'height': height,
       if (fit != null) 'fit': fit,
       if (alignment != null) 'alignment': alignment,
+      if (fallback != null) 'fallback': fallback,
+      if (loading != null) 'loading': loading,
+      if (placeholder != null) 'placeholder': placeholder,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1821,17 +2262,23 @@ class MCPUIWidgetBuilders {
 
   /// Displays a single child selected by index. All children retain state.
   static Map<String, dynamic> indexedStack({
+    String? sizing,
+    String? clipBehavior,
     dynamic index,
     dynamic alignment,
     required dynamic children,
+    String? textDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'indexedStack',
+      if (sizing != null) 'sizing': sizing,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       if (index != null) 'index': index,
       if (alignment != null) 'alignment': alignment,
       'children': children,
+      if (textDirection != null) 'textDirection': textDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1839,19 +2286,53 @@ class MCPUIWidgetBuilders {
 
   /// Material-style touch feedback with ripple effect.
   static Map<String, dynamic> inkWell({
+    dynamic onHighlightChanged,
+    dynamic onHover,
+    dynamic onTapCancel,
+    dynamic onTapDown,
+    dynamic onTapUp,
+    bool? autofocus,
+    bool? canRequestFocus,
+    dynamic customBorder,
+    bool? enableFeedback,
+    bool? excludeFromSemantics,
+    dynamic focusColor,
+    dynamic highlightColor,
+    dynamic hoverColor,
+    dynamic overlayColor,
+    dynamic splashColor,
+    dynamic splashRadius,
     required dynamic child,
     num? borderRadius,
     dynamic onTap,
     dynamic onLongPress,
+    dynamic onDoubleTap,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'inkWell',
+      if (onHighlightChanged != null) 'onHighlightChanged': onHighlightChanged,
+      if (onHover != null) 'onHover': onHover,
+      if (onTapCancel != null) 'onTapCancel': onTapCancel,
+      if (onTapDown != null) 'onTapDown': onTapDown,
+      if (onTapUp != null) 'onTapUp': onTapUp,
+      if (autofocus != null) 'autofocus': autofocus,
+      if (canRequestFocus != null) 'canRequestFocus': canRequestFocus,
+      if (customBorder != null) 'customBorder': customBorder,
+      if (enableFeedback != null) 'enableFeedback': enableFeedback,
+      if (excludeFromSemantics != null) 'excludeFromSemantics': excludeFromSemantics,
+      if (focusColor != null) 'focusColor': focusColor,
+      if (highlightColor != null) 'highlightColor': highlightColor,
+      if (hoverColor != null) 'hoverColor': hoverColor,
+      if (overlayColor != null) 'overlayColor': overlayColor,
+      if (splashColor != null) 'splashColor': splashColor,
+      if (splashRadius != null) 'splashRadius': splashRadius,
       'child': child,
       if (borderRadius != null) 'borderRadius': borderRadius,
       if (onTap != null) 'onTap': onTap,
       if (onLongPress != null) 'onLongPress': onLongPress,
+      if (onDoubleTap != null) 'onDoubleTap': onDoubleTap,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -1873,12 +2354,16 @@ class MCPUIWidgetBuilders {
 
   /// Constrains a child to the intrinsic width required by its content.
   static Map<String, dynamic> intrinsicWidth({
+    dynamic stepHeight,
+    dynamic stepWidth,
     required dynamic child,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'intrinsicWidth',
+      if (stepHeight != null) 'stepHeight': stepHeight,
+      if (stepWidth != null) 'stepWidth': stepWidth,
       'child': child,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
@@ -1977,6 +2462,7 @@ class MCPUIWidgetBuilders {
 
   /// Defer rendering of an expensive subtree until it enters the viewport (or until explicitly loaded).
   static Map<String, dynamic> lazy({
+    num? delay,
     dynamic placeholder,
     dynamic content,
     dynamic child,
@@ -1989,6 +2475,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'lazy',
+      if (delay != null) 'delay': delay,
       if (placeholder != null) 'placeholder': placeholder,
       if (content != null) 'content': content,
       if (child != null) 'child': child,
@@ -2054,6 +2541,8 @@ class MCPUIWidgetBuilders {
   /// 
   /// Main-axis sizing: when at least one child is `expanded` / `flexible` / `spacer` (or carries a `flex` value), `linear` expands to fill the available main-axis space so those children can distribute the remainder; otherwise it shrink-wraps its children. Authors can override this with the explicit `mainAxisSize` property.
   static Map<String, dynamic> linear({
+    bool? wrap,
+    dynamic padding,
     String? mainAxisSize,
     required String direction,
     String? alignment,
@@ -2065,6 +2554,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'linear',
+      if (wrap != null) 'wrap': wrap,
+      if (padding != null) 'padding': padding,
       if (mainAxisSize != null) 'mainAxisSize': mainAxisSize,
       'direction': direction,
       if (alignment != null) 'alignment': alignment,
@@ -2119,6 +2610,12 @@ class MCPUIWidgetBuilders {
 
   /// Scrollable linear collection rendered from an array binding.
   static Map<String, dynamic> list({
+    dynamic itemBuilder,
+    num? itemCount,
+    dynamic scrollCacheExtent,
+    dynamic padding,
+    String? physics,
+    bool? shrinkWrap,
     bool? virtual,
     num? itemHeight,
     num? overscan,
@@ -2129,11 +2626,20 @@ class MCPUIWidgetBuilders {
     String? orientation,
     String? emptyMessage,
     num? itemExtent,
+    bool? reverse,
+    String? scrollDirection,
+    dynamic template,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'list',
+      if (itemBuilder != null) 'itemBuilder': itemBuilder,
+      if (itemCount != null) 'itemCount': itemCount,
+      if (scrollCacheExtent != null) 'scrollCacheExtent': scrollCacheExtent,
+      if (padding != null) 'padding': padding,
+      if (physics != null) 'physics': physics,
+      if (shrinkWrap != null) 'shrinkWrap': shrinkWrap,
       if (virtual != null) 'virtual': virtual,
       if (itemHeight != null) 'itemHeight': itemHeight,
       if (overscan != null) 'overscan': overscan,
@@ -2144,6 +2650,9 @@ class MCPUIWidgetBuilders {
       if (orientation != null) 'orientation': orientation,
       if (emptyMessage != null) 'emptyMessage': emptyMessage,
       if (itemExtent != null) 'itemExtent': itemExtent,
+      if (reverse != null) 'reverse': reverse,
+      if (scrollDirection != null) 'scrollDirection': scrollDirection,
+      if (template != null) 'template': template,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2151,6 +2660,15 @@ class MCPUIWidgetBuilders {
 
   /// Single row in a list with optional leading/trailing widgets. Replaces Material `listTile` naming.
   static Map<String, dynamic> listItem({
+    dynamic contentPadding,
+    bool? dense,
+    bool? isThreeLine,
+    dynamic selectedTileColor,
+    dynamic tileColor,
+    dynamic focusColor,
+    dynamic hoverColor,
+    dynamic iconColor,
+    dynamic shape,
     dynamic title,
     dynamic subtitle,
     dynamic leading,
@@ -2158,11 +2676,22 @@ class MCPUIWidgetBuilders {
     dynamic onTap,
     bool? selected,
     bool? enabled,
+    dynamic onLongPress,
+    dynamic textColor,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'listItem',
+      if (contentPadding != null) 'contentPadding': contentPadding,
+      if (dense != null) 'dense': dense,
+      if (isThreeLine != null) 'isThreeLine': isThreeLine,
+      if (selectedTileColor != null) 'selectedTileColor': selectedTileColor,
+      if (tileColor != null) 'tileColor': tileColor,
+      if (focusColor != null) 'focusColor': focusColor,
+      if (hoverColor != null) 'hoverColor': hoverColor,
+      if (iconColor != null) 'iconColor': iconColor,
+      if (shape != null) 'shape': shape,
       if (title != null) 'title': title,
       if (subtitle != null) 'subtitle': subtitle,
       if (leading != null) 'leading': leading,
@@ -2170,6 +2699,8 @@ class MCPUIWidgetBuilders {
       if (onTap != null) 'onTap': onTap,
       if (selected != null) 'selected': selected,
       if (enabled != null) 'enabled': enabled,
+      if (onLongPress != null) 'onLongPress': onLongPress,
+      if (textColor != null) 'textColor': textColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2177,17 +2708,29 @@ class MCPUIWidgetBuilders {
 
   /// Embedded Lottie/JSON animation playback.
   static Map<String, dynamic> lottieAnimation({
+    String? fit,
+    dynamic onComplete,
+    num? speed,
+    dynamic height,
     required dynamic src,
     bool? autoPlay,
     bool? loop,
+    dynamic backgroundColor,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'lottieAnimation',
+      if (fit != null) 'fit': fit,
+      if (onComplete != null) 'onComplete': onComplete,
+      if (speed != null) 'speed': speed,
+      if (height != null) 'height': height,
       'src': src,
       if (autoPlay != null) 'autoPlay': autoPlay,
       if (loop != null) 'loop': loop,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2195,6 +2738,11 @@ class MCPUIWidgetBuilders {
 
   /// Geographic map with markers and overlays.
   static Map<String, dynamic> map({
+    dynamic markerColor,
+    bool? showCoordinates,
+    bool? showGrid,
+    dynamic height,
+    bool? interactive,
     dynamic center,
     num? latitude,
     num? longitude,
@@ -2215,11 +2763,19 @@ class MCPUIWidgetBuilders {
     num? overlays___strokeWidth,
     dynamic onMarkerTap,
     dynamic onMapTap,
+    dynamic backgroundColor,
+    dynamic gridColor,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'map',
+      if (markerColor != null) 'markerColor': markerColor,
+      if (showCoordinates != null) 'showCoordinates': showCoordinates,
+      if (showGrid != null) 'showGrid': showGrid,
+      if (height != null) 'height': height,
+      if (interactive != null) 'interactive': interactive,
       if (center != null) 'center': center,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
@@ -2240,6 +2796,9 @@ class MCPUIWidgetBuilders {
       if (overlays___strokeWidth != null) 'overlays[].strokeWidth': overlays___strokeWidth,
       if (onMarkerTap != null) 'onMarkerTap': onMarkerTap,
       if (onMapTap != null) 'onMapTap': onMapTap,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (gridColor != null) 'gridColor': gridColor,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2295,6 +2854,9 @@ class MCPUIWidgetBuilders {
 
   /// Audio / video player widget.
   static Map<String, dynamic> mediaPlayer({
+    dynamic accentColor,
+    dynamic controlsColor,
+    dynamic onSeek,
     required dynamic source,
     String? mediaType,
     bool? autoPlay,
@@ -2311,11 +2873,17 @@ class MCPUIWidgetBuilders {
     dynamic onEnded,
     dynamic onTimeUpdate,
     dynamic onError,
+    dynamic backgroundColor,
+    dynamic duration,
+    String? title,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'mediaPlayer',
+      if (accentColor != null) 'accentColor': accentColor,
+      if (controlsColor != null) 'controlsColor': controlsColor,
+      if (onSeek != null) 'onSeek': onSeek,
       'source': source,
       if (mediaType != null) 'mediaType': mediaType,
       if (autoPlay != null) 'autoPlay': autoPlay,
@@ -2332,6 +2900,9 @@ class MCPUIWidgetBuilders {
       if (onEnded != null) 'onEnded': onEnded,
       if (onTimeUpdate != null) 'onTimeUpdate': onTimeUpdate,
       if (onError != null) 'onError': onError,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (duration != null) 'duration': duration,
+      if (title != null) 'title': title,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2424,17 +2995,47 @@ class MCPUIWidgetBuilders {
 
   /// Vertical navigation rail for tablet/desktop layouts. Each item's text field is `label`.
   static Map<String, dynamic> navigationRail({
+    bool? extended,
+    num? groupAlignment,
+    String? labelType,
+    dynamic minExtendedWidth,
+    dynamic minWidth,
+    dynamic selectedIconTheme,
+    dynamic selectedLabelTextStyle,
+    dynamic unselectedIconTheme,
+    dynamic unselectedLabelTextStyle,
     dynamic selectedIndex,
     required dynamic items,
     dynamic onChange,
+    dynamic backgroundColor,
+    dynamic change,
+    dynamic elevation,
+    dynamic leading,
+    dynamic onSelect,
+    dynamic trailing,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'navigationRail',
+      if (extended != null) 'extended': extended,
+      if (groupAlignment != null) 'groupAlignment': groupAlignment,
+      if (labelType != null) 'labelType': labelType,
+      if (minExtendedWidth != null) 'minExtendedWidth': minExtendedWidth,
+      if (minWidth != null) 'minWidth': minWidth,
+      if (selectedIconTheme != null) 'selectedIconTheme': selectedIconTheme,
+      if (selectedLabelTextStyle != null) 'selectedLabelTextStyle': selectedLabelTextStyle,
+      if (unselectedIconTheme != null) 'unselectedIconTheme': unselectedIconTheme,
+      if (unselectedLabelTextStyle != null) 'unselectedLabelTextStyle': unselectedLabelTextStyle,
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'items': items,
       if (onChange != null) 'onChange': onChange,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (change != null) 'change': change,
+      if (elevation != null) 'elevation': elevation,
+      if (leading != null) 'leading': leading,
+      if (onSelect != null) 'onSelect': onSelect,
+      if (trailing != null) 'trailing': trailing,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2442,11 +3043,33 @@ class MCPUIWidgetBuilders {
 
   /// Network topology graph. Same node/edge model as `graph`, with topology-oriented defaults (hierarchical layout, directed edges).
   static Map<String, dynamic> networkGraph({
+    dynamic onNodeTap,
+    dynamic edgeColor,
+    dynamic edges,
+    String? layout,
+    dynamic nodeColor,
+    dynamic nodes,
+    dynamic onEdgeTap,
+    dynamic height,
+    bool? interactive,
+    dynamic labelColor,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'networkGraph',
+      if (onNodeTap != null) 'onNodeTap': onNodeTap,
+      if (edgeColor != null) 'edgeColor': edgeColor,
+      if (edges != null) 'edges': edges,
+      if (layout != null) 'layout': layout,
+      if (nodeColor != null) 'nodeColor': nodeColor,
+      if (nodes != null) 'nodes': nodes,
+      if (onEdgeTap != null) 'onEdgeTap': onEdgeTap,
+      if (height != null) 'height': height,
+      if (interactive != null) 'interactive': interactive,
+      if (labelColor != null) 'labelColor': labelColor,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2454,6 +3077,7 @@ class MCPUIWidgetBuilders {
 
   /// Specialized input for numeric values. Shared rows per §2.6.0; `value` is `number`.
   static Map<String, dynamic> numberField({
+    String? error,
     bool? showStepper,
     String? label,
     num? min,
@@ -2462,12 +3086,17 @@ class MCPUIWidgetBuilders {
     num? decimalPlaces,
     String? prefix,
     String? suffix,
-    String? thousandSeparator,
+    bool? thousandSeparator,
+    dynamic change,
+    String? format,
+    String? helperText,
+    String? hint,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'numberField',
+      if (error != null) 'error': error,
       if (showStepper != null) 'showStepper': showStepper,
       if (label != null) 'label': label,
       if (min != null) 'min': min,
@@ -2477,6 +3106,10 @@ class MCPUIWidgetBuilders {
       if (prefix != null) 'prefix': prefix,
       if (suffix != null) 'suffix': suffix,
       if (thousandSeparator != null) 'thousandSeparator': thousandSeparator,
+      if (change != null) 'change': change,
+      if (format != null) 'format': format,
+      if (helperText != null) 'helperText': helperText,
+      if (hint != null) 'hint': hint,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2484,19 +3117,25 @@ class MCPUIWidgetBuilders {
 
   /// Incremental numeric input with plus/minus buttons. Shared rows per §2.6.0; `value` is `number`.
   static Map<String, dynamic> numberStepper({
+    String? size,
     String? label,
     num? min,
     num? max,
     num? step,
+    dynamic change,
+    dynamic color,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'numberStepper',
+      if (size != null) 'size': size,
       if (label != null) 'label': label,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (step != null) 'step': step,
+      if (change != null) 'change': change,
+      if (color != null) 'color': color,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2561,7 +3200,7 @@ class MCPUIWidgetBuilders {
   static Map<String, dynamic> otpInput({
     num? length,
     String? inputType,
-    dynamic autoSubmit,
+    dynamic onComplete,
     bool? masked,
     bool? autofill,
     dynamic click,
@@ -2571,7 +3210,7 @@ class MCPUIWidgetBuilders {
       'type': 'otpInput',
       if (length != null) 'length': length,
       if (inputType != null) 'inputType': inputType,
-      if (autoSubmit != null) 'autoSubmit': autoSubmit,
+      if (onComplete != null) 'onComplete': onComplete,
       if (masked != null) 'masked': masked,
       if (autofill != null) 'autofill': autofill,
       if (click != null) 'click': click,
@@ -2600,6 +3239,9 @@ class MCPUIWidgetBuilders {
   /// `carousel` (partial-viewport, peeking neighbours) — pageView is
   /// always one full page. Each child is rendered as a separate page.
   static Map<String, dynamic> pageView({
+    bool? padEnds,
+    bool? pageSnapping,
+    String? clipBehavior,
     String? direction,
     required dynamic children,
     num? initialPage,
@@ -2607,11 +3249,17 @@ class MCPUIWidgetBuilders {
     String? scrollPhysics,
     bool? allowImplicitScrolling,
     dynamic onPageChanged,
+    dynamic onChange,
+    bool? reverse,
+    String? scrollDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'pageView',
+      if (padEnds != null) 'padEnds': padEnds,
+      if (pageSnapping != null) 'pageSnapping': pageSnapping,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       if (direction != null) 'direction': direction,
       'children': children,
       if (initialPage != null) 'initialPage': initialPage,
@@ -2619,6 +3267,9 @@ class MCPUIWidgetBuilders {
       if (scrollPhysics != null) 'scrollPhysics': scrollPhysics,
       if (allowImplicitScrolling != null) 'allowImplicitScrolling': allowImplicitScrolling,
       if (onPageChanged != null) 'onPageChanged': onPageChanged,
+      if (onChange != null) 'onChange': onChange,
+      if (reverse != null) 'reverse': reverse,
+      if (scrollDirection != null) 'scrollDirection': scrollDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2632,6 +3283,7 @@ class MCPUIWidgetBuilders {
   /// by every author. Stating it once also fixes what a screen reader hears —
   /// "page 3 of 12", not "3".
   static Map<String, dynamic> pagination({
+    num? current,
     String? binding,
     required num total,
     num? pageSize,
@@ -2644,6 +3296,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'pagination',
+      if (current != null) 'current': current,
       if (binding != null) 'binding': binding,
       'total': total,
       if (pageSize != null) 'pageSize': pageSize,
@@ -2666,6 +3319,7 @@ class MCPUIWidgetBuilders {
   /// `src` is an `AssetRef`, so the same document works from a bundle, a URL, a
   /// picked file (`fileInput` writes a `data:` URI), or a server resource.
   static Map<String, dynamic> pdfViewer({
+    dynamic height,
     required dynamic src,
     dynamic page,
     dynamic zoom,
@@ -2678,6 +3332,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'pdfViewer',
+      if (height != null) 'height': height,
       'src': src,
       if (page != null) 'page': page,
       if (zoom != null) 'zoom': zoom,
@@ -2782,17 +3437,43 @@ class MCPUIWidgetBuilders {
 
   /// Button that reveals a popup menu of options.
   static Map<String, dynamic> popupMenuButton({
+    dynamic onCanceled,
+    dynamic onOpened,
+    dynamic iconSize,
+    dynamic offset,
+    dynamic padding,
+    dynamic shadowColor,
+    dynamic shape,
+    dynamic splashRadius,
+    dynamic surfaceTintColor,
     dynamic icon,
     required dynamic items,
     dynamic onSelect,
+    dynamic change,
+    dynamic color,
+    dynamic elevation,
+    dynamic onChange,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'popupMenuButton',
+      if (onCanceled != null) 'onCanceled': onCanceled,
+      if (onOpened != null) 'onOpened': onOpened,
+      if (iconSize != null) 'iconSize': iconSize,
+      if (offset != null) 'offset': offset,
+      if (padding != null) 'padding': padding,
+      if (shadowColor != null) 'shadowColor': shadowColor,
+      if (shape != null) 'shape': shape,
+      if (splashRadius != null) 'splashRadius': splashRadius,
+      if (surfaceTintColor != null) 'surfaceTintColor': surfaceTintColor,
       if (icon != null) 'icon': icon,
       'items': items,
       if (onSelect != null) 'onSelect': onSelect,
+      if (change != null) 'change': change,
+      if (color != null) 'color': color,
+      if (elevation != null) 'elevation': elevation,
+      if (onChange != null) 'onChange': onChange,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2800,13 +3481,25 @@ class MCPUIWidgetBuilders {
 
   /// Positions a child within a `stack` using offsets.
   static Map<String, dynamic> positioned({
+    dynamic height,
     required dynamic child,
+    dynamic bottom,
+    dynamic left,
+    dynamic right,
+    dynamic top,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'positioned',
+      if (height != null) 'height': height,
       'child': child,
+      if (bottom != null) 'bottom': bottom,
+      if (left != null) 'left': left,
+      if (right != null) 'right': right,
+      if (top != null) 'top': top,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2814,6 +3507,8 @@ class MCPUIWidgetBuilders {
 
   /// Progress indicator (linear or circular).
   static Map<String, dynamic> progressBar({
+    dynamic size,
+    dynamic strokeWidth,
     dynamic value,
     String? indicatorType,
     dynamic color,
@@ -2823,6 +3518,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'progressBar',
+      if (size != null) 'size': size,
+      if (strokeWidth != null) 'strokeWidth': strokeWidth,
       if (value != null) 'value': value,
       if (indicatorType != null) 'indicatorType': indicatorType,
       if (color != null) 'color': color,
@@ -2865,19 +3562,33 @@ class MCPUIWidgetBuilders {
 
   /// Single radio button. The group's selected value is bound via `groupValue` (or the enclosing `radioGroup`'s `binding`).
   static Map<String, dynamic> radio({
+    dynamic activeColor,
+    dynamic focusColor,
+    dynamic hoverColor,
+    dynamic splashRadius,
     required dynamic value,
     required dynamic groupValue,
     String? label,
     dynamic onChange,
+    String? binding,
+    dynamic change,
+    dynamic fillColor,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'radio',
+      if (activeColor != null) 'activeColor': activeColor,
+      if (focusColor != null) 'focusColor': focusColor,
+      if (hoverColor != null) 'hoverColor': hoverColor,
+      if (splashRadius != null) 'splashRadius': splashRadius,
       'value': value,
       'groupValue': groupValue,
       if (label != null) 'label': label,
       if (onChange != null) 'onChange': onChange,
+      if (binding != null) 'binding': binding,
+      if (change != null) 'change': change,
+      if (fillColor != null) 'fillColor': fillColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2888,6 +3599,7 @@ class MCPUIWidgetBuilders {
     String? label,
     required dynamic options,
     String? orientation,
+    String? direction,
     dynamic click,
     String? tooltip,
   }) {
@@ -2896,6 +3608,7 @@ class MCPUIWidgetBuilders {
       if (label != null) 'label': label,
       'options': options,
       if (orientation != null) 'orientation': orientation,
+      if (direction != null) 'direction': direction,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2903,17 +3616,29 @@ class MCPUIWidgetBuilders {
 
   /// Range selection with two thumbs. Shared rows per §2.6.0; `value` is an object `{ start, end }`.
   static Map<String, dynamic> rangeSlider({
+    dynamic labels,
+    dynamic onChangeEnd,
+    dynamic onChangeStart,
+    dynamic activeColor,
+    dynamic inactiveColor,
     num? min,
     num? max,
     num? divisions,
+    dynamic change,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'rangeSlider',
+      if (labels != null) 'labels': labels,
+      if (onChangeEnd != null) 'onChangeEnd': onChangeEnd,
+      if (onChangeStart != null) 'onChangeStart': onChangeStart,
+      if (activeColor != null) 'activeColor': activeColor,
+      if (inactiveColor != null) 'inactiveColor': inactiveColor,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (divisions != null) 'divisions': divisions,
+      if (change != null) 'change': change,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2921,17 +3646,27 @@ class MCPUIWidgetBuilders {
 
   /// Discrete rating control (e.g., star rating). Shared rows per §2.6.0; `value` is `number`.
   static Map<String, dynamic> rating({
+    bool? allowHalf,
+    dynamic emptyColor,
+    bool? readOnly,
+    dynamic size,
     num? max,
     dynamic icon,
     dynamic color,
+    dynamic change,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'rating',
+      if (allowHalf != null) 'allowHalf': allowHalf,
+      if (emptyColor != null) 'emptyColor': emptyColor,
+      if (readOnly != null) 'readOnly': readOnly,
+      if (size != null) 'size': size,
       if (max != null) 'max': max,
       if (icon != null) 'icon': icon,
       if (color != null) 'color': color,
+      if (change != null) 'change': change,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -2976,6 +3711,7 @@ class MCPUIWidgetBuilders {
   /// paragraph-level `style` provides the base TextStyle that individual
   /// span styles layer on top of.
   static Map<String, dynamic> richText({
+    num? textScaleFactor,
     required dynamic spans,
     dynamic style,
     dynamic dropCap,
@@ -2989,6 +3725,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'richText',
+      if (textScaleFactor != null) 'textScaleFactor': textScaleFactor,
       'spans': spans,
       if (style != null) 'style': style,
       if (dropCap != null) 'dropCap': dropCap,
@@ -3021,6 +3758,8 @@ class MCPUIWidgetBuilders {
     String? placeholder,
     num? minHeight,
     num? maxLength,
+    String? binding,
+    dynamic onChange,
     dynamic click,
     String? tooltip,
   }) {
@@ -3031,6 +3770,8 @@ class MCPUIWidgetBuilders {
       if (placeholder != null) 'placeholder': placeholder,
       if (minHeight != null) 'minHeight': minHeight,
       if (maxLength != null) 'maxLength': maxLength,
+      if (binding != null) 'binding': binding,
+      if (onChange != null) 'onChange': onChange,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3074,13 +3815,25 @@ class MCPUIWidgetBuilders {
 
   /// Insets children so they avoid system UI overlaps (notch, status bar, home indicator).
   static Map<String, dynamic> safeArea({
+    bool? maintainBottomViewPadding,
+    dynamic minimum,
     required dynamic child,
+    bool? bottom,
+    bool? left,
+    bool? right,
+    bool? top,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'safeArea',
+      if (maintainBottomViewPadding != null) 'maintainBottomViewPadding': maintainBottomViewPadding,
+      if (minimum != null) 'minimum': minimum,
       'child': child,
+      if (bottom != null) 'bottom': bottom,
+      if (left != null) 'left': left,
+      if (right != null) 'right': right,
+      if (top != null) 'top': top,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3149,23 +3902,29 @@ class MCPUIWidgetBuilders {
   /// The three input slots (`child`, `children`, `slivers`) are
   /// mutually exclusive.
   static Map<String, dynamic> scrollView({
+    bool? primary,
     String? direction,
     dynamic padding,
     String? scrollPhysics,
     dynamic child,
     dynamic children,
     dynamic slivers,
+    bool? reverse,
+    String? scrollDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'scrollView',
+      if (primary != null) 'primary': primary,
       if (direction != null) 'direction': direction,
       if (padding != null) 'padding': padding,
       if (scrollPhysics != null) 'scrollPhysics': scrollPhysics,
       if (child != null) 'child': child,
       if (children != null) 'children': children,
       if (slivers != null) 'slivers': slivers,
+      if (reverse != null) 'reverse': reverse,
+      if (scrollDirection != null) 'scrollDirection': scrollDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3191,15 +3950,33 @@ class MCPUIWidgetBuilders {
 
   /// Single-value dropdown selection. Shared rows per §2.6.0.
   static Map<String, dynamic> select({
+    String? disabledHint,
+    bool? isExpanded,
+    dynamic itemHeight,
+    dynamic iconSize,
+    dynamic style,
     required dynamic options,
     String? placeholder,
+    dynamic change,
+    dynamic elevation,
+    String? hint,
+    String? label,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'select',
+      if (disabledHint != null) 'disabledHint': disabledHint,
+      if (isExpanded != null) 'isExpanded': isExpanded,
+      if (itemHeight != null) 'itemHeight': itemHeight,
+      if (iconSize != null) 'iconSize': iconSize,
+      if (style != null) 'style': style,
       'options': options,
       if (placeholder != null) 'placeholder': placeholder,
+      if (change != null) 'change': change,
+      if (elevation != null) 'elevation': elevation,
+      if (hint != null) 'hint': hint,
+      if (label != null) 'label': label,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3207,6 +3984,8 @@ class MCPUIWidgetBuilders {
 
   /// Signature capture pad.
   static Map<String, dynamic> signature({
+    dynamic onSignatureStart,
+    dynamic borderWidth,
     dynamic binding,
     dynamic penColor,
     num? penWidth,
@@ -3223,6 +4002,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'signature',
+      if (onSignatureStart != null) 'onSignatureStart': onSignatureStart,
+      if (borderWidth != null) 'borderWidth': borderWidth,
       if (binding != null) 'binding': binding,
       if (penColor != null) 'penColor': penColor,
       if (penWidth != null) 'penWidth': penWidth,
@@ -3241,21 +4022,31 @@ class MCPUIWidgetBuilders {
 
   /// Dialog presenting a list of options.
   static Map<String, dynamic> simpleDialog({
+    dynamic contentPadding,
+    dynamic titlePadding,
+    dynamic shape,
     String? title,
     dynamic options,
     dynamic children,
     dynamic onSelect,
     dynamic onClose,
+    dynamic backgroundColor,
+    dynamic elevation,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'simpleDialog',
+      if (contentPadding != null) 'contentPadding': contentPadding,
+      if (titlePadding != null) 'titlePadding': titlePadding,
+      if (shape != null) 'shape': shape,
       if (title != null) 'title': title,
       if (options != null) 'options': options,
       if (children != null) 'children': children,
       if (onSelect != null) 'onSelect': onSelect,
       if (onClose != null) 'onClose': onClose,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (elevation != null) 'elevation': elevation,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3263,19 +4054,29 @@ class MCPUIWidgetBuilders {
 
   /// Lightweight scrollable wrapper for a single child.
   static Map<String, dynamic> singleChildScrollView({
+    String? clipBehavior,
+    String? physics,
+    bool? primary,
     String? direction,
     dynamic padding,
     dynamic child,
     dynamic children,
+    bool? reverse,
+    String? scrollDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'singleChildScrollView',
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
+      if (physics != null) 'physics': physics,
+      if (primary != null) 'primary': primary,
       if (direction != null) 'direction': direction,
       if (padding != null) 'padding': padding,
       if (child != null) 'child': child,
       if (children != null) 'children': children,
+      if (reverse != null) 'reverse': reverse,
+      if (scrollDirection != null) 'scrollDirection': scrollDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3301,21 +4102,33 @@ class MCPUIWidgetBuilders {
 
   /// Continuous single-value selection. Shared rows per §2.6.0; `value` is `number`.
   static Map<String, dynamic> slider({
+    dynamic onChangeEnd,
+    dynamic onChangeStart,
+    dynamic thumbColor,
+    dynamic activeColor,
+    dynamic inactiveColor,
     String? label,
     num? value,
     num? min,
     num? max,
     num? divisions,
+    dynamic change,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'slider',
+      if (onChangeEnd != null) 'onChangeEnd': onChangeEnd,
+      if (onChangeStart != null) 'onChangeStart': onChangeStart,
+      if (thumbColor != null) 'thumbColor': thumbColor,
+      if (activeColor != null) 'activeColor': activeColor,
+      if (inactiveColor != null) 'inactiveColor': inactiveColor,
       if (label != null) 'label': label,
       if (value != null) 'value': value,
       if (min != null) 'min': min,
       if (max != null) 'max': max,
       if (divisions != null) 'divisions': divisions,
+      if (change != null) 'change': change,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3323,19 +4136,41 @@ class MCPUIWidgetBuilders {
 
   /// Transient notification at the bottom of the screen.
   static Map<String, dynamic> snackBar({
+    String? behavior,
+    dynamic closeIconColor,
+    String? dismissDirection,
+    bool? showCloseIcon,
+    dynamic margin,
+    dynamic padding,
+    dynamic shape,
     required String content,
     num? duration,
     dynamic action,
     dynamic onClose,
+    dynamic backgroundColor,
+    dynamic elevation,
+    dynamic textColor,
+    dynamic width,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'snackBar',
+      if (behavior != null) 'behavior': behavior,
+      if (closeIconColor != null) 'closeIconColor': closeIconColor,
+      if (dismissDirection != null) 'dismissDirection': dismissDirection,
+      if (showCloseIcon != null) 'showCloseIcon': showCloseIcon,
+      if (margin != null) 'margin': margin,
+      if (padding != null) 'padding': padding,
+      if (shape != null) 'shape': shape,
       'content': content,
       if (duration != null) 'duration': duration,
       if (action != null) 'action': action,
       if (onClose != null) 'onClose': onClose,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
+      if (elevation != null) 'elevation': elevation,
+      if (textColor != null) 'textColor': textColor,
+      if (width != null) 'width': width,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3424,17 +4259,21 @@ class MCPUIWidgetBuilders {
 
   /// Overlapping children. Non-positioned children align per `alignment`; positioned children use explicit offsets (see `positioned`).
   static Map<String, dynamic> stack({
+    String? clipBehavior,
     dynamic alignment,
     String? fit,
     required dynamic children,
+    String? textDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'stack',
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       if (alignment != null) 'alignment': alignment,
       if (fit != null) 'fit': fit,
       'children': children,
+      if (textDirection != null) 'textDirection': textDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3474,6 +4313,8 @@ class MCPUIWidgetBuilders {
 
   /// Step-by-step wizard. Shared `binding` / `value` / `enabled` / `onChange` per §2.6.0 — the bound value is the **active step index** (integer). `binding` and `currentStep` are aliases: when `binding` is set, it takes effect; otherwise `currentStep` is read as a one-way property.
   static Map<String, dynamic> stepper({
+    dynamic margin,
+    String? physics,
     required dynamic steps,
     dynamic currentStep,
     String? stepperType,
@@ -3485,6 +4326,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'stepper',
+      if (margin != null) 'margin': margin,
+      if (physics != null) 'physics': physics,
       'steps': steps,
       if (currentStep != null) 'currentStep': currentStep,
       if (stepperType != null) 'stepperType': stepperType,
@@ -3498,17 +4341,53 @@ class MCPUIWidgetBuilders {
 
   /// Horizontal tab selector. Each tab's text field is `label`.
   static Map<String, dynamic> tabBar({
+    dynamic indicator,
+    dynamic indicatorPadding,
+    String? indicatorSize,
+    dynamic indicatorWeight,
+    bool? isScrollable,
+    dynamic labelPadding,
+    String? mouseCursor,
+    dynamic unselectedLabelColor,
+    dynamic unselectedLabelStyle,
+    bool? enableFeedback,
+    dynamic labelColor,
+    dynamic overlayColor,
+    dynamic padding,
+    String? physics,
     dynamic selectedIndex,
     required dynamic tabs,
     dynamic onChange,
+    dynamic change,
+    dynamic indicatorColor,
+    dynamic labelStyle,
+    dynamic onTap,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'tabBar',
+      if (indicator != null) 'indicator': indicator,
+      if (indicatorPadding != null) 'indicatorPadding': indicatorPadding,
+      if (indicatorSize != null) 'indicatorSize': indicatorSize,
+      if (indicatorWeight != null) 'indicatorWeight': indicatorWeight,
+      if (isScrollable != null) 'isScrollable': isScrollable,
+      if (labelPadding != null) 'labelPadding': labelPadding,
+      if (mouseCursor != null) 'mouseCursor': mouseCursor,
+      if (unselectedLabelColor != null) 'unselectedLabelColor': unselectedLabelColor,
+      if (unselectedLabelStyle != null) 'unselectedLabelStyle': unselectedLabelStyle,
+      if (enableFeedback != null) 'enableFeedback': enableFeedback,
+      if (labelColor != null) 'labelColor': labelColor,
+      if (overlayColor != null) 'overlayColor': overlayColor,
+      if (padding != null) 'padding': padding,
+      if (physics != null) 'physics': physics,
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'tabs': tabs,
       if (onChange != null) 'onChange': onChange,
+      if (change != null) 'change': change,
+      if (indicatorColor != null) 'indicatorColor': indicatorColor,
+      if (labelStyle != null) 'labelStyle': labelStyle,
+      if (onTap != null) 'onTap': onTap,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3516,6 +4395,8 @@ class MCPUIWidgetBuilders {
 
   /// Content area that displays widgets corresponding to the currently selected tab.
   static Map<String, dynamic> tabBarView({
+    String? dragStartBehavior,
+    String? physics,
     dynamic selectedIndex,
     required dynamic children,
     dynamic click,
@@ -3523,6 +4404,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'tabBarView',
+      if (dragStartBehavior != null) 'dragStartBehavior': dragStartBehavior,
+      if (physics != null) 'physics': physics,
       if (selectedIndex != null) 'selectedIndex': selectedIndex,
       'children': children,
       if (click != null) 'click': click,
@@ -3532,21 +4415,25 @@ class MCPUIWidgetBuilders {
 
   /// Layout table for arranging widgets in rows and columns. Not data-bound; each cell is a widget.
   static Map<String, dynamic> table({
+    String? textBaseline,
     required dynamic rows,
     dynamic border,
     dynamic defaultColumnWidth,
     String? defaultVerticalAlignment,
     dynamic columnWidths,
+    String? textDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'table',
+      if (textBaseline != null) 'textBaseline': textBaseline,
       'rows': rows,
       if (border != null) 'border': border,
       if (defaultColumnWidth != null) 'defaultColumnWidth': defaultColumnWidth,
       if (defaultVerticalAlignment != null) 'defaultVerticalAlignment': defaultVerticalAlignment,
       if (columnWidths != null) 'columnWidths': columnWidths,
+      if (textDirection != null) 'textDirection': textDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3565,6 +4452,7 @@ class MCPUIWidgetBuilders {
     dynamic textColor,
     dynamic promptColor,
     dynamic onCommand,
+    String? theme,
     dynamic click,
     String? tooltip,
   }) {
@@ -3581,6 +4469,7 @@ class MCPUIWidgetBuilders {
       if (textColor != null) 'textColor': textColor,
       if (promptColor != null) 'promptColor': promptColor,
       if (onCommand != null) 'onCommand': onCommand,
+      if (theme != null) 'theme': theme,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3588,6 +4477,11 @@ class MCPUIWidgetBuilders {
 
   /// Renders a string. The canonical content field is `text`.
   static Map<String, dynamic> text({
+    String? textTransform,
+    String? ariaLabel,
+    String? semanticsLabel,
+    bool? softWrap,
+    num? textScaleFactor,
     required String text,
     String? variant,
     dynamic style,
@@ -3595,11 +4489,18 @@ class MCPUIWidgetBuilders {
     num? maxLines,
     String? overflow,
     String? textAlign,
+    String? textDirection,
+    dynamic value,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'text',
+      if (textTransform != null) 'textTransform': textTransform,
+      if (ariaLabel != null) 'ariaLabel': ariaLabel,
+      if (semanticsLabel != null) 'semanticsLabel': semanticsLabel,
+      if (softWrap != null) 'softWrap': softWrap,
+      if (textScaleFactor != null) 'textScaleFactor': textScaleFactor,
       'text': text,
       if (variant != null) 'variant': variant,
       if (style != null) 'style': style,
@@ -3607,6 +4508,8 @@ class MCPUIWidgetBuilders {
       if (maxLines != null) 'maxLines': maxLines,
       if (overflow != null) 'overflow': overflow,
       if (textAlign != null) 'textAlign': textAlign,
+      if (textDirection != null) 'textDirection': textDirection,
+      if (value != null) 'value': value,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3618,6 +4521,10 @@ class MCPUIWidgetBuilders {
   /// without requiring an explicit `onChange`. Explicit `value` + `onChange`
   /// override the shorthand.
   static Map<String, dynamic> textInput({
+    num? debounce,
+    String? textInputAction,
+    String? errorText,
+    dynamic style,
     String? binding,
     dynamic value,
     bool? enabled,
@@ -3634,11 +4541,16 @@ class MCPUIWidgetBuilders {
     bool? showToggle,
     String? defaultCountry,
     dynamic validation,
+    dynamic error,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'textInput',
+      if (debounce != null) 'debounce': debounce,
+      if (textInputAction != null) 'textInputAction': textInputAction,
+      if (errorText != null) 'errorText': errorText,
+      if (style != null) 'style': style,
       if (binding != null) 'binding': binding,
       if (value != null) 'value': value,
       if (enabled != null) 'enabled': enabled,
@@ -3655,6 +4567,7 @@ class MCPUIWidgetBuilders {
       if (showToggle != null) 'showToggle': showToggle,
       if (defaultCountry != null) 'defaultCountry': defaultCountry,
       if (validation != null) 'validation': validation,
+      if (error != null) 'error': error,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3662,6 +4575,7 @@ class MCPUIWidgetBuilders {
 
   /// Time input. Shared rows per §2.6.0; `value` is a time string (e.g., `"14:30"`).
   static Map<String, dynamic> timeField({
+    String? errorText,
     String? label,
     String? format,
     bool? use24HourFormat,
@@ -3671,6 +4585,7 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'timeField',
+      if (errorText != null) 'errorText': errorText,
       if (label != null) 'label': label,
       if (format != null) 'format': format,
       if (use24HourFormat != null) 'use24HourFormat': use24HourFormat,
@@ -3682,15 +4597,25 @@ class MCPUIWidgetBuilders {
 
   /// Standalone time picker surface. Shared rows per §2.6.0; `value` is a time string.
   static Map<String, dynamic> timePicker({
+    String? initialTime,
     String? label,
     bool? use24HourFormat,
+    dynamic change,
+    dynamic icon,
+    String? timeFormat,
+    String? variant,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'timePicker',
+      if (initialTime != null) 'initialTime': initialTime,
       if (label != null) 'label': label,
       if (use24HourFormat != null) 'use24HourFormat': use24HourFormat,
+      if (change != null) 'change': change,
+      if (icon != null) 'icon': icon,
+      if (timeFormat != null) 'timeFormat': timeFormat,
+      if (variant != null) 'variant': variant,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3698,6 +4623,9 @@ class MCPUIWidgetBuilders {
 
   /// Chronological timeline of events.
   static Map<String, dynamic> timeline({
+    dynamic nodeSize,
+    dynamic lineWidth,
+    dynamic spacing,
     required dynamic items,
     required String items___title,
     String? items___subtitle,
@@ -3705,11 +4633,16 @@ class MCPUIWidgetBuilders {
     String? items___time,
     String? items___color,
     String? orientation,
+    dynamic itemTemplate,
+    dynamic lineColor,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'timeline',
+      if (nodeSize != null) 'nodeSize': nodeSize,
+      if (lineWidth != null) 'lineWidth': lineWidth,
+      if (spacing != null) 'spacing': spacing,
       'items': items,
       'items[].title': items___title,
       if (items___subtitle != null) 'items[].subtitle': items___subtitle,
@@ -3717,6 +4650,8 @@ class MCPUIWidgetBuilders {
       if (items___time != null) 'items[].time': items___time,
       if (items___color != null) 'items[].color': items___color,
       if (orientation != null) 'orientation': orientation,
+      if (itemTemplate != null) 'itemTemplate': itemTemplate,
+      if (lineColor != null) 'lineColor': lineColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3724,11 +4659,15 @@ class MCPUIWidgetBuilders {
 
   /// Binary on/off control. Shared `binding` / `value` / `enabled` / `onChange` per §2.6.0; `value` is `boolean`.
   static Map<String, dynamic> toggle({
+    dynamic change,
+    String? label,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'toggle',
+      if (change != null) 'change': change,
+      if (label != null) 'label': label,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3736,15 +4675,43 @@ class MCPUIWidgetBuilders {
 
   /// Wrapper that reveals a tooltip on hover or long-press.
   static Map<String, dynamic> tooltip({
+    bool? preferBelow,
+    dynamic richMessage,
+    num? showDuration,
+    dynamic textStyle,
+    String? triggerMode,
+    dynamic verticalOffset,
+    bool? enableFeedback,
+    bool? excludeFromSemantics,
+    dynamic height,
+    dynamic margin,
+    dynamic padding,
     required String message,
     required dynamic child,
+    dynamic decoration,
+    String? textAlign,
+    num? waitDuration,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'tooltip',
+      if (preferBelow != null) 'preferBelow': preferBelow,
+      if (richMessage != null) 'richMessage': richMessage,
+      if (showDuration != null) 'showDuration': showDuration,
+      if (textStyle != null) 'textStyle': textStyle,
+      if (triggerMode != null) 'triggerMode': triggerMode,
+      if (verticalOffset != null) 'verticalOffset': verticalOffset,
+      if (enableFeedback != null) 'enableFeedback': enableFeedback,
+      if (excludeFromSemantics != null) 'excludeFromSemantics': excludeFromSemantics,
+      if (height != null) 'height': height,
+      if (margin != null) 'margin': margin,
+      if (padding != null) 'padding': padding,
       'message': message,
       'child': child,
+      if (decoration != null) 'decoration': decoration,
+      if (textAlign != null) 'textAlign': textAlign,
+      if (waitDuration != null) 'waitDuration': waitDuration,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3906,6 +4873,8 @@ class MCPUIWidgetBuilders {
 
   /// Shows or hides a child with optional state preservation and replacement content.
   static Map<String, dynamic> visibility({
+    bool? maintainAnimation,
+    bool? maintainInteractivity,
     dynamic visible,
     bool? maintainSize,
     bool? maintainState,
@@ -3917,6 +4886,8 @@ class MCPUIWidgetBuilders {
   }) {
     return <String, dynamic>{
       'type': 'visibility',
+      if (maintainAnimation != null) 'maintainAnimation': maintainAnimation,
+      if (maintainInteractivity != null) 'maintainInteractivity': maintainInteractivity,
       if (visible != null) 'visible': visible,
       if (maintainSize != null) 'maintainSize': maintainSize,
       if (maintainState != null) 'maintainState': maintainState,
@@ -3974,6 +4945,7 @@ class MCPUIWidgetBuilders {
     dynamic onPageStarted,
     dynamic onPageFinished,
     dynamic onError,
+    dynamic backgroundColor,
     dynamic click,
     String? tooltip,
   }) {
@@ -3989,6 +4961,7 @@ class MCPUIWidgetBuilders {
       if (onPageStarted != null) 'onPageStarted': onPageStarted,
       if (onPageFinished != null) 'onPageFinished': onPageFinished,
       if (onError != null) 'onError': onError,
+      if (backgroundColor != null) 'backgroundColor': backgroundColor,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };
@@ -3996,21 +4969,31 @@ class MCPUIWidgetBuilders {
 
   /// Flow layout that wraps children to the next line when they exceed available width/height.
   static Map<String, dynamic> wrap({
+    String? runAlignment,
+    String? verticalDirection,
+    String? clipBehavior,
     String? direction,
     num? spacing,
     num? runSpacing,
     String? alignment,
     required dynamic children,
+    String? crossAxisAlignment,
+    String? textDirection,
     dynamic click,
     String? tooltip,
   }) {
     return <String, dynamic>{
       'type': 'wrap',
+      if (runAlignment != null) 'runAlignment': runAlignment,
+      if (verticalDirection != null) 'verticalDirection': verticalDirection,
+      if (clipBehavior != null) 'clipBehavior': clipBehavior,
       if (direction != null) 'direction': direction,
       if (spacing != null) 'spacing': spacing,
       if (runSpacing != null) 'runSpacing': runSpacing,
       if (alignment != null) 'alignment': alignment,
       'children': children,
+      if (crossAxisAlignment != null) 'crossAxisAlignment': crossAxisAlignment,
+      if (textDirection != null) 'textDirection': textDirection,
       if (click != null) 'click': click,
       if (tooltip != null) 'tooltip': tooltip,
     };

@@ -79,20 +79,19 @@ packages:
     source: hosted
     version: "5.0.0"
   flutter_mcp_ui_core:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: flutter_mcp_ui_core
-      sha256: "3e88e46387ade358ddc6fca84e3778524a9f2cff8643bb611d90f3d5ded14c56"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.1"
+      path: "/tmp/stage/flutter_mcp_ui_core"
+      relative: false
+    source: path
+    version: "0.6.0"
   flutter_mcp_ui_generator:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.5.1"
+    version: "0.6.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
