@@ -1,3 +1,13 @@
+## [0.6.1] - 2026-08-07 — the sound and media actions are emittable
+
+`17_Naming.md §17.2.2` gained six action types and this package emitted none of
+them, so a caller wanting a sound had to hand-write the map. Added:
+`soundPlayAction` · `soundStopAction` · `mediaPlayAction` · `mediaPauseAction` ·
+`mediaToggleAction` · `mediaSeekAction`.
+
+`drift_audit` §I checks this: every action the spec declares must be reachable
+from the generator, or a bundle that needs it drops to raw maps.
+
 ## [0.6.0] - 2026-08-05 — builders regenerated against spec 1.4.1
 
 The registry gained 330 properties and lost three legacy spellings, and the

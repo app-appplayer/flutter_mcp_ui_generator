@@ -1384,6 +1384,59 @@ class MCPUIJsonGenerator {
     return {'type': 'permission.revoke', 'permission': permission};
   }
 
+  /// Play a sound (spec § 4.9a — `sound.play`).
+  ///
+  /// [source] is an asset reference: a URL, a `bundle://` path, a `data:`
+  /// payload — the same forms an image takes.
+  static Map<String, dynamic> soundPlayAction({
+    required String source,
+    String? id,
+    double? volume,
+    bool? loop,
+  }) {
+    return {
+      'type': 'sound.play',
+      'source': source,
+      if (id != null) 'id': id,
+      if (volume != null) 'volume': volume,
+      if (loop != null) 'loop': loop,
+    };
+  }
+
+  /// Stop a playing sound (spec § 4.9a — `sound.stop`).
+  ///
+  /// With no [id] every sound started by `sound.play` stops.
+  static Map<String, dynamic> soundStopAction({String? id}) {
+    return {
+      'type': 'sound.stop',
+      if (id != null) 'id': id,
+    };
+  }
+
+  /// Start playback on the `mediaPlayer` carrying [id] (spec § 4.9b).
+  static Map<String, dynamic> mediaPlayAction({required String id}) {
+    return {'type': 'media.play', 'id': id};
+  }
+
+  /// Pause the `mediaPlayer` carrying [id] (spec § 4.9b).
+  static Map<String, dynamic> mediaPauseAction({required String id}) {
+    return {'type': 'media.pause', 'id': id};
+  }
+
+  /// Play or pause the `mediaPlayer` carrying [id], whichever it is not
+  /// doing (spec § 4.9b).
+  static Map<String, dynamic> mediaToggleAction({required String id}) {
+    return {'type': 'media.toggle', 'id': id};
+  }
+
+  /// Move playback to [position] seconds (spec § 4.9b).
+  static Map<String, dynamic> mediaSeekAction({
+    required String id,
+    required num position,
+  }) {
+    return {'type': 'media.seek', 'id': id, 'position': position};
+  }
+
   // ===== Client Action Builders (spec § 8.2) =====
 
   /// Read or write OS clipboard (spec § 8.2.3 — `client.clipboard`).
